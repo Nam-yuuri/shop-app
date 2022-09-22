@@ -60,11 +60,11 @@
 
 .outline {
     color: var(--primary);
-    border-color: currentColor;
+    border: 1px solid rgb(224, 224, 224);
 
     &:hover {
-        border-color: currentColor;
-        background-color: rgba(254, 44, 85, 0.06);
+        border: 1px solid rgb(224, 224, 224);
+        background: rgb(245, 245, 245);
     }
 }
 

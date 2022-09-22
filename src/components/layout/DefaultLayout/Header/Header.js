@@ -1,4 +1,4 @@
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
@@ -19,7 +19,7 @@ import styles from './Header.module.scss';
 import CardItem from '../PreviewItem/CardItem';
 import CardItemValue from '../PreviewItem/CardItemValue';
 import NotificationItem from '../PreviewItem/NotificationItem';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchItem from '../PreviewItem/SearchItem';
 
 const cx = classNames.bind(styles);
@@ -28,7 +28,6 @@ function Header() {
     const [searchResult, setSearchResult] = useState([]);
     const [loginResult, setLoginResult] = useState('');
     const [cardResult, setCardResult] = useState([]);
-
     const [scrollHeader, setScrollHeader] = useState(true);
 
     const handleScroll = () => {
@@ -44,7 +43,7 @@ function Header() {
 
     useEffect(() => {
         setTimeout(() => {
-            setSearchResult([1, 2, 3]);
+            setSearchResult([]);
         }, 3000);
     }, []);
 
@@ -144,91 +143,179 @@ function Header() {
                     <span>Xây dựng cấu hình</span>
                 </Button>
             </div>
-            <div className={cx('main-navigation-bar')} >
-                <div className={cx('container')}>
-                    <div className={cx('content')}>
-                        <div className={cx('logo')}>
-                            <div className={cx('box', 'hover')}>
-                                <Button to={'/'}>
-                                    <img src="https://phongvu.vn/phongvu/logo-full.svg" alt="phongvu" />
-                                </Button>
+            {scrollHeader ? (
+                <div className={cx('main-navigation-bar')}>
+                    <div className={cx('container')}>
+                        <div className={cx('content')}>
+                            <div className={cx('logo')}>
+                                <div className={cx('box', 'hover')}>
+                                    <Button to={'/'}>
+                                        <img src="https://phongvu.vn/phongvu/logo-full.svg" alt="phongvu" />
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                        <div className={cx('search')}>
-                            <Tippy
-                                visible={searchResult.length > 0}
-                                interactive
-                                delay={[0, 0]}
-                                offset={[0, 0]}
-                                placement="bottom-start"
-                                render={renderSearch}
-                            >
-                                <div className={cx('box', 'hover')}>
-                                    <input placeholder="Nhập từ khóa cần tìm" />
-                                    <button>
-                                        <FontAwesomeIcon icon={faSearch} />
-                                    </button>
-                                </div>
-                            </Tippy>
-                        </div>
-                        {loginResult ? (
-                            <Button className={cx('login-logout')}>
-                                <div className={cx('box', 'hover')}>
-                                    <UserIcon />
-                                    <div>
-                                        <div className={cx('text')}>Xin chào,</div>
-                                        <div className={cx('text')}>{loginResult}</div>
+                            <div className={cx('search')}>
+                                <Tippy
+                                    visible={searchResult.length > 0}
+                                    interactive
+                                    delay={[0, 0]}
+                                    offset={[0, 0]}
+                                    placement="bottom-start"
+                                    render={renderSearch}
+                                >
+                                    <div className={cx('box', 'hover')}>
+                                        <input placeholder="Nhập từ khóa cần tìm" />
+                                        <button>
+                                            <FontAwesomeIcon icon={faSearch} />
+                                        </button>
                                     </div>
-                                </div>
+                                </Tippy>
+                            </div>
+                            {loginResult ? (
+                                <Button className={cx('login-logout')}>
+                                    <div className={cx('box', 'hover')}>
+                                        <UserIcon />
+                                        <div>
+                                            <div className={cx('text')}>Xin chào,</div>
+                                            <div className={cx('text')}>{loginResult}</div>
+                                        </div>
+                                    </div>
+                                </Button>
+                            ) : (
+                                <Button to={'/login'} className={cx('login-logout')}>
+                                    <div className={cx('box', 'hover')}>
+                                        <UserIcon />
+                                        <div>
+                                            <div className={cx('text')}>Đăng nhập</div>
+                                            <div className={cx('text')}>Đăng Ký</div>
+                                        </div>
+                                    </div>
+                                </Button>
+                            )}
+                            <div className={cx('notification')}>
+                                <Tippy
+                                    interactive
+                                    delay={[0, 0]}
+                                    offset={[0, 0]}
+                                    placement="bottom-end"
+                                    render={renderNotification}
+                                >
+                                    <div className={cx('box', 'hover')}>
+                                        <span className={cx('number')}>1</span>
+                                        <NotificationIcon />
+                                    </div>
+                                </Tippy>
+                            </div>
+                            <Button to={'/card'} className={cx('cart')}>
+                                <Tippy
+                                    interactive
+                                    delay={[0, 0]}
+                                    offset={[0, 0]}
+                                    placement="bottom-start"
+                                    render={renderCard}
+                                >
+                                    <div className={cx('box', 'hover')}>
+                                        <CartIcon />
+                                        <div>
+                                            <div>Giỏ hàng của bạn </div>
+                                            <div>(0) sản phẩm </div>
+                                        </div>
+                                    </div>
+                                </Tippy>
                             </Button>
-                        ) : (
-                            <Button to={'/login'} className={cx('login-logout')}>
-                                <div className={cx('box', 'hover')}>
-                                    <UserIcon />
-                                    <div>
-                                        <div className={cx('text')}>Đăng nhập</div>
-                                        <div className={cx('text')}>Đăng Ký</div>
-                                    </div>
-                                </div>
-                            </Button>
-                        )}
-                        <div className={cx('notification')}>
-                            <Tippy
-                                interactive
-                                delay={[0, 0]}
-                                offset={[0, 0]}
-                                placement="bottom-end"
-                                render={renderNotification}
-                            >
-                                <div className={cx('box', 'hover')}>
-                                    <span className={cx('number')}>1</span>
-                                    <NotificationIcon />
-                                </div>
-                            </Tippy>
                         </div>
-                        <Button to={'/card'} className={cx('cart')}>
-                            <Tippy
-                                interactive
-                                delay={[0, 0]}
-                                offset={[0, 0]}
-                                placement="bottom-start"
-                                render={renderCard}
-                            >
-                                <div className={cx('box', 'hover')}>
-                                    <CartIcon />
-                                    <div>
-                                        <div>Giỏ hàng của bạn </div>
-                                        <div>(0) sản phẩm </div>
-                                    </div>
-                                </div>
-                            </Tippy>
-                        </Button>
                     </div>
                 </div>
-            </div>
+            ) : (
+                <div className={cx('main-navigation-bar', 'navbar-fixed')}>
+                    <div className={cx('container')}>
+                        <div className={cx('content')}>
+                            <div className={cx('logo')}>
+                                <div className={cx('box', 'hover')}>
+                                    <Button to={'/'}>
+                                        <img src="https://phongvu.vn/phongvu/logo.svg" alt="phongvu" />
+                                    </Button>
+                                    <Button outline>
+                                        <FontAwesomeIcon icon={faBars} />
+                                        <span>Danh mục sản phẩm</span>
+                                    </Button>
+                                </div>
+                            </div>
+                            <div className={cx('search')}>
+                                <Tippy
+                                    visible={searchResult.length > 0}
+                                    interactive
+                                    delay={[0, 0]}
+                                    offset={[0, 0]}
+                                    placement="bottom-start"
+                                    render={renderSearch}
+                                >
+                                    <div className={cx('box', 'hover')}>
+                                        <input placeholder="Nhập từ khóa cần tìm" />
+                                        <button>
+                                            <FontAwesomeIcon icon={faSearch} />
+                                        </button>
+                                    </div>
+                                </Tippy>
+                            </div>
+                            {loginResult ? (
+                                <Button className={cx('login-logout')}>
+                                    <div className={cx('box', 'hover')}>
+                                        <UserIcon />
+                                        <div>
+                                            <div className={cx('text')}>Xin chào,</div>
+                                            <div className={cx('text')}>{loginResult}</div>
+                                        </div>
+                                    </div>
+                                </Button>
+                            ) : (
+                                <Button to={'/login'} className={cx('login-logout')}>
+                                    <div className={cx('box', 'hover')}>
+                                        <UserIcon />
+                                        <div>
+                                            <div className={cx('text')}>Đăng nhập</div>
+                                            <div className={cx('text')}>Đăng Ký</div>
+                                        </div>
+                                    </div>
+                                </Button>
+                            )}
+                            <div className={cx('notification')}>
+                                <Tippy
+                                    interactive
+                                    delay={[0, 0]}
+                                    offset={[0, 0]}
+                                    placement="bottom-end"
+                                    render={renderNotification}
+                                >
+                                    <div className={cx('box', 'hover')}>
+                                        <span className={cx('number')}>1</span>
+                                        <NotificationIcon />
+                                    </div>
+                                </Tippy>
+                            </div>
+                            <Button to={'/card'} className={cx('cart')}>
+                                <Tippy
+                                    interactive
+                                    delay={[0, 0]}
+                                    offset={[0, 0]}
+                                    placement="bottom-start"
+                                    render={renderCard}
+                                >
+                                    <div className={cx('box', 'hover')}>
+                                        <CartIcon />
+                                        <div>
+                                            <div>Giỏ hàng của bạn </div>
+                                            <div>(0) sản phẩm </div>
+                                        </div>
+                                    </div>
+                                </Tippy>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
-
 
 export default Header;

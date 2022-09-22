@@ -9,9 +9,8 @@
 
 .box {
     min-height: 260px;
-    max-height: 300px;
+    max-height: 280px;
     overflow-y: scroll;
-    
 
     .content {
         display: flex;
@@ -66,8 +65,18 @@
 .sum-price {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 0px;
+    padding: 1rem 0px;
     border-top: 1px solid rgb(224, 224, 224);
+
+    .text {
+        font-size: 1.4rem;
+        font-weight: 400;
+    }
+
+    .number {
+        font-size: 18px;
+        font-weight: 500;
+    }
 }
 
 .btn {
@@ -94,6 +103,10 @@
         transition-property: background-color;
         height: 40px;
         width: 100%;
+
+        div{
+            font-size: 1.4rem;
+        }
 
         &:hover {
             background-color: rgb(18, 48, 176);
