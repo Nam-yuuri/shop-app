@@ -1,0 +1,53 @@
+.wrapper {
+    .container {
+        .box {
+            .content {
+                border-style: none;
+                border-radius: 0px;
+                border-width: 1px;
+                border-color: unset;
+                opacity: 1;
+                background-color: transparent;
+                padding: 0.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0rem;
+                -webkit-box-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                align-items: flex-start;
+
+                a {
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
+                    display: flex;
+                    padding: 0.6rem;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    justify-content: flex-start;
+                    border-bottom: 1px solid rgb(244, 244, 244);
+                    min-height: 50px;
+
+                    span {
+                        color: var(--primary);
+                        text-decoration: none;
+                        font-size: 1.4rem;
+                        font-weight: 400;
+
+                        svg {
+                            margin-right: 10px;
+                            color: #757575;
+                        }
+                    }
+
+                    &:hover {
+                        background: rgb(245, 245, 245);
+                    }
+                }
+            }
+        }
+    }
+}
