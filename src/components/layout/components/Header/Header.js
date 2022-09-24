@@ -21,6 +21,7 @@ import CardItemValue from '../PreviewItem/CardItemValue';
 import NotificationItem from '../PreviewItem/NotificationItem';
 import { useEffect, useState } from 'react';
 import SearchItem from '../PreviewItem/SearchItem';
+import ProductItem from '../PreviewItem/Products';
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ function Header() {
     const [searchResult, setSearchResult] = useState([]);
     const [loginResult, setLoginResult] = useState('');
     const [cardResult, setCardResult] = useState([]);
+    const [cardMountResult, setCardMountResult] = useState();
     const [scrollHeader, setScrollHeader] = useState(true);
 
     const handleScroll = () => {
@@ -55,36 +57,42 @@ function Header() {
 
     useEffect(() => {
         setTimeout(() => {
-            setCardResult([
-                {
-                    id: 1,
-                    img: 'https://lh3.googleusercontent.com/7jh0ORVsKb_U9KTaH4-vlqkF4w7rz7niBQKZO0OAM6PoxyWmEbV6Ds5Rvcyp7qxE_xU0LBowucJHyjk2QVE=rw',
-                    name: 'Bàn phím Dell KB216-Black',
-                    code: 'SKU',
-                    number: 12029031,
-                },
-                {
-                    id: 2,
-                    img: 'https://lh3.googleusercontent.com/7jh0ORVsKb_U9KTaH4-vlqkF4w7rz7niBQKZO0OAM6PoxyWmEbV6Ds5Rvcyp7qxE_xU0LBowucJHyjk2QVE=rw',
-                    name: 'Bàn phím Dell KB216-Black',
-                    code: 'SKU',
-                    number: 12029032,
-                },
-                {
-                    id: 3,
-                    img: 'https://lh3.googleusercontent.com/7jh0ORVsKb_U9KTaH4-vlqkF4w7rz7niBQKZO0OAM6PoxyWmEbV6Ds5Rvcyp7qxE_xU0LBowucJHyjk2QVE=rw',
-                    name: 'Bàn phím Dell KB216-Black',
-                    code: 'SKU',
-                    number: 12029033,
-                },
-            ]);
+            setCardMountResult(10);
         }, 3000);
     }, []);
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setCardResult([
+    //             {
+    //                 id: 1,
+    //                 img: 'https://lh3.googleusercontent.com/7jh0ORVsKb_U9KTaH4-vlqkF4w7rz7niBQKZO0OAM6PoxyWmEbV6Ds5Rvcyp7qxE_xU0LBowucJHyjk2QVE=rw',
+    //                 name: 'Bàn phím Dell KB216-Black',
+    //                 code: 'SKU',
+    //                 number: 12029031,
+    //             },
+    //             {
+    //                 id: 2,
+    //                 img: 'https://lh3.googleusercontent.com/7jh0ORVsKb_U9KTaH4-vlqkF4w7rz7niBQKZO0OAM6PoxyWmEbV6Ds5Rvcyp7qxE_xU0LBowucJHyjk2QVE=rw',
+    //                 name: 'Bàn phím Dell KB216-Black',
+    //                 code: 'SKU',
+    //                 number: 12029032,
+    //             },
+    //             {
+    //                 id: 3,
+    //                 img: 'https://lh3.googleusercontent.com/7jh0ORVsKb_U9KTaH4-vlqkF4w7rz7niBQKZO0OAM6PoxyWmEbV6Ds5Rvcyp7qxE_xU0LBowucJHyjk2QVE=rw',
+    //                 name: 'Bàn phím Dell KB216-Black',
+    //                 code: 'SKU',
+    //                 number: 12029033,
+    //             },
+    //         ]);
+    //     }, 3000);
+    // }, []);
 
     const renderCard = (props) => {
         return (
             <div className={cx('preview')} tabIndex="-1" {...props}>
-                <PopperWrapper>{cardResult.length > 0 ? <CardItemValue /> : <CardItem />}</PopperWrapper>
+                <PopperWrapper>{cardMountResult ? <CardItemValue /> : <CardItem />}</PopperWrapper>
             </div>
         );
     };
@@ -104,6 +112,16 @@ function Header() {
             <div className={cx('preview')} tabIndex="-1" {...props}>
                 <PopperWrapper>
                     <SearchItem />
+                </PopperWrapper>
+            </div>
+        );
+    };
+
+    const renderProducts = (props) => {
+        return (
+            <div className={cx('preview')} tabIndex="-1" {...props}>
+                <PopperWrapper>
+                    <ProductItem />
                 </PopperWrapper>
             </div>
         );
@@ -158,7 +176,7 @@ function Header() {
                                 <Tippy
                                     visible={searchResult.length > 0}
                                     interactive
-                                    delay={[0, 0]}
+                                    delay={[100, 500]}
                                     offset={[0, 0]}
                                     placement="bottom-start"
                                     render={renderSearch}
@@ -192,10 +210,10 @@ function Header() {
                                     </div>
                                 </Button>
                             )}
-                            <div className={cx('notification')}>
+                            {/* <div className={cx('notification')}>
                                 <Tippy
                                     interactive
-                                    delay={[0, 0]}
+                                    delay={[100, 500]}
                                     offset={[0, 0]}
                                     placement="bottom-end"
                                     render={renderNotification}
@@ -205,11 +223,11 @@ function Header() {
                                         <NotificationIcon />
                                     </div>
                                 </Tippy>
-                            </div>
+                            </div> */}
                             <Button to={'/card'} className={cx('cart')}>
                                 <Tippy
                                     interactive
-                                    delay={[0, 0]}
+                                    delay={[100, 500]}
                                     offset={[0, 0]}
                                     placement="bottom-start"
                                     render={renderCard}
@@ -218,7 +236,11 @@ function Header() {
                                         <CartIcon />
                                         <div>
                                             <div>Giỏ hàng của bạn </div>
-                                            <div>(0) sản phẩm </div>
+                                            {cardMountResult ? (
+                                                <div>({cardMountResult}) sản phẩm </div>
+                                            ) : (
+                                                <div>(0) sản phẩm </div>
+                                            )}
                                         </div>
                                     </div>
                                 </Tippy>
@@ -232,20 +254,33 @@ function Header() {
                         <div className={cx('content')}>
                             <div className={cx('logo')}>
                                 <div className={cx('box', 'hover')}>
-                                    <Button to={'/'}>
-                                        <img src="https://phongvu.vn/phongvu/logo.svg" alt="phongvu" />
-                                    </Button>
-                                    <Button outline>
-                                        <FontAwesomeIcon icon={faBars} />
-                                        <span>Danh mục sản phẩm</span>
-                                    </Button>
+                                    <div>
+                                        <Button to={'/'}>
+                                            <img src="https://phongvu.vn/phongvu/logo.svg" alt="phongvu" />
+                                        </Button>
+                                    </div>
+                                    <Tippy
+                                        trigger="click"
+                                        interactive
+                                        delay={[0, 0]}
+                                        offset={[-106, 30]}
+                                        placement="bottom-start"
+                                        render={renderProducts}
+                                    >
+                                        <div>
+                                            <Button outline>
+                                                <FontAwesomeIcon icon={faBars} />
+                                                <span>Danh mục sản phẩm</span>
+                                            </Button>
+                                        </div>
+                                    </Tippy>
                                 </div>
                             </div>
                             <div className={cx('search')}>
                                 <Tippy
                                     visible={searchResult.length > 0}
                                     interactive
-                                    delay={[0, 0]}
+                                    delay={[100, 500]}
                                     offset={[0, 0]}
                                     placement="bottom-start"
                                     render={renderSearch}
@@ -279,10 +314,10 @@ function Header() {
                                     </div>
                                 </Button>
                             )}
-                            <div className={cx('notification')}>
+                            {/* <div className={cx('notification')}>
                                 <Tippy
                                     interactive
-                                    delay={[0, 0]}
+                                    delay={[100, 500]}
                                     offset={[0, 0]}
                                     placement="bottom-end"
                                     render={renderNotification}
@@ -292,11 +327,11 @@ function Header() {
                                         <NotificationIcon />
                                     </div>
                                 </Tippy>
-                            </div>
+                            </div> */}
                             <Button to={'/card'} className={cx('cart')}>
                                 <Tippy
                                     interactive
-                                    delay={[0, 0]}
+                                    delay={[100, 500]}
                                     offset={[0, 0]}
                                     placement="bottom-start"
                                     render={renderCard}

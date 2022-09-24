@@ -46,27 +46,27 @@ function CardItemValue() {
                     price: '179.000',
                 },
             ]);
-        }, 3000);
+        }, 0);
     }, []);
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('box')}>
-                    {cardResult.map((course) => (
-                        <div className={cx('content')} key={course.id}>
+                    {cardResult.map((card) => (
+                        <div className={cx('content')} key={card.id}>
                             <div className={cx('image')}>
-                                <img src={course.img} alt="" />
+                                <img src={card.img} alt="" />
                             </div>
                             <div className={cx('info')}>
-                                <div className={cx('text')}>{course.name}</div>
-                                <div className={cx('code', 'text')}>Số lượng: {course.amount}</div>
-                                <div className={cx('number')}>{course.price} đ</div>
+                                <div className={cx('text')}>{card.name}</div>
+                                <div className={cx('code', 'text')}>Số lượng: {card.amount}</div>
+                                <div className={cx('number')}>{card.price} đ</div>
                             </div>
                         </div>
                     ))}
                 </div>
-                {/* {cardResult.map((course) => ( */}
+                {/* {cardResult.map((card) => ( */}
                 <div className={cx('sum-price')}>
                     <div className={cx('text')}>Tổng tiền (2) sản phẩm</div>
                     <div className={cx('number')}>123.456 đ</div>

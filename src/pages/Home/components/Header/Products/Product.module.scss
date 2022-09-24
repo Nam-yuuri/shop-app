@@ -1,0 +1,41 @@
+.wrapper {
+    .container {
+        border-radius: 0.5rem;
+        background-color: rgb(255, 255, 255);
+        position: relative;
+        // overflow: hidden;
+        width: 198px;
+        z-index: 980;
+
+        a {
+            margin-left: 0px !important;
+            width: 100%;
+            justify-content: flex-start !important;
+            align-items: center;
+            padding: 5px 10px;
+
+            div {
+                display: flex;
+                align-items: center;
+
+                span {
+                    margin-left: 10px;
+                    font-size: 1.2rem;
+                    color: currentColor;
+                    font-weight: 500;
+                }
+            }
+
+            &:hover {
+                background-color: rgb(243, 245, 252);
+                color: rgb(20, 53, 195);
+            }
+        }
+    }
+}
+
+.notification {
+    content: {
+        border-top-left-radius: 0 !important;
+    }
+}

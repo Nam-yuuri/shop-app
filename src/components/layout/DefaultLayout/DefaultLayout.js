@@ -1,10 +1,8 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
 import styles from './DefaultLayout.module.scss';
 
-import Footer from './Footer';
-import Header from './Header';
-import HeaderScroll from './ScrollHeader/Header';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const cx = classNames.bind(styles);
 
