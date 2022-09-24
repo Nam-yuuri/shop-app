@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import classNames from 'classnames/bind';
 import styles from './Carousel.module.scss';
+// import { ClassList } from 'react-classlist';
 
 import Button from '~/components/Button';
 import './Carousel.css';
@@ -11,16 +12,17 @@ const cx = classNames.bind(styles);
 function Carousel() {
     const [carousels, setCarousels] = useState([]);
     const [images, setImages] = useState([]);
+    const [scroll, setScroll] = useState(false);
 
-    const [scrollHeader, setScrollHeader] = useState(true);
-
-    var app = document.getElementById('app');
+    // const app = new ClassList('container whitebg');
     const handleScroll = () => {
-        console.log(window.scrollY);
+        // console.log(window.scrollY);
         if (window.scrollY > 99) {
-            app.classList.add('app-scroll');
+            // app.add('app-scroll');
+            setScroll(true);
         } else {
-            app.classList.remove('app-scroll');
+            // app.remove('app-scroll');
+            setScroll(false);
         }
     };
 
@@ -102,13 +104,13 @@ function Carousel() {
         pauseOnHover: true,
     };
     return (
-        <div className={cx('App')} id="app">
+        <div className={scroll ? 'App app-scroll' : 'App'} id="app">
             <div>
                 <Slider {...settings}>
-                    {carousels.map((item) => (
-                        <div className={cx('card')}>
+                    {carousels.map((carousel) => (
+                        <div className={cx('card')} key={carousel.id}>
                             <div className={cx('card-top')}>
-                                <img src={item.linkImg} alt={item.title} />
+                                <img src={carousel.linkImg} alt={carousel.title} />
                             </div>
                         </div>
                     ))}

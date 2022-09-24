@@ -10,7 +10,6 @@ import {
     BuildIcon,
     CartIcon,
     ComputerIcon,
-    NotificationIcon,
     PromotionIcon,
     ShowroomIcon,
     UserIcon,
@@ -18,7 +17,7 @@ import {
 import styles from './Header.module.scss';
 import CardItem from '../PreviewItem/CardItem';
 import CardItemValue from '../PreviewItem/CardItemValue';
-import NotificationItem from '../PreviewItem/NotificationItem';
+// import NotificationItem from '../PreviewItem/NotificationItem';
 import { useEffect, useState } from 'react';
 import SearchItem from '../PreviewItem/SearchItem';
 import ProductItem from '../PreviewItem/Products';
@@ -28,13 +27,13 @@ const cx = classNames.bind(styles);
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
     const [loginResult, setLoginResult] = useState('');
-    const [cardResult, setCardResult] = useState([]);
+    // const [cardResult, setCardResult] = useState([]);
     const [cardMountResult, setCardMountResult] = useState();
     const [scrollHeader, setScrollHeader] = useState(true);
 
     const handleScroll = () => {
-        console.log(window.scrollY);
-        if (window.scrollY >= 100) {
+        // console.log(window.scrollY);
+        if (window.scrollY >= 99) {
             setScrollHeader(false);
         } else {
             setScrollHeader(true);
@@ -97,15 +96,15 @@ function Header() {
         );
     };
 
-    const renderNotification = (props) => {
-        return (
-            <div className={cx('preview')} tabIndex="-1" {...props}>
-                <PopperWrapper>
-                    <NotificationItem />
-                </PopperWrapper>
-            </div>
-        );
-    };
+    // const renderNotification = (props) => {
+    //     return (
+    //         <div className={cx('preview')} tabIndex="-1" {...props}>
+    //             <PopperWrapper>
+    //                 <NotificationItem />
+    //             </PopperWrapper>
+    //         </div>
+    //     );
+    // };
 
     const renderSearch = (props) => {
         return (
@@ -129,12 +128,12 @@ function Header() {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('image')}>
+            {/* <div className={cx('image')}>
                 <img
                     src="https://lh3.googleusercontent.com/zJfGHn1l8tFpbl6pz9S8UERiPTwb3me4DVKSOpKIDbxrhJXIoaxrhpFI_bt3nqkr5Fx8_MyvEtaYVBzGJCyZ75V0ndIdTuNswA=w1920-rw"
                     alt=""
                 />
-            </div>
+            </div> */}
             <div className={cx('information')}>
                 <Button href={'/'}>
                     <PromotionIcon />
@@ -340,7 +339,11 @@ function Header() {
                                         <CartIcon />
                                         <div>
                                             <div>Giỏ hàng của bạn </div>
-                                            <div>(0) sản phẩm </div>
+                                            {cardMountResult ? (
+                                                <div>({cardMountResult}) sản phẩm </div>
+                                            ) : (
+                                                <div>(0) sản phẩm </div>
+                                            )}
                                         </div>
                                     </div>
                                 </Tippy>

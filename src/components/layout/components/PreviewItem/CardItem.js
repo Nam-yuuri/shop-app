@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { Fragment, useEffect, useState } from 'react';
 import styles from './Card.module.scss';
 
 const cx = classNames.bind(styles);

@@ -13,9 +13,13 @@ function HeaderHome({ children }) {
                 <div className="container">
                     <div className="content">{children}</div>
                     <div className={cx('carousel')}>
-                        <div><Carousel /></div>
+                        <div>
+                            <Carousel />
+                        </div>
                     </div>
-                    <div className={cx('product')}><Product /></div>
+                    <div className={cx('product')}>
+                        <Product />
+                    </div>
                 </div>
             </div>
         </div>

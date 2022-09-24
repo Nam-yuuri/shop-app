@@ -7526,6 +7526,11 @@
   dependencies:
     "semver" "^5.6.0"
 
+"react-classlist@^1.1.2":
+  "integrity" "sha512-4K8ueLPiq3ZtU3rC5fjAUBDbz/1MLJJDMlE7AuT3OPYDG5pSXE53GJlutKlfGxu7o+nIipW6WZmWX4ms7vlIfQ=="
+  "resolved" "https://registry.npmjs.org/react-classlist/-/react-classlist-1.1.2.tgz"
+  "version" "1.1.2"
+
 "react-dev-utils@^12.0.1":
   "integrity" "sha512-84Ivxmr17KjUupyqzFode6xKhjwuEJDROWKJy/BthkL7Wn6NJ8h4WE6k/exAv6ImS+0oZLRRW5j/aINMHyeGeQ=="
   "resolved" "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-12.0.1.tgz"

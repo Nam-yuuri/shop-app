@@ -7,7 +7,6 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
 import NotificationItem from '~/components/layout/components/PreviewItem/NotificationItem';
 
-
 const cx = classNames.bind(styles);
 
 function ProductItem() {
@@ -88,22 +87,24 @@ function ProductItem() {
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 {products.map((product) => (
-                    <Tippy
-                        interactive
-                        delay={[100, 200]}
-                        offset={[0, -3]}
-                        placement="right"
-                        render={renderNotification}
-                    >
-                        <div>
-                            <Button to={product.to} className={cx('box')} key={product.id}>
-                                <div className={cx('content')}>
-                                    <img src={product.img} alt="" />
-                                    <span>{product.name}</span>
-                                </div>
-                            </Button>
-                        </div>
-                    </Tippy>
+                    <div key={product.id}>
+                        <Tippy
+                            interactive
+                            delay={[100, 200]}
+                            offset={[0, -3]}
+                            placement="right"
+                            render={renderNotification}
+                        >
+                            <div>
+                                <Button to={product.to} className={cx('box')}>
+                                    <div className={cx('content')}>
+                                        <img src={product.img} alt="" />
+                                        <span>{product.name}</span>
+                                    </div>
+                                </Button>
+                            </div>
+                        </Tippy>
+                    </div>
                 ))}
             </div>
         </div>
