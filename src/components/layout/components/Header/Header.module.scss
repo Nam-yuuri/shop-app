@@ -3,7 +3,8 @@
 }
 
 .wrapper {
-    // height: 99px;
+    min-height: 99px;
+    position: relative;
     .image {
         height: 56px;
 
@@ -76,12 +77,12 @@
             display: flex;
             align-items: center;
 
-            .hover {
-                &:hover {
-                    color: rgb(20, 53, 195) !important;
-                    cursor: pointer;
-                }
-            }
+            // .hover {
+            //     &:hover {
+            //         color: rgb(20, 53, 195) !important;
+            //         cursor: pointer;
+            //     }
+            // }
 
             .logo {
                 position: relative;
@@ -278,7 +279,15 @@
         .wrapper {
             margin: 9px 0 !important;
         }
+
+        .nav-btn{
+            cursor: pointer;
+        }
     }
+}
+
+.box-header{
+    height: 90px;
 }
 
 @media (min-width: 1440px) {

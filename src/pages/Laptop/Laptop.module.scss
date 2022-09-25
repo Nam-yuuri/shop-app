@@ -1,0 +1,177 @@
+.Laptop {
+    width: 1232px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-right: auto;
+    margin-left: auto;
+    border-style: none;
+    border-radius: 0px;
+    border-width: 1px;
+    border-color: unset;
+    opacity: 1;
+    background-color: transparent;
+    margin-top: 16px;
+
+    .container {
+        border-radius: 8px;
+        background-color: rgb(255, 255, 255);
+        position: relative;
+        width: 100%;
+        overflow: unset;
+        box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
+    }
+}
+
+.title {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 16px;
+    position: relative;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    .text {
+        flex: 1 0 0%;
+        min-width: 0px;
+        color: var(--text-color);
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+
+        &::before {
+            content: '';
+            background: #333;
+            height: 21px;
+            width: 3px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+    }
+}
+
+.content {
+    padding: 16px;
+
+    .line-content {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 0.25rem;
+        margin-left: 0px;
+        margin-right: 0px;
+
+        .title-line {
+            flex: 0 0 auto;
+            min-width: 145px;
+            width: 12%;
+            padding-right: 8px;
+            padding-left: 8px;
+
+            .text-title {
+                font-weight: 600;
+                margin-left: -8px;
+                margin-right: -8px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+        }
+
+        .name-line {
+            flex: 1 0 auto;
+            width: 75%;
+            // flex: 1;
+            // width: 100%;
+            padding-right: 8px;
+            padding-left: 8px;
+            height: 35px;
+            overflow: hidden;
+            // flex-wrap: wrap;
+        }
+
+        .btn {
+            // width: 35px;
+            // height: 35px;
+            // // background-color: red;
+            // align-items: center;
+            // display: flex;
+            // justify-content: center;
+            // border-radius: 50%;
+            // border: solid 1px var(--icon-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            border: 0.8px solid #e0e0e0;
+            line-height: 32px;
+            text-align: center;
+            cursor: pointer;
+            // margin-top: 0.3rem;
+            float: right;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                width: 12px;
+                height: 12px;
+                transition: transform 0.2s ease-in-out 0s;
+                // transform: rotate(180deg);
+            }
+
+            &:hover {
+                background-color: rgb(245, 245, 245);
+            }
+        }
+    }
+}
+
+.name-box {
+    display: flex;
+    flex-wrap: wrap;
+
+    .name-content {
+        border-radius: 4px;
+        // display: inline-block;
+        display: flex;
+        user-select: none;
+        border: 1px solid rgb(224, 224, 224);
+        background-color: rgb(255, 255, 255);
+        position: relative;
+        overflow: hidden;
+        margin-right: 8px;
+        margin-left: 0;
+        margin-bottom: 5px;
+        padding: 6px 20px;
+        color: var(--text-color);
+        cursor: pointer;
+        min-width: 0 !important;
+
+        .name-brand {
+            font-weight: bold;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: start;
+            justify-content: flex-start;
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        &:hover {
+            background-color: var(--hoverButton-color);
+        }
+    }
+}
