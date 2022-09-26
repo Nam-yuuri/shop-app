@@ -15,8 +15,8 @@ import {
     UserIcon,
 } from '~/components/Icons';
 import styles from './Header.module.scss';
-import CardItem from '../PreviewItem/CardItem';
-import CardItemValue from '../PreviewItem/CardItemValue';
+import CartItem from '../PreviewItem/CartItem';
+import CartItemValue from '../PreviewItem/CartItemValue';
 // import NotificationItem from '../PreviewItem/NotificationItem';
 import { useEffect, useState } from 'react';
 import SearchItem from '../PreviewItem/SearchItem';
@@ -28,8 +28,8 @@ const cx = classNames.bind(styles);
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
     const [loginResult, setLoginResult] = useState('');
-    // const [cardResult, setCardResult] = useState([]);
-    const [cardMountResult, setCardMountResult] = useState(0);
+    // const [cartResult, setCartResult] = useState([]);
+    const [cartMountResult, setCartMountResult] = useState(0);
     const [scrollHeader, setScrollHeader] = useState(true);
 
     const handleScroll = () => {
@@ -57,13 +57,13 @@ function Header() {
 
     useEffect(() => {
         setTimeout(() => {
-            setCardMountResult(10);
+            setCartMountResult(10);
         }, 3000);
     }, []);
 
     // useEffect(() => {
     //     setTimeout(() => {
-    //         setCardResult([
+    //         setCartResult([
     //             {
     //                 id: 1,
     //                 img: 'https://lh3.googleusercontent.com/7jh0ORVsKb_U9KTaH4-vlqkF4w7rz7niBQKZO0OAM6PoxyWmEbV6Ds5Rvcyp7qxE_xU0LBowucJHyjk2QVE=rw',
@@ -89,10 +89,10 @@ function Header() {
     //     }, 3000);
     // }, []);
 
-    const renderCard = (props) => {
+    const renderCart = (props) => {
         return (
             <div className={cx('preview')} tabIndex="-1" {...props}>
-                <PopperWrapper>{cardMountResult ? <CardItemValue /> : <CardItem />}</PopperWrapper>
+                <PopperWrapper>{cartMountResult ? <CartItemValue /> : <CartItem />}</PopperWrapper>
             </div>
         );
     };
@@ -245,7 +245,7 @@ function Header() {
                                     </div>
                                 </Tippy>
                             </div> */}
-                            <Button to={'/card'} className={cx('cart')}>
+                            <Button to={'/cart'} className={cx('cart')}>
                                 <Tippy
                                     inertia
                                     arrow
@@ -255,14 +255,14 @@ function Header() {
                                     delay={[100, 200]}
                                     offset={[0, 0]}
                                     placement="bottom-start"
-                                    render={renderCard}
+                                    render={renderCart}
                                 >
                                     <div className={cx('box', 'hover')}>
                                         <CartIcon />
                                         <div>
                                             <div>Giỏ hàng của bạn </div>
-                                            {/* {cardMountResult ? ( */}
-                                            <div>({cardMountResult}) sản phẩm </div>
+                                            {/* {cartMountResult ? ( */}
+                                            <div>({cartMountResult}) sản phẩm </div>
                                             {/* ) : (
                                                 <div>(0) sản phẩm </div>
                                             )} */}
@@ -363,20 +363,20 @@ function Header() {
                                         </div>
                                     </Tippy>
                                 </div> */}
-                                <Button to={'/card'} className={cx('cart')}>
+                                <Button to={'/cart'} className={cx('cart')}>
                                     <Tippy
                                         interactive
                                         delay={[100, 200]}
                                         offset={[0, 0]}
                                         placement="bottom-start"
-                                        render={renderCard}
+                                        render={renderCart}
                                     >
                                         <div className={cx('box', 'hover')}>
                                             <CartIcon />
                                             <div>
                                                 <div>Giỏ hàng của bạn </div>
-                                                {/* {cardMountResult ? ( */}
-                                                <div>({cardMountResult}) sản phẩm </div>
+                                                {/* {cartMountResult ? ( */}
+                                                <div>({cartMountResult}) sản phẩm </div>
                                                 {/* ) : (
                                                     <div>(0) sản phẩm </div>
                                                 )} */}

@@ -57,8 +57,8 @@ function Carousel() {
             <div>
                 <Slider {...settings}>
                     {carousels.map((carousel) => (
-                        <div className={cx('card')} key={carousel.id}>
-                            <div className={cx('card-top')}>
+                        <div className={cx('cart')} key={carousel.id}>
+                            <div className={cx('cart-top')}>
                                 <img src={carousel.linkImg} alt={carousel.title} />
                             </div>
                         </div>

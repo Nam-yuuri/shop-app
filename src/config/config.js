@@ -4,7 +4,7 @@ const routes = {
     search: '/search',
     laptop: '/laptop',
     notification: '/notification',
-    card: '/card',
+    cart: '/cart',
     login: '/login',
     // eslint-disable-next-line no-dupe-keys
     profile: '/profile',

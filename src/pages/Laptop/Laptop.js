@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Laptop.module.scss';
 
-import GridLaptop from './GridLaptop';
+import GridLaptop from './Grid/GridLaptop';
 import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);

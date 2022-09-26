@@ -1,4 +1,4 @@
-import Card from '~/pages/Card';
+import Cart from '~/pages/Cart';
 import Home from '~/pages/Home';
 import Laptop from '~/pages/Laptop';
 import Login from '~/pages/Login';
@@ -10,7 +10,7 @@ const publicRoutes = [
     { path: '/', component: Home },
     { path: 'laptop', component: Laptop },
     { path: 'notification', component: Notification },
-    { path: 'card', component: Card },
+    { path: 'cart', component: Cart },
     { path: 'login', component: Login },
     { path: 'profile', component: Profile, layout: null },
 ];

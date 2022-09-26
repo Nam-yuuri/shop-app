@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
-import styles from './Card.module.scss';
+import styles from './Cart.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CardItem() {
+function CartItem() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -23,4 +23,4 @@ function CardItem() {
     );
 }
 
-export default CardItem;
+export default CartItem;
