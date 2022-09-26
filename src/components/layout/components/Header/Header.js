@@ -29,7 +29,7 @@ function Header() {
     const [searchResult, setSearchResult] = useState([]);
     const [loginResult, setLoginResult] = useState('');
     // const [cardResult, setCardResult] = useState([]);
-    const [cardMountResult, setCardMountResult] = useState();
+    const [cardMountResult, setCardMountResult] = useState(0);
     const [scrollHeader, setScrollHeader] = useState(true);
 
     const handleScroll = () => {
@@ -188,7 +188,7 @@ function Header() {
                                 <Tippy
                                     visible={searchResult.length > 0}
                                     interactive
-                                    delay={[100, 500]}
+                                    delay={[100, 200]}
                                     offset={[0, 0]}
                                     placement="bottom-start"
                                     render={renderSearch}
@@ -204,8 +204,9 @@ function Header() {
                             {loginResult ? (
                                 <Button className={cx('login-logout')}>
                                     <Tippy
+                                        hideOnClick={false}
                                         interactive
-                                        delay={[100, 500]}
+                                        delay={[100, 200]}
                                         offset={[0, 0]}
                                         placement="bottom"
                                         render={renderLogin}
@@ -246,8 +247,12 @@ function Header() {
                             </div> */}
                             <Button to={'/card'} className={cx('cart')}>
                                 <Tippy
+                                    inertia
+                                    arrow
+                                    animateFill
+                                    duration={[100, 200]}
                                     interactive
-                                    delay={[100, 500]}
+                                    delay={[100, 200]}
                                     offset={[0, 0]}
                                     placement="bottom-start"
                                     render={renderCard}
@@ -256,11 +261,11 @@ function Header() {
                                         <CartIcon />
                                         <div>
                                             <div>Giỏ hàng của bạn </div>
-                                            {cardMountResult ? (
-                                                <div>({cardMountResult}) sản phẩm </div>
-                                            ) : (
+                                            {/* {cardMountResult ? ( */}
+                                            <div>({cardMountResult}) sản phẩm </div>
+                                            {/* ) : (
                                                 <div>(0) sản phẩm </div>
-                                            )}
+                                            )} */}
                                         </div>
                                     </div>
                                 </Tippy>
@@ -301,7 +306,7 @@ function Header() {
                                     <Tippy
                                         visible={searchResult.length > 0}
                                         interactive
-                                        delay={[100, 500]}
+                                        delay={[100, 200]}
                                         offset={[0, 0]}
                                         placement="bottom-start"
                                         render={renderSearch}
@@ -317,8 +322,9 @@ function Header() {
                                 {loginResult ? (
                                     <Button className={cx('login-logout')}>
                                         <Tippy
+                                            hideOnClick={false}
                                             interactive
-                                            delay={[100, 500]}
+                                            delay={[100, 200]}
                                             offset={[0, 0]}
                                             placement="bottom"
                                             render={renderLogin}
@@ -360,7 +366,7 @@ function Header() {
                                 <Button to={'/card'} className={cx('cart')}>
                                     <Tippy
                                         interactive
-                                        delay={[100, 500]}
+                                        delay={[100, 200]}
                                         offset={[0, 0]}
                                         placement="bottom-start"
                                         render={renderCard}
@@ -369,11 +375,11 @@ function Header() {
                                             <CartIcon />
                                             <div>
                                                 <div>Giỏ hàng của bạn </div>
-                                                {cardMountResult ? (
-                                                    <div>({cardMountResult}) sản phẩm </div>
-                                                ) : (
+                                                {/* {cardMountResult ? ( */}
+                                                <div>({cardMountResult}) sản phẩm </div>
+                                                {/* ) : (
                                                     <div>(0) sản phẩm </div>
-                                                )}
+                                                )} */}
                                             </div>
                                         </div>
                                     </Tippy>

@@ -182,10 +182,15 @@
                     cursor: pointer;
                     font-weight: 500;
                     color: rgb(130, 134, 158);
+                    transition: color 0.2s ease 0s;
 
                     .text {
                         display: flex;
                         align-items: flex-start;
+                    }
+
+                    &:hover {
+                        color: var(--primary);
                     }
                 }
             }
@@ -245,6 +250,11 @@
                     cursor: pointer;
                     font-weight: 500;
                     color: rgb(130, 134, 158);
+                    transition: color 0.2s ease 0s;
+
+                    &:hover {
+                        color: var(--primary);
+                    }
                 }
             }
         }
@@ -280,13 +290,13 @@
             margin: 9px 0 !important;
         }
 
-        .nav-btn{
+        .nav-btn {
             cursor: pointer;
         }
     }
 }
 
-.box-header{
+.box-header {
     height: 90px;
 }
 
