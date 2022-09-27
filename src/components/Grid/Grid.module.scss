@@ -1,8 +1,5 @@
 .wrapper {
-    margin-top: 50px;
     width: 100%;
-    // padding-right: 16px;
-    // padding-left: 16px;
     margin-right: auto;
     margin-left: auto;
     border-style: none;
@@ -14,8 +11,8 @@
     margin-bottom: 1.5rem;
 
     .container {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
         overflow: hidden;
         box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
 
@@ -121,8 +118,8 @@
 
 .box-image {
     img {
-        width: 194px;
-        height: 194px;
+        width: 100%;
+        height: 100%;
         transition: transform 0.3s ease 0s;
 
         &:hover {

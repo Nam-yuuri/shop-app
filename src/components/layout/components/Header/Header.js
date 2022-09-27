@@ -249,7 +249,6 @@ function Header() {
                                 <Tippy
                                     inertia
                                     arrow
-                                    animateFill
                                     duration={[100, 200]}
                                     interactive
                                     delay={[100, 200]}
@@ -289,7 +288,7 @@ function Header() {
                                             trigger="click"
                                             interactive
                                             delay={[0, 0]}
-                                            offset={[-106, 30]}
+                                            offset={[-106, 34]}
                                             placement="bottom-start"
                                             render={renderProducts}
                                         >

@@ -4,6 +4,7 @@ import Laptop from '~/pages/Laptop';
 import Login from '~/pages/Login';
 import Notification from '~/pages/Notification';
 import Profile from '~/pages/Profile';
+import Brands from '~/pages/Brands';
 
 // Public routes
 const publicRoutes = [
@@ -12,7 +13,8 @@ const publicRoutes = [
     { path: 'notification', component: Notification },
     { path: 'cart', component: Cart },
     { path: 'login', component: Login },
-    { path: 'profile', component: Profile, layout: null },
+    { path: 'brands', component: Brands },
+    { path: 'profile', component: Profile},
 ];
 
 const privateRoutes = [];

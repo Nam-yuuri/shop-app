@@ -1,14 +1,16 @@
 import classNames from 'classnames/bind';
 import { ShipIcon } from '~/components/Icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 
 import Button from '~/components/Button';
-import styles from './GridLaptop.module.scss';
+import styles from './Grid.module.scss';
 import { DataGrid } from '~/Data/Grid/DataGrid';
 
 const cx = classNames.bind(styles);
 
-function GridLaptop() {
+function Panel() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -20,13 +22,13 @@ function GridLaptop() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                <div className={cx('header')}>
+                {/* <div className={cx('header')}>
                     <div className={cx('header-text')}>Laptop</div>
-                    {/* <Button to={''}>
+                    <Button to={''}>
                         <Button to={'laptop'}>Xem tất cả</Button>
                         <FontAwesomeIcon icon={faChevronRight} />
-                    </Button> */}
-                </div>
+                    </Button>
+                </div> */}
                 <div className={cx('products')}>
                     <div className={cx('box')}>
                         {products.map((product) => (
@@ -86,4 +88,4 @@ function GridLaptop() {
     );
 }
 
-export default GridLaptop;
+export default Panel;

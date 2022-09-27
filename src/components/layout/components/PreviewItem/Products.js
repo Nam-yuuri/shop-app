@@ -6,7 +6,7 @@ import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
 import NotificationItem from '~/components/layout/components/PreviewItem/NotificationItem';
-import {DataProduct} from '~/Data/Product/Product'
+import { DataProduct } from '~/Data/Product/Product';
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +44,9 @@ function ProductItem() {
                             <div>
                                 <Button to={product.to} className={cx('box')}>
                                     <div className={cx('content')}>
-                                        <img src={product.img} alt="" />
+                                        <div className={cx('box-img')}>
+                                            <img src={product.img} alt="" />
+                                        </div>
                                         <span>{product.name}</span>
                                     </div>
                                 </Button>

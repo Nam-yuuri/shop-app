@@ -45,7 +45,9 @@ function Product() {
                             <div className={cx('')}>
                                 <Button to={product.to} className={cx('box')}>
                                     <div className={cx('content')}>
-                                        <img src={product.img} alt="" />
+                                        <div className={cx('box-img')}>
+                                            <img src={product.img} alt="" />
+                                        </div>
                                         <span>{product.name}</span>
                                     </div>
                                 </Button>

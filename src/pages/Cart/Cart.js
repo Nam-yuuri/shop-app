@@ -92,7 +92,7 @@ function Cart() {
                                                         </div>
                                                     </Button>
                                                     <div className={cx('info-content')}>
-                                                        <Button to={'laptop/'} className={cx('btn-info', 'boxinfo')}>
+                                                        <Button to={'/laptop'} className={cx('btn-info', 'boxinfo')}>
                                                             <div className={cx('info-name-text')}>
                                                                 Bàn phím Logitech Bluetooth K480 (Trắng)
                                                             </div>
@@ -132,7 +132,7 @@ function Cart() {
                                         <div className={cx('product-row')}>
                                             <div className={cx('box-info')}>
                                                 <div className={cx('info-row')}>
-                                                    <Button to={'laptop/'} className={cx('btn-info')}>
+                                                    <Button to={'/laptop'} className={cx('btn-info')}>
                                                         <div className={cx('img')}>
                                                             <img
                                                                 src="https://lh3.googleusercontent.com/9eLN7Yv5USoT6IKyJ6iMIFpJwYfEDj2qqBPU9AQWcEIitp1Hy5vUskvqNBsfFNg1ShLopOeOjOSSXQuuEtQv=rw"
@@ -191,7 +191,7 @@ function Cart() {
                                                         </div>
                                                     </Button>
                                                     <div className={cx('info-content')}>
-                                                        <Button to={'laptop/'} className={cx('btn-info', 'boxinfo')}>
+                                                        <Button to={'/laptop'} className={cx('btn-info', 'boxinfo')}>
                                                             <div className={cx('info-name-text')}>
                                                                 Máy tính xách tay/ Laptop MacBook Pro 2018 13.3" MR9R2
                                                                 (Xám)
@@ -241,7 +241,7 @@ function Cart() {
                                                         </div>
                                                     </Button>
                                                     <div className={cx('info-content')}>
-                                                        <Button to={'laptop/'} className={cx('btn-info', 'boxinfo')}>
+                                                        <Button to={'/laptop'} className={cx('btn-info', 'boxinfo')}>
                                                             <div className={cx('info-name-text')}>
                                                                 Máy tính xách tay/ Laptop MacBook Pro 2018 13.3" MR9R2
                                                                 (Xám)

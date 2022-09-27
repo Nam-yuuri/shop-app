@@ -225,6 +225,7 @@
         position: relative;
         margin-bottom: 16px;
         box-shadow: var(--box-shadow);
+        overflow: hidden;
 
         .header-left {
             display: flex;

@@ -3,7 +3,7 @@ const routes = {
     profile: '/@:nickname',
     search: '/search',
     laptop: '/laptop',
-    notification: '/notification',
+    brands: '/brands',
     cart: '/cart',
     login: '/login',
     // eslint-disable-next-line no-dupe-keys
