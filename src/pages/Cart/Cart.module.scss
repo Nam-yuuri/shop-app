@@ -169,8 +169,10 @@
 }
 
 .box-btn {
+    cursor: pointer;
     span {
         display: flex;
+        align-items: center;
 
         .btn-text {
             text-overflow: ellipsis;
@@ -178,12 +180,15 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
             overflow: hidden;
+            font-size: 1.4rem;
+            color: var(--black-color);
         }
 
         .btn-icon {
             width: 12px;
             height: 12px;
             margin-left: 2px;
+            color: var(--black-color);
 
             svg {
                 transition: transform 0.2s ease-in-out 0s;
@@ -769,7 +774,13 @@
 }
 
 .btn-money {
-    button {
+    a {
         width: 100%;
+
+        span {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     }
 }

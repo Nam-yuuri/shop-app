@@ -34,7 +34,7 @@ function Panel() {
             <div className={cx('container')}>
                 <div className={cx('header')}>
                     <div className={cx('header-text')}>Laptop</div>
-                    <Button to={''}>
+                    <Button to={'/laptop'}>
                         <Button to={'laptop'}>Xem tất cả</Button>
                         <FontAwesomeIcon icon={faChevronRight} />
                     </Button>

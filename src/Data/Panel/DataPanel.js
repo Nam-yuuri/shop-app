@@ -2,7 +2,7 @@ export const DataPanelProduct = [
     {
         id: 1,
         name: 'Laptop',
-        to: '/laptop',
+        to: '/profile',
         img: 'https://lh3.googleusercontent.com/uC6sn_dwq7thX2Xg1fgZTnN7gA72dyJx9aSZTZ9Mld6c8wPOmMKrAwxre5_rU7GAXhp1k4LQaY9oFTiE5csQpNBsW500WF0e=rw-w230',
         promotion_money: '1.900.000',
         info: 'Laptop HP 15s-fq2660TU 6K793PA (15.6" HD/Intel Core i3-1115G4/4GB/512GB SSD/Windows 11 Home/1.7kg)',
@@ -15,7 +15,7 @@ export const DataPanelProduct = [
     {
         id: 1,
         name: 'Laptop',
-        to: '/laptop',
+        to: '/profile',
         img: 'https://lh3.googleusercontent.com/uC6sn_dwq7thX2Xg1fgZTnN7gA72dyJx9aSZTZ9Mld6c8wPOmMKrAwxre5_rU7GAXhp1k4LQaY9oFTiE5csQpNBsW500WF0e=rw-w230',
         promotion_money: '1.900.000',
         info: 'Laptop HP 15s-fq2660TU 6K793PA (15.6" HD/Intel Core i3-1115G4/4GB/512GB SSD/Windows 11 Home/1.7kg)',
@@ -28,7 +28,7 @@ export const DataPanelProduct = [
     {
         id: 1,
         name: 'Laptop',
-        to: '/laptop',
+        to: '/profile',
         img: 'https://lh3.googleusercontent.com/uC6sn_dwq7thX2Xg1fgZTnN7gA72dyJx9aSZTZ9Mld6c8wPOmMKrAwxre5_rU7GAXhp1k4LQaY9oFTiE5csQpNBsW500WF0e=rw-w230',
         promotion_money: '1.900.000',
         info: 'Laptop HP 15s-fq2660TU 6K793PA (15.6" HD/Intel Core i3-1115G4/4GB/512GB SSD/Windows 11 Home/1.7kg)',
@@ -41,7 +41,7 @@ export const DataPanelProduct = [
     {
         id: 1,
         name: 'Laptop',
-        to: '/laptop',
+        to: '/profile',
         img: 'https://lh3.googleusercontent.com/uC6sn_dwq7thX2Xg1fgZTnN7gA72dyJx9aSZTZ9Mld6c8wPOmMKrAwxre5_rU7GAXhp1k4LQaY9oFTiE5csQpNBsW500WF0e=rw-w230',
         promotion_money: '1.900.000',
         info: 'Laptop HP 15s-fq2660TU 6K793PA (15.6" HD/Intel Core i3-1115G4/4GB/512GB SSD/Windows 11 Home/1.7kg)',
@@ -54,7 +54,7 @@ export const DataPanelProduct = [
     {
         id: 1,
         name: 'Laptop',
-        to: '/laptop',
+        to: '/profile',
         img: 'https://lh3.googleusercontent.com/uC6sn_dwq7thX2Xg1fgZTnN7gA72dyJx9aSZTZ9Mld6c8wPOmMKrAwxre5_rU7GAXhp1k4LQaY9oFTiE5csQpNBsW500WF0e=rw-w230',
         promotion_money: '1.900.000',
         info: 'Laptop HP 15s-fq2660TU 6K793PA (15.6" HD/Intel Core i3-1115G4/4GB/512GB SSD/Windows 11 Home/1.7kg)',
@@ -67,7 +67,7 @@ export const DataPanelProduct = [
     {
         id: 1,
         name: 'Laptop',
-        to: '/laptop',
+        to: '/profile',
         img: 'https://lh3.googleusercontent.com/uC6sn_dwq7thX2Xg1fgZTnN7gA72dyJx9aSZTZ9Mld6c8wPOmMKrAwxre5_rU7GAXhp1k4LQaY9oFTiE5csQpNBsW500WF0e=rw-w230',
         promotion_money: '1.900.000',
         info: 'Laptop HP 15s-fq2660TU 6K793PA (15.6" HD/Intel Core i3-1115G4/4GB/512GB SSD/Windows 11 Home/1.7kg)',

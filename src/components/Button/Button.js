@@ -15,6 +15,7 @@ function Button({
     rounded = false,
     small = false,
     large = false,
+    big = false,
     children,
     className,
     leftIcon,

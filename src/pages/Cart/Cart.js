@@ -1,12 +1,17 @@
 import { faAngleDown, faAngleRight, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import styles from './Cart.module.scss';
+import Pdf from '~/components/layout/components/PreviewItem/Pdf';
 
 const cx = classNames.bind(styles);
 
 function Cart() {
+    const [loginResult, setLoginResult] = useState('');
+
     const handleBuy = () => {};
 
     const handleDownload = () => {};
@@ -16,6 +21,20 @@ function Cart() {
     const handlePlus = () => {};
 
     const handleIntoMoney = () => {};
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoginResult('0395001595');
+        }, 3000);
+    }, []);
+
+    const renderPdf = (props) => {
+        return (
+            <div className={cx('preview')} tabIndex="-1" {...props}>
+                <Pdf />
+            </div>
+        );
+    };
 
     return (
         <div className={cx('Cart')}>
@@ -51,12 +70,22 @@ function Cart() {
                             </div>
                             <div className={cx('download-pdf')}>
                                 <div className={cx('pdf-box')}>
-                                    <Button onClick={handleDownload} className={cx('box-btn')} outline>
-                                        <div className={cx('btn-text')}>Tải báo giá</div>
-                                        <div className={cx('btn-icon')}>
-                                            <FontAwesomeIcon icon={faAngleDown} />
+                                    <Tippy
+                                        interactive
+                                        delay={[100, 200]}
+                                        offset={[0, 0]}
+                                        placement="bottom"
+                                        render={renderPdf}
+                                    >
+                                        <div>
+                                            <Button onClick={handleDownload} className={cx('box-btn')} outline>
+                                                <div className={cx('btn-text')}>Tải báo giá</div>
+                                                <div className={cx('btn-icon')}>
+                                                    <FontAwesomeIcon icon={faAngleDown} />
+                                                </div>
+                                            </Button>
                                         </div>
-                                    </Button>
+                                    </Tippy>
                                 </div>
                             </div>
                         </div>
@@ -308,11 +337,20 @@ function Cart() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={cx('btn-money')}>
-                                        <Button primary large onClick={handleIntoMoney}>
-                                            TIẾP TỤC
-                                        </Button>
-                                    </div>
+                                    {loginResult ? (
+                                        <div className={cx('btn-money')}>
+                                            <Button primary large onClick={handleIntoMoney} href={' '}>
+                                                TIẾP TỤC
+                                            </Button>
+                                        </div>
+                                    ) : (
+                                        <div className={cx('btn-money')}>
+                                            <Button primary large href={'/login'}>
+                                                THANH TOÁN
+                                                <span>Bạn cần đăng nhập để tiếp tục</span>
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
