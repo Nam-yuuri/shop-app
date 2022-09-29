@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import Banner from './Banner';
 import styles from './Container.module.scss';
 import FeaturedBrand from './FeaturedBrand';
 import Grid from './Grid';
@@ -14,6 +15,9 @@ function ContainerHome({ children }) {
                 <div className="container">
                     <div className={cx('box')}>
                         <Panel />
+                    </div>
+                    <div className={cx('banner')}>
+                        <Banner />
                     </div>
                     <div className={cx('box')}>
                         <FeaturedBrand />

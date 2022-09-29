@@ -59,7 +59,7 @@
         transition: color 0.3s ease;
     }
 
-    button {
+    a {
         padding: 0;
         display: flex;
         justify-content: end;
@@ -75,12 +75,13 @@
             }
 
             button {
-                padding: 0;
+                padding: 0 !important;
             }
 
             svg {
                 margin-left: 2px;
                 font-weight: 1;
+                height: 10px;
             }
         }
     }

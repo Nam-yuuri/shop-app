@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import styles from './Profile.module.scss';
 import { img } from '~/Data/Product/Product';
 import { useEffect, useState } from 'react';
-import { ComputerSaleIcon, GiftIcon, InsuranceIcon, SettingIcon, ShipIcon, ShipOtoIcon } from '~/components/Icons';
+import { ComputerSaleIcon, GiftIcon, InsuranceIcon, SettingIcon, ShipIcon } from '~/components/Icons';
 import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
@@ -20,7 +20,9 @@ function Profile() {
     };
 
     useEffect(() => {
-        setImage(img);
+        setTimeout(() => {
+            setImage(img);
+        }, 3000);
     });
 
     useEffect(() => {
@@ -32,7 +34,7 @@ function Profile() {
     const settings = {
         customPaging: function (i) {
             return (
-                <a>
+                <a href={' '}>
                     <img src={`${image[0]}`} alt="" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
                 </a>
             );

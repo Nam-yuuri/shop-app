@@ -6,6 +6,7 @@ const routes = {
     brands: '/brands',
     cart: '/cart',
     login: '/login',
+    info: '/info',
     // eslint-disable-next-line no-dupe-keys
     profile: '/profile',
     image: '/image',

@@ -18,24 +18,24 @@ function Laptop() {
     const [bands, setBands] = useState([]);
     const [advancedFilters, setAdvancedFilters] = useState([]);
 
-    const [divHeight, setDivHeight] = useState(false);
-    const [presently, setPresently] = useState(false);
+    // const [divHeight, setDivHeight] = useState(false);
+    // const [presently, setPresently] = useState(false);
 
-    const ref = useRef(null);
+    // const ref = useRef(null);
 
-    useEffect(() => {
-        setTimeout(() => {
-            // setDivHeight(ref.current.clientHeight);
-            console.log('height: ', ref.current.clientHeight);
-            if (ref.current.clientHeight > 40) {
-                setDivHeight(true);
-            } else {
-                setDivHeight(false);
-            }
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         // setDivHeight(ref.current.clientHeight);
+    //         console.log('height: ', ref.current.clientHeight);
+    //         if (ref.current.clientHeight > 40) {
+    //             setDivHeight(true);
+    //         } else {
+    //             setDivHeight(false);
+    //         }
 
-            // console.log('width: ', ref.current.clientWidth);
-        }, 0);
-    }, []);
+    //         // console.log('width: ', ref.current.clientWidth);
+    //     }, 0);
+    // }, []);
 
     useEffect(() => {
         setTrademarks(Trademark);
@@ -46,9 +46,9 @@ function Laptop() {
         setAdvancedFilters(AdvancedFilters);
     }, []);
 
-    const handlePresently = () => {
-        presently ? setPresently(false) : setPresently(true);
-    };
+    // const handlePresently = () => {
+    //     presently ? setPresently(false) : setPresently(true);
+    // };
 
     return (
         <div className={cx('Laptop')}>

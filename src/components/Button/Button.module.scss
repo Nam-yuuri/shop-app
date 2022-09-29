@@ -19,7 +19,7 @@
     }
 
     &.disabled {
-        pointer-events: none;
+        // pointer-events: none;
         opacity: 0.5;
     }
 }
@@ -68,6 +68,13 @@
         background: rgb(245, 245, 245);
         cursor: pointer;
     }
+}
+
+.disabled {
+    border-style: none;
+    color: #a7abc3;
+    background-color: #d2d2d2;
+    cursor: not-allowed;
 }
 
 .text {

@@ -17,7 +17,7 @@
                 -webkit-box-align: center;
                 align-items: flex-start;
 
-                a {
+                .box-search {
                     padding: 0;
                     margin: 0;
                     width: 100%;
@@ -30,9 +30,10 @@
                     justify-content: flex-start;
                     border-bottom: 1px solid rgb(244, 244, 244);
                     min-height: 50px;
+                    min-width: 559px;
 
                     span {
-                        color: var(--primary);
+                        color: var(--text-color);
                         text-decoration: none;
                         font-size: 1.4rem;
                         font-weight: 400;

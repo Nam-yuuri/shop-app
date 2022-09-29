@@ -5,6 +5,7 @@ import Login from '~/pages/Login';
 import Notification from '~/pages/Notification';
 import Profile from '~/pages/Profile';
 import Brands from '~/pages/Brands';
+import Info from '~/pages/Info';
 
 // Public routes
 const publicRoutes = [
@@ -15,6 +16,7 @@ const publicRoutes = [
     { path: 'login', component: Login },
     { path: 'brands', component: Brands },
     { path: 'profile', component: Profile},
+    { path: 'info', component: Info},
 ];
 
 const privateRoutes = [];

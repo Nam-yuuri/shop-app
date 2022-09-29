@@ -26,8 +26,8 @@ function Panel() {
                 <div className={cx('box')}>
                     <div className={cx('header')}>
                         <div className={cx('header-text')}>Laptop</div>
-                        <Button to={''}>
-                            <Button to={'laptop'}>Xem tất cả</Button>
+                        <Button to={'/laptop'}>
+                            <div>Xem tất cả</div>
                             <FontAwesomeIcon icon={faChevronRight} />
                         </Button>
                     </div>

@@ -12,23 +12,23 @@ function SearchItem() {
             <div className={cx('container')}>
                 <div className={cx('box')}>
                     <div className={cx('content')}>
-                        <Button to={'/profile'}>
+                        <Button to={'/brands'} className={cx('box-search')}>
                             <FontAwesomeIcon icon={faSearch} />
                             kết quả trả về
                         </Button>
-                        <Button to={'/profile'}>
+                        <Button to={'/brands'} className={cx('box-search')}>
                             <FontAwesomeIcon icon={faSearch} />
                             kết quả trả về
                         </Button>
-                        <Button to={'/profile'}>
+                        <Button to={'/brands'} className={cx('box-search')}>
                             <FontAwesomeIcon icon={faSearch} />
                             kết quả trả về
                         </Button>
-                        <Button to={'/profile'}>
+                        <Button to={'/brands'} className={cx('box-search')}>
                             <FontAwesomeIcon icon={faSearch} />
                             kết quả trả về
                         </Button>
-                        <Button to={'/profile'}>
+                        <Button to={'/brands'} className={cx('box-search')}>
                             <FontAwesomeIcon icon={faSearch} />
                             kết quả trả về
                         </Button>
