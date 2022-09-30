@@ -10,6 +10,9 @@ const routes = {
     // eslint-disable-next-line no-dupe-keys
     profile: '/profile',
     image: '/image',
+    account: '/account',
+    bill: '/bill',
+    address: '/address',
 };
 
 export default routes;

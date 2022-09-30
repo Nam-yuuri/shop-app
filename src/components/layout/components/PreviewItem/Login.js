@@ -21,19 +21,19 @@ function LoginItem() {
                             </div>
                         ))}
                     </div>
-                    <Button to={'/'} className={cx('box-info', 'box-content')}>
+                    <Button to={'/account'} className={cx('box-info', 'box-content')}>
                         <div className={cx('info-icon')}>
                             <UserIcon />
                         </div>
                         <div className={cx('info-text', 'box-text')}>Thông tin tài khoản</div>
                     </Button>
-                    <Button to={'/'} className={cx('box-oder', 'box-content')}>
+                    <Button to={'/account'} className={cx('box-oder', 'box-content')}>
                         <div className={cx('oder-icon')}>
                             <OderIcon />
                         </div>
                         <div className={cx('oder-text', 'box-text')}>Quản lý đơn hàng</div>
                     </Button>
-                    <Button to={'/'} className={cx('box-address', 'box-content')}>
+                    <Button to={'/account'} className={cx('box-address', 'box-content')}>
                         <div className={cx('address-icon')}>
                             <AddressIcon />
                         </div>
@@ -45,7 +45,7 @@ function LoginItem() {
                         </div>
                         <div className={cx('notify-text', 'box-text')}>Thông báo</div>
                     </Button> */}
-                    <Button to={'/'} className={cx('box-news', 'box-content')}>
+                    <Button to={'/account'} className={cx('box-news', 'box-content')}>
                         <div className={cx('news-icon')}>
                             <NewsIcon />
                         </div>

@@ -5,7 +5,9 @@ import Login from '~/pages/Login';
 import Notification from '~/pages/Notification';
 import Profile from '~/pages/Profile';
 import Brands from '~/pages/Brands';
-import Info from '~/pages/Info';
+import Account from '~/pages/Account';
+import Bill from '~/pages/Account/Bill';
+import Address from '~/pages/Account/Address';
 
 // Public routes
 const publicRoutes = [
@@ -15,8 +17,10 @@ const publicRoutes = [
     { path: 'cart', component: Cart },
     { path: 'login', component: Login },
     { path: 'brands', component: Brands },
-    { path: 'profile', component: Profile},
-    { path: 'info', component: Info},
+    { path: 'profile', component: Profile },
+    { path: 'account', component: Account },
+    { path: 'bill', component: Bill },
+    { path: 'address', component: Address },
 ];
 
 const privateRoutes = [];
