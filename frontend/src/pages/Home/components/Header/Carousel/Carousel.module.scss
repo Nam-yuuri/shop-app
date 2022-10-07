@@ -1,0 +1,60 @@
+.cart {
+    // width: 50px !important;
+    // height: 50px;
+
+    padding: 0;
+    img {
+        width: 100%;
+    }
+}
+
+.App {
+    overflow: hidden;
+    .slick-track {
+        display: flex;
+    }
+}
+
+.box {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    bottom: -10%;
+
+    .box-img {
+        display: flex;
+        top: 75%;
+        left: 10%;
+        margin-left: auto;
+        margin-right: auto;
+
+        .img {
+            padding: 0 10px;
+            max-width: 25%;
+            overflow: hidden;
+            border-radius: 10px;
+
+            img {
+                border-radius: 10px;
+
+                &:hover {
+                    transition: transform 0.3s ease 0s;
+                    transform: scale(1.05);
+                }
+            }
+            button {
+                padding: 0;
+            }
+        }
+    }
+}
+
+// .app-scroll {
+//     margin-top: 90px;
+//     transition: margin-top 0.3s ease 0s;
+// }
+
+// #app {
+//     margin-top: 90px;
+//     transition: margin-top 0.3s ease 0s;
+// }

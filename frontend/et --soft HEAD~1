@@ -1,0 +1,92 @@
+[33mcommit 4d0e52513b7eb78341e6a49c3d63cc5be8f3b789[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Thu Sep 29 22:16:47 2022 +0700
+
+    - tạm xong giao diện trang brands
+    - chưa có range-slider
+    - giao diện trang info user
+    - công việc ngày mai:
+    - giao diện trang quản lý đơn hàng
+    - sổ địa chỉ
+    - thông báo
+    - bản tin
+    -(làm giao diện không có dữ liệu)
+
+[33mcommit fa4971d301e390230d573b5c332771ed891e55af[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Wed Sep 28 21:02:08 2022 +0700
+
+    - làm giao diện trang profile
+    - cập nhật thêm tippy pdf
+    - còn phần slider của ảnh trang profile chưa xong
+    - sửa lại logic đăng nhập trang cart
+    - Còn trang login chưa làm được gì
+    - sửa hover button outline
+
+[33mcommit d2c596c8ff83a9a0541b4472317eefcaa6e19de3[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Tue Sep 27 21:24:01 2022 +0700
+
+    - sửa nốt phần đường dẫn
+
+[33mcommit c4dee194f9e953275f2ce0411315fda11d7ec601[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Tue Sep 27 21:17:49 2022 +0700
+
+    - còn logic của trang sản phẩm
+    - đang làm dở trang thông tin sản phẩm
+
+[33mcommit e83a66f74823bebaac9de39ce17440f6b09c74c3[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Mon Sep 26 22:32:49 2022 +0700
+
+    xong giao diện trang cart
+    - chưa có logic
+    - chưa có các hàm của các nút
+    - chưa làm được phần tải pdf
+
+[33mcommit 119f9b01922df8721509bcaa38938973d4acf850[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Mon Sep 26 16:25:29 2022 +0700
+
+    đẩy lên để sửa lỗi card với cart
+
+[33mcommit e8917fb44bc982b4d88afea8c9881284793291c4[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Sun Sep 25 23:24:02 2022 +0700
+
+    - Tạm xong trang home
+    - Đang làm trang laptop và bị vướng phần nút hiện thêm giá trị muốn chọn
+    - cụ thể là: đã xử lý được việc hiện giá trị nhưng đang bị hiện tất cả các dòng
+    - mong muốn: nhấn nút của dòng nào thì chỉ hiện giá trị của dòng đấy
+    - về thanh search trang home mới được giao diện chưa hoàn thiện logic
+
+[33mcommit 5788ca12fa12729150209d0677251b95369d25b2[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Sat Sep 24 23:59:22 2022 +0700
+
+    page home 24/09/2022
+
+[33mcommit 9f542fc3ea3102a802ed564c3632ddde05b1cf4b[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Sat Sep 24 08:33:33 2022 +0700
+
+    Header 23/09/2022
+
+[33mcommit 74e5ebca83a5482a0cb7548774843051bdc2bb40[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Thu Sep 22 21:53:37 2022 +0700
+
+    Header final 22/09/2022
+
+[33mcommit fee172a48717fbfd438369243f26eab84ffa14e2[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Thu Sep 22 18:19:33 2022 +0700
+
+    Header 22/09/2022
+
+[33mcommit 076e6be3e4aa7479785a017ca2c0b147c93681e3[m
+Author: Nam-yuuri <1851061325@e.tlu.edu.vn>
+Date:   Tue Sep 20 16:42:29 2022 +0700
+
+    Initialize project using Create React App
