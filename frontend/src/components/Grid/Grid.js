@@ -8,7 +8,7 @@ import Button from '~/components/Button';
 import styles from './Grid.module.scss';
 import { DataGrid } from '~/Data/Grid/DataGrid';
 
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 
 const cx = classNames.bind(styles);
 
@@ -21,8 +21,8 @@ function Panel() {
         }, 0);
     });
 
-    const productss = useSelector((state) => state.products)
-    console.log(productss)
+    // const productss = useSelector((state) => state.products)
+    // console.log(productss)
 
     return (
         <div className={cx('wrapper')}>

@@ -18,22 +18,34 @@
 // // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
-import React from "react";
-import ReactDOM from 'react-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 // import { Provider } from 'react-dom'
-import {Provider} from 'react-redux'
-import { createStore, applyMiddleware, compose} from 'redux'
-import thunk from 'redux-thunk'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import GlobalStyles from '~/components/GlobalStyles/GlobalStyles';
 
-import reducers from "./reducers";
+import reducers from './reducers';
 
-import App from './App'
+import App from './App';
 
-const store = createStore(reducers, compose(applyMiddleware(thunk)))
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
-ReactDOM.render(
+// ReactDOM.render(
+//     <Provider store={store}>
+//         <App />
+//     </Provider>,
+//     document.getElementById('root')
+// )
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
     <Provider store={store}>
-        <App />
+        <GlobalStyles>
+            <App />
+        </GlobalStyles>
     </Provider>,
-    document.getElementById('root')
-)
+);

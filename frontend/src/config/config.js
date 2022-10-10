@@ -13,6 +13,7 @@ const routes = {
     account: '/account',
     bill: '/bill',
     address: '/address',
+    admin: '/admin',
 };
 
 export default routes;

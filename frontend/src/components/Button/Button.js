@@ -29,18 +29,18 @@ function Button({
         ...passProps,
     };
 
-    // if (disabled) {
-    //     // Dùng 1 trong 2 cách
-    //     // cach 1
-    //     // delete props.onClick;
+    if (disabled) {
+        // Dùng 1 trong 2 cách
+        // cach 1
+        // delete props.onClick;
 
-    //     // cach 2
-    //     Object.keys(props).forEach((key) => {
-    //         if (key.startsWith('on') && typeof props[key] === 'function') {
-    //             delete props[key];
-    //         }
-    //     });
-    // }
+        // cach 2
+        Object.keys(props).forEach((key) => {
+            if (key.startsWith('on') && typeof props[key] === 'function') {
+                delete props[key];
+            }
+        });
+    }
 
     if (to) {
         props.to = to;

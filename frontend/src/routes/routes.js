@@ -8,6 +8,8 @@ import Brands from '~/pages/Brands';
 import Account from '~/pages/Account';
 import Bill from '~/pages/Account/Bill';
 import Address from '~/pages/Account/Address';
+import Admin from '~/pages/admin/admin';
+import { Fragment } from 'react';
 
 // Public routes
 const publicRoutes = [
@@ -21,8 +23,11 @@ const publicRoutes = [
     { path: 'account', component: Account },
     { path: 'bill', component: Bill },
     { path: 'address', component: Address },
+    { path: 'admin', component: Admin, layout: Fragment },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+    { path: 'admin', component: Admin },
+];
 
 export { publicRoutes, privateRoutes };

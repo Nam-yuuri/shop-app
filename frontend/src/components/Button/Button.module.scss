@@ -21,6 +21,14 @@
     &.disabled {
         // pointer-events: none;
         opacity: 0.5;
+        cursor: unset;
+
+        &:hover{
+            color: #a7abc3;
+            background-color: #d2d2d2;
+            border-color: 4px;
+            cursor: no-drop;
+        }
     }
 }
 

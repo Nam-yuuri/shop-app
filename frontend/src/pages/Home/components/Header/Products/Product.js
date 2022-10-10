@@ -35,13 +35,13 @@ function Product() {
             <div className={cx('container')}>
                 {products.map((product) => (
                     <div key={product.id}>
-                        <Tippy
+                        {/* <Tippy
                             interactive
                             delay={[100, 200]}
                             offset={[0, -3]}
                             placement="right"
                             render={renderNotification}
-                        >
+                        > */}
                             <div className={cx('')}>
                                 <Button to={product.to} className={cx('box')}>
                                     <div className={cx('content')}>
@@ -52,7 +52,7 @@ function Product() {
                                     </div>
                                 </Button>
                             </div>
-                        </Tippy>
+                        {/* </Tippy> */}
                     </div>
                 ))}
             </div>
