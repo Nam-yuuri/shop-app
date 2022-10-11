@@ -1,23 +1,34 @@
-require('dotenv').config({ path: "config/config.env" });
-const connectDatabase = require('./config/database')
+import express from 'express'
+import bodyParser from 'body-parser'
+import mongoose from 'mongoose'
+import cors from 'cors';
 
+import productRoutes from './routes/Products.js'
+import brandRoutes from './routes/brands.js'
 
-const express = require('express')
+// import connectDatabase from './config/database.js';
+
 const app = express()
-const port = process.env.PORT || 4000;
 
-process.on("uncaughtException", (err) => {
-    console.log(`Error: ${err.message}`);
-    console.log(`Tắt máy chủ vì Uncaught Exception`);
-    process.exit(1);
-  });
+app.use(bodyParser.json({limit: "30mb", extended: true}))
+app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
+app.use(cors());
 
-connectDatabase();
+app.use('/products', productRoutes)
+app.use('/brands', brandRoutes)
 
-app.get('/', (req, res) => {
-  res.send('Hello World!1111')
-})
+const CONNECTION_URL = 'mongodb://localhost:27017/shop-app'
+const PORT = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
+  .then(() => app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)))
+  .catch((error) => console.log(error.message))
+
+// connectDatabase();
+
+// const server = app.listen(PORT, () => {
+//   console.log(
+//     `Máy chủ đang chạy trên cổng http://localhost:${PORT}`
+//   );
+// });
+
