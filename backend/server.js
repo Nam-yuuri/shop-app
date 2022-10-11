@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 import cors from 'cors';
 
 import productRoutes from './routes/Products.js'
+import brandRoutes from './routes/brands.js'
+
 // import connectDatabase from './config/database.js';
 
 const app = express()
@@ -13,7 +15,7 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 app.use(cors());
 
 app.use('/products', productRoutes)
-app.get('/', (req,res) => res.send("Hello page home"))
+app.use('/brands', brandRoutes)
 
 const CONNECTION_URL = 'mongodb://localhost:27017/shop-app'
 const PORT = process.env.PORT || 5000;

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ProductMessage from "../modules/Products.js";
+import ProductMessage from "../models/Products.js";
 
 export const getProducts = async (req, res) => {
   try {

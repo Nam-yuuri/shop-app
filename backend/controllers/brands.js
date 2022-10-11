@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import BrandMessage from "../modules/Products.js";
+import BrandMessage from "../models/brands.js";
 
 export const getBrands = async (req, res) => {
   try {
@@ -32,7 +32,7 @@ export const updateBrand = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).send(`Không tìm thấy sản phẩm với id:${_id}`);
   }
-  const updatedBrand = await ProductMessage.findByIdAndUpdate(_id, brand, {
+  const updatedBrand = await BrandMessage.findByIdAndUpdate(_id, brand, {
     new: true,
   });
   res.json(updatedBrand);

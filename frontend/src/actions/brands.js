@@ -1,8 +1,8 @@
-import * as api from '../api/products';
+import * as api from '../api/brands';
 
-export const getProducts = () => async (dispatch) => {
+export const getBrands = () => async (dispatch) => {
     try {
-        const { data } = await api.fetchProducts();
+        const { data } = await api.fetchBrands();
 
         dispatch({ type: 'FETCH_ALL', payload: data });
     } catch (error) {
@@ -10,9 +10,9 @@ export const getProducts = () => async (dispatch) => {
     }
 };
 
-export const createProduct = (product) => async (dispatch) => {
+export const createBrand = (brand) => async (dispatch) => {
     try {
-        const { data } = await api.createProduct(product);
+        const { data } = await api.createBrand(brand);
 
         dispatch({ type: 'CREATE', payload: data });
     } catch (error) {
@@ -20,9 +20,9 @@ export const createProduct = (product) => async (dispatch) => {
     }
 };
 
-export const updateProduct = (id, product) => async (dispatch) => {
+export const updateBrand = (id, brand) => async (dispatch) => {
     try {
-        const { data } = await api.updateProduct(id, product);
+        const { data } = await api.updateBrand(id, brand);
 
         dispatch({ type: 'UPDATE', payload: data });
     } catch (error) {
@@ -30,9 +30,9 @@ export const updateProduct = (id, product) => async (dispatch) => {
     }
 };
 
-export const deleteProduct = (id) => async (dispatch) => {
+export const deleteBrand = (id) => async (dispatch) => {
     try {
-        await api.deleteProduct(id)
+        await api.deleteBrand(id)
 
         dispatch({ type: 'DELETE', payload: id})
     } catch (error) {

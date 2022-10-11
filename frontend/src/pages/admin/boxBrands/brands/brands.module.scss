@@ -1,0 +1,17 @@
+.box-brands{
+    width: calc(20% - 2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: #ddd solid 1px;
+    padding: 5px;
+    height: 200px;
+    border-radius: 4px;
+    background-color: var(--white-color);
+}
+
+.container-brands{
+    min-height: 90vh;
+    background-color: #f6f6f6;
+    padding: 2px;
+}
