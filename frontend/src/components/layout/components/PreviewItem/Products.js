@@ -34,24 +34,16 @@ function ProductItem() {
             <div className={cx('container')}>
                 {products.map((product) => (
                     <div key={product.id}>
-                        <Tippy
-                            interactive
-                            delay={[100, 200]}
-                            offset={[0, -3]}
-                            placement="right"
-                            render={renderNotification}
-                        >
-                            <div>
-                                <Button to={product.to} className={cx('box')}>
-                                    <div className={cx('content')}>
-                                        <div className={cx('box-img')}>
-                                            <img src={product.img} alt="" />
-                                        </div>
-                                        <span>{product.name}</span>
+                        <div>
+                            <Button to={product.to} className={cx('box')}>
+                                <div className={cx('content')}>
+                                    <div className={cx('box-img')}>
+                                        <img src={product.img} alt="" />
                                     </div>
-                                </Button>
-                            </div>
-                        </Tippy>
+                                    <span>{product.name}</span>
+                                </div>
+                            </Button>
+                        </div>
                     </div>
                 ))}
             </div>

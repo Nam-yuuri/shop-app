@@ -23,6 +23,8 @@ import SearchItem from '../PreviewItem/SearchItem';
 import ProductItem from '../PreviewItem/Products';
 import LoginItem from '../PreviewItem/Login';
 
+import Brands from '../PreviewItem/brands/brands';
+
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -131,7 +133,7 @@ function Header() {
         return (
             <div className={cx('preview')} tabIndex="-1" {...props}>
                 <PopperWrapper>
-                    <ProductItem />
+                    <Brands />
                 </PopperWrapper>
             </div>
         );

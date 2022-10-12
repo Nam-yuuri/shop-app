@@ -8,10 +8,22 @@ import Button from '~/components/Button';
 import NotificationItem from '~/components/layout/components/PreviewItem/NotificationItem';
 import './Product.css';
 import { DataProduct } from '~/Data/Product/Product';
+import { useDispatch } from 'react-redux';
+import { getBrands } from '~/actions/brands';
+// import Brands from '~/pages/admin/boxBrands/brands/brands';
+import Brands from './brands'
 
 const cx = classNames.bind(styles);
 
 function Product() {
+    const [currentId, setCurrentId] = useState(null);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getBrands());
+    }, [dispatch]);
+
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -33,15 +45,9 @@ function Product() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                {products.map((product) => (
-                    <div key={product.id}>
-                        {/* <Tippy
-                            interactive
-                            delay={[100, 200]}
-                            offset={[0, -3]}
-                            placement="right"
-                            render={renderNotification}
-                        > */}
+                {/* <div>
+                    {products.map((product) => (
+                        <div key={product.id}>
                             <div className={cx('')}>
                                 <Button to={product.to} className={cx('box')}>
                                     <div className={cx('content')}>
@@ -52,9 +58,10 @@ function Product() {
                                     </div>
                                 </Button>
                             </div>
-                        {/* </Tippy> */}
-                    </div>
-                ))}
+                        </div>
+                    ))}
+                </div> */}
+                <Brands setCurrentId={setCurrentId} />
             </div>
         </div>
     );

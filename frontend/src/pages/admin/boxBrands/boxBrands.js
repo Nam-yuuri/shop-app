@@ -2,10 +2,9 @@ import classNames from "classnames/bind";
 import styles from './boxBrands.module.scss';
 import { useEffect, useState } from "react";
 import { useDispatch} from 'react-redux';
-import { getProducts } from '~/actions/products';
+import { getBrands } from "~/actions/brands";
 import Brands from "./brands";
 import Form from "./Form";
-// import { Form } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +14,7 @@ function Boxbrands() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getProducts());
+        dispatch(getBrands());
     }, [dispatch]);
     return ( 
         <div className={cx('admin')}>
@@ -85,7 +84,7 @@ function Boxbrands() {
                     </nav>
                 </div>
                 <div className={cx('content')}>
-                    <div className={cx('product')}>
+                    <div className={cx('brands')}>
                         <Brands setCurrentId={setCurrentId} />
                     </div>
                     <div className={cx('form')}>

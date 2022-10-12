@@ -14,7 +14,7 @@ function Brands({setCurrentId}) {
             {!brands.length ? (
                 <h1>Chưa có thương hiệu nào trong database</h1>
             ) : (
-                <div className={cx('container-brands')} style={{display: 'flex', flexWrap: 'wrap', gap: '2px'}}>
+                <div className={cx('container-brands')}>
                     {brands.map((brand) => (
                         <div className={cx('box-brands')} key={brand._id}>
                             
