@@ -2,10 +2,10 @@ import classNames from 'classnames/bind';
 import styles from './Laptop.module.scss';
 
 import Button from '~/components/Button';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AdvancedFilters, Bands, Chipset, GraphicChip, Mainboard, Trademark } from '~/Data/Asus/Asus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Grid from '~/components/Grid';
 
 const cx = classNames.bind(styles);

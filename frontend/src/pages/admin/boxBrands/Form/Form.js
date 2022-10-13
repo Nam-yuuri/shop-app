@@ -53,7 +53,7 @@ function Form({ currentId, setCurrentId }) {
             <h2 className={cx('form-title')}>{currentId ? 'Editing' : 'Create'} Brands</h2>
             {/* <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="inputGroupFile01" style={{ fontSize: '1.3rem' }}>
-                    Image product
+                    Image brand
                 </label>
                 <input
                     type="file"

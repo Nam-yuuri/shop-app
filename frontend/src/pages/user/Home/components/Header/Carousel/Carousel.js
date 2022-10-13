@@ -8,26 +8,13 @@ import Button from '~/components/Button';
 import './Carousel.css';
 import { DataCarousel, DataCarouselImage } from '~/Data/Carousel/Carousel';
 
+
 const cx = classNames.bind(styles);
 
 function Carousel() {
     const [carousels, setCarousels] = useState([]);
     const [images, setImages] = useState([]);
     const [scroll, setScroll] = useState(false);
-
-    // const app = new ClassList('container whitebg');
-    // const handleScroll = () => {
-    //     // console.log(window.scrollY);
-    //     if (window.scrollY > 99) {
-    //         // app.add('app-scroll');
-    //         setScroll(true);
-    //     } else {
-    //         // app.remove('app-scroll');
-    //         setScroll(false);
-    //     }
-    // };
-
-    // window.addEventListener('scroll', handleScroll);
 
     useEffect(() => {
         setTimeout(() => {
@@ -55,7 +42,7 @@ function Carousel() {
     return (
         <div className={scroll ? 'App app-scroll' : 'App'} id="app">
             <div>
-                <Slider {...settings}>
+            <Slider {...settings}>
                     {carousels.map((carousel) => (
                         <div className={cx('cart')} key={carousel.id}>
                             <div className={cx('cart-top')}>

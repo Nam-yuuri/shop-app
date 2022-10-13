@@ -1,12 +1,10 @@
 import classNames from 'classnames/bind';
-import { useDispatch } from 'react-redux';
 import Button from '~/components/Button';
 import styles from './brand.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Brand({ brand }) {
-    // const dispatch = useDispatch();
     // console.log(brand)
     return (
         <div className={cx('wrapper')}>

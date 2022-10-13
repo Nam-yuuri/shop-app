@@ -5,6 +5,8 @@ import cors from 'cors';
 
 import productRoutes from './routes/Products.js'
 import brandRoutes from './routes/brands.js'
+import carouselRoutes from './routes/Carousels.js'
+import boxImgRoutes from './routes/BoxImgs.js'
 
 // import connectDatabase from './config/database.js';
 
@@ -16,6 +18,8 @@ app.use(cors());
 
 app.use('/products', productRoutes)
 app.use('/brands', brandRoutes)
+app.use('/carousels',carouselRoutes)
+app.use('/boximgs',boxImgRoutes)
 
 const CONNECTION_URL = 'mongodb://localhost:27017/shop-app'
 const PORT = process.env.PORT || 5000;

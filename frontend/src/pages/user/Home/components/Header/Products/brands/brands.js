@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 function Brands({setCurrentId}) {
     const brands = useSelector((state) => state.brands);
-    console.log(brands);
+    // console.log(brands);
     return (
         <div>
             {!brands.length ? (

@@ -290,7 +290,7 @@ function Header() {
                                             trigger="click"
                                             interactive
                                             delay={[0, 0]}
-                                            offset={[-106, 34]}
+                                            offset={[-206, 30]}
                                             placement="bottom-start"
                                             render={renderProducts}
                                         >

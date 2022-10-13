@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
-
 import styles from './products.module.scss';
+
 import Product from './Product/product';
 
 const cx = classNames.bind(styles);
 
-function Products({setCurrentId}) {
+function Products({ setCurrentId }) {
     const products = useSelector((state) => state.products);
     // console.log(products);
 
@@ -19,9 +19,7 @@ function Products({setCurrentId}) {
                 <div className={cx('container-products')}>
                     {products.map((product) => (
                         <div className={cx('box-products')} key={product._id}>
-                            
-                            <Product product={product} setCurrentId={setCurrentId}/>
-                            
+                            <Product product={product} setCurrentId={setCurrentId} />
                         </div>
                     ))}
                 </div>

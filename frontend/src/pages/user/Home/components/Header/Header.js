@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import { Fragment, useState } from 'react';
-import Carousel from './Carousel/Carousel';
+// import Carousel from './Carousel';
+import Carousel from './Carousel';
 import styles from './Header.module.scss';
 
 import Product from './Products/Product';

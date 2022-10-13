@@ -15,7 +15,7 @@ function Product({ product, setCurrentId }) {
     return (
         <div>
             <div className={cx('box-content')}>
-                <Button to={''}>
+                <div>
                     <div className={cx('box-product')}>
                         <div>
                             <div className={cx('image')}>
@@ -64,7 +64,7 @@ function Product({ product, setCurrentId }) {
                             </div>
                         </div>
                     </div>
-                </Button>
+                </div>
             </div>
             <div className={cx('box-control')}>
                 <Button

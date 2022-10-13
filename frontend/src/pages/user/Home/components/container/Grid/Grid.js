@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { ShipIcon } from '~/components/Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
