@@ -5,6 +5,8 @@ export default (products = [], action) => {
             return products.filter((product) => product._id !== action.payload)
         case 'UPDATE':
             return products.map((product) => product._id === action.payload._id ? action.payload : product);      
+        case 'GET':
+            return action.payload;            
         case 'FETCH_ALL':
             return action.payload;            
         case 'CREATE':

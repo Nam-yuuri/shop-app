@@ -1,3 +1,4 @@
+import config from '~/config';
 import Cart from '~/pages/user/Cart';
 import Home from '~/pages/user/Home';
 import Laptop from '~/pages/user/Laptop';
@@ -16,7 +17,7 @@ import Boxbrands from '~/pages/admin/boxBrands/boxBrands';
 import Boxproducts from '~/pages/admin/boxProducts/boxProducts';
 import Boxcarousels from '~/pages/admin/boxCarousel/boxCarousel';
 import BoxImg from '~/pages/admin/boxImgs/boxImg';
-
+import BoxProfile from '~/pages/admin/boxProducts/boxProfiles/boxProfiles';
 
 // Public routes
 const publicRoutes = [
@@ -34,6 +35,7 @@ const publicRoutes = [
     { path: 'brands', component: Boxbrands, layout: Fragment },
     { path: 'carousels', component: Boxcarousels, layout: Fragment },
     { path: 'boximgs', component: BoxImg, layout: Fragment },
+    { path: config.routes.profiles, component: BoxProfile, layout: Fragment },
 ];
 
 const privateRoutes = [

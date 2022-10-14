@@ -20,6 +20,16 @@ export const createProduct = (product) => async (dispatch) => {
     }
 };
 
+export const getProduct = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.fetchProducts();
+
+        dispatch({ type: 'GET', payload: data });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
 export const updateProduct = (id, product) => async (dispatch) => {
     try {
         const { data } = await api.updateProduct(id, product);

@@ -1,6 +1,6 @@
 const routes = {
     home: '/',
-    profile: '/@:nickname',
+    // profiles: '/profiles/@:id',
     search: '/search',
     laptop: '/laptop',
     brands: '/brands',

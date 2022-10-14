@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// import ProductMessage from "../models/Products.js";
+import ProductMessage from "../models/Products.js";
 
 export const getProducts = async (req, res) => {
   try {
@@ -23,6 +23,14 @@ export const createProduct = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const getProduct = async (req, res) => {
+  const { id: _id } = req.params;
+
+  const foundProduct = await ProductMessage.findById(_id);
+
+  res.json(foundProduct)
 };
 
 export const updateProduct = async (req, res) => {

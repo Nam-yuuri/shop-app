@@ -235,3 +235,14 @@
     justify-content: center;
     margin-bottom: 10px;
 }
+
+.wrapper-product{
+    position: relative;
+
+    .Profile{
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+    }
+}

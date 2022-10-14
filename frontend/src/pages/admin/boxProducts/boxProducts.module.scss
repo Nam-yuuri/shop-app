@@ -13,7 +13,7 @@
     }
     .form{
         width: calc(30% - 40px);
-        padding: 20px;
+        padding: 10px;
         height: fit-content;
         box-shadow: var(--box-shadow);
         position: fixed;
@@ -23,3 +23,24 @@
 }
 
 
+.admin{
+    position: relative;
+
+    .Profile{
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: -50px;
+        // background-color: blue;
+        width: calc(100vw - 17px);
+        background-color: var(--icon-color);
+
+        .box-profile{
+            background-color: #fff;
+            margin-top: -20px;
+            // width: 90%;
+            // margin: 10px;
+        }
+
+    }
+}

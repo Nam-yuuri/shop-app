@@ -1,33 +1,51 @@
-import './Header.css'
+import './Header.css';
 
-import Button from "~/components/Button";
-
+// import NavLink from '~/components/NavLink';
+// import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
+    // const [click, setClick] = useState('Brands');
+    // console.log(click)
+
+    // var li = document.getElementById(click);
+    // console.log(li);
+
+    // console.log(li);
+
+    // var list = li.classList;
+    // console.log(list)
+
+    // if(li === click){
+    //     list.add("Click")
+    // } else {
+    //     list.remove("Click")
+    // }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Button className="nav-link active" aria-current="page" to='/brands'>
+                        <li className="nav-item" id="Brands">
+                            <NavLink className="nav-link" aria-current="page" to="/brands">
                                 Brands
-                            </Button>
+                            </NavLink>
                         </li>
-                        <li className="nav-item">
-                            <Button className="nav-link" to='/products'>
+                        <li className="nav-item" id="Products" >
+                            <NavLink className="nav-link" to="/products">
                                 Products
-                            </Button>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                            <Button className="nav-link" to='/carousels'>
+                            <NavLink className="nav-link" to="/carousels">
                                 Carousels
-                            </Button>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                            <Button className="nav-link" to='/boximgs'>
+                            <NavLink className="nav-link" to="/boximgs">
                                 Box Image
-                            </Button>
+                            </NavLink>
                         </li>
                         
                     </ul>

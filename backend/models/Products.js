@@ -28,6 +28,14 @@ const productSchema = mongoose.Schema({
     type: String,
     // require: true
   },
+  HSD: {
+    type: Date,
+    // require: true
+  },
+  percent: {
+    type: String,
+    // require: true
+  },
   percent: {
     type: String,
     // require: true
@@ -35,7 +43,17 @@ const productSchema = mongoose.Schema({
   gift_image: {
     type: String,
   },
+  gift_image_name: {
+    type: String,
+  },
+  gift_image_count: {
+    type: Number,
+  },
   brand: {
+    type: String,
+    require: true,
+  },
+  SKU: {
     type: String,
     require: true,
   },

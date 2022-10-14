@@ -6,6 +6,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  getProduct,
 } from "../controllers/Products.js";
 
 const router = express.Router();
@@ -13,6 +14,8 @@ const router = express.Router();
 router.get("/", getProducts);
 
 router.post("/", createProduct);
+
+router.get("/:id", getProduct);
 
 router.patch("/:id", updateProduct);
 
