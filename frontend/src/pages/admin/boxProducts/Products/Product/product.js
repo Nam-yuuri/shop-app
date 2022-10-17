@@ -10,7 +10,7 @@ import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
-function Product({ product, setCurrentId, setProfile, setProfileCurrentId }) {
+function Product({ product, setCurrentId, setProfile, setProfileCurrentId}) {
     const dispatch = useDispatch();
     // console.log(product);
 

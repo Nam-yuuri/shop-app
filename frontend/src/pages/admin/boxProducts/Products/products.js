@@ -7,7 +7,7 @@ import Product from './Product/product';
 
 const cx = classNames.bind(styles);
 
-function Products({ setCurrentId, currentId, setProfile, setProfileCurrentId }) {
+function Products({ setCurrentId, currentId, setProfile, setProfileCurrentId}) {
     const products = useSelector((state) => state.products);
     // console.log(products);
 
@@ -19,7 +19,7 @@ function Products({ setCurrentId, currentId, setProfile, setProfileCurrentId }) 
                 <div className={cx('container-products')}>
                     {products.map((product) => (
                         <div className={cx('box-products')} key={product._id}>
-                            <Product product={product} setCurrentId={setCurrentId} currentId={currentId} setProfile={setProfile} setProfileCurrentId={setProfileCurrentId}/>
+                            <Product product={product} setCurrentId={setCurrentId} currentId={currentId} setProfile={setProfile} setProfileCurrentId={setProfileCurrentId} />
                         </div>
                     ))}
                 </div>

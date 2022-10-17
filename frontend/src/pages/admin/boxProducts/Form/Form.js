@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct, getProducts, updateProduct } from '~/actions/products';
 import Button from '~/components/Button';
+import Prodcuts from '../Form/Products/Products'
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +23,23 @@ function Form({ currentId, setCurrentId }) {
         gift_image_count: '',
         brand: '',
         SKU: '',
-        HSD: ''
+        HSD: '',
+        Insurance: '',
+        Size: '',
+        Resolution: '',
+        Background_panels: '',
+        Scan_frequency: '',
+        Response_time: '',
+        Screen_Type: '',
+        Brightness: '',
+        View: '',
+        Color_visibility: '',
+        Static_Contrast: '',
+        Surface: '',
+        Mass: '',
+        Accessories_included: '',
+        Loudspeaker: '',
+        Output_port: '',
     });
 
     const product = useSelector((state) => (currentId ? state.products.find((p) => p._id === currentId) : null));
@@ -50,7 +67,7 @@ function Form({ currentId, setCurrentId }) {
         }
 
         setProductData({
-            // name: '',
+            name: '',
             to: '',
             img: '',
             promotion_money: '',
@@ -63,203 +80,64 @@ function Form({ currentId, setCurrentId }) {
             gift_image_count: '',
             brand: '',
             SKU: '',
-            HSD: ''
+            HSD: '',
+            Insurance: '',
+            Size: '',
+            Resolution: '',
+            Background_panels: '',
+            Scan_frequency: '',
+            Response_time: '',
+            Screen_Type: '',
+            Brightness: '',
+            View: '',
+            Color_visibility: '',
+            Static_Contrast: '',
+            Surface: '',
+            Mass: '',
+            Accessories_included: '',
+            Loudspeaker: '',
+            Output_port: '',
         });
 
         setCurrentId(0);
     };
     const handleClear = () => {
         setCurrentId(0);
-        setProductData({});
+        setProductData({
+            name: '',
+            to: '',
+            img: '',
+            promotion_money: '',
+            info: '',
+            cost: '',
+            promotional_price: '',
+            percent: '',
+            gift_image: '',
+            gift_image_name: '',
+            gift_image_count: '',
+            brand: '',
+            SKU: '',
+            HSD: '',
+            Insurance: '',
+            Size: '',
+            Resolution: '',
+            Background_panels: '',
+            Scan_frequency: '',
+            Response_time: '',
+            Screen_Type: '',
+            Brightness: '',
+            View: '',
+            Color_visibility: '',
+            Static_Contrast: '',
+            Surface: '',
+            Mass: '',
+            Accessories_included: '',
+            Loudspeaker: '',
+            Output_port: '',
+        });
     };
     return (
-        <form>
-            <h2 className={cx('form-title')}>{currentId ? 'Editing' : 'Create'} Products</h2>
-            <div className={cx('form-content')}>
-                {/* <div className="input-group mb-3">
-                    <label className="input-group-text" htmlFor="inputGroupFile01" style={{ fontSize: '1.3rem' }}>
-                        Image product
-                    </label>
-                    <input
-                        type="file"
-                        className="form-control"
-                        id="inputGroupFile01"
-                        value={productData.img}
-                        onChange={(e) => setProductData({ ...productData, img: e.target.value })}
-                    />
-                </div> */}
-                {/* <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputEmail1 inputGroup-sizing-lg"
-                        aria-describedby="emailHelp"
-                        placeholder="Name"
-                        value={productData.name}
-                        onChange={(e) => setProductData({ ...productData, name: e.target.value })}
-                    />
-                </div> */}
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="Image product"
-                        value={productData.img}
-                        onChange={(e) => setProductData({ ...productData, img: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="promotion money"
-                        value={productData.promotion_money}
-                        onChange={(e) => setProductData({ ...productData, promotion_money: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <textarea
-                        style={{ minHeight: '85px', maxHeight: '230px' }}
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="info"
-                        value={productData.info}
-                        onChange={(e) => setProductData({ ...productData, info: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="promotional price"
-                        value={productData.promotional_price}
-                        onChange={(e) => setProductData({ ...productData, promotional_price: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="cost"
-                        value={productData.cost}
-                        onChange={(e) => setProductData({ ...productData, cost: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="date"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="HSD"
-                        value={productData.HSD}
-                        onChange={(e) => setProductData({ ...productData, HSD: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="percent"
-                        value={productData.percent}
-                        onChange={(e) => setProductData({ ...productData, percent: e.target.value })}
-                    />
-                </div>
-                {/* <div className="input-group mb-3">
-                    <label className="input-group-text" htmlFor="inputGroupFile01" style={{ fontSize: '1.3rem' }}>
-                        Image gift
-                    </label>
-                    <input
-                        type="file"
-                        className="form-control"
-                        id="inputGroupFile01"
-                        placeholder="gift img"
-                        value={productData.gift_image}
-                        onChange={(e) => setProductData({ ...productData, gift_image: e.target.value })}
-                    />
-                </div> */}
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="Image gift"
-                        value={productData.gift_image}
-                        onChange={(e) => setProductData({ ...productData, gift_image: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="Number"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="gift image count"
-                        value={productData.gift_image_count}
-                        onChange={(e) => setProductData({ ...productData, gift_image_count: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="gift image name"
-                        value={productData.gift_image_name}
-                        onChange={(e) => setProductData({ ...productData, gift_image_name: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="brand"
-                        value={productData.brand}
-                        onChange={(e) => setProductData({ ...productData, brand: e.target.value })}
-                    />
-                </div>
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="SKU"
-                        value={productData.SKU}
-                        onChange={(e) => setProductData({ ...productData, SKU: e.target.value })}
-                    />
-                </div>
-                
-            </div>
-
-            {productData.img.length ||
-            productData.promotion_money.length ||
-            productData.info.length ||
-            productData.cost.length ||
-            productData.promotional_price.length ||
-            productData.percent.length ||
-            productData.gift_image.length ||
-            productData.brand.length ? (
-                <Button primary small type="submit" className="btn btn-primary" onClick={handleAdd}>
-                    {currentId ? 'UPDATE' : 'ADD'}
-                </Button>
-            ) : (
-                <Button disabled small type="submit" className="btn btn-primary" onClick={handleAdd}>
-                    {currentId ? 'UPDATE' : 'ADD'}
-                </Button>
-            )}
-            {/* {currentId ? (
-                <Fragment />
-            ) : ( */}
-            {/* <Button primary small type="submit" className="btn btn-primary" onClick={handleClear}>
-                CLEAR
-            </Button> */}
-            {/* )} */}
-        </form>
+        <Prodcuts currentId={currentId} setCurrentId={setCurrentId} handleAdd={handleAdd} product={product} setProductData={setProductData} productData={productData}/>
     );
 }
 

@@ -46,7 +46,7 @@ function Boxproducts() {
             ) : (
                 <div className={cx('Profile')}>
                     <div className={cx('box-profile')}>
-                        <BoxProfile setProfile={setProfile} profileCurrentId={profileCurrentId} setProfileCurrentId={setProfileCurrentId}/>
+                        <BoxProfile setProfile={setProfile} profileCurrentId={profileCurrentId} setProfileCurrentId={setProfileCurrentId} currentId={currentId} setCurrentId={setCurrentId}/>
                     </div>
                 </div>
             )}
