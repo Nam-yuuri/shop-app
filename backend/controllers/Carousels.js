@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import CarouselMessage from '../models/Carousels.js';
+// import CarouselMessage from '../models/Carousels.js';
 
 export const getCarousels = async (req, res) => {
     try {

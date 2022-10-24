@@ -5,10 +5,6 @@ const productSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  to: {
-    type: String,
-    require: true,
-  },
   img: {
     type: String,
   },
@@ -26,19 +22,19 @@ const productSchema = mongoose.Schema({
   },
   promotional_price: {
     type: String,
-    // require: true
+    require: true
   },
   HSD: {
     type: Date,
-    // require: true
+    require: true
   },
   percent: {
     type: String,
-    // require: true
+    require: true
   },
   percent: {
     type: String,
-    // require: true
+    require: true
   },
   gift_image: {
     type: String,
@@ -135,7 +131,6 @@ const productSchema = mongoose.Schema({
     require: true,
     default: "Null",
   },
-
   CPU: {
     type: String,
     require: true,
@@ -166,6 +161,18 @@ const productSchema = mongoose.Schema({
     require: true,
     default: "Null",
   },
+  Product_Description: [
+    {
+      title: {
+        type: String,
+        default: 'Null'
+      },
+      image: {
+        type: String,
+        default: 'Null'
+      }
+    }
+  ]
 });
 
 const ProductMessage = mongoose.model("Product", productSchema);
