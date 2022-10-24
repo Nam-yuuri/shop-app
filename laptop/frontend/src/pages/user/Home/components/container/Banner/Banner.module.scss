@@ -1,0 +1,36 @@
+.banner {
+    width: 1232px;
+    padding-right: 16px;
+    // padding-left: 16px;
+    margin-right: auto;
+    margin-left: auto;
+    border-style: none;
+    border-radius: 0px;
+    border-width: 1px;
+    border-color: unset;
+    opacity: 1;
+    background-color: transparent;
+    margin-bottom: 24px;
+
+    .box-banner {
+        // padding: 0 8px;
+
+        .box-img {
+            display: inline-block;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            max-height: 136px;
+
+            img {
+                width: 100%;
+                height: auto;
+                transition: transform 0.3s ease 0s;
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+.slick-track {
+    display: flex;
+}
+
+.slick-list {
+    overflow: hidden;
+}
+
+.slick-arrow {
+    display: none !important;
+}
+
+.slick-dots {
+    display: flex !important;
+}
+
+.slick-dots li {
+    display: none;
+}
+
+.carousel {
+    margin-bottom: 50px;
+}
+
+.app-scroll {
+    margin-top: 90px;
+    transition: margin-top 0.3s ease 0s;
+}

@@ -1,0 +1,27 @@
+.admin{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.content{
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+    position: relative;
+    .brands{
+        width: 70%;
+        min-height: 90vh;
+        background-color: #f6f6f6;
+    }
+    .form{
+        width: calc(30% - 40px);
+        padding: 20px;
+        height: fit-content;
+        box-shadow: var(--box-shadow);
+        position: fixed;
+        right: 50px;
+        border-radius: 4px;
+    }
+}
+
+

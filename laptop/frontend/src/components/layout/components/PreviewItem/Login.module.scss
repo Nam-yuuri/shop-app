@@ -1,0 +1,98 @@
+.box-content {
+    display: flex;
+    padding: 0;
+    align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    background: rgb(255, 255, 255);
+    padding: 0.6rem;
+    // cursor: pointer;
+
+    .box-text {
+        color: var(--text-color);
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        margin: 0px 10px;
+        flex: 1 1 0%;
+        font-size: 1.4rem;
+        font-weight: 400;
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.box {
+    padding: 8px;
+
+    .box-content {
+        margin-left: 0 !important;
+        transition: background-color 0.2s ease 0s;
+
+        &:hover {
+            background-color: var(--hover-color);
+        }
+    }
+}
+
+.box {
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    width: 250px;
+    color: var(--icon-color);
+
+    .box-account {
+        // padding: 8px;
+        height: fit-content;
+        display: flex;
+
+        .account-icon {
+            width: 44px;
+            margin-right: 8px;
+
+            svg {
+                color: var(--icon-color);
+            }
+        }
+
+        .account-name {
+            h5 {
+                font-size: 1.44rem;
+                font-weight: 400;
+                margin: 0;
+                color: var(--text-color);
+            }
+        }
+    }
+
+    .box-info {
+        .info-icon {
+            svg {
+                width: 1.8rem;
+                height: 1.8rem;
+                color: var(--icon-color);
+            }
+        }
+    }
+
+    .btn {
+        padding: 10px;
+
+        button {
+            width: 100%;
+
+            span {
+                font-size: 1.4rem;
+                font-weight: 400;
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+span{
+    font-size: 1.6rem;
+}
+
+.active {
+    background-color: #9f9f9f;
+}
+
+.nav-item{
+    min-width: 86px;
+    text-align: center;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+nav{
+    border: solid 1px #ddd;
+    padding: 0 !important;
+    border-radius: 4px;
+}
+
+ul{
+    justify-content: space-around;
+    /* width: 100%; */
+}
+
+.container-fluid{
+    padding: 0;
+}

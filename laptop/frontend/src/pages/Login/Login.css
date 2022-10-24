@@ -1,0 +1,62 @@
+.card-title{
+    font-size: 3rem !important;
+    /* font-weight: 700 !important; */
+}
+
+#floatingInput, #floatingPassword, #inputAddress, #inputRepeat, #inputPassword, .form-control{
+    height: 40px !important;
+    padding: 15px 7.5px !important;
+    /* padding-top: 20px !important; */
+    font-size: 1.4rem !important;
+}
+
+.form-floating{
+    position: relative;
+}
+
+label{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1.6rem 0.75rem !important;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+}
+
+.btn-login{
+    height: 50px;
+    font-size: 1.6rem;
+}
+
+.row, .form-group{
+    margin: 10px 0;
+}
+
+.row{
+    display: flex;
+    gap: 10px;
+}
+.col{
+    padding: 0;
+}
+
+.btn-switch{
+    cursor: pointer;
+    transition: color .1s ease
+}
+
+.btn-switch:hover{
+    color: var(--primary);
+}
+
+.btn-login{
+    margin-top: 10px;
+}
+
+iframe{
+    width: 100% !important;
+    text-align: center !important;
+}
