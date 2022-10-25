@@ -2,7 +2,7 @@ import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
-import { GoogleLogin,googleLogout } from '@react-oauth/google';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
@@ -24,7 +24,6 @@ import SearchItem from '../PreviewItem/SearchItem';
 import ProductItem from '../PreviewItem/Products';
 import LoginItem from '../PreviewItem/Login';
 
-import Brands from '../PreviewItem/brands/brands';
 
 const cx = classNames.bind(styles);
 
@@ -106,13 +105,13 @@ function Header() {
         return (
             <div className={cx('preview')} tabIndex="-1" {...props}>
                 <PopperWrapper>
-                    <Brands />
+                    <ProductItem />
                 </PopperWrapper>
             </div>
         );
     };
 
-    const user = null
+    const user = null;
 
     return (
         <div className={cx('wrapper')}>
@@ -189,14 +188,18 @@ function Header() {
                                         render={renderLogin}
                                     >
                                         <div className={cx('box', 'hover')}>
-                                                <div>
-                                                    <img src={user.result.imageUrl} alt={user.result.name} style={{width:'36px', height:'36px'}} />
-                                                </div>
-                                                <div>
-                                                    <div className={cx('text')}>Xin chào,</div>
-                                                    <div className={cx('text')}>{user.result.name}</div>
-                                                </div>
+                                            <div>
+                                                <img
+                                                    src={user.result.imageUrl}
+                                                    alt={user.result.name}
+                                                    style={{ width: '36px', height: '36px' }}
+                                                />
                                             </div>
+                                            <div>
+                                                <div className={cx('text')}>Xin chào,</div>
+                                                <div className={cx('text')}>{user.result.name}</div>
+                                            </div>
+                                        </div>
                                     </Tippy>
                                 </Button>
                             ) : (
@@ -309,7 +312,11 @@ function Header() {
                                         >
                                             <div className={cx('box', 'hover')}>
                                                 <div>
-                                                    <img src={user.result.imageUrl} alt={user.result.name} style={{width:'36px', height:'36px'}} />
+                                                    <img
+                                                        src={user.result.imageUrl}
+                                                        alt={user.result.name}
+                                                        style={{ width: '36px', height: '36px' }}
+                                                    />
                                                 </div>
                                                 <div>
                                                     <div className={cx('text')}>Xin chào,</div>
