@@ -29,10 +29,10 @@ const productSchema = mongoose.Schema({
 //     type: String,
 //     require: true,
 //   },
-//   brand: {
-//     type: String,
-//     required: [true, "Hãy nhập thương hiệu của sản phẩm"],
-//   },
+  brand: {
+    type: String,
+    required: [true, "Hãy nhập thương hiệu của sản phẩm"],
+  },
 //   SKU: {
 //     type: String,
 //     required: [true, "Hãy nhập mã của sản phẩm"],

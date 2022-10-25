@@ -250,13 +250,19 @@
     .check {
         min-width: calc(50% - 3px);
         margin-right: 3px;
+        cursor: pointer;
 
         .label {
             display: flex;
-            // gap: 4px;
             display: -webkit-box;
             cursor: pointer;
             align-items: center;
+            padding-left: 1px;
+            border-radius: 4px;
+
+            input{
+                cursor: pointer;
+            }
 
             span {
                 padding: 0px;

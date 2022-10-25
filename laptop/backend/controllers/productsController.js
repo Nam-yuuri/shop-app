@@ -35,9 +35,9 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Get Product Details
-exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.findById(req.params.id).populate("category");
+// Get Product with brand
+exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.find({brand: req.params.brand}).populate("category");
 
   if (!product) {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
@@ -69,19 +69,20 @@ exports.getTopProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+
 //get product
-// exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
-//   const product = await Product.findById(req.params.id);
+exports.getProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.findById(req.params.id).populate("category");
 
-//   if (!product) {
-//     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
-//   }
+  if (!product) {
+    return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
+  }
 
-//   res.status(200).json({
-//     success: true,
-//     product,
-//   });
-// });
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
 
 // Create Product
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {

@@ -11,6 +11,8 @@ import { DataPanelProduct } from '~/Data/Panel/DataPanel';
 
 const cx = classNames.bind(styles);
 
+const url = 'https://lh3.googleusercontent.com/j6g11MMnNEM3X07636AS4A3-5Nw213c9l6B_WKIuClU3dXiPcvxb3xf8ib3iOXPzZVmXi4zFAfbSuexQA1-xFxYCPemjtrDY=w1232'
+
 function Panel() {
     const settings = {
         infinite: true,
@@ -31,10 +33,16 @@ function Panel() {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('container')}>
+            <div
+                className={cx('container')}
+                style={{
+                    backgroundImage:
+                        `url(${url})`,
+                }}
+            >
                 <div className={cx('header')}>
-                    <div className={cx('header-text')}>Laptop</div>
-                    <Button to={'/laptop'}>
+                    <div className={cx('header-text')}>Laptop bán chạy</div>
+                    <Button to={'/brand'}>
                         <div>Xem tất cả</div>
                         <FontAwesomeIcon icon={faChevronRight} />
                     </Button>

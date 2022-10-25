@@ -4,16 +4,17 @@ const {
   createProduct,
   getAllProducts,
   getTopProducts,
-  getProductDetails,
+  getProductsBrand,
   updateProduct,
   deleteProduct,
+  getProduct
 } = require("../controllers/productsController");
 
 router.get("/product/", getAllProducts);
 router.get("/product/top", getTopProducts);
-router.get("/product/:id", getProductDetails);
+router.get("/admin/product/:id", getProduct);
+router.get("/product/:brand", getProductsBrand);
 router.post("/product/new", createProduct);
-router.get("/product/top", getTopProducts);
 router.put("/product/:id", updateProduct);
 router.delete("/product/:id", deleteProduct);
 
