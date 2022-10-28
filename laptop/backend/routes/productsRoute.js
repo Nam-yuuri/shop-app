@@ -7,15 +7,36 @@ const {
   getProductsBrand,
   updateProduct,
   deleteProduct,
-  getProduct
+  getProduct,
+  getAdminAllProducts,
 } = require("../controllers/productsController");
 
-router.get("/product/", getAllProducts);
+const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
+
+router.get("/products", getAllProducts);
+
+router.get("/admin/products", getAdminAllProducts);
+
 router.get("/product/top", getTopProducts);
+
 router.get("/admin/product/:id", getProduct);
+
 router.get("/product/:brand", getProductsBrand);
+
 router.post("/product/new", createProduct);
-router.put("/product/:id", updateProduct);
-router.delete("/product/:id", deleteProduct);
+
+router.put(
+  "/product/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  updateProduct
+);
+
+router.delete(
+  "/product/:id",
+  // isAuthenticatedUser,
+  authorizeRoles("admin"),
+  deleteProduct
+);
 
 module.exports = router;

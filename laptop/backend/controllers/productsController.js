@@ -50,7 +50,7 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
 });
 
 //get all product
-exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
+exports.getAdminAllProducts = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.find().populate("category");
 
   res.status(200).json({

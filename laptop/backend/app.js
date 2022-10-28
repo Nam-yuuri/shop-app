@@ -51,6 +51,7 @@ const brandRoute = require("./routes/brandRoute");
 const carouselRoute = require("./routes/carouselRoute");
 const bannerRoute = require("./routes/bannerRoute");
 const HorizontalRoute = require("./routes/bannerHorizontalRoute");
+const imageRoute = require("./routes/image");
 
 app.use("/api/v1", productRoute);
 app.use("/api/v1", userRoute);
@@ -60,6 +61,7 @@ app.use("/api/v1", brandRoute);
 app.use("/api/v1", carouselRoute);
 app.use("/api/v1", bannerRoute);
 app.use("/api/v1", HorizontalRoute);
+app.use("/api/v1", imageRoute);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));

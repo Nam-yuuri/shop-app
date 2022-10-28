@@ -33,11 +33,10 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
         default:
-          "https://res.cloudinary.com/phuockaito/image/upload/v1617902959/user/1_gxwhfk.jpg",
+          "https://res.cloudinary.com/dx1ecgla5/image/upload/v1666833940/noimg/noimg_phsgc3.jpg",
       },
     },
     role: {
-      //User -> Staff -> Admin
       type: String,
       default: "user",
     },

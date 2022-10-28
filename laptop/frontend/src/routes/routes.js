@@ -1,4 +1,4 @@
-import config from '~/config';
+// import config from '~/config';
 import Cart from '~/pages/user/Cart';
 import Home from '~/pages/user/Home';
 import Laptop from '~/pages/user/Laptop';
@@ -9,15 +9,6 @@ import Brands from '~/pages/user/Brands';
 import Account from '~/pages/user/Account';
 import Bill from '~/pages/user/Account/Bill';
 import Address from '~/pages/user/Account/Address';
-import { Fragment } from 'react';
-// import Admin from '~/pages/admin/admin';
-// import adminBrands from '~/pages/admin/boxBrands/boxBrands';
-// import Admin from '~/pages/admin/admin';
-import Boxbrands from '~/pages/admin/boxBrands/boxBrands';
-import Boxproducts from '~/pages/admin/boxProducts/boxProducts';
-import Boxcarousels from '~/pages/admin/boxCarousel/boxCarousel';
-import BoxImg from '~/pages/admin/boxImgs/boxImg';
-import BoxProfile from '~/pages/admin/boxProducts/boxProfiles/boxProfiles';
 
 // Public routes
 const publicRoutes = [
@@ -31,16 +22,11 @@ const publicRoutes = [
     { path: 'account', component: Account },
     { path: 'bill', component: Bill },
     { path: 'address', component: Address },
-    { path: 'products', component: Boxproducts, layout: Fragment },
-    { path: 'brands', component: Boxbrands, layout: Fragment },
-    { path: 'carousels', component: Boxcarousels, layout: Fragment },
-    { path: 'boximgs', component: BoxImg, layout: Fragment },
-    { path: config.routes.profiles, component: BoxProfile, layout: Fragment },
+
 ];
 
 const privateRoutes = [
-    { path: 'products', component: Boxproducts, layout: Fragment },
-    { path: 'brands', component: Boxbrands, layout: Fragment },
+  
 ];
 
 export { publicRoutes, privateRoutes };
