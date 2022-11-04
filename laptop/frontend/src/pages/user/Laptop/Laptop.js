@@ -5,8 +5,9 @@ import Button from '~/components/Button';
 import { useEffect, useState } from 'react';
 import { AdvancedFilters, Bands, Chipset, GraphicChip, Mainboard, Trademark } from '~/Data/Asus/Asus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faCartPlus, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import Grid from '~/components/Grid';
+import './test.css';
 
 const cx = classNames.bind(styles);
 

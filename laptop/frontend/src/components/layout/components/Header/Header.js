@@ -155,7 +155,7 @@ function Header() {
                         <div className={cx('content')}>
                             <div className={cx('logo')}>
                                 <div className={cx('box', 'hover')}>
-                                    <Button to={'/'}>
+                                    <Button to={'/home'}>
                                         <img src="https://phongvu.vn/phongvu/logo-full.svg" alt="phongvu" />
                                     </Button>
                                 </div>
@@ -262,7 +262,7 @@ function Header() {
                                 <div className={cx('logo')}>
                                     <div className={cx('box', 'hover')}>
                                         <div>
-                                            <Button to={'/'}>
+                                            <Button to={'/home'}>
                                                 <img src="https://phongvu.vn/phongvu/logo.svg" alt="phongvu" />
                                             </Button>
                                         </div>

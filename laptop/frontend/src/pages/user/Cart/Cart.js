@@ -11,6 +11,11 @@ const cx = classNames.bind(styles);
 
 function Cart() {
     const [loginResult, setLoginResult] = useState('');
+    const [onHeight, setOnHeight] = useState(false);
+
+    const handleClick = () => {
+        onHeight ? setOnHeight(false) : setOnHeight(true);
+    };
 
     const handleBuy = () => {};
 
@@ -318,7 +323,7 @@ function Cart() {
                                         Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng
                                     </div>
                                 </div>
-                                <div className={cx('total-money')}>
+                                <div className={cx('total-money', 'laptop')}>
                                     <div className={cx('total-money-header')}>
                                         <h6>Thanh toán</h6>
                                     </div>
@@ -351,6 +356,57 @@ function Cart() {
                                             </Button>
                                         </div>
                                     )}
+                                </div>
+                                {onHeight ? <div className={cx('wall')}></div> : ''}
+                                <div className={cx('total-money', 'tablet')}>
+                                    <div
+                                        className={cx('box-total-money')}
+                                        style={{ height: onHeight ? 'auto' : '0', opacity: onHeight ? '1' : '0' }}
+                                    >
+                                        <div className={cx('total-money-header')}>
+                                            <h6>Thanh toán</h6>
+                                        </div>
+                                        <div className={cx('total-money-content')}>
+                                            <div className={cx('total-money-box')}>
+                                                <div className={cx('total-provisional-calculation')}>
+                                                    <div className={cx('money-text')}>Tổng tạm tính</div>
+                                                    <div className={cx('money-number')}>88.880.000₫</div>
+                                                </div>
+                                                <div className={cx('into-money')}>
+                                                    <div className={cx('money-text')}>Thành tiền</div>
+                                                    <div className={cx('money-number')}>
+                                                        <span>88.880.000₫</span>
+                                                        <div className={cx('VTA')}>(Đã bao gồm VAT)</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={cx('box_btn-money')}>
+                                        <div className={cx('money-number')} onClick={handleClick}>
+                                            <span>88.880.000₫</span>
+                                            <div
+                                                className={cx('btn-icon')}
+                                                style={{ transform: onHeight ? 'rotate(180deg)' : '' }}
+                                            >
+                                                <FontAwesomeIcon icon={faAngleDown} />
+                                            </div>
+                                        </div>
+                                        {loginResult ? (
+                                            <div className={cx('btn-money')}>
+                                                <Button primary large onClick={handleIntoMoney} href={' '}>
+                                                    TIẾP TỤC
+                                                </Button>
+                                            </div>
+                                        ) : (
+                                            <div className={cx('btn-money')}>
+                                                <Button primary large href={'/login'}>
+                                                    THANH TOÁN
+                                                    <span>Bạn cần đăng nhập để tiếp tục</span>
+                                                </Button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

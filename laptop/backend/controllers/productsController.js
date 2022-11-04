@@ -37,7 +37,9 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
 
 // Get Product with brand
 exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.find({brand: req.params.brand}).populate("category");
+  const product = await Product.find({ brand: req.params.brand }).populate(
+    "category"
+  );
 
   if (!product) {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
@@ -68,7 +70,6 @@ exports.getTopProducts = catchAsyncErrors(async (req, res, next) => {
     product,
   });
 });
-
 
 //get product
 exports.getProduct = catchAsyncErrors(async (req, res, next) => {
@@ -133,7 +134,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 // Update Product -- Admin
 
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
-  let product = await Product.findById(req.params.id);
+  let product = await Product.findByIdAndUpdate(req.params.id);
 
   if (!product) {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));

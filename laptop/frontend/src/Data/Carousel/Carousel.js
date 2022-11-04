@@ -29,11 +29,6 @@ export const DataCarousel = [
         linkImg:
             'https://lh3.googleusercontent.com/q4Knj3SkeQJeR8dyfilKzqMfuQyIkbRg8_y4ayyco5lNvYki_oSB8PCycwSj8Fqifcm8NpGJiEd48boGfLl5TGZaKqEYVTvb8g=rw-w1920',
     },
-    {
-        id: 7,
-        linkImg:
-            'http://localhost:3000/static/media/error-image.9367a32b2382ee1e3991.png',
-    },
 ];
 
 export const DataCarouselImage = [

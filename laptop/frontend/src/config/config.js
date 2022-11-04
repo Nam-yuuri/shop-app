@@ -1,9 +1,9 @@
 const routes = {
-    home: '/',
+    home: '/home',
     // profiles: '/profiles/@:id',
     search: '/search',
     laptop: '/laptop',
-    brands: '/brands',
+    brand: '/brand',
     cart: '/cart',
     login: '/login',
     info: '/info',

@@ -31,7 +31,7 @@
         .img {
             padding: 0 10px;
             max-width: 25%;
-            overflow: hidden;
+            // overflow: hidden;
             border-radius: 10px;
 
             img {
@@ -71,3 +71,47 @@
 //     margin-top: 90px;
 //     transition: margin-top 0.3s ease 0s;
 // }
+
+@media screen and (max-width: 768px) {
+    .box{
+        bottom: -20%;
+    }
+
+    .cart-top{
+        min-height: auto;
+        max-height: auto;
+        text-align: center;
+        border-radius: 8px;
+        img{
+            height: auto;
+            border-radius: 8px;
+            // width: 100%;
+            // transform: translateY(-60px);
+        }
+    }
+
+}
+
+@media screen and (max-width: 426px) {
+
+    .box{
+        display: none;
+    }
+
+    .cart{
+        border-radius: 8px;
+    }
+
+    .cart-top{
+        min-height: auto;
+        max-height: auto;
+        text-align: center;
+        border-radius: 8px;
+        img{
+            height: auto;
+            border-radius: 8px;
+            // width: 100%;
+            // transform: translateY(-60px);
+        }
+    }
+}

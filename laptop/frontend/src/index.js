@@ -4,16 +4,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import { Provider } from 'react-dom'
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+// import { createStore, applyMiddleware, compose } from 'redux';
+// import thunk from 'redux-thunk';
 import GlobalStyles from '~/components/GlobalStyles/GlobalStyles';
 
 // import reducers from './reducers/index.js';
 
 import App from './App';
+import store from './store';
 
 // const store = createStore(reducers, compose(applyMiddleware(thunk)));
-const store = createStore(compose(applyMiddleware(thunk)));
+// const store = createStore(compose(applyMiddleware(thunk)));
 // import store from './redux/store.js';
 
 // ReactDOM.render(

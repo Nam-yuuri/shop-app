@@ -41,7 +41,7 @@ function Carousel() {
     };
     return (
         <div className={scroll ? 'App app-scroll' : 'App'} id="app">
-            <div>
+            <div className='carousel'>
                 <Slider {...settings}>
                     {carousels.map((carousel) => (
                         <div className={cx('cart')} key={carousel.id}>

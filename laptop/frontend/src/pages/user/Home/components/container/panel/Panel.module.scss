@@ -106,7 +106,6 @@
 }
 
 .box-product {
-    
     .image {
         margin-bottom: 2px;
         position: relative;
@@ -323,5 +322,151 @@
             width: 100%;
             height: auto;
         }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .container {
+        background-repeat: round;
+    }
+
+    .box-content {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .header {
+        .header-text {
+            font-size: 1.4rem;
+        }
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .container {
+        background-repeat: round;
+    }
+
+    .box-content {
+        transform: scale(0.95);
+        display: flex !important;
+        text-align: center;
+        align-items: center;
+
+        a {
+            // transform: scale(0.8);
+            padding: 0;
+        }
+    }
+
+    .products {
+        display: flex;
+    
+        .box {
+            position: relative;
+            display: flex;
+            padding: 10px;
+            // padding-left: 0px;
+            width: 100%;
+    
+            .box-content {
+                background-color: #fff;
+                max-width: 226px;
+                // margin-left: 15px;
+                padding: 0 5px;
+            }
+        }
+    }
+
+    .box-image {
+        img {
+            width: 150px;
+            height: 150px;
+            transition: transform 0.3s ease 0s;
+    
+            &:hover {
+                transform: scale(1.1);
+                object-fit: contain;
+            }
+        }
+    }
+
+    .info, .price, .gift{
+        padding: 0 10px;
+    }
+
+    .promotion{
+        left: 5px;
+    }
+    
+}
+
+@media screen and (max-width: 425px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .container {
+        background-repeat: round;
+    }
+
+    .box-content {
+        transform: scale(0.95);
+        display: flex !important;
+        text-align: center;
+        align-items: center;
+
+        a {
+            transform: scale(1);
+            padding: 0;
+        }
+    }
+
+    .products {
+        display: flex;
+    
+        .box {
+            position: relative;
+            display: flex;
+            padding: 0px;
+            padding-left: 0px;
+            width: 100%;
+    
+            .box-content {
+                background-color: #fff;
+                max-width: 226px;
+                // margin-left: 15px;
+                padding: 0 5px;
+            }
+        }
+    }
+
+    .box-image {
+        img {
+            width: 150px;
+            height: 150px;
+            transition: transform 0.3s ease 0s;
+    
+            &:hover {
+                transform: scale(1.1);
+                object-fit: contain;
+            }
+        }
+    }
+
+    .info, .price, .gift{
+        padding: 0 10px;
+    }
+
+    .promotion{
+        left: 5px;
     }
 }

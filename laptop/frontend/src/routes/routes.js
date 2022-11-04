@@ -12,7 +12,7 @@ import Address from '~/pages/user/Account/Address';
 
 // Public routes
 const publicRoutes = [
-    { path: '/', component: Home },
+    { path: '/home', component: Home },
     { path: 'laptop', component: Laptop },
     { path: 'notification', component: Notification },
     { path: 'cart', component: Cart },

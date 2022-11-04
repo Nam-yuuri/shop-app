@@ -5,6 +5,7 @@ import Carousel from './Carousel';
 import styles from './Header.module.scss';
 
 import Product from './Products/Product';
+import ProductTablet from './ProductsTablet/Product'
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,9 @@ function HeaderHome({ children }) {
                     </div>
                     <div className={cx('product')}>
                         {scrollHeader ? <Product /> : <Fragment />}
+                    </div>
+                    <div className={cx('producttablet')}>
+                        <ProductTablet />
                     </div>
                 </div>
             </div>

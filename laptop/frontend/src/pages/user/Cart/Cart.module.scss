@@ -784,3 +784,133 @@
         }
     }
 }
+
+.laptop {
+    display: block;
+}
+
+.tablet {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .laptop {
+        display: none;
+    }
+
+    .tablet {
+        display: block;
+    }
+
+    .href {
+        margin-top: 50px;
+    }
+
+    .content {
+        box-sizing: border-box;
+        margin: 0px;
+        min-width: 0px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 64px;
+
+        .container-left {
+            box-sizing: border-box;
+            margin: 0px;
+            min-width: 0px;
+            width: 100%;
+        }
+
+        .container-right {
+            box-sizing: border-box;
+            margin: 0px;
+            min-width: 0px;
+            width: 100%;
+
+            .discount {
+                display: none;
+            }
+        }
+    }
+
+    .total-money {
+        position: fixed !important;
+        bottom: 64px;
+        right: 0;
+        left: 0;
+        padding: 16px 0px !important;
+        transition: all 5s ease-in-out 1s;
+
+        .total-money-header,
+        .total-money-content,
+        .box_btn-money {
+            padding: 0 16px;
+        }
+    }
+
+    .box_btn-money {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .money-number {
+            margin: 0px;
+            padding: 0px;
+            border-style: none;
+            border-radius: 0px;
+            border-width: 1px;
+            border-color: unset;
+            opacity: 1;
+            background-color: transparent;
+            color: inherit;
+            font-weight: 400;
+            text-decoration: unset;
+            font-size: 20px;
+            line-height: 24px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: unset;
+            max-width: unset;
+            min-width: unset;
+            transition: color 0.3s ease 0s;
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+
+            .btn-icon {
+                transition: transform 0.2s ease-in-out 0s;
+                position: relative;
+                svg {
+                    transition: transform 0.2s ease-in-out 0s;
+                    position: relative;
+                }
+            }
+        }
+
+        .btn-money {
+            width: 350px;
+        }
+    }
+
+    .box-total-money {
+        transition: height 0.1s ease 0s;
+    }
+
+    .wall {
+        opacity: 1;
+        transform: translateY(0%);
+        height: 100%;
+        width: 100%;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        position: fixed;
+        z-index: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        will-change: transform;
+        pointer-events: all;
+        inset: 0px;
+    }
+}

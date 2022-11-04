@@ -3,8 +3,17 @@
     margin-right: auto;
     margin-left: auto;
     margin-top: 80px;
+    margin-bottom: 80px;
 
     .box {
         margin-top: 25px;
+        // margin-bottom: 150px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container{
+        width: 100%;
+        margin-top: 0;
     }
 }

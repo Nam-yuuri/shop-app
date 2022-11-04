@@ -4,5 +4,18 @@
 }
 .slick-slider{
     width: 100%;
-    margin-left: 9px;
+    margin-left: 9.5px;
+}
+
+@media screen and (max-width: 768px) {
+    .slick-slider{
+        width: 100%;
+        margin-left: 6px;
+    }
+}
+@media screen and (max-width: 426px) {
+    .slick-slider{
+        width: 100%;
+        margin-left: 0px;
+    }
 }

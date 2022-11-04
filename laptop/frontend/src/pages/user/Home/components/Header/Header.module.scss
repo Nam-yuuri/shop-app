@@ -14,3 +14,17 @@
     left: 40px;
     transition: All 0.3s ease 0s;
 }
+
+.producttablet{
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .product{
+        display: none;
+    }
+
+    .producttablet{
+        display: block;
+    }
+}

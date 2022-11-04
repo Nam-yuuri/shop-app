@@ -1,0 +1,104 @@
+.wrapper {
+    background-color: var(--primary) !important;
+    // margin-bottom: 50px;
+    // position: fixed;
+    // width: 100vw;
+    // top: 0;
+    // z-index: 1;
+
+    .boxheader {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 16px;
+
+        .messager {
+            width: 24px;
+            height: 24px;
+
+            svg {
+                width: 24px;
+                height: 24px;
+                color: var(--white-color);
+            }
+        }
+    }
+
+
+
+    .containersearch {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 16px;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 0;
+        
+
+        .messager {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+
+            svg {
+                width: 24px;
+                height: 24px;
+                color: var(--white-color);
+            }
+        }
+
+        .boxsearch {
+            position: relative;
+
+            flex: 1;
+
+            .icon {
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                color: var(--button-icon-color, #757575);
+                position: absolute;
+                left: 10px;
+                top: 0px;
+                bottom: 0px;
+                z-index: 1;
+                margin: auto;
+            }
+
+            .input {
+                width: 100%;
+                height: 36px;
+                background-color: rgb(246, 246, 246);
+                border-radius: 8px;
+                outline: none;
+                border: none;
+                padding-left: 40px;
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+    .scroll{
+        position: fixed;
+        top: 0;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        background-color: var(--primary);
+        padding: 10px 16px;
+        margin: 0;
+        // transition: all 0.3s ease;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        background: rgb(20, 53, 195);
+        height: 70px;
+        border-bottom-left-radius: 30%;
+        border-bottom-right-radius: 30%;
+        position: absolute;
+        width: 100%;
+        overflow: hidden;
+        z-index: -1;
+    }
+}

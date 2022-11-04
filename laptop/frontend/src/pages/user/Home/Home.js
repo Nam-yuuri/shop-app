@@ -10,12 +10,6 @@ const cx = classNames.bind(styles);
 
 function Home({ children }) {
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:5000/products')
-    //         .then(res => console.log(res))
-
-    // },[])
-
     return (
         <div className={cx('container')} style={{maxWidth: '100%'}}>
             <div className={cx('wrapper')}>

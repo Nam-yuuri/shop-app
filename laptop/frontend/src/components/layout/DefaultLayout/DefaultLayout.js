@@ -6,11 +6,14 @@ import Header from '../components/Header';
 import { Fragment, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import HeaderTablet from '../components/HeaderTablet';
+import FooterTablet from '../components/FooterTablet';
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
     const [scrollHeader, setScrollHeader] = useState(false);
+    // const [windowWidth, setWindowWidth] = useState(false);
     const handleScroll = () => {
         // console.log(window.scrollY);
         if (window.scrollY >= 800) {
@@ -29,17 +32,31 @@ function DefaultLayout({ children }) {
         });
     };
 
+    // console.log(window.scrollY);
+
     return (
         <div className={cx('container')}>
             <div className={cx('wrapper')}>
                 <div className={cx('header')}>
-                    <Header />
+                    <div className={cx('laptop')}>
+                        <Header />
+                    </div>
+                </div>
+                <div className={cx('headertablet')}>
+                    <div className={cx('tablet')}>
+                        <HeaderTablet />
+                    </div>
                 </div>
                 <div className="container">
-                    <div className="content">{children}</div>
+                    <div className={cx('content', 'children')}>{children}</div>
                 </div>
                 <div className={cx('footer')}>
-                    <Footer />
+                    <div className={cx('laptop')}>
+                        <Footer />
+                    </div>
+                </div>
+                <div className={cx('footertablet')}>
+                    <FooterTablet />
                 </div>
             </div>
             {scrollHeader ? (

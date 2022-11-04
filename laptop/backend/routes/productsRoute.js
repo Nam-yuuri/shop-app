@@ -19,21 +19,21 @@ router.get("/admin/products", getAdminAllProducts);
 
 router.get("/product/top", getTopProducts);
 
-router.get("/admin/product/:id", getProduct);
+router.get("/product/:id", getProduct);
 
 router.get("/product/:brand", getProductsBrand);
 
-router.post("/product/new", createProduct);
+router.post("/admin/product/new", createProduct);
 
 router.put(
-  "/product/:id",
-  isAuthenticatedUser,
-  authorizeRoles("admin"),
+  "/admin/product/:id",
+  // isAuthenticatedUser,
+  // authorizeRoles("admin"),
   updateProduct
 );
 
 router.delete(
-  "/product/:id",
+  "/admin/product/:id",
   // isAuthenticatedUser,
   authorizeRoles("admin"),
   deleteProduct

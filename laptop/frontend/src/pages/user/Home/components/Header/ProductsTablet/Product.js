@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const cx = classNames.bind(styles);
 
-function Product() {
+function ProductTablet() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -35,8 +35,8 @@ function Product() {
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 {products.map((product) => (
-                    <div key={product.id}>
-                        <div className={cx('')}>
+                    <div key={product.id} className={cx('boxproduct')}>
+                        <div >
                             <Button to={product.to} className={cx('box')}>
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
@@ -53,4 +53,4 @@ function Product() {
     );
 }
 
-export default Product;
+export default ProductTablet;

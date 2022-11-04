@@ -11,7 +11,8 @@ import { DataPanelProduct } from '~/Data/Panel/DataPanel';
 
 const cx = classNames.bind(styles);
 
-const url = 'https://lh3.googleusercontent.com/j6g11MMnNEM3X07636AS4A3-5Nw213c9l6B_WKIuClU3dXiPcvxb3xf8ib3iOXPzZVmXi4zFAfbSuexQA1-xFxYCPemjtrDY=w1232'
+const url =
+    'https://lh3.googleusercontent.com/j6g11MMnNEM3X07636AS4A3-5Nw213c9l6B_WKIuClU3dXiPcvxb3xf8ib3iOXPzZVmXi4zFAfbSuexQA1-xFxYCPemjtrDY=w1232';
 
 function Panel() {
     const settings = {
@@ -19,6 +20,22 @@ function Panel() {
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    // slidesToScroll: 1,
+                },
+            },
+            {
+                breakpoint: 678,
+                settings: {
+                    slidesToShow: 2,
+                    // slidesToScroll: 1,
+                },
+            },
+        ],
     };
 
     const slider = React.useRef(null);
@@ -36,8 +53,7 @@ function Panel() {
             <div
                 className={cx('container')}
                 style={{
-                    backgroundImage:
-                        `url(${url})`,
+                    backgroundImage: `url(${url})`,
                 }}
             >
                 <div className={cx('header')}>
