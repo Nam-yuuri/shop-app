@@ -1,4 +1,4 @@
-import { faAngleRight, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faChevronDown, faChevronUp, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Slider from 'react-slick';
@@ -14,6 +14,7 @@ function Profile() {
     const [image, setImage] = useState([]);
     const [discount, setDiscount] = useState(false);
     const [description, setDescription] = useState(false);
+    const [details, SetDetails] = useState(false);
 
     const handleDiscount = () => {
         discount ? setDiscount(false) : setDiscount(true);
@@ -247,7 +248,9 @@ function Profile() {
                                         </li>
                                         <li>
                                             <span>
-                                                Nhập mã <strong>PV100</strong> giảm thêm 5% tối đa <span className={cx('list-price')}>100.000đ</span> khi thanh toán qua VNPAY-QR.
+                                                Nhập mã <strong>PV100</strong> giảm thêm 5% tối đa{' '}
+                                                <span className={cx('list-price')}>100.000đ</span> khi thanh toán qua
+                                                VNPAY-QR.
                                             </span>
                                             <a href=" " className={cx('list-href')}>
                                                 Xem chi tiết
@@ -255,7 +258,9 @@ function Profile() {
                                         </li>
                                         <li>
                                             <span>
-                                            Nhập mã <strong>PV1000</strong> giảm thêm <span className={cx('list-price')}>1.000.000đ</span> khi thanh toán qua VNPAY-QR.
+                                                Nhập mã <strong>PV1000</strong> giảm thêm{' '}
+                                                <span className={cx('list-price')}>1.000.000đ</span> khi thanh toán qua
+                                                VNPAY-QR.
                                             </span>
                                             <a href=" " className={cx('list-href')}>
                                                 Xem chi tiết
@@ -485,7 +490,7 @@ function Profile() {
                     <div className={cx('box-title-bottom')}>
                         <div className={cx('box-title')}>Thông tin chi tiết</div>
                     </div>
-                    <div className={cx('Details-content')}>
+                    <div className={cx('Details-content')} style={{height: details ? '100%' : '300px'}}>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Thương hiệu</div>
                             <div className={cx('box-value')}>MSI</div>
@@ -557,6 +562,22 @@ function Profile() {
                             <div className={cx('box-value')}>có</div>
                         </div>
                         <div className={cx('box-title')}>Thông tin kích thước</div>
+                    </div>
+
+                    <div className={cx('btn-details')} onClick={() => {
+                        SetDetails(!details)
+                    }}>
+                        {!details ? (
+                            <div>
+                                <span>Xem thêm nội dung</span>
+                                <FontAwesomeIcon icon={faChevronDown} />
+                            </div>
+                        ) : (
+                            <div>
+                                <span>Thu gọn</span>
+                                <FontAwesomeIcon icon={faChevronUp} />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

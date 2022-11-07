@@ -157,7 +157,7 @@
     box-sizing: border-box;
     margin: 0px;
     min-width: 0px;
-    width: 33%;
+    width: 60%;
 
     .pdf-box {
         display: flex;
@@ -189,6 +189,7 @@
             height: 12px;
             margin-left: 2px;
             color: var(--black-color);
+            margin-bottom: 4px;
 
             svg {
                 transition: transform 0.2s ease-in-out 0s;
@@ -806,6 +807,26 @@
         margin-top: 50px;
     }
 
+    .wrapper {
+        position: relative;
+        transition: opacity 0.3s ease 0s;
+
+        .container {
+            margin: 16px auto;
+            width: 100%;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            max-width: 1264px;
+            min-height: 70vh;
+            margin-bottom: 130px;
+
+            .href {
+                display: flex;
+                padding: 30px 0;
+            }
+        }
+    }
+
     .content {
         box-sizing: border-box;
         margin: 0px;
@@ -840,11 +861,31 @@
         left: 0;
         padding: 16px 0px !important;
         transition: all 5s ease-in-out 1s;
+        border-bottom-left-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
 
         .total-money-header,
         .total-money-content,
         .box_btn-money {
             padding: 0 16px;
+        }
+
+        .total-money-header {
+            display: flex;
+            position: relative;
+            // align-items: center;
+
+            .btn-close {
+                position: absolute;
+                right: 20px;
+                top: 0px;
+                border: solid #ddd 1px;
+                width: 25px;
+                height: 25px;
+                text-align: center;
+                border-radius: 4px;
+                background-color: red;
+            }
         }
     }
 
@@ -890,12 +931,29 @@
         }
 
         .btn-money {
-            width: 350px;
+            width: auto;
         }
     }
 
     .box-total-money {
-        transition: height 0.1s ease 0s;
+        z-index: 0;
+        transition: height 0.3s ease-out 0s;
+        // margin-bottom: 45px;
+    }
+
+    .container_btn-money{
+        height: 45px;
+        margin-bottom: -15px;
+    }
+
+    .box_btn-money{
+        position: fixed;
+        bottom: 64px;
+        right: 0;
+        left: 0;
+        background-color: var(--white-color);
+        padding: 5px 0;
+        z-index: 10;
     }
 
     .wall {
@@ -912,5 +970,109 @@
         will-change: transform;
         pointer-events: all;
         inset: 0px;
+    }
+
+    .product-row {
+        .box-info {
+            display: block;
+            flex: 0 0 100%;
+            max-width: 100%;
+
+            .info-row {
+                display: flex;
+                gap: 12px;
+            }
+        }
+    }
+
+    .box-price {
+        display: block;
+        flex: 0 0 50%;
+        max-width: 50%;
+        border-style: none;
+        border-radius: 0px;
+        border-width: 1px;
+        border-color: unset;
+        opacity: 1;
+        background-color: transparent;
+        padding-left: 16px;
+
+        .price-discount {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .price-real {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: center;
+
+            .real-span {
+                text-decoration: line-through;
+                color: rgb(130, 134, 158);
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+    .box-amount {
+        display: block;
+        flex: 0 0 50%;
+        max-width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box-sum-price {
+        display: none;
+    }
+
+    .name {
+        display: block;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    .unit-price,
+    .amount,
+    .money {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 426px){
+    .btn-money{
+        a{
+            padding: 6px 16px;
+        }
+    }
+
+    .wrapper {
+        position: relative;
+        transition: opacity 0.3s ease 0s;
+
+        .container {
+            margin: 16px auto;
+            width: 100%;
+            padding-left: 0rem;
+            padding-right: 0rem;
+            max-width: 1264px;
+            min-height: 70vh;
+            margin-bottom: 130px;
+
+            .href {
+                display: flex;
+                padding: 30px 0;
+            }
+        }
+    }
+
+    .container_btn-money{
+        height: 45px;
+        margin-bottom: -25px;
     }
 }

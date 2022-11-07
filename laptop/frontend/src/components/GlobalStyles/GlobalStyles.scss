@@ -110,3 +110,10 @@ h6 {
 }
 
 
+@media screen and (max-width: 768px){
+    .container{
+        max-width: 100%;
+        padding: 0;
+        margin-bottom: 65px;
+    }
+}

@@ -1,4 +1,4 @@
-import { faAngleDown, faAngleRight, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleRight, faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
@@ -357,14 +357,31 @@ function Cart() {
                                         </div>
                                     )}
                                 </div>
-                                {onHeight ? <div className={cx('wall')}></div> : ''}
+                                {onHeight ? (
+                                    <div
+                                        className={cx('wall')}
+                                        onClick={() => {
+                                            setOnHeight(false);
+                                        }}
+                                    ></div>
+                                ) : (
+                                    ''
+                                )}
                                 <div className={cx('total-money', 'tablet')}>
                                     <div
                                         className={cx('box-total-money')}
-                                        style={{ height: onHeight ? 'auto' : '0', opacity: onHeight ? '1' : '0' }}
+                                        style={{ height: onHeight ? '100px' : '0', opacity: onHeight ? '1' : '0' }}
                                     >
                                         <div className={cx('total-money-header')}>
                                             <h6>Thanh toán</h6>
+                                            <div
+                                                className={cx('btn-close')}
+                                                onClick={() => {
+                                                    setOnHeight(false);
+                                                }}
+                                            >
+                                                <FontAwesomeIcon icon={faClose} />
+                                            </div>
                                         </div>
                                         <div className={cx('total-money-content')}>
                                             <div className={cx('total-money-box')}>
@@ -382,30 +399,32 @@ function Cart() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={cx('box_btn-money')}>
-                                        <div className={cx('money-number')} onClick={handleClick}>
-                                            <span>88.880.000₫</span>
-                                            <div
-                                                className={cx('btn-icon')}
-                                                style={{ transform: onHeight ? 'rotate(180deg)' : '' }}
-                                            >
-                                                <FontAwesomeIcon icon={faAngleDown} />
+                                    <div className={cx('container_btn-money')}>
+                                        <div className={cx('box_btn-money')}>
+                                            <div className={cx('money-number')} onClick={handleClick}>
+                                                <span>88.880.000₫</span>
+                                                <div
+                                                    className={cx('btn-icon')}
+                                                    style={{ transform: onHeight ? 'rotate(180deg)' : '' }}
+                                                >
+                                                    <FontAwesomeIcon icon={faAngleDown} />
+                                                </div>
                                             </div>
+                                            {loginResult ? (
+                                                <div className={cx('btn-money')}>
+                                                    <Button primary large onClick={handleIntoMoney} href={' '}>
+                                                        TIẾP TỤC
+                                                    </Button>
+                                                </div>
+                                            ) : (
+                                                <div className={cx('btn-money')}>
+                                                    <Button primary large href={'/login'}>
+                                                        THANH TOÁN
+                                                        <span>Bạn cần đăng nhập</span>
+                                                    </Button>
+                                                </div>
+                                            )}
                                         </div>
-                                        {loginResult ? (
-                                            <div className={cx('btn-money')}>
-                                                <Button primary large onClick={handleIntoMoney} href={' '}>
-                                                    TIẾP TỤC
-                                                </Button>
-                                            </div>
-                                        ) : (
-                                            <div className={cx('btn-money')}>
-                                                <Button primary large href={'/login'}>
-                                                    THANH TOÁN
-                                                    <span>Bạn cần đăng nhập để tiếp tục</span>
-                                                </Button>
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
                             </div>

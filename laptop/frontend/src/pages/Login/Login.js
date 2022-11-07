@@ -145,9 +145,9 @@ function Login() {
                                         </div>
                                     ) : (
                                         <div>
-                                            <div>
+                                            {/* <div>
                                                 <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
-                                            </div>
+                                            </div> */}
                                             <div className="d-grid">
                                                 <button
                                                     className="btn btn-primary btn-login text-uppercase fw-bold"
