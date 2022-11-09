@@ -7,6 +7,8 @@ import Button from '~/components/Button';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 // import {createOrGetUser} from '~/utils/auth.js'
 
 const cx = classNames.bind(styles);
@@ -33,8 +35,7 @@ function Login() {
             password: password,
         };
     };
-    
-    
+
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
         handleShowPassword(false);
@@ -102,9 +103,9 @@ function Login() {
                                             }}
                                         />
                                     </div>
-                                    <div className="form-group">
+                                    <div className="form-group password">
                                         <input
-                                            type={showPassword ? 'text' : 'password'}
+                                            type={!showPassword ? 'text' : 'password'}
                                             className="form-control"
                                             id="inputPassword"
                                             placeholder="Password *"
@@ -114,6 +115,13 @@ function Login() {
                                                 setPassword(e.target.value);
                                             }}
                                         />
+                                        <div className={cx('eye')} onClick={() => {setShowPassword(!showPassword)}}>
+                                            {showPassword ? (
+                                                <FontAwesomeIcon icon={faEye} />
+                                            ) : (
+                                                <FontAwesomeIcon icon={faEyeSlash} />
+                                            )}
+                                        </div>
                                     </div>
                                     {isSingup ? (
                                         <div className="form-group">

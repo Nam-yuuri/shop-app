@@ -811,7 +811,32 @@
     color: var(--text-color);
 }
 
+.content {
+    .mobile {
+        display: none;
+    }
+    .laptop {
+        display: block;
+    }
+}
+
+.container-bottom {
+    .tablet {
+        display: none;
+    }
+    .laptop {
+        display: block;
+    }
+}
 @media screen and (max-width: 768px) {
+    .container-bottom {
+        .tablet {
+            display: block;
+        }
+        .laptop {
+            display: none !important;
+        }
+    }
     .profile {
         width: 100%;
         padding-right: 0px;
@@ -906,21 +931,103 @@
             border-radius: 8px;
             overflow: hidden;
 
-            .btn-details{
+            .btn-details {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding: 15px;
 
-                span{
+                span {
                     font-size: 1.4rem;
                 }
 
-                svg{
+                svg {
                     margin-left: 5px;
                     font-size: 1rem;
                 }
             }
+        }
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .container-left {
+        padding: 10px !important;
+    }
+
+    .content-price {
+        margin-bottom: 0px;
+    }
+    .content {
+        .mobile {
+            display: block !important;
+        }
+
+        .laptop {
+            display: none;
+        }
+    }
+
+    .box-left {
+        flex-wrap: wrap;
+
+        .box-content {
+            width: 100%;
+            padding: 0px;
+        }
+
+        .box-img {
+            width: 100%;
+            padding: 0px;
+
+            .box-info {
+                display: none;
+            }
+        }
+    }
+
+    .box-border {
+        border-style: none;
+        border-radius: 0px;
+        border-width: 1px;
+        border-color: unset;
+        opacity: 1;
+        background-color: transparent;
+        margin: 0px 0;
+        --divider-gap: 5px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding-top: var(--divider-gap);
+        padding-bottom: var(--divider-gap);
+
+        .border {
+            --divider-border-style: dashed;
+            --divider-color: #e4e5f0;
+            --divider-border-width: 1px;
+            display: flex;
+            width: 100%;
+            border-top: var(--divider-border-width) var(--divider-border-style) var(--divider-color);
+        }
+    }
+
+    .content-info {
+        h1 {
+            font-size: 1.6rem;
+        }
+    }
+
+    .mobile {
+        .box-info {
+            padding: 0px;
+        }
+    }
+
+    .content-btn {
+        button {
+            padding: 6px 0 !important;
+            margin-left: 0px !important;
         }
     }
 }

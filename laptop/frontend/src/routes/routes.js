@@ -9,19 +9,21 @@ import Brands from '~/pages/user/Brands';
 import Account from '~/pages/user/Account';
 import Bill from '~/pages/user/Account/Bill';
 import Address from '~/pages/user/Account/Address';
+import config from '~/config';
+// import { config } from '@fortawesome/fontawesome-svg-core';
 
 // Public routes
 const publicRoutes = [
-    { path: '/', component: Home },
+    { path: config.routes.home, component: Home },
     { path: 'laptop', component: Laptop },
     { path: 'notification', component: Notification },
-    { path: 'cart', component: Cart },
-    { path: 'login', component: Login },
-    { path: 'brand', component: Brands },
-    { path: 'profile', component: Profile },
-    { path: 'account', component: Account },
-    { path: 'bill', component: Bill },
-    { path: 'address', component: Address },
+    { path: config.routes.cart, component: Cart },
+    { path: config.routes.login, component: Login},
+    { path: config.routes.brand, component: Brands },
+    { path: config.routes.profile, component: Profile },
+    { path: config.routes.account, component: Account },
+    { path: config.routes.bill, component: Bill },
+    { path: config.routes.address, component: Address },
 
 ];
 

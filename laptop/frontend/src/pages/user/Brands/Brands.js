@@ -15,11 +15,27 @@ import {
     TrademarkData,
 } from '~/Data/Brands/Brands';
 import { ProductsIcon } from '~/components/Icons';
+import Nouislider from 'react-nouislider';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+import RangeSlider from 'react-bootstrap-range-slider';
+import Slider from '@mui/material/Slider';
+import formatPrice from '~/utils/formatPrice';
+import Button from '~/components/Button';
+import './brands.scss';
 
 const cx = classNames.bind(styles);
 
 function Brands() {
     const [onWidth, setOnWidth] = useState(false);
+    const [value, setValue] = useState([0, 151]);
+    const [price, setPrice] = useState([0, 151]);
+    const priceHandler = (event, newPrice) => {
+        setPrice([value[0], value[1]]);
+    };
+    const resetHandle = () => {
+        setPrice([0, 151]);
+        setValue([0, 151]);
+    };
     /**
      * !useState
      */
@@ -224,6 +240,7 @@ function Brands() {
      */
 
     // console.log(checkTrademark);
+    const num = 10000000;
 
     return (
         <div className={cx('brands')}>
@@ -273,11 +290,36 @@ function Brands() {
                         <div className={cx('Price-range')}>
                             <h5>Khoảng giá</h5>
                             <div className={cx('box-price')}>
-                                <span className={cx('box-span')}>0</span>
-                                <span className={cx('box-span')}>10.000.000</span>
-                            </div>
-                            <div className={cx('range-slider')}>
-                                <p>range slider</p>
+                                <Slider
+                                    value={value}
+                                    aria-labelledby="range-slider"
+                                    onChange={(e) => setValue(e.target.value)}
+                                    min={0}
+                                    max={151}
+                                    valueLabelDisplay="auto"
+                                    sx={{ mt: 3, color: '#1435c3' }}
+                                />
+                                <form onSubmit={priceHandler}>
+                                    <div className="row" style={{ gap: '0px' }}>
+                                        <div className="col-6">
+                                            <input type="text" value={`${formatPrice(value[0] * 1000000)}`}></input>
+                                        </div>
+
+                                        <div className="col-6" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            <input type="text" value={`${formatPrice(value[1] * 1000000)}`}></input>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="box-btn-filter"
+                                        style={{ display: 'flex', justifyContent: 'space-between' }}
+                                    >
+                                        <div className="btn-filter">Lọc</div>
+                                        <div className="btn-reset" onClick={resetHandle}>
+                                            Reset
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div className={cx('container-Trademark', 'container-box')}>
@@ -474,11 +516,39 @@ function Brands() {
                         <div className={cx('Price-range')}>
                             <h5>Khoảng giá</h5>
                             <div className={cx('box-price')}>
-                                <span className={cx('box-span')}>0</span>
-                                <span className={cx('box-span')}>10.000.000</span>
-                            </div>
-                            <div className={cx('range-slider')}>
-                                <p>range slider</p>
+                                <Slider
+                                    value={value}
+                                    aria-labelledby="range-slider"
+                                    onChange={(e) => setValue(e.target.value)}
+                                    min={0}
+                                    max={151}
+                                    valueLabelDisplay="auto"
+                                    sx={{ mt: 3, color: '#1435c3' }}
+                                />
+                                <form onSubmit={priceHandler}>
+                                    <div className="row" style={{ gap: '0px' }}>
+                                        <div className="col-6" style={{ paddingLeft: '0px' }}>
+                                            <input type="text" value={`${formatPrice(value[0] * 1000000)}`}></input>
+                                        </div>
+
+                                        <div
+                                            className="col-6"
+                                            style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '0px' }}
+                                        >
+                                            <input type="text" value={`${formatPrice(value[1] * 1000000)}`}></input>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="box-btn-filter"
+                                        style={{ display: 'flex', justifyContent: 'space-between' }}
+                                    >
+                                        <div className="btn-filter">Lọc</div>
+                                        <div className="btn-reset" onClick={resetHandle}>
+                                            Reset
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div className={cx('container-Trademark', 'container-box')}>

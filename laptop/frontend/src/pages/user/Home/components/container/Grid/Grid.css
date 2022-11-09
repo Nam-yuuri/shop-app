@@ -1,3 +1,4 @@
 .page-link{
     font-size: 1.6rem;
+    z-index: 0 !important;
 }

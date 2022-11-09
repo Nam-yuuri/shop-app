@@ -7,6 +7,8 @@ import { img } from '~/Data/Product/Product';
 import { useEffect, useState } from 'react';
 import { ComputerSaleIcon, GiftIcon, InsuranceIcon, SettingIcon, ShipIcon } from '~/components/Icons';
 import Button from '~/components/Button';
+import { Carousel } from 'react-carousel-minimal';
+import './profile.scss';
 
 const cx = classNames.bind(styles);
 
@@ -32,37 +34,35 @@ function Profile() {
         }, 3000);
     });
 
-    const settings = {
-        customPaging: function (i) {
-            return (
-                <a href={' '}>
-                    <img src={`${image[0]}`} alt="" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
-                </a>
-            );
-        },
-        dots: true,
-        dotsClass: 'slick-dots slick-thumb',
-        infinite: true,
-        // speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        speed: 2000,
-        autoplaySpeed: 2000,
-        // cssEase: 'linear',
-    };
-
-    // const num = (i) => {
-    //     {image.map((item) => {
-    //         let img_num[i] = {item.img}
-    //     })}
+    // const settings = {
+    //     customPaging: function (i) {
+    //         return (
+    //             <a href={' '}>
+    //                 <img src={`${image[0]}`} alt="" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+    //             </a>
+    //         );
+    //     },
+    //     dots: true,
+    //     dotsClass: 'slick-dots slick-thumb',
+    //     infinite: true,
+    //     // speed: 500,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     autoplay: true,
+    //     speed: 2000,
+    //     autoplaySpeed: 2000,
+    //     thumbnails: true
+    //     // cssEase: 'linear',
     // };
 
-    // for (let i =0 ; i< image.length; i++){
-    //     console.log(img[i])
-    // }
-
-    // console.log(image[0]);
+    const captionStyle = {
+        fontSize: '2em',
+        fontWeight: 'bold',
+    };
+    const slideNumberStyle = {
+        fontSize: '20px',
+        fontWeight: 'bold',
+    };
 
     return (
         <div className={cx('profile')}>
@@ -81,13 +81,38 @@ function Profile() {
                         <div className={cx('box-left')}>
                             <div className={cx('box-img')}>
                                 <div className={cx('box-img-header')}>
-                                    <Slider {...settings}>
+                                    <Carousel
+                                        data={img}
+                                        time={2000}
+                                        width="300px"
+                                        height="300px"
+                                        captionStyle={captionStyle}
+                                        radius="8px"
+                                        // slideNumber={true}
+                                        slideNumberStyle={slideNumberStyle}
+                                        captionPosition="bottom"
+                                        automatic={true}
+                                        dots={true}
+                                        pauseIconColor="white"
+                                        pauseIconSize="40px"
+                                        slideBackgroundColor="transparent"
+                                        slideImageFit="cover"
+                                        thumbnails={true}
+                                        thumbnailWidth="50px"
+                                        style={{
+                                            textAlign: 'center',
+                                            maxWidth: '300px',
+                                            maxHeight: '400px',
+                                            margin: '40px auto',
+                                        }}
+                                    />
+                                    {/* <Slider {...settings}>
                                         {image.map((img) => (
                                             <div key={img.id} style={{ width: '100%' }}>
-                                                <img src={img.img} alt="" style={{ width: '100%' }} />
+                                                <img src={img.image} alt="" style={{ width: '100%' }} />
                                             </div>
                                         ))}
-                                    </Slider>
+                                    </Slider> */}
                                 </div>
                                 <div className={cx('box-border')}>
                                     <div className={cx('border')}></div>
@@ -153,6 +178,45 @@ function Profile() {
                                         <div className={cx('discount-price')}>6.690.000&nbsp;₫</div>
                                     </div>
                                 )}
+                                <div className={cx('mobile')}>
+                                    <div className={cx('box-border')}>
+                                        <div className={cx('border')}></div>
+                                    </div>
+                                    <div className={cx('box-info')}>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>CPU: Intel Core i5-1135G7</span>
+                                        </div>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>Màn hình: 15.6" TFT (1920 x 1080)</span>
+                                        </div>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>RAM: 1 x 4GB, 1 x 4GB Onboard DDR4 2400MHz</span>
+                                        </div>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>Đồ họa: Intel Iris Xe Graphics</span>
+                                        </div>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>Lưu trữ: 512GB SSD M.2 NVMe /</span>
+                                        </div>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>Hệ điều hành: Windows 11 Home</span>
+                                        </div>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>Pin: 2 cell 36 Wh Pin liền</span>
+                                        </div>
+                                        <div className={cx('info-text')}>
+                                            <FontAwesomeIcon icon={faMinus} />
+                                            <span>Khối lượng: 1.7 kg</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className={cx('content-gift')}>
                                     <div className={cx('gift-title')}>Bạn sẽ nhận được</div>
                                     <div className={cx('box-gift')}>
@@ -486,11 +550,90 @@ function Profile() {
                     )}
                 </div>
 
-                <div className={cx('Details')}>
+                <div className={cx('Details', 'laptop')}>
                     <div className={cx('box-title-bottom')}>
                         <div className={cx('box-title')}>Thông tin chi tiết</div>
                     </div>
-                    <div className={cx('Details-content')} style={{height: details ? '100%' : '300px'}}>
+                    <div className={cx('Details-content')}>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Thương hiệu</div>
+                            <div className={cx('box-value')}>MSI</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Bảo hành</div>
+                            <div className={cx('box-value')}>36</div>
+                        </div>
+                        <div className={cx('box-title')}>Thông tin chung</div>
+                        <div className={cx('box-title')}>Cấu hình chi tiết</div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Kích thước</div>
+                            <div className={cx('box-value')}>27"</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Độ phân giải</div>
+                            <div className={cx('box-value')}>2560 x 1440 ( 16:9 )</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Tấm nền</div>
+                            <div className={cx('box-value')}>IPS</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Tần số quét</div>
+                            <div className={cx('box-value')}>60Hz</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Thời gian phản hồi</div>
+                            <div className={cx('box-value')}>5 ms</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Kiểu màn hình</div>
+                            <div className={cx('box-value')}>Màn hình phẳng</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Độ sáng</div>
+                            <div className={cx('box-value')}>300 cd/m2</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Góc nhìn</div>
+                            <div className={cx('box-value')}>178 (H) / 178 (V)</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Khả năng hiển thị màu sắc</div>
+                            <div className={cx('box-value')}>16.7 triệu màu</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Độ tương phản tĩnh</div>
+                            <div className={cx('box-value')}>1,000:1</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Bề mặt</div>
+                            <div className={cx('box-value')}>Màn hình chống lóa</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Cổng xuất hình</div>
+                            <div className={cx('box-value')}>2 x HDMI 1.4 , 1 x DisplayPort 1.2</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Khối lượng</div>
+                            <div className={cx('box-value')}>6 kg</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Phụ kiện đi kèm</div>
+                            <div className={cx('box-value')}>HDMI cable</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Loa</div>
+                            <div className={cx('box-value')}>có</div>
+                        </div>
+                        <div className={cx('box-title')}>Thông tin kích thước</div>
+                    </div>
+                </div>
+
+                <div className={cx('Details', 'tablet')}>
+                    <div className={cx('box-title-bottom')}>
+                        <div className={cx('box-title')}>Thông tin chi tiết</div>
+                    </div>
+                    <div className={cx('Details-content')} style={{ height: details ? '100%' : '300px' }}>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Thương hiệu</div>
                             <div className={cx('box-value')}>MSI</div>
@@ -564,9 +707,12 @@ function Profile() {
                         <div className={cx('box-title')}>Thông tin kích thước</div>
                     </div>
 
-                    <div className={cx('btn-details')} onClick={() => {
-                        SetDetails(!details)
-                    }}>
+                    <div
+                        className={cx('btn-details')}
+                        onClick={() => {
+                            SetDetails(!details);
+                        }}
+                    >
                         {!details ? (
                             <div>
                                 <span>Xem thêm nội dung</span>
