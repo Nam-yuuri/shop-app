@@ -14,6 +14,7 @@ const routes = {
     bill: '/bill',
     address: '/address',
     admin: '/admin',
+    showroom: '/showroom'
 };
 
 export default routes;

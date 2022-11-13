@@ -5,11 +5,11 @@ const cloudinary = require("cloudinary");
 
 //Get all header banner
 exports.getAllHeader = catchAsyncErrors(async (req, res, next) => {
-  const header = await Header.find();
+  const headers = await Header.find();
 
   res.status(200).json({
     success: true,
-    header,
+    headers,
   });
 });
 

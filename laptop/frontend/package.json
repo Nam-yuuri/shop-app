@@ -27,6 +27,7 @@
         "clsx": "^1.2.1",
         "jwt-decode": "^3.1.2",
         "normalize.css": "^8.0.1",
+        "query-string": "^7.1.1",
         "react": "^18.2.0",
         "react-bootstrap-range-slider": "^3.0.8",
         "react-carousel-minimal": "^1.4.1",

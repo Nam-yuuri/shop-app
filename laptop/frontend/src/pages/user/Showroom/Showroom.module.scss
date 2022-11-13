@@ -1,0 +1,102 @@
+.Showroom {
+    width: 1232px;
+    padding-right: 16px;
+    padding-left: 16px;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    border-style: none;
+    border-radius: 0px;
+    border-width: 1px;
+    border-color: unset;
+    margin-top: 30px;
+    gap: 20px;
+    flex-wrap: wrap;
+    // height: 100%;
+    // flex: 1;
+
+    .left {
+        width: calc(40% - 20px);
+        background-color: var(--primary);
+        border-radius: 3px;
+        padding: 0.8em 1.5em;
+        background-color: rgb(20, 53, 195);
+        border-radius: 3px;
+        font-size: 1.1em;
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+
+        h5 {
+            color: white;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        select {
+            width: 100%;
+            margin-bottom: 1em;
+            border-radius: 4px;
+            appearance: none;
+            padding: 0.5em 3.5em 0.5em 1em;
+            background-color: white;
+            background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+                linear-gradient(135deg, gray 50%, transparent 50%),
+                linear-gradient(to right, rgb(204, 204, 204), rgb(204, 204, 204));
+            background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px),
+                calc(100% - 2.5em) 0.5em;
+            background-size: 5px 5px, 5px 5px, 1px 1.5em;
+            background-repeat: no-repeat;
+            font-size: 1.4rem;
+        }
+    }
+    .right {
+        width: 60%;
+        border: solid 1px var(--primary);
+        border-radius: 4px;
+        overflow: hidden;
+        height: fit-content;
+    }
+}
+
+.box-content {
+    line-height: 2;
+    padding: 0.8em 1.5em;
+    background-color: white;
+    border-bottom: 1px solid rgb(234, 234, 234);
+
+    .title {
+        color: var(--primary);
+        font-size: 2rem;
+    }
+
+    .content {
+        font-size: 1.5rem;
+        font-weight: 400;
+
+        .contact {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+
+            button {
+                border: 1px solid rgb(20, 53, 195);
+                background-color: white;
+                height: 40px;
+                color: rgb(20, 53, 195);
+                line-height: 40px;
+                display: block;
+                padding: 0px 15px;
+                border-radius: 4px;
+                outline-color: rgb(20, 53, 195);
+            }
+        }
+    }
+
+    &:hover {
+        background: rgba(20, 53, 195, 0.063);
+    }
+}

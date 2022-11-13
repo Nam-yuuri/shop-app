@@ -23,7 +23,11 @@ import { useEffect, useState } from 'react';
 import SearchItem from '../PreviewItem/SearchItem';
 import ProductItem from '../PreviewItem/Products';
 import LoginItem from '../PreviewItem/Login';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { clearErrors } from '~/actions/productActions';
+import { getAllHeader } from '~/actions/headerActions';
+import { getAllBanners } from '~/actions/bannerActions';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -112,6 +116,28 @@ function Header() {
     };
 
     const user = null;
+    /////
+
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
+    const dispatch = useDispatch();
+
+    // const { banners, error: bannerErrors, loading: bannerLoading } = useSelector((state) => state.banners);
+    const banners = useSelector((state) => state.banners);
+
+    useEffect(() => {
+        // if (bannerErrors) {
+        //     setOpenError(true);
+        //     setErrorAlert(bannerErrors);
+        //     dispatch(clearErrors());
+        // }
+        dispatch(getAllBanners());
+    }, [dispatch]);
+
+    console.log(banners)
 
     return (
         <div className={cx('wrapper')}>
@@ -123,30 +149,30 @@ function Header() {
                     />
                 </div>
                 <div className={cx('information')}>
-                    <Button href={'/'}>
+                    {/* <Button href={'/'}>
                         <PromotionIcon />
                         <span>Khuyến Mãi</span>
-                    </Button>
-                    <Button href={'/'}>
+                    </Button> */}
+                    <Button to={config.routes.showroom}>
                         <ShowroomIcon />
                         <span>Hệ thống Showroom</span>
                     </Button>
-                    <Button href={'/'}>
+                    <Button href={'tel:18006867'}>
                         <AdviseIcon />
                         <span>Tư vấn mua hàng: 18006867</span>
                     </Button>
-                    <Button href={'/'}>
+                    <Button href={'tel: 18006865'}>
                         <AdviseIcon />
                         <span>CSKH: 18006865</span>
                     </Button>
-                    <Button href={'/'}>
+                    {/* <Button href={'/'}>
                         <ComputerIcon />
                         <span>Tin công nghệ</span>
-                    </Button>
-                    <Button href={'/'}>
+                    </Button> */}
+                    {/* <Button href={'/'}>
                         <BuildIcon />
                         <span>Xây dựng cấu hình</span>
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
             {scrollHeader ? (
