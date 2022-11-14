@@ -11,6 +11,7 @@ import Bill from '~/pages/user/Account/Bill';
 import Address from '~/pages/user/Account/Address';
 import config from '~/config';
 import Showroom from '~/pages/user/Showroom';
+import Promotion from '~/pages/user/Promotion';
 // import { config } from '@fortawesome/fontawesome-svg-core';
 
 // Public routes
@@ -26,6 +27,7 @@ const publicRoutes = [
     { path: config.routes.bill, component: Bill },
     { path: config.routes.address, component: Address },
     { path: config.routes.showroom, component: Showroom },
+    { path: config.routes.promotion, component: Promotion },
 
 ];
 

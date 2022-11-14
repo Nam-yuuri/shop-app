@@ -82,7 +82,11 @@
             flex-wrap: wrap;
             align-items: center;
 
-            button {
+            .store-contact {
+                width: 50%;
+            }
+
+            label {
                 border: 1px solid rgb(20, 53, 195);
                 background-color: white;
                 height: 40px;
@@ -92,6 +96,20 @@
                 padding: 0px 15px;
                 border-radius: 4px;
                 outline-color: rgb(20, 53, 195);
+            }
+            input {
+                width: 100%;
+                height: 100%;
+                display: none;
+                &:checked + .box-store {
+                    display: block;
+                }
+            }
+
+            .box-store {
+                width: 100%;
+                display: none;
+                transition: all 0.3s ease 0s;
             }
         }
     }

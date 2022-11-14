@@ -149,10 +149,10 @@ function Header() {
                     />
                 </div>
                 <div className={cx('information')}>
-                    {/* <Button href={'/'}>
+                    <Button to={config.routes.promotion}>
                         <PromotionIcon />
                         <span>Khuyến Mãi</span>
-                    </Button> */}
+                    </Button>
                     <Button to={config.routes.showroom}>
                         <ShowroomIcon />
                         <span>Hệ thống Showroom</span>

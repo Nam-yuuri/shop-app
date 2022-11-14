@@ -56,7 +56,7 @@
 }
 
 .primary {
-    color: var(--white-color);
+    color: var(--white-color) !important;
     background-color: var(--primary);
     border-color: var(--primary);
 
