@@ -1,6 +1,7 @@
 const routes = {
     home: '/',
     // profiles: '/profiles/@:id',
+    profile: '/profile',
     search: '/search',
     laptop: '/laptop',
     brand: '/brand',
@@ -8,7 +9,6 @@ const routes = {
     login: '/login',
     info: '/info',
     // eslint-disable-next-line no-dupe-keys
-    profile: '/profile',
     image: '/image',
     account: '/account',
     bill: '/bill',
@@ -16,6 +16,9 @@ const routes = {
     admin: '/admin',
     showroom: '/showroom',
     promotion: '/promotion',
+    productList: '/admin/ProductList',
+    newProduct: '/admin/ProductList/NewProduct',
+    brandList: '/admin/BrandList'
 };
 
 export default routes;

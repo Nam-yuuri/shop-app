@@ -24,9 +24,9 @@ import SearchItem from '../PreviewItem/SearchItem';
 import ProductItem from '../PreviewItem/Products';
 import LoginItem from '../PreviewItem/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrors } from '~/actions/productActions';
-import { getAllHeader } from '~/actions/headerActions';
-import { getAllBanners } from '~/actions/bannerActions';
+// import { clearErrors } from '~/actions/productAction';
+// import { getAllHeader } from '~/actions/headerAction';
+// import { getAllBanners } from '~/actions/bannerAction';
 import config from '~/config';
 
 const cx = classNames.bind(styles);
@@ -125,19 +125,23 @@ function Header() {
 
     const dispatch = useDispatch();
 
+    // const { error, banners } = useSelector((state) => state.banners);
+
     // const { banners, error: bannerErrors, loading: bannerLoading } = useSelector((state) => state.banners);
-    const banners = useSelector((state) => state.banners);
+    // const { error: deleteError, isDeleted } = useSelector((state) => state.banner);
 
-    useEffect(() => {
-        // if (bannerErrors) {
-        //     setOpenError(true);
-        //     setErrorAlert(bannerErrors);
-        //     dispatch(clearErrors());
-        // }
-        dispatch(getAllBanners());
-    }, [dispatch]);
+    const { banners, error: bannerErrors, loading: bannerLoading } = useSelector((state) => state.banners);
 
-    console.log(banners)
+    // useEffect(() => {
+    //     if (bannerErrors) {
+    //         setOpenError(true);
+    //         setErrorAlert(bannerErrors);
+    //         dispatch(clearErrors());
+    //     }
+    //     dispatch(getAllBanners());
+    // }, [dispatch]);
+
+    console.log(banners);
 
     return (
         <div className={cx('wrapper')}>

@@ -14,11 +14,15 @@ import Showroom from '~/pages/user/Showroom';
 import Promotion from '~/pages/user/Promotion';
 // import { config } from '@fortawesome/fontawesome-svg-core';
 
+import ProductList from '~/pages/Admin/Products/ProductList';
+import NewProduct from '~/pages/Admin/Products/NewProduct';
+import BrandList from '~/pages/Admin/brands/BrandList';
+
 // Public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
-    { path: 'laptop', component: Laptop },
-    { path: 'notification', component: Notification },
+    // { path: 'laptop', component: Laptop },
+    // { path: 'notification', component: Notification },
     { path: config.routes.cart, component: Cart },
     { path: config.routes.login, component: Login},
     { path: config.routes.brand, component: Brands },
@@ -28,6 +32,9 @@ const publicRoutes = [
     { path: config.routes.address, component: Address },
     { path: config.routes.showroom, component: Showroom },
     { path: config.routes.promotion, component: Promotion },
+    { path: config.routes.productList, component: ProductList, layout: null},
+    { path: config.routes.newProduct, component: NewProduct, layout: null},
+    { path: config.routes.brandList, component: BrandList, layout: null},
 
 ];
 

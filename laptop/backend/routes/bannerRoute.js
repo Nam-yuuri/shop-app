@@ -11,7 +11,7 @@ const {
 } = require("../controllers/bannerController");
 
 router.post("/admin/banner/new", createBanner);
-router.get("/banner/", getAllBanner);
+router.get("/banners", getAllBanner);
 router.get("/banner/main", getMainBanner);
 router.get("/banner/:id", getBanner);
 router.put("/admin/banner/:id", updateBanner);

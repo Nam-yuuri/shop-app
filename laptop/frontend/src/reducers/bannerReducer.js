@@ -1,6 +1,28 @@
+import {
+  ALL_BANNER_FAIL,
+  ALL_BANNER_REQUEST,
+  // ALL_BANNER_SUCCESS,
+  // BANNER_DETAILS_FAIL,
+  // BANNER_DETAILS_REQUEST,
+  // BANNER_DETAILS_SUCCESS,
+  CLEAR_ERRORS,
+  // DELETE_BANNER_FAIL,
+  // DELETE_BANNER_REQUEST,
+  // DELETE_BANNER_RESET,
+  // DELETE_BANNER_SUCCESS,
+  // NEW_BANNER_FAIL,
+  // NEW_BANNER_REQUEST,
+  // NEW_BANNER_RESET,
+  // NEW_BANNER_SUCCESS,
+  // UPDATE_BANNER_FAIL,
+  // UPDATE_BANNER_REQUEST,
+  // UPDATE_BANNER_RESET,
+  // UPDATE_BANNER_SUCCESS,
+} from "../constants/bannerConstants";
+
 export const bannersReducer = (state = { banners: [] }, action) => {
     switch (action.type) {
-      case 'ALL_BANNER_REQUEST':
+      case ALL_BANNER_REQUEST:
         return {
           loading: true,
           banners: [],
@@ -11,13 +33,13 @@ export const bannersReducer = (state = { banners: [] }, action) => {
           loading: false,
           banners: action.payload,
         };
-      case 'ALL_BANNER_FAIL':
+      case ALL_BANNER_FAIL:
         return {
           loading: false,
           error: action.payload,
         };
   
-      case 'CLEAR_ERRORS':
+      case CLEAR_ERRORS:
         return {
           ...state,
           error: null,

@@ -75,8 +75,9 @@ iframe {
 
 .eye {
     position: absolute;
-    right: 5px;
-    top: calc(50% - 10px);
+    right: 10px;
+    top: calc(50% - 13px);
+    cursor: pointer;
 }
 
 .eye svg {
@@ -84,12 +85,12 @@ iframe {
     height: 15px;
 }
 
-input:placeholder-shown{
+/* .col input:placeholder-shown{
     border-left: 5px solid red;
 }
-input:not(:placeholder-shown){
+.col input:not(:placeholder-shown){
     border-left: 5px solid green;
-}
+} */
 
 input:placeholder-shown ~ .eye{
     display: none;

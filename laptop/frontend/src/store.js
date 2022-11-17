@@ -52,12 +52,12 @@ import {
 // //   newReviewBlogReducer,
 // //   reviewBlogReducer,
 // // } from "./reducers/blogReducer";
-// import {
-//   bannerDetailsReducer,
-//   bannerReducer,
-//   bannersReducer,
-//   newBannerReducer,
-// } from "./reducers/bannerReducer";
+import {
+  // bannerDetailsReducer,
+  // bannerReducer,
+  bannersReducer,
+  // newBannerReducer,
+} from "./reducers/bannerReducer";
 
 const reducer = combineReducers({
   // Product
@@ -104,7 +104,7 @@ const reducer = combineReducers({
   // newReviewBlog: newReviewBlogReducer,
   // reviewBlog: reviewBlogReducer,
   // //Banner
-  // banners: bannersReducer,
+  banners: bannersReducer,
   // bannerDetails: bannerDetailsReducer,
   // newBanner: newBannerReducer,
   // banner: bannerReducer,
