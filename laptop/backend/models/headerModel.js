@@ -1,13 +1,23 @@
 const mongoose = require("mongoose");
 
 const headerSchema = mongoose.Schema({
-  url: {
-    type: String,
-    required: true,
+  images: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
   },
-  banner: {
+  status: {
     type: Boolean,
     default: false,
+  },
+  description: {
+    type: String,
+    required: [true, "Hãy nhập giới thiệu"],
   },
 });
 

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Avatar, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,8 +9,10 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Sidebar from '../../Sidebar';
 import './ProductList.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
+import { getAdminProduct } from '~/actions/productAction';
+import { getAllBanners } from '~/actions/bannerAction';
 function ProductList() {
     const { product } = useSelector((state) => state.products);
     console.log(product);
@@ -127,33 +129,66 @@ function ProductList() {
     ];
 
     const rows = [];
+
+    const dispatch = useDispatch();
+
+    const { products } = useSelector((state) => state.products);
+    useEffect(() => {
+        dispatch(getAdminProduct());
+    }, [dispatch]);
+
+    console.log('products: ', products);
+
+    // const { banners } = useSelector((state) => state.banners);
+    // useEffect(() => {
+    //     dispatch(getAllBanners());
+    // }, [dispatch]);
+
+    // console.log('banner: ', banners);
+
+    const [wrapperWidth, setWapperWidth] = useState(true)
     return (
-        <div className="productList">
-            <div className="sidebar">
-                <div className='box-sidebar'>
-                    <Sidebar />
+        <div>
+            <div className="header-admin">
+                <div className="btn-sidebar" style={{width: wrapperWidth ? '222px' : '35px'}}>
+                    <FontAwesomeIcon
+                        icon={ wrapperWidth ? faChevronLeft : faBars }
+                        onClick={() => {
+                            setWapperWidth(!wrapperWidth);
+                        }}
+                    />
+                </div>
+                <div className="header-sidebar">
+                    <h1>Product</h1>
+                    <Link to={config.routes.newProduct} className="header-sidebar-btn">
+                        <FontAwesomeIcon icon={faPlus} />
+                        Thêm sản phẩm
+                    </Link>
                 </div>
             </div>
-            <div className="data">
-                <div className="btn">
-                    <FontAwesomeIcon icon={faPlus} />
-                    <Link to={config.routes.newProduct}>Thêm sản phẩm </Link>
+            <div className="productList">
+                <div className="sidebar" style={{width: wrapperWidth ? '222px' : '0px' , display: wrapperWidth ? 'block' : 'none'}}>
+                    <div className="box-sidebar">
+                        <Sidebar />
+                    </div>
                 </div>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={pageSize}
-                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    pagination
-                    // pageSize={10}
-                    disableSelectionOnClick
-                    className="productListTable"
-                    autoHeight
-                    components={{
-                        Toolbar: GridToolbar,
-                    }}
-                />
+                <div className="data">
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pageSize={pageSize}
+                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                        rowsPerPageOptions={[5, 10, 20]}
+                        pagination
+                        // pageSize={10}
+                        disableSelectionOnClick
+                        className="productListTable"
+                        autoHeight
+                        components={{
+                            Toolbar: GridToolbar,
+                        }}
+                    />
+                </div>
             </div>
         </div>
     );

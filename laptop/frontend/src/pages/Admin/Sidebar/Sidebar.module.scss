@@ -1,4 +1,17 @@
 .wrapper {
-    width: 222px;
-    box-shadow: var(--box-shadow);
+    // width: 222px;
+    // box-shadow: var(--box-shadow);
+}
+
+.header{
+    height: 64px;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 10px;
+
+    svg{
+        cursor: pointer;
+    }
 }

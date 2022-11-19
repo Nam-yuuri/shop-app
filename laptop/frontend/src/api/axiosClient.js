@@ -3,7 +3,10 @@ import queryString from "query-string";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:8000",
-  paramsSerializer: (params) => queryString.stringify(params),
+  // paramsSerializer: (params) => queryString.stringify(params),
+  paramsSerializer: function(params) {
+    return queryString.stringify(params, {arrayFormat: 'brackets'})
+  },
 });
 
 axiosClient.interceptors.response.use(

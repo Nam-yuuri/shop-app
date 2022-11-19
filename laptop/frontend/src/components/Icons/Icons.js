@@ -599,3 +599,17 @@ export const UserTabletIconActive = ({ width = '2.4rem', height = '2.4rem', clas
         ></path>
     </svg>
 );
+
+export const Dashboard = ({ width = '2.4rem', height = '2.4rem', className }) => (
+    <svg
+        className={className}
+        width={width}
+        height={height}
+        focusable="false"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        data-testid="DashboardIcon"
+    >
+        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+    </svg>
+);

@@ -1,18 +1,38 @@
 import classNames from 'classnames/bind';
 import styles from './Banner.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getHorizontalMain } from '~/actions/bannerHorizontalAction';
 
 const cx = classNames.bind(styles);
 
 function Banner() {
+    const dispatch = useDispatch();
+
+    const { horizontals } = useSelector((state) => state.horizontalMain);
+    useEffect(() => {
+        dispatch(getHorizontalMain());
+    }, [dispatch]);
+    // console.log('horizon: ', horizontals[0]);
+
     return (
         <div className={cx('banner')}>
             <div className={cx('box-banner')}>
-                <div className={cx('box-img')}>
+                {horizontals.map((horizon) => (
+                    <div className={cx('box-img')} key={horizon._id}>
+                        <img
+                            src={horizon.url}
+                            alt=""
+                        />
+                    </div>
+                ))}
+
+                {/* <div className={cx('box-img')}>
                     <img
                         src="https://lh3.googleusercontent.com/KAR52NV6fHA6E5A6Cl-iDBxWXhvMdZh9kS4N1ZrWB9Xt0_vhm-anfRkms5yxBQ3RfJ3Qkm8pbXgpC2lqMbR4uszgq_Zgb_E=rw-w1232"
                         alt=""
                     />
-                </div>
+                </div> */}
             </div>
         </div>
     );

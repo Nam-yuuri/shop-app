@@ -1,16 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import {
-  newProductReducer,
-  nProductsReducer,
-  productDetailsReducer,
-  productReducer,
-  productsAdminReducer,
-  productsReducer,
-  topProductsReducer,
-} from "./reducers/productReducer";
+    newProductReducer,
+    nProductsReducer,
+    productDetailsReducer,
+    productReducer,
+    productsAdminReducer,
+    productsReducer,
+    topProductsReducer,
+} from './reducers/productReducer';
 
 // import {
 //   newCategoryReducer,
@@ -37,101 +37,102 @@ import {
 //   orderReducer,
 //   allOrdersStatusReducer,
 // } from "./reducers/orderReducer";
-// import {
-//   contactDetailsReducer,
-//   contactReducer,
-//   contactsReducer,
-//   newContactReducer,
-// } from "./reducers/contactReducer";
-// // import {
-// //   blogDetailsReducer,
-// //   blogReducer,
-// //   blogReviewsReducer,
-// //   blogsReducer,
-// //   newBlogReducer,
-// //   newReviewBlogReducer,
-// //   reviewBlogReducer,
-// // } from "./reducers/blogReducer";
+
+
 import {
-  // bannerDetailsReducer,
-  // bannerReducer,
-  bannersReducer,
-  // newBannerReducer,
-} from "./reducers/bannerReducer";
+    // bannerDetailsReducer,
+    // bannerReducer,
+    bannersReducer,
+    mainBannersReducer,
+    newBannerReducer,
+} from './reducers/bannerReducer';
+
+import { carouselsReducer } from './reducers/carouselReducer';
+
+import {
+    bannersHorizontalReducer,
+    mainHorizontalReducer,
+    newBannerHorizontalReducer,
+}
+from './reducers/bannerHorizontalReducer'
+
+import {
+    headersReducer
+} from './reducers/headerReducer'
+
+import {
+    brandsReducer,
+} from './reducers/brandReducer'
 
 const reducer = combineReducers({
-  // Product
-  products: productsReducer,
-  productsAdmin: productsAdminReducer,
-  topProducts: topProductsReducer,
-  productDetails: productDetailsReducer,
-  nProducts: nProductsReducer,
-  newProduct: newProductReducer,
-  product: productReducer,
-  // // User
-  // user: userReducer,
-  // profile: profileReducer,
-  // forgotPassword: forgotPasswordReducer,
-  // allUsers: allUsersReducer,
-  // userDetails: userDetailsReducer,
-  // // Category
-  // categories: categoriesReducer,
-  // categoryDetails: categoryDetailsReducer,
-  // newCategory: newCategoryReducer,
-  // category: categoryReducer,
-  // //Cart
-  // cart: cartReducer,
-  // cartLocal: cartLocalReducer,
-  // //Order
-  // newOrder: newOrderReducer,
-  // myOrders: myOrdersReducer,
-  // orderDetails: orderDetailsReducer,
-  // allOrders: allOrdersReducer,
-  // order: orderReducer,
-  // allOrdersStatistical: allOrdersStatisticalReducer,
-  // allOrdersStatus: allOrdersStatusReducer,
-  // //Contact
-  // contacts: contactsReducer,
-  // contactDetails: contactDetailsReducer,
-  // newContact: newContactReducer,
-  // contact: contactReducer,
-  // //Blog
-  // blogs: blogsReducer,
-  // blogDetails: blogDetailsReducer,
-  // newBlog: newBlogReducer,
-  // blog: blogReducer,
-  // blogReviews: blogReviewsReducer,
-  // newReviewBlog: newReviewBlogReducer,
-  // reviewBlog: reviewBlogReducer,
-  // //Banner
-  banners: bannersReducer,
-  // bannerDetails: bannerDetailsReducer,
-  // newBanner: newBannerReducer,
-  // banner: bannerReducer,
+    // Product
+    products: productsReducer,
+    productsAdmin: productsAdminReducer,
+    topProducts: topProductsReducer,
+    productDetails: productDetailsReducer,
+    nProducts: nProductsReducer,
+    newProduct: newProductReducer,
+    product: productReducer,
+    // // User
+    // user: userReducer,
+    // profile: profileReducer,
+    // forgotPassword: forgotPasswordReducer,
+    // allUsers: allUsersReducer,
+    // userDetails: userDetailsReducer,
+    // // Category
+    // categories: categoriesReducer,
+    // categoryDetails: categoryDetailsReducer,
+    // newCategory: newCategoryReducer,
+    // category: categoryReducer,
+    // //Cart
+    // cart: cartReducer,
+    // cartLocal: cartLocalReducer,
+    // //Order
+    // newOrder: newOrderReducer,
+    // myOrders: myOrdersReducer,
+    // orderDetails: orderDetailsReducer,
+    // allOrders: allOrdersReducer,
+    // order: orderReducer,
+    // allOrdersStatistical: allOrdersStatisticalReducer,
+    // allOrdersStatus: allOrdersStatusReducer,
+
+    // //Banner
+    banners: bannersReducer,
+    bannersMain: mainBannersReducer,
+    // bannerDetails: bannerDetailsReducer,
+    newBanner: newBannerReducer,
+    // banner: bannerReducer,
+    
+    // Carousel
+    carousels: carouselsReducer,
+
+    // Banner Horizontal
+    horizontals: bannersHorizontalReducer,
+    horizontalMain: mainHorizontalReducer,
+    newBannerHorizontal: newBannerHorizontalReducer,
+
+    // Header
+    headers: headersReducer,
+
+    // Brand
+    brands: brandsReducer,
+
 });
 
 let initialState = {
-  cartLocal: {
-    cartItems: localStorage.getItem("cartItems")
-      ? JSON.parse(localStorage.getItem("cartItems"))
-      : [],
-    shippingInfo: localStorage.getItem("shippingInfo")
-      ? JSON.parse(localStorage.getItem("shippingInfo"))
-      : {},
-  },
-  // wishlistLocal: {
-  //   wishlistItems: localStorage.getItem("wishlistItems")
-  //     ? JSON.parse(localStorage.getItem("wishlistItems"))
-  //     : [],
-  // },
+    // cartLocal: {
+    //     cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
+    //     shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {},
+    // },
+    // wishlistLocal: {
+    //   wishlistItems: localStorage.getItem("wishlistItems")
+    //     ? JSON.parse(localStorage.getItem("wishlistItems"))
+    //     : [],
+    // },
 };
 
 const middleware = [thunk];
 
-const store = createStore(
-  reducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 
 export default store;

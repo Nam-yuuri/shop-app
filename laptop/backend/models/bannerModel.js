@@ -1,14 +1,30 @@
 const mongoose = require("mongoose");
 
 const bannerSchema = mongoose.Schema({
-  url: {
+  title: {
     type: String,
-    require: true,
+    required: [true, "Hãy nhập tiêu đề"],
   },
-  banner:{
+  description: {
+    type: String,
+    required: [true, "Hãy nhập giới thiệu"],
+  },
+  status: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
+  images: [
+    {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("Banner", bannerSchema);

@@ -5,18 +5,34 @@ const brandSchema = mongoose.Schema({
     type: String,
     require: [true, "Hãy nhập tên thương hiệu"],
   },
-  logo: {
+  description: {
     type: String,
-    default: 'https://yumenohoshi.jp/wp-content/uploads/2020/01/noimage.png'
+    required: [true, "Hãy nhập giới thiệu"],
   },
-  image: {
-    type: String,
-    default: 'https://tse4.mm.bing.net/th?id=OIP.p0WAlcQXPdY_rVmq7_ynOwHaDW&pid=Api&P=0'
-  },
-  sold: {
-    type: Number,
-    default: 0,
-  },
+  logo: [
+    {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  images: [
+    {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("Brand", brandSchema);

@@ -5,17 +5,17 @@ const cloudinary = require("cloudinary");
 
 //Get all header banner
 exports.getAllHeader = catchAsyncErrors(async (req, res, next) => {
-  const headers = await Header.find();
+  const header = await Header.find();
 
   res.status(200).json({
     success: true,
-    headers,
+    header,
   });
 });
 
 //Get header banner main
 exports.getMainHeader = catchAsyncErrors(async (req, res, next) => {
-  const header = await Header.find({banner: true});
+  const header = await Header.find({ banner: true });
 
   if (!header) {
     return next(new ErrorHander("Không tìm thấy header banner", 404));
@@ -31,7 +31,6 @@ exports.getMainHeader = catchAsyncErrors(async (req, res, next) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-
 
 //Get header banner details
 exports.getHeader = catchAsyncErrors(async (req, res, next) => {
@@ -54,24 +53,38 @@ exports.getHeader = catchAsyncErrors(async (req, res, next) => {
 
 //Create deader banner
 exports.createHeader = catchAsyncErrors(async (req, res, next) => {
-  const header = req.body;
-  if (!header.url) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Thiếu thông tin ảnh" });
-  }
-  const newHeader = new Header(header);
-  try {
-    await newHeader.save();
+  // let images;
 
-    res.status(200).json({
-      success: true,
-      newHeader,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
+  // if (typeof req.body.images === "string") {
+  //   images.push(req.body.images);
+  // } else {
+  //   images = req.body.images;
+  // }
+
+  const result = await cloudinary.v2.uploader.upload(req.body.images, {
+    folder: "header",
+  });
+
+  // imagesLinks.push({
+  //   public_id: result.public_id,
+  //   url: result.secure_url,
+  // });
+
+  // req.body.images = imagesLinks;
+  const status = req.body;
+
+  const header = await Header.create({
+    status,
+    images: {
+      public_id: result.public_id,
+      url: result.secure_url,
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    header,
+  });
 });
 
 //Update header

@@ -12,16 +12,23 @@ import Address from '~/pages/user/Account/Address';
 import config from '~/config';
 import Showroom from '~/pages/user/Showroom';
 import Promotion from '~/pages/user/Promotion';
+import Pdf from '~/pages/user/pdf'
 // import { config } from '@fortawesome/fontawesome-svg-core';
 
 import ProductList from '~/pages/Admin/Products/ProductList';
 import NewProduct from '~/pages/Admin/Products/NewProduct';
 import BrandList from '~/pages/Admin/brands/BrandList';
-
+import NewBrand from '~/pages/Admin/brands/NewBrand';
+import BannerList from '~/pages/Admin/Banner/BannerList';
+import Newbanner from '~/pages/Admin/Banner/Newbanner';
+import BannerHorizonList from '~/pages/Admin/BannerHorizon/BannerHorizonList';
+import NewBannerHorizon from '~/pages/Admin/BannerHorizon/NewBannerHorizon';
+import HeaderList from '~/pages/Admin/Header/HeaderList';
+import NewHeader from '~/pages/Admin/Header/newHeader/NewHeader';
 // Public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
-    // { path: 'laptop', component: Laptop },
+    { path: config.routes.pdf, component: Pdf},
     // { path: 'notification', component: Notification },
     { path: config.routes.cart, component: Cart },
     { path: config.routes.login, component: Login},
@@ -34,7 +41,14 @@ const publicRoutes = [
     { path: config.routes.promotion, component: Promotion },
     { path: config.routes.productList, component: ProductList, layout: null},
     { path: config.routes.newProduct, component: NewProduct, layout: null},
+    { path: config.routes.bannerList, component: BannerList, layout: null},
+    { path: config.routes.newBannerList, component: Newbanner, layout: null},
     { path: config.routes.brandList, component: BrandList, layout: null},
+    { path: config.routes.newBrandList, component: NewBrand, layout: null},
+    { path: config.routes.bannerHorizonList, component: BannerHorizonList, layout: null},
+    { path: config.routes.newBannerHorizon, component: NewBannerHorizon, layout: null},
+    { path: config.routes.headerList, component: HeaderList, layout: null},
+    { path: config.routes.newHeader, component: NewHeader, layout: null},
 
 ];
 

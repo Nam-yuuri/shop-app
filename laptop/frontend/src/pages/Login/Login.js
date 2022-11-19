@@ -97,7 +97,7 @@ function Login() {
                                             type="text"
                                             className="form-control"
                                             id="inputAddress"
-                                            placeholder="User name *"
+                                            placeholder="Email *"
                                             // handlechange={handlechange}
                                             onChange={(e) => {
                                                 setUsername(e.target.value);

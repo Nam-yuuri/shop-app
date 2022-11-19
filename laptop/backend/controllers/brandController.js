@@ -1,8 +1,57 @@
 const Brand = require("../models/brandModel");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const cloudinary = require("cloudinary");
 
 //Create brand
 exports.createBrand = catchAsyncErrors(async (req, res, next) => {
+  // image
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "brand-images",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
+
+  // //logo
+  // let logo = [];
+
+  // if (typeof req.body.logo === "string") {
+  //   logo.push(req.body.logo);
+  // } else {
+  //   logo = req.body.logo;
+  // }
+
+  // const logoLinks = [];
+
+  // for (let i = 0; i < logo.length; i++) {
+  //   const result = await cloudinary.v2.uploader.upload(logo[i], {
+  //     folder: "brand-logo",
+  //   });
+
+  //   logoLinks.push({
+  //     public_id: result.public_id,
+  //     url: result.secure_url,
+  //   });
+  // }
+
+  // req.body.logo = logoLinks;
+
   const brand = req.body;
   if (!brand.name) {
     return res.status(400).json({
@@ -89,6 +138,6 @@ exports.DeleteBrand = catchAsyncErrors(async (req, res, next) => {
   await brand.remove();
   res.status(200).json({
     success: true,
-    message:"Xóa thành công brand",
+    message: "Xóa thành công brand",
   });
 });

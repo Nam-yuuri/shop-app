@@ -1,14 +1,14 @@
-export const headerReducer = (state = { Headers: [] }, action) => {
+export const headersReducer = (state = { headers: [] }, action) => {
     switch (action.type) {
         case 'ALL_HEADER_REQUEST':
             return {
                 loading: true,
-                Headers: [],
+                headers: [],
             };
         case 'ALL_HEADER_SUCCESS':
             return {
                 loading: false,
-                Headers: action.payload,
+                headers: action.payload,
             };
         case 'ALL_HEADER_FAIL':
             return {

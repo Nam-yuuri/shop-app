@@ -6,27 +6,14 @@ import styles from './Carousel.module.scss';
 
 import Button from '~/components/Button';
 import './Carousel.css';
-import { DataCarousel, DataCarouselImage } from '~/Data/Carousel/Carousel';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllBanners, getAllBannersMain } from '~/actions/bannerAction';
+import { getAllCarousels } from '~/actions/carouselAction';
 
 const cx = classNames.bind(styles);
 
 function Carousel() {
-    const [carousels, setCarousels] = useState([]);
-    const [images, setImages] = useState([]);
     const [scroll, setScroll] = useState(false);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setCarousels(DataCarousel);
-        }, 0);
-    }, []);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setImages(DataCarouselImage);
-        }, 0);
-    }, []);
 
     const settings = {
         dots: true,
@@ -39,14 +26,31 @@ function Carousel() {
         autoplaySpeed: 3000,
         pauseOnHover: true,
     };
+    const dispatch = useDispatch();
+
+    const { banners } = useSelector((state) => state.bannersMain);
+
+    useEffect(() => {
+        dispatch(getAllBannersMain());
+    }, [dispatch]);
+
+    // console.log('banner',banners)
+
+    const { carousels } = useSelector((state) => state.carousels);
+    useEffect(() => {
+        dispatch(getAllCarousels());
+    }, [dispatch]);
+
+    // console.log('carousel :', carousels);
+
     return (
         <div className={scroll ? 'App app-scroll' : 'App'} id="app">
-            <div className='carousel'>
+            <div className="carousel">
                 <Slider {...settings}>
                     {carousels.map((carousel) => (
-                        <div className={cx('cart')} key={carousel.id}>
+                        <div className={cx('cart')} key={carousel._id}>
                             <div className={cx('cart-top')}>
-                                <img src={carousel.linkImg} alt={carousel.title} />
+                                <img src={carousel.url} alt={carousel.title} />
                             </div>
                         </div>
                     ))}
@@ -54,10 +58,10 @@ function Carousel() {
             </div>
             <div className={cx('box')}>
                 <div className={cx('box-img')}>
-                    {images.map((img) => (
-                        <div className={cx('img')} key={img.id}>
+                    {banners.map((img) => (
+                        <div className={cx('img')} key={img._id}>
                             <Button>
-                                <img src={img.linkImg} alt="" />
+                                <img src={img.images[0].url} alt="" />
                             </Button>
                         </div>
                     ))}
