@@ -14,58 +14,66 @@ import config from '~/config';
 import { getAdminProduct } from '~/actions/productAction';
 import { getAllBanners } from '~/actions/bannerAction';
 function ProductList() {
-    const { product } = useSelector((state) => state.products);
-    console.log(product);
-
     const [pageSize, setPageSize] = React.useState(5);
 
     const deleteProductHandler = (id) => {
         // dispatch(deleteProduct(id));
     };
 
+    const dispatch = useDispatch();
+
+    const { products } = useSelector((state) => state.productsAdmin);
+    useEffect(() => {
+        dispatch(getAdminProduct());
+    }, [dispatch]);
+
+    console.log('products: ', products);
+
     const columns = [
-        { field: 'id', headerName: 'ID', minWidth: 200, flex: 0.5 },
+        { field: 'id', headerName: 'ID', minWidth: 150, maxWidth: 200, flex: 0.5 },
 
         {
             field: 'name',
             headerName: 'Tên sản phẩm',
-            minWidth: 280,
+            minWidth: 250,
+            maxWidth: 280,
             flex: 1,
         },
         {
-            field: 'stock',
+            field: 'Stock',
             headerName: 'Kho hàng',
             type: 'number',
             minWidth: 70,
             flex: 0.3,
         },
         {
-            field: 'price',
+            field: 'cost',
             headerName: 'Giá tiền',
             type: 'number',
-            minWidth: 150,
+            minWidth: 100,
             flex: 0.5,
         },
         {
-            field: 'discountActive',
+            field: 'Status_promotional',
             headerName: 'Đang giảm giá',
-            minWidth: 150,
+            minWidth: 70,
             flex: 0.3,
             renderCell: (params) =>
                 params.value ? <span className="greenColor">Có</span> : <span className="redColor">Không</span>,
         },
         {
-            field: 'discountPercent',
+            field: 'promotional',
             headerName: 'Giảm giá',
             type: 'number',
-            minWidth: 130,
+            minWidth: 0,
             flex: 0.5,
             renderCell: (params) => <span>{params.value}%</span>,
         },
         {
             field: 'image',
             headerName: 'Hình ảnh',
-            minWidth: 200,
+            minWidth: 50,
+            maxWidth: 100,
             flex: 0.7,
             renderCell: (params) => (
                 <img
@@ -79,7 +87,31 @@ function ProductList() {
             ),
         },
         {
-            field: 'category',
+            field: 'gift_images',
+            headerName: 'Quà',
+            minWidth: 50,
+            maxWidth: 70,
+            flex: 0.7,
+            renderCell: (params) => (
+                <img
+                    src={params.value}
+                    alt=""
+                    style={{
+                        width: '45px',
+                        height: '45px',
+                    }}
+                />
+            ),
+        },
+        {
+            field: 'gift_image_name',
+            headerName: 'Tên quà',
+            type: 'number',
+            minWidth: 0,
+            flex: 0.5,
+        },
+        {
+            field: 'brand',
             headerName: 'Danh mục',
             minWidth: 150,
             flex: 0.5,
@@ -130,29 +162,29 @@ function ProductList() {
 
     const rows = [];
 
-    const dispatch = useDispatch();
+    products &&
+        products.forEach((item) => {
+            rows.push({
+                id: item._id,
+                name: item.name,
+                Stock: item.Stock,
+                cost: item.cost,
+                promotional: item.promotional,
+                Status_promotional: item.Status_promotional,
+                image: item.images[0].url,
+                brand: item.brand.name,
+                gift_image_name: item.gift_image_name,
+                gift_images: item.gift_images[0].url
+            });
+        });
 
-    const { products } = useSelector((state) => state.products);
-    useEffect(() => {
-        dispatch(getAdminProduct());
-    }, [dispatch]);
-
-    console.log('products: ', products);
-
-    // const { banners } = useSelector((state) => state.banners);
-    // useEffect(() => {
-    //     dispatch(getAllBanners());
-    // }, [dispatch]);
-
-    // console.log('banner: ', banners);
-
-    const [wrapperWidth, setWapperWidth] = useState(true)
+    const [wrapperWidth, setWapperWidth] = useState(true);
     return (
         <div>
             <div className="header-admin">
-                <div className="btn-sidebar" style={{width: wrapperWidth ? '222px' : '35px'}}>
+                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                     <FontAwesomeIcon
-                        icon={ wrapperWidth ? faChevronLeft : faBars }
+                        icon={wrapperWidth ? faChevronLeft : faBars}
                         onClick={() => {
                             setWapperWidth(!wrapperWidth);
                         }}
@@ -167,7 +199,10 @@ function ProductList() {
                 </div>
             </div>
             <div className="productList">
-                <div className="sidebar" style={{width: wrapperWidth ? '222px' : '0px' , display: wrapperWidth ? 'block' : 'none'}}>
+                <div
+                    className="sidebar"
+                    style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                >
                     <div className="box-sidebar">
                         <Sidebar />
                     </div>

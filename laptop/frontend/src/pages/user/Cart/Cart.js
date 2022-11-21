@@ -366,13 +366,13 @@ function Cart() {
                                         </div>
                                         {loginResult ? (
                                             <div className={cx('btn-money')}>
-                                                <Button primary large onClick={handleIntoMoney} href={' '}>
+                                                <Button primary large onClick={handleIntoMoney} to={config.routes.checkout}>
                                                     TIẾP TỤC
                                                 </Button>
                                             </div>
                                         ) : (
                                             <div className={cx('btn-money')}>
-                                                <Button primary large href={'/login'}>
+                                                <Button primary large to={config.routes.login}>
                                                     THANH TOÁN
                                                     <span>Bạn cần đăng nhập để tiếp tục</span>
                                                 </Button>
@@ -434,13 +434,13 @@ function Cart() {
                                                 </div>
                                                 {loginResult ? (
                                                     <div className={cx('btn-money')}>
-                                                        <Button primary large onClick={handleIntoMoney} href={' '}>
+                                                        <Button primary large onClick={handleIntoMoney} to={config.routes.checkout}>
                                                             TIẾP TỤC
                                                         </Button>
                                                     </div>
                                                 ) : (
                                                     <div className={cx('btn-money')}>
-                                                        <Button primary large href={'/login'}>
+                                                        <Button primary large to={config.routes.login}>
                                                             THANH TOÁN
                                                             <span>Bạn cần đăng nhập</span>
                                                         </Button>

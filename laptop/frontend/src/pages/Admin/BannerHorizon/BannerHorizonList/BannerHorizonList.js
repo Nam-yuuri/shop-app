@@ -44,8 +44,8 @@ function BannerHorizonList() {
             flex: 0.5,
         },
         {
-            field: 'banner',
-            headerName: 'Trạng thái',
+            field: 'status',
+            headerName: 'Status',
             minWidth: 100,
             maxWidth: 100,
             flex: 0.5,
@@ -118,7 +118,9 @@ function BannerHorizonList() {
         horizontals.forEach((item) => {
             rows.push({
                 id: item._id,
-                image: item.url,
+                desc: item.description,
+                status: item.status,
+                image: item.images.url,
             });
         });
 

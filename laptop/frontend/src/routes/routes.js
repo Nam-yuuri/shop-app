@@ -13,6 +13,7 @@ import config from '~/config';
 import Showroom from '~/pages/user/Showroom';
 import Promotion from '~/pages/user/Promotion';
 import Pdf from '~/pages/user/pdf'
+import Checkout from '~/pages/user/Checkout';
 // import { config } from '@fortawesome/fontawesome-svg-core';
 
 import ProductList from '~/pages/Admin/Products/ProductList';
@@ -25,12 +26,14 @@ import BannerHorizonList from '~/pages/Admin/BannerHorizon/BannerHorizonList';
 import NewBannerHorizon from '~/pages/Admin/BannerHorizon/NewBannerHorizon';
 import HeaderList from '~/pages/Admin/Header/HeaderList';
 import NewHeader from '~/pages/Admin/Header/newHeader/NewHeader';
+import Dashboard from '~/pages/Admin/Dashboard';
 // Public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.pdf, component: Pdf},
     // { path: 'notification', component: Notification },
     { path: config.routes.cart, component: Cart },
+    { path: config.routes.checkout, component: Checkout },
     { path: config.routes.login, component: Login},
     { path: config.routes.brand, component: Brands },
     { path: config.routes.profile, component: Profile },
@@ -49,6 +52,7 @@ const publicRoutes = [
     { path: config.routes.newBannerHorizon, component: NewBannerHorizon, layout: null},
     { path: config.routes.headerList, component: HeaderList, layout: null},
     { path: config.routes.newHeader, component: NewHeader, layout: null},
+    { path: config.routes.dashboard, component: Dashboard, layout: null},
 
 ];
 

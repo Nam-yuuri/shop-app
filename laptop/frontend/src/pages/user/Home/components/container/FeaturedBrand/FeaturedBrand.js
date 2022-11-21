@@ -2,7 +2,9 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
+import { getAllBrands } from '~/actions/brandAction';
 import Button from '~/components/Button';
 import { DataBrands } from '~/Data/Brands/Brands';
 import styles from './FeaturedBrand.module.scss';
@@ -13,7 +15,11 @@ function FeaturedBrand() {
     const settings = {
         infinite: true,
         slidesToShow: 4,
+        autoplay: true,
+        speed: 2000,
+        autoplaySpeed: 3000,
         slidesToScroll: 1,
+        
         responsive: [
             {
                 breakpoint: 1024,
@@ -42,6 +48,13 @@ function FeaturedBrand() {
         });
     });
 
+    const dispatch = useDispatch();
+
+    const { loading, brands } = useSelector((state) => state.brands);
+    useEffect(() => {
+        dispatch(getAllBrands());
+    }, [dispatch]);
+
     return (
         <div className={cx('container')}>
             <div className={cx('header')}>
@@ -49,12 +62,12 @@ function FeaturedBrand() {
             </div>
             <div className={cx('carousel')}>
                 <Slider ref={slider} {...settings}>
-                    {featuredBrands.map((brand) => (
-                        <div className={cx('box')} key={brand.id}>
+                    {brands.map((brand) => (
+                        <div className={cx('box')} key={brand._id}>
                             <div className={cx('box-img')}>
-                                <Button to={brand.to}>
-                                    <img src={brand.img} alt="" />
-                                </Button>
+                                <div>
+                                    <img src={brand.images.url} alt="" />
+                                </div>
                             </div>
                             <div className={cx('box-text')}>{brand.name}</div>
                         </div>

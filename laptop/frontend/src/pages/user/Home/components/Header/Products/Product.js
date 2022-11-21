@@ -8,6 +8,7 @@ import NotificationItem from '~/components/layout/components/PreviewItem/Notific
 import './Product.css';
 import { DataProduct } from '~/Data/Product/Product';
 import { useSelector, useDispatch } from "react-redux";
+import { getAllBrands } from '~/actions/brandAction';
 
 const cx = classNames.bind(styles);
 
@@ -30,17 +31,25 @@ function Product() {
         );
     };
 
+    const dispatch = useDispatch();
+
+    const { loading, brands } = useSelector((state) => state.brands);
+    useEffect(() => {
+        dispatch(getAllBrands());
+    }, [dispatch]);
+
+    // console.log('brand: ', brands);
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                {products.map((product) => (
-                    <div key={product.id}>
+                {brands.map((product) => (
+                    <div key={product._id}>
                         <div className={cx('')}>
                             <Button to={product.to} className={cx('box')}>
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
-                                        <img src={product.img} alt="" />
+                                        <img src={product.logo.url} alt="" />
                                     </div>
                                     <span>{product.name}</span>
                                 </div>

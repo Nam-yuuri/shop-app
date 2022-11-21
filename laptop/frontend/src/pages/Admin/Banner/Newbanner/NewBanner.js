@@ -41,16 +41,14 @@ function NewBanner() {
 
         const myForm = new FormData();
 
-        console.log('title: ', title);
-        myForm.set('title', title);
         console.log('des: ', description);
         myForm.set('description', description);
-        console.log('sta: ', status);
-        myForm.set('status', status);
+        // console.log('sta: ', status);
+        // myForm.set('status', status);
 
-        images.forEach((image) => {
-            myForm.append('images', image);
-        });
+        // images.forEach((image) => {
+        //     myForm.append('images', image);
+        // });
 
         console.log('form: ', myForm);
         // dispatch(createBanner(myForm));
@@ -97,7 +95,9 @@ function NewBanner() {
                 </div>
             </div>
             <div className="NewBanner">
-                <div className="sidebar" style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                <div
+                    className="sidebar"
+                    style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
                 >
                     <div className="box-sidebar">
                         <Sidebar />

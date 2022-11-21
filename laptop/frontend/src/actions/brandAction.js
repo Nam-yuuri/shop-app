@@ -7,7 +7,7 @@ export const getAllBrands = () => async (dispatch) => {
 
         const data = await axios.get('http://localhost:8000/api/v1/brand');
 
-        console.log('brand db: ', data);
+        // console.log('brand db: ', data);
 
         dispatch({
             type: 'ALL_BRAND_SUCCESS',

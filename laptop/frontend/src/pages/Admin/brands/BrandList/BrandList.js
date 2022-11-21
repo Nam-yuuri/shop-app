@@ -32,51 +32,30 @@ function BrandList() {
         dispatch(getAllBrands());
     }, [dispatch]);
 
-    console.log('brand: ', brands);
+    // console.log('brand: ', brands);
 
     const columns = [
-        { field: 'id', headerName: 'ID', minWidth: 200, flex: 0.5 },
+        { field: 'id', headerName: 'ID', minWidth: 200,maxWidth: 200, flex: 0.5 },
 
         {
             field: 'name',
             headerName: 'Tên thương hiệu',
-            minWidth: 280,
+            minWidth: 80,
+            maxWidth: 100,
             flex: 1,
         },
         {
-            field: 'stock',
-            headerName: 'Kho hàng',
+            field: 'desc',
+            headerName: 'mô tả',
             type: 'number',
             minWidth: 70,
             flex: 0.3,
         },
         {
-            field: 'price',
-            headerName: 'Giá tiền',
-            type: 'number',
-            minWidth: 150,
-            flex: 0.5,
-        },
-        {
-            field: 'discountActive',
-            headerName: 'Đang giảm giá',
-            minWidth: 150,
-            flex: 0.3,
-            renderCell: (params) =>
-                params.value ? <span className="greenColor">Có</span> : <span className="redColor">Không</span>,
-        },
-        {
-            field: 'discountPercent',
-            headerName: 'Giảm giá',
-            type: 'number',
-            minWidth: 130,
-            flex: 0.5,
-            renderCell: (params) => <span>{params.value}%</span>,
-        },
-        {
-            field: 'image',
+            field: 'logo',
             headerName: 'Hình ảnh',
             minWidth: 200,
+            maxWidth: 200,
             flex: 0.7,
             renderCell: (params) => (
                 <img
@@ -90,16 +69,28 @@ function BrandList() {
             ),
         },
         {
-            field: 'category',
-            headerName: 'Danh mục',
-            minWidth: 150,
-            flex: 0.5,
+            field: 'image',
+            headerName: 'Hình ảnh',
+            minWidth: 200,
+            maxWidth: 200,
+            flex: 0.7,
+            renderCell: (params) => (
+                <img
+                    src={params.value}
+                    alt=""
+                    style={{
+                        width: '100px',
+                        height: '45px',
+                    }}
+                />
+            ),
         },
         {
             field: 'actions',
             flex: 0.3,
             headerName: 'Actions',
             minWidth: 150,
+            maxWidth: 200,
             type: 'number',
             sortable: false,
             renderCell: (params) => {
@@ -140,6 +131,17 @@ function BrandList() {
     ];
 
     const rows = [];
+
+    brands &&
+        brands.forEach((item) => {
+            rows.push({
+                id: item._id,
+                name: item.name,
+                desc: item.description,
+                logo: item.logo.url,
+                image: item.images.url,
+            });
+        });
     return (
         <div>
             <div className="header-admin">
@@ -155,7 +157,7 @@ function BrandList() {
                     <h1>Brand</h1>
                     <Link to={config.routes.newBrandList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
-                        Thêm thương hiệu 
+                        Thêm thương hiệu
                     </Link>
                 </div>
             </div>

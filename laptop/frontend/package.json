@@ -36,6 +36,7 @@
         "react": "^18.2.0",
         "react-bootstrap-range-slider": "^3.0.8",
         "react-carousel-minimal": "^1.4.1",
+        "react-chartjs-2": "^5.0.1",
         "react-classlist": "^1.1.2",
         "react-confirm-alert": "^3.0.6",
         "react-dom": "^18.2.0",

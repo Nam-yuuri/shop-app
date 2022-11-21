@@ -32,11 +32,16 @@ function HeaderList() {
         dispatch(getAllHeaders());
     }, [dispatch]);
 
-    console.log('header: ', headers);
+    // console.log('header: ', headers[0]);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
-
+        {
+            field: 'desc',
+            headerName: 'Giới thiệu',
+            minWidth: 100,
+            flex: 0.5,
+        },
         {
             field: 'status',
             headerName: 'Status',
@@ -114,7 +119,7 @@ function HeaderList() {
                 id: item._id,
                 desc: item.description,
                 status: item.status,
-                image: item.url,
+                image: item.images.url,
             });
         });
 

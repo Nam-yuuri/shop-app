@@ -5,54 +5,17 @@ const cloudinary = require("cloudinary");
 //Create brand
 exports.createBrand = catchAsyncErrors(async (req, res, next) => {
   // image
-  let images = [];
+  const images = await cloudinary.v2.uploader.upload(req.body.images, {
+    folder: "images-brand",
+  });
 
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images;
-  }
+  const logo = await cloudinary.v2.uploader.upload(req.body.logo, {
+    folder: "logo-brand",
+  });
 
-  const imagesLinks = [];
+  const { name, description } = req.body;
 
-  for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "brand-images",
-    });
-
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
-  }
-
-  req.body.images = imagesLinks;
-
-  // //logo
-  // let logo = [];
-
-  // if (typeof req.body.logo === "string") {
-  //   logo.push(req.body.logo);
-  // } else {
-  //   logo = req.body.logo;
-  // }
-
-  // const logoLinks = [];
-
-  // for (let i = 0; i < logo.length; i++) {
-  //   const result = await cloudinary.v2.uploader.upload(logo[i], {
-  //     folder: "brand-logo",
-  //   });
-
-  //   logoLinks.push({
-  //     public_id: result.public_id,
-  //     url: result.secure_url,
-  //   });
-  // }
-
-  // req.body.logo = logoLinks;
-
-  const brand = req.body;
+  const brand = req.body; 
   if (!brand.name) {
     return res.status(400).json({
       success: false,
@@ -60,7 +23,18 @@ exports.createBrand = catchAsyncErrors(async (req, res, next) => {
     });
   }
 
-  const newBrand = await Brand.create(req.body);
+  const newBrand = await Brand.create({
+    name,
+    description,
+    images: {
+      public_id: images.public_id,
+      url: images.secure_url,
+    },
+    logo: {
+      public_id: logo.public_id,
+      url: logo.secure_url,
+    },
+  });
 
   res.status(200).json({
     success: true,
@@ -78,9 +52,19 @@ exports.getAllBrands = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//Get brands
+exports.getBrands = catchAsyncErrors(async (req, res, next) => {
+  const brand = await Brand.find().populate("name");
+
+  res.status(200).json({
+    success: true,
+    brand,
+  });
+});
+
 //Get top brands
 exports.getTopBrands = catchAsyncErrors(async (req, res, next) => {
-  const brand = await Brand.find().sort({ sold: -1 }).limit(5);
+  const brand = await Brand.find().sort({ sold: -1 }).limit(10);
 
   res.status(200).json({
     success: true,

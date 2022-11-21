@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { getAllHeader } from '~/actions/headerAction';
 import { getAllBanners, getAllBannersMain } from '~/actions/bannerAction';
 import config from '~/config';
+import { getAllHeaderMain, getAllHeaders } from '~/actions/headerAction';
 
 const cx = classNames.bind(styles);
 
@@ -125,28 +126,26 @@ function Header() {
 
     const dispatch = useDispatch();
 
-    // const { banners } = useSelector((state) => state.banners);
+    const { headers } = useSelector((state) => state.headersMain);
+    useEffect(() => {
+        dispatch(getAllHeaderMain());
+    }, [dispatch]);
 
+    // const { headers } = useSelector((state) => state.headers);
     // useEffect(() => {
-    //     // if (bannerErrors) {
-    //     //     setOpenError(true);
-    //     //     setErrorAlert(bannerErrors);
-    //     //     // dispatch(clearErrors());
-    //     // }
-    //     dispatch(getAllBanners());
+    //     dispatch(getAllHeaders());
     // }, [dispatch]);
 
-    // console.log('banner: ', banners);
+    // console.log('header nay:', headers);
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container-header')}>
-                <div className={cx('image')}>
-                    <img
-                        src="https://lh3.googleusercontent.com/zJfGHn1l8tFpbl6pz9S8UERiPTwb3me4DVKSOpKIDbxrhJXIoaxrhpFI_bt3nqkr5Fx8_MyvEtaYVBzGJCyZ75V0ndIdTuNswA=w1920-rw"
-                        alt=""
-                    />
-                </div>
+                {headers.map((header) => (
+                    <div className={cx('image')} key={header._id}>
+                        <img src={header.images.url} alt="header" />
+                    </div>
+                ))}
                 <div className={cx('information')}>
                     <Button to={config.routes.promotion}>
                         <PromotionIcon />
@@ -174,7 +173,7 @@ function Header() {
                     </Button> */}
                 </div>
             </div>
-           
+
             {scrollHeader ? (
                 <div className={cx('main-navigation-bar')}>
                     <div className={cx('container')}>

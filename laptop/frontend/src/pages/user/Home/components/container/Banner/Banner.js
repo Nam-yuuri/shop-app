@@ -20,19 +20,9 @@ function Banner() {
             <div className={cx('box-banner')}>
                 {horizontals.map((horizon) => (
                     <div className={cx('box-img')} key={horizon._id}>
-                        <img
-                            src={horizon.url}
-                            alt=""
-                        />
+                        <img src={horizon.images.url} alt="" />
                     </div>
                 ))}
-
-                {/* <div className={cx('box-img')}>
-                    <img
-                        src="https://lh3.googleusercontent.com/KAR52NV6fHA6E5A6Cl-iDBxWXhvMdZh9kS4N1ZrWB9Xt0_vhm-anfRkms5yxBQ3RfJ3Qkm8pbXgpC2lqMbR4uszgq_Zgb_E=rw-w1232"
-                        alt=""
-                    />
-                </div> */}
             </div>
         </div>
     );

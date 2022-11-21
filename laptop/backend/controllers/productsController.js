@@ -1,5 +1,6 @@
 const Product = require("../models/productsModel");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const cloudinary = require("cloudinary");
 
 // Get All Product with Pagination
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
@@ -16,7 +17,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   let filteredProductsCount = await products2.length;
 
   const apiFeature2 = new ApiFeatures(
-    Product.find().populate("category"),
+    Product.find().populate("brand"),
     req.query
   )
     .search()
@@ -38,7 +39,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
 // Get Product with brand
 exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.find({ brand: req.params.brand }).populate(
-    "category"
+    "brand"
   );
 
   if (!product) {
@@ -53,7 +54,7 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
 
 //get all product
 exports.getAdminAllProducts = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.find().populate("category");
+  const product = await Product.find();
 
   res.status(200).json({
     success: true,
@@ -73,7 +74,7 @@ exports.getTopProducts = catchAsyncErrors(async (req, res, next) => {
 
 //get product
 exports.getProduct = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.findById(req.params.id).populate("category");
+  const product = await Product.findById(req.params.id).populate("brand");
 
   if (!product) {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
@@ -87,48 +88,59 @@ exports.getProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Create Product
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-  //   let images = [];
+  //gift
+  let gift_images = [];
 
-  //   if (typeof req.body.images === "string") {
-  //     images.push(req.body.images);
-  //   } else {
-  //     images = req.body.images;
-  //   }
-
-  //   const imagesLinks = [];
-
-  //   for (let i = 0; i < images.length; i++) {
-  //     const result = await cloudinary.v2.uploader.upload(images[i], {
-  //       folder: "products",
-  //     });
-
-  //     imagesLinks.push({
-  //       public_id: result.public_id,
-  //       url: result.secure_url,
-  //     });
-  //   }
-
-  //   req.body.images = imagesLinks;
-  //   req.body.user = req.user.id;
-
-  const product = req.body;
-  if (!product.name || !product.description) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Thiếu thông tin sản phẩm" });
+  if (typeof req.body.gift_images === "string") {
+    gift_images.push(req.body.gift_images);
+  } else {
+    gift_images = req.body.gift_images;
   }
-  const newProduct = new Product(product);
-  try {
-    await newProduct.save();
 
-    res.status(200).json({
-      success: true,
-      newProduct,
+  const giftLinks = [];
+
+  for (let i = 0; i < gift_images.length; i++) {
+    const gift = await cloudinary.v2.uploader.upload(gift_images[i], {
+      folder: "gift images",
     });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+
+    giftLinks.push({
+      public_id: gift.public_id,
+      url: gift.secure_url,
+    });
   }
+
+  req.body.gift_images = giftLinks;
+
+  //images
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "images products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
+
+  const product = await Product.create(req.body);
+  res.status(200).json({
+    success: true,
+    product,
+  });
 });
 
 // Update Product -- Admin

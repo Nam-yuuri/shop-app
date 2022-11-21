@@ -32,7 +32,7 @@ function BannerList() {
         dispatch(getAllBanners());
     }, [dispatch]);
 
-    // console.log('banner: ', banners);
+    console.log('banner: ', banners);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, flex: 0.5 },
@@ -50,7 +50,7 @@ function BannerList() {
             flex: 0.5,
         },
         {
-            field: 'banner',
+            field: 'status',
             headerName: 'Trạng thái',
             minWidth: 100,
             flex: 0.5,

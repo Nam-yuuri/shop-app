@@ -7,13 +7,15 @@ const {
   getTopBrands,
   getBrand,
   UpdateBrand,
-  DeleteBrand
+  DeleteBrand,
+  getBrands
 } = require("../controllers/brandController");
 
 router.post("/admin/brand/new", createBrand);
 router.get("/brand/", getAllBrands);
 router.get("/brand/top", getTopBrands);
 router.get("/brand/:id", getBrand);
+router.get("/brand/name/:name", getBrands);
 router.put("/admin/brand/:id", UpdateBrand);
 router.delete("/admin/brand/:id", DeleteBrand);
 

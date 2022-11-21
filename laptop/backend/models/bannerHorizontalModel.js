@@ -1,14 +1,24 @@
 const mongoose = require("mongoose");
 
 const bannerHorizontalSchema = mongoose.Schema({
-    url:{
-        type: String,
-        require:true
-    },
-    main:{
+    images: {
+        public_id: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+      status: {
         type: Boolean,
-        default: false
-    }
+        default: false,
+      },
+      description: {
+        type: String,
+        required: [true, "Hãy nhập giới thiệu"],
+      },
 })
 
 module.exports = mongoose.model("BannerHorizontal", bannerHorizontalSchema)

@@ -45,7 +45,7 @@ import {
 export const getProduct =
   (
     currentPage = 1,
-    category,
+    brand,
     price = [0, 151],
     // ratings = 0,
     sort,
@@ -61,8 +61,8 @@ export const getProduct =
 
       // let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&${sort}`;
 
-      // if (category) {
-      //   link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}&${sort}`;
+      // if (brand) {
+      //   link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&brand=${brand}&ratings[gte]=${ratings}&${sort}`;
       // }
 
       let priceSort0 = price[0] * 1000000;
@@ -70,8 +70,8 @@ export const getProduct =
 
       let link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
 
-      if (category) {
-        link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&category=${category}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
+      if (brand) {
+        link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&brand=${brand}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
       }
 
       if (RAM) {
@@ -107,7 +107,7 @@ export const getAdminProduct = () => async (dispatch) => {
 
     const data = await axios.get("http://localhost:8000/api/v1/admin/products");
 
-    console.log("pd", data);
+    console.log("product db: ", data);
 
     dispatch({
       type: ADMIN_PRODUCT_SUCCESS,

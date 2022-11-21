@@ -9,30 +9,26 @@ const brandSchema = mongoose.Schema({
     type: String,
     required: [true, "Hãy nhập giới thiệu"],
   },
-  logo: [
-    {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
+  logo: {
+    public_id: {
+      type: String,
+      required: true,
     },
-  ],
-  images: [
-    {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
+    url: {
+      type: String,
+      required: true,
     },
-  ],
+  },
+  images: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
 });
 
 module.exports = mongoose.model("Brand", brandSchema);

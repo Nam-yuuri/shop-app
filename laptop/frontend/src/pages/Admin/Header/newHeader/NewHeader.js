@@ -27,6 +27,11 @@ function NewHeader() {
     const [status, setStatus] = useState(false);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
+    const [newHeader, setNewHeader] = useState({
+        description,
+        status,
+        images,
+    });
 
     const dispatch = useDispatch();
 
@@ -41,22 +46,22 @@ function NewHeader() {
 
         const myForm = new FormData();
 
-        console.log('title: ', title);
-        myForm.set('title', title);
         console.log('des: ', description);
-        myForm.set('description', description);
-        console.log('sta: ', status);
-        myForm.set('status', status);
+        myForm.append('description', description);
+        // console.log('sta: ', status);
+        // myForm.set('status', status);
 
-        images.forEach((image) => {
-            myForm.append('images', image);
-        });
+        // images.forEach((image) => {
+        //     myForm.append('images', image);
+        // });
 
+        console.log('form: ', images);
         console.log('form: ', myForm);
         // dispatch(createBanner(myForm));
+
+        console.log("newHeader: ",newHeader)
     };
 
-    // console.log(myForm)
     const createBannerImagesChange = (e) => {
         const files = Array.from(e.target.files);
 
@@ -108,22 +113,6 @@ function NewHeader() {
                 <div className="data">
                     <form className="flexDiv" encType="multipart/form-data" onSubmit={createBannerSubmitHandler}>
                         <Grid container spacing={2}>
-                            {/* <div className="flexDiv"> */}
-                            {/* <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <p>Tên thương hiệu</p>
-                            </Grid>
-                            <Grid item xs={12} sm={8} md={10}>
-                                <TextField
-                                    type="text"
-                                    label="Tên"
-                                    required
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    variant="outlined"
-                                    sx={{ width: '50%' }}
-                                />
-                            </Grid> */}
-
                             <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                 <p>Giới thiệu</p>
                             </Grid>
@@ -132,9 +121,30 @@ function NewHeader() {
                                     placeholder="Giới thiệu"
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
+                                    // onChange={(e) => setNewHeader({...newHeader, description:e.target.value})}
                                     cols="100"
                                     rows="7"
                                 ></textarea>
+                            </Grid>
+
+                            <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <p>Trạng thái</p>
+                            </Grid>
+                            <Grid item xs={12} sm={8} md={10}>
+                                <FormControl sx={{ width: '50%', marginBottom: '1.5rem' }}>
+                                    <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={status}
+                                        label="Trạng thái"
+                                        onChange={(e) => setStatus(e.target.value)}
+                                        // onChange={(e) => setNewHeader({...newHeader, status:e.target.value})}
+                                    >
+                                        <MenuItem value={true}>Bật</MenuItem>
+                                        <MenuItem value={false}>Tắt</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </Grid>
 
                             <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -170,7 +180,7 @@ function NewHeader() {
                                         <img
                                             key={index}
                                             src={image}
-                                            alt="Banner Preview"
+                                            alt="Header Preview"
                                             style={{
                                                 maxHeight: '150px',
                                                 maxWidth: '250px',

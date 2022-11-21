@@ -1,16 +1,16 @@
-export const headersReducer = (state = { headers: [] }, action) => {
+export const promotionsReducer = (state = { promotions: [] }, action) => {
     switch (action.type) {
-        case 'ALL_HEADER_REQUEST':
+        case 'ALL_PROMOTION_REQUEST':
             return {
                 loading: true,
-                headers: [],
+                promotions: [],
             };
-        case 'ALL_HEADER_SUCCESS':
+        case 'ALL_PROMOTION_SUCCESS':
             return {
                 loading: false,
-                headers: action.payload,
+                promotions: action.payload,
             };
-        case 'ALL_HEADER_FAIL':
+        case 'ALL_PROMOTION_FAIL':
             return {
                 loading: false,
                 error: action.payload,
@@ -26,20 +26,20 @@ export const headersReducer = (state = { headers: [] }, action) => {
     }
 };
 
-export const mainHeaderReducer = (state = { headers: [] }, action) => {
+export const mainPromotionReducer = (state = { promotions: [] }, action) => {
     switch (action.type) {
-        case 'MAIN_HEADER_REQUEST':
+        case 'MAIN_PROMOTION_REQUEST':
             return {
                 loading: true,
-                headers: [],
+                promotions: [],
             };
 
-        case 'MAIN_HEADER_SUCCESS':
+        case 'MAIN_PROMOTION_SUCCESS':
             return {
                 loading: false,
-                headers: action.payload,
+                promotions: action.payload,
             };
-        case 'MAIN_HEADER_FAIL':
+        case 'MAIN_PROMOTION_FAIL':
             return {
                 loading: false,
                 error: action.payload,

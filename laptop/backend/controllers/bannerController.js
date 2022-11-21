@@ -47,7 +47,7 @@ exports.getAllBanner = catchAsyncErrors(async (req, res, next) => {
 
 //Get 4 banner
 exports.getMainBanner = catchAsyncErrors(async (req, res, next) => {
-  const banner = await Banner.find({ banner: true }).limit(4);
+  const banner = await Banner.find({ status: true }).limit(4);
 
   res.status(200).json({
     success: true,

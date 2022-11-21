@@ -7,6 +7,8 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
 import NotificationItem from '~/components/layout/components/PreviewItem/NotificationItem';
 import { DataProduct } from '~/Data/Product/Product';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBrands } from '~/actions/brandAction';
 
 const cx = classNames.bind(styles);
 
@@ -29,16 +31,23 @@ function ProductItem() {
         );
     };
 
+    const dispatch = useDispatch();
+
+    const { loading, brands } = useSelector((state) => state.brands);
+    useEffect(() => {
+        dispatch(getAllBrands());
+    }, [dispatch]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                {products.map((product) => (
-                    <div key={product.id}>
-                        <div>
+                {brands.map((product) => (
+                    <div key={product._id}>
+                        <div className={cx('')}>
                             <Button to={product.to} className={cx('box')}>
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
-                                        <img src={product.img} alt="" />
+                                        <img src={product.logo.url} alt="" />
                                     </div>
                                     <span>{product.name}</span>
                                 </div>

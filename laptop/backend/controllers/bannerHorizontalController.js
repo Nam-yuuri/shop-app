@@ -5,7 +5,20 @@ const cloudinary = require("cloudinary");
 
 //Create horizontal
 exports.createBannerHorizontal = catchAsyncErrors(async (req, res, next) => {
-  const horizontal = await BannerHorizontal.create(req.body);
+  const result = await cloudinary.v2.uploader.upload(req.body.images, {
+    folder: "banner horizontal",
+  });
+
+  const { status, description } = req.body;
+
+  const horizontal = await BannerHorizontal.create({
+    status,
+    description,
+    images: {
+      public_id: result.public_id,
+      url: result.secure_url,
+    },
+  });
 
   if (!horizontal) {
     return next(new ErrorHander("Không tìm thấy horizontal", 404));

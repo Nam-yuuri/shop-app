@@ -10,6 +10,7 @@ const routes = {
     info: '/info',
     // eslint-disable-next-line no-dupe-keys
     image: '/image',
+    checkout: '/checkout',
     pdf: '/pdf',
     account: '/account',
     bill: '/bill',
@@ -27,6 +28,7 @@ const routes = {
     newBannerHorizon: '/admin/BannerHorizon/newBannerHorizon',
     headerList: '/admin/HeaderList',
     newHeader: '/admin/HeaderList/newHeader',
+    dashBoard: '/admin/Dashboard',
 };
 
 export default routes;

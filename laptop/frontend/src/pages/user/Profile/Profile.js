@@ -106,13 +106,6 @@ function Profile() {
                                             margin: '40px auto',
                                         }}
                                     />
-                                    {/* <Slider {...settings}>
-                                        {image.map((img) => (
-                                            <div key={img.id} style={{ width: '100%' }}>
-                                                <img src={img.image} alt="" style={{ width: '100%' }} />
-                                            </div>
-                                        ))}
-                                    </Slider> */}
                                 </div>
                                 <div className={cx('box-border')}>
                                     <div className={cx('border')}></div>
@@ -564,6 +557,14 @@ function Profile() {
                             <div className={cx('box-value')}>36</div>
                         </div>
                         <div className={cx('box-title')}>Thông tin chung</div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Màu sắc</div>
+                            <div className={cx('box-value')}>Xám</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Nhu cầu</div>
+                            <div className={cx('box-value')}>Văn phòng, Doanh nhân</div>
+                        </div>
                         <div className={cx('box-title')}>Cấu hình chi tiết</div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Kích thước</div>
@@ -643,6 +644,14 @@ function Profile() {
                             <div className={cx('box-value')}>36</div>
                         </div>
                         <div className={cx('box-title')}>Thông tin chung</div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Màu sắc</div>
+                            <div className={cx('box-value')}>Xám</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Nhu cầu</div>
+                            <div className={cx('box-value')}>Văn phòng, Doanh nhân</div>
+                        </div>
                         <div className={cx('box-title')}>Cấu hình chi tiết</div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Kích thước</div>

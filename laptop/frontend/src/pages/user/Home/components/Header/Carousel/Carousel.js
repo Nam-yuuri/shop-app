@@ -26,6 +26,7 @@ function Carousel() {
         autoplaySpeed: 3000,
         pauseOnHover: true,
     };
+    
     const dispatch = useDispatch();
 
     const { banners } = useSelector((state) => state.bannersMain);

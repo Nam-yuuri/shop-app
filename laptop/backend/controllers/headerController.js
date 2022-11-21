@@ -15,7 +15,7 @@ exports.getAllHeader = catchAsyncErrors(async (req, res, next) => {
 
 //Get header banner main
 exports.getMainHeader = catchAsyncErrors(async (req, res, next) => {
-  const header = await Header.find({ banner: true });
+  const header = await Header.find({ status: true });
 
   if (!header) {
     return next(new ErrorHander("Không tìm thấy header banner", 404));
@@ -53,28 +53,15 @@ exports.getHeader = catchAsyncErrors(async (req, res, next) => {
 
 //Create deader banner
 exports.createHeader = catchAsyncErrors(async (req, res, next) => {
-  // let images;
-
-  // if (typeof req.body.images === "string") {
-  //   images.push(req.body.images);
-  // } else {
-  //   images = req.body.images;
-  // }
-
   const result = await cloudinary.v2.uploader.upload(req.body.images, {
     folder: "header",
   });
 
-  // imagesLinks.push({
-  //   public_id: result.public_id,
-  //   url: result.secure_url,
-  // });
-
-  // req.body.images = imagesLinks;
-  const status = req.body;
+  const { status, description } = req.body;
 
   const header = await Header.create({
     status,
+    description,
     images: {
       public_id: result.public_id,
       url: result.secure_url,
