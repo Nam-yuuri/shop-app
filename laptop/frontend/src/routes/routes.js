@@ -27,6 +27,9 @@ import NewBannerHorizon from '~/pages/Admin/BannerHorizon/NewBannerHorizon';
 import HeaderList from '~/pages/Admin/Header/HeaderList';
 import NewHeader from '~/pages/Admin/Header/newHeader/NewHeader';
 import Dashboard from '~/pages/Admin/Dashboard';
+import PromotionList from '~/pages/Admin/Promotion/PromotionList';
+import NewPromotion from '~/pages/Admin/Promotion/newPromotion/NewPromotion';
+import Loading from '~/components/Loading/Loading';
 // Public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -53,6 +56,10 @@ const publicRoutes = [
     { path: config.routes.headerList, component: HeaderList, layout: null},
     { path: config.routes.newHeader, component: NewHeader, layout: null},
     { path: config.routes.dashboard, component: Dashboard, layout: null},
+    { path: config.routes.promotionList, component: PromotionList, layout: null},
+    { path: config.routes.newPromotion, component: NewPromotion, layout: null},
+
+    { path: config.routes.loading, component: Loading, layout: null},
 
 ];
 

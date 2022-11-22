@@ -5,25 +5,19 @@ import {
     ALL_BANNER_HORIZONTAL_FAIL,
     ALL_BANNER_HORIZONTAL_REQUEST,
     ALL_BANNER_HORIZONTAL_SUCCESS,
-
     MAIN_BANNER_HORIZONTAL_FAIL,
     MAIN_BANNER_HORIZONTAL_REQUEST,
     MAIN_BANNER_HORIZONTAL_SUCCESS,
-
     BANNER_DETAILS_HORIZONTAL_FAIL,
     BANNER_DETAILS_HORIZONTAL_REQUEST,
     BANNER_DETAILS_HORIZONTAL_SUCCESS,
-
     CLEAR_ERRORS,
-
     DELETE_BANNER_HORIZONTAL_FAIL,
     DELETE_BANNER_HORIZONTAL_REQUEST,
     DELETE_BANNER_HORIZONTAL_SUCCESS,
-
     NEW_BANNER_HORIZONTAL_FAIL,
     NEW_BANNER_HORIZONTAL_REQUEST,
     NEW_BANNER_HORIZONTAL_SUCCESS,
-
     UPDATE_BANNER_HORIZONTAL_FAIL,
     UPDATE_BANNER_HORIZONTAL_REQUEST,
     UPDATE_BANNER_HORIZONTAL_SUCCESS,
@@ -134,26 +128,27 @@ export const updateBannerHorizontal = (id, bannerData) => async (dispatch) => {
 // Delete Banner
 export const deleteBannerHorizontal = (id) => async (dispatch) => {
     try {
-        dispatch({ type: DELETE_BANNER_HORIZONTAL_REQUEST });
+        dispatch({ type: 'DELETE_BANNER_HORIZONTAL_REQUEST' });
 
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `token ${token}`,
-            },
-        };
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         Authorization: `token ${token}`,
+        //     },
+        // };
 
-        const data = await axiosClient.delete(`/api/v1/admin/banner/${id}`, config);
+        // const data = await axios.delete(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, config);
+        const data = await axios.delete(`http://localhost:8000/api/v1/bannerHorizontal/${id}`);
 
         dispatch({
-            type: DELETE_BANNER_HORIZONTAL_SUCCESS,
+            type: 'DELETE_BANNER_HORIZONTAL_SUCCESS',
             payload: data.success,
         });
     } catch (error) {
         dispatch({
-            type: DELETE_BANNER_HORIZONTAL_FAIL,
+            type: 'DELETE_BANNER_HORIZONTAL_FAIL',
             payload: error.response.data.message,
         });
     }

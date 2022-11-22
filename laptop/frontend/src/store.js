@@ -52,6 +52,7 @@ import {
     bannersHorizontalReducer,
     mainHorizontalReducer,
     newBannerHorizontalReducer,
+    bannerHorizontalReducer,
 } from './reducers/bannerHorizontalReducer';
 
 import { headersReducer, mainHeaderReducer } from './reducers/headerReducer';
@@ -59,6 +60,8 @@ import { headersReducer, mainHeaderReducer } from './reducers/headerReducer';
 import { brandsReducer } from './reducers/brandReducer';
 
 import { promotionsReducer, mainPromotionReducer } from './reducers/promotionReducer';
+
+import {showroomsReducer} from './reducers/showroomReducer'
 
 const reducer = combineReducers({
     // Product
@@ -106,6 +109,7 @@ const reducer = combineReducers({
     horizontals: bannersHorizontalReducer,
     horizontalMain: mainHorizontalReducer,
     newBannerHorizontal: newBannerHorizontalReducer,
+    horizontal: bannerHorizontalReducer,
 
     // Header
     headers: headersReducer,
@@ -117,6 +121,9 @@ const reducer = combineReducers({
     //Promotion
     promotions: promotionsReducer,
     promotionsMain: mainPromotionReducer,
+
+    //Showroom
+    showrooms: showroomsReducer,
 });
 
 let initialState = {

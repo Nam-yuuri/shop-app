@@ -191,7 +191,7 @@ function ProductList() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>Product</h1>
+                    <h1>Sản phẩm </h1>
                     <Link to={config.routes.newProduct} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
                         Thêm sản phẩm

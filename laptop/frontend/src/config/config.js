@@ -29,6 +29,10 @@ const routes = {
     headerList: '/admin/HeaderList',
     newHeader: '/admin/HeaderList/newHeader',
     dashBoard: '/admin/Dashboard',
+    promotionList: '/admin/PromotionList',
+    newPromotion: '/admin/PromotionList/newPromotion',
+
+    loading: '/loading',
 };
 
 export default routes;

@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-
 import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.snow.css'; // ES6
 
@@ -12,7 +11,7 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 import { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import '../../Admin.scss';
-import './NewHorizon.scss';
+import './NewPromotion.scss';
 import Sidebar from '../../Sidebar';
 import { createBanner } from '~/actions/bannerAction';
 import { Link } from 'react-router-dom';
@@ -21,14 +20,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { NEW_BANNER_RESET } from '~/constants/bannerConstants';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
-import FormData from 'form-data';
-function NewBannerHorizon() {
+function NewPromotion() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState(false);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
+    const [newHeader, setNewHeader] = useState({
+        description,
+        status,
+        images,
+    });
 
     const dispatch = useDispatch();
 
@@ -42,27 +45,24 @@ function NewBannerHorizon() {
         e.preventDefault();
 
         var myForm = new FormData();
+
         console.log('des: ', description);
+        myForm.append('description', description);
+        // console.log('sta: ', status);
+        // myForm.set('status', status);
 
-        // const myForm = new FormData();
+        // images.forEach((image) => {
+        //     myForm.append('images', image);
+        // });
 
-        // console.log('title: ', title);
-        // myForm.set('title', title);
-        console.log('des: ', description);
-        myForm.append('description', 'description');
-        console.log('sta: ', status);
-        myForm.append('status', status);
-
-        images.forEach((image) => {
-            myForm.append('images', image);
-        });
-
+        // console.log('form: ', images);
         console.log('form: ', myForm);
         // dispatch(createBanner(myForm));
+
+        console.log("newHeader: ",newHeader)
     };
 
-    // console.log(myForm)
-    const createBannerLogoChange = (e) => {
+    const createBannerImagesChange = (e) => {
         const files = Array.from(e.target.files);
 
         setImages([]);
@@ -94,14 +94,14 @@ function NewBannerHorizon() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>New Banner Horizontal</h1>
-                    <Link to={config.routes.bannerHorizonList} className="header-sidebar-btn">
+                    <h1>New Header</h1>
+                    <Link to={config.routes.promotionList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
                         HỦY
                     </Link>
                 </div>
             </div>
-            <div className="NewBannerHorizon">
+            <div className="NewHeader">
                 <div
                     className="sidebar"
                     style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
@@ -113,22 +113,6 @@ function NewBannerHorizon() {
                 <div className="data">
                     <form className="flexDiv" encType="multipart/form-data" onSubmit={createBannerSubmitHandler}>
                         <Grid container spacing={2}>
-                            {/* <div className="flexDiv"> */}
-                            {/* <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <p>Tên thương hiệu</p>
-                            </Grid>
-                            <Grid item xs={12} sm={8} md={10}>
-                                <TextField
-                                    type="text"
-                                    label="Tên"
-                                    required
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    variant="outlined"
-                                    sx={{ width: '50%' }}
-                                />
-                            </Grid> */}
-
                             <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                 <p>Giới thiệu</p>
                             </Grid>
@@ -137,13 +121,34 @@ function NewBannerHorizon() {
                                     placeholder="Giới thiệu"
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
+                                    // onChange={(e) => setNewHeader({...newHeader, description:e.target.value})}
                                     cols="100"
                                     rows="7"
                                 ></textarea>
                             </Grid>
 
                             <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <p>Tải ảnh</p>
+                                <p>Trạng thái</p>
+                            </Grid>
+                            <Grid item xs={12} sm={8} md={10}>
+                                <FormControl sx={{ width: '50%', marginBottom: '1.5rem' }}>
+                                    <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={status}
+                                        label="Trạng thái"
+                                        onChange={(e) => setStatus(e.target.value)}
+                                        // onChange={(e) => setNewHeader({...newHeader, status:e.target.value})}
+                                    >
+                                        <MenuItem value={true}>Bật</MenuItem>
+                                        <MenuItem value={false}>Tắt</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <p>Ảnh giới thiệu</p>
                             </Grid>
 
                             <Grid
@@ -160,7 +165,7 @@ function NewBannerHorizon() {
                                             type="file"
                                             name="avatar"
                                             accept="image/*"
-                                            onChange={createBannerLogoChange}
+                                            onChange={createBannerImagesChange}
                                             multiple
                                             hidden
                                         />
@@ -175,7 +180,7 @@ function NewBannerHorizon() {
                                         <img
                                             key={index}
                                             src={image}
-                                            alt="Banner Preview"
+                                            alt="Header Preview"
                                             style={{
                                                 maxHeight: '150px',
                                                 maxWidth: '250px',
@@ -195,7 +200,7 @@ function NewBannerHorizon() {
                                         marginBottom: '50px',
                                     }}
                                 >
-                                    Tạo banner
+                                    Tạo khuyến mãi
                                 </Button>
                             </Grid>
                         </Grid>
@@ -206,4 +211,4 @@ function NewBannerHorizon() {
     );
 }
 
-export default NewBannerHorizon;
+export default NewPromotion;

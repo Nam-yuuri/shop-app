@@ -115,3 +115,53 @@ export const newBannerHorizontalReducer = (state = { banner: {} }, action) => {
         return state;
     }
   };
+
+// //
+
+export const bannerHorizontalReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'DELETE_BANNER_HORIZONTAL_REQUEST':
+    case 'UPDATE_BANNER_HORIZONTAL_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'DELETE_BANNER_HORIZONTAL_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case 'UPDATE_BANNER_HORIZONTAL_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      };
+    case 'DELETE_BANNER_HORIZONTAL_FAIL':
+    case 'UPDATE_BANNER_HORIZONTAL_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case 'DELETE_BANNER_HORIZONTAL_RESET':
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case 'UPDATE_BANNER_HORIZONTAL_RESET':
+      return {
+        ...state,
+        isUpdated: false,
+      };
+    case 'CLEAR_ERRORS':
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};

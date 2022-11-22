@@ -58,7 +58,7 @@ function BannerList() {
                 params.value ? <span className="greenColor">Bật</span> : <span className="redColor">Tắt</span>,
         },
         {
-            field: 'image',
+            field: 'images',
             headerName: 'Hình ảnh',
             minWidth: 200,
             flex: 0.8,
@@ -126,7 +126,7 @@ function BannerList() {
                 title: item.title,
                 desc: item.description,
                 status: item.status,
-                image: item.images[0].url,
+                images: item.images[0].url,
             });
         });
 

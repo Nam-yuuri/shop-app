@@ -7,14 +7,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { confirmAlert } from 'react-confirm-alert';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Sidebar from '../../Sidebar';
-import './BannerHorizonList.scss';
+import '../../Admin.scss';
+import './PromotionList.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
-import { getAllBanners } from '~/actions/bannerAction';
-import { deleteBannerHorizontal, getAllBannerHorizontalMain, getAllBannersHorizontal } from '~/actions/bannerHorizontalAction';
+import { getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-function BannerHorizonList() {
+import { getAllPromotion } from '~/actions/promotionAction';
+function PromotionList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
@@ -22,33 +23,30 @@ function BannerHorizonList() {
     const [pageSize, setPageSize] = React.useState(5);
 
     const deleteBannerHandler = (id) => {
-        dispatch(deleteBannerHorizontal(id));
-        window.location.reload();
+        // dispatch(deleteProduct(id));
     };
 
     const dispatch = useDispatch();
 
-    const { horizontals } = useSelector((state) => state.horizontals);
-    useEffect(() => {
-        dispatch(getAllBannersHorizontal());
-    }, [dispatch]);
+    const { promotions } = useSelector((state) => state.promotions);
 
-    // console.log('bannersHorizontal: ', horizontals);
+    useEffect(() => {
+        dispatch(getAllPromotion());
+    }, [dispatch]);
+    console.log('promotion: ', promotions);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
-
         {
-            field: 'desc',
+            field: 'title',
             headerName: 'Giới thiệu',
-            minWidth: 100,
+            minWidth: 500,
             flex: 0.5,
         },
         {
             field: 'status',
             headerName: 'Status',
-            minWidth: 100,
-            maxWidth: 100,
+            minWidth: 200,
             flex: 0.5,
             renderCell: (params) =>
                 params.value ? <span className="greenColor">Bật</span> : <span className="redColor">Tắt</span>,
@@ -56,14 +54,14 @@ function BannerHorizonList() {
         {
             field: 'image',
             headerName: 'Hình ảnh',
-            minWidth: 480,
+            minWidth: 200,
             flex: 0.8,
             renderCell: (params) => (
                 <img
                     src={params.value}
                     alt=""
                     style={{
-                        width: '480px',
+                        minWidth: '100px',
                         height: '45px',
                     }}
                 />
@@ -115,11 +113,11 @@ function BannerHorizonList() {
 
     const rows = [];
 
-    horizontals &&
-        horizontals.forEach((item) => {
+    promotions &&
+        promotions.forEach((item) => {
             rows.push({
                 id: item._id,
-                desc: item.description,
+                title: item.title,
                 status: item.status,
                 image: item.images.url,
             });
@@ -137,10 +135,10 @@ function BannerHorizonList() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>Banner Horizontal</h1>
-                    <Link to={config.routes.newBannerHorizon} className="header-sidebar-btn">
+                    <h1>Khuyến mãi</h1>
+                    <Link to={config.routes.newPromotion} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
-                        Thêm banner Horizontal
+                        Thêm khuyến mãi
                     </Link>
                 </div>
             </div>
@@ -175,4 +173,4 @@ function BannerHorizonList() {
     );
 }
 
-export default BannerHorizonList;
+export default PromotionList;

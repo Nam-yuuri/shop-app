@@ -6,7 +6,17 @@ import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { CalendarViewDay, Category, Dashboard, Panorama, PanoramaHorizontal, PanoramaHorizontalSelect, ShoppingCart, ViewCarousel } from '@mui/icons-material';
+import {
+    CalendarViewDay,
+    Category,
+    Dashboard,
+    Discount,
+    Panorama,
+    PanoramaHorizontal,
+    PanoramaHorizontalSelect,
+    ShoppingCart,
+    ViewCarousel,
+} from '@mui/icons-material';
 
 const cx = classNames.bind(styles);
 
@@ -51,6 +61,12 @@ function Sidebar() {
                     to={config.routes.headerList}
                     icon={<PanoramaHorizontalSelect />}
                     activeIcon={<PanoramaHorizontalSelect />}
+                />
+                <MenuItem
+                    title="Promotion"
+                    to={config.routes.promotionList}
+                    icon={<Discount />}
+                    activeIcon={<Discount />}
                 />
             </Menu>
         </aside>

@@ -17,7 +17,7 @@ function Promotion() {
     useEffect(() => {
         dispatch(getAllPromotionMain());
     }, [dispatch]);
-    console.log('promotion: ', promotions);
+    // console.log('promotion: ', promotions);
 
     return (
         <div className={cx('promotion')}>

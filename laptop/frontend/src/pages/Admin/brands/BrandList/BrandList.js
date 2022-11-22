@@ -154,7 +154,7 @@ function BrandList() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>Brand</h1>
+                    <h1>Thương hiệu </h1>
                     <Link to={config.routes.newBrandList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
                         Thêm thương hiệu

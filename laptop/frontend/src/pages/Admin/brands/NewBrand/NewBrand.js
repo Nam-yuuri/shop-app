@@ -109,7 +109,7 @@ function NewBrand() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>New Brand</h1>
+                    <h1>Thêm thương hiệu </h1>
                     <Link to={config.routes.brandList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
                         HỦY

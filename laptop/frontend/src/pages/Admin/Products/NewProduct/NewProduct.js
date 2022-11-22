@@ -153,7 +153,7 @@ function NewProduct() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>New Product</h1>
+                    <h1>Thêm sản phẩm </h1>
                     <Link to={config.routes.productList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
                         HỦY

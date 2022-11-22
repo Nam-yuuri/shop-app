@@ -56,7 +56,7 @@ exports.getAllBannerHorizontal = catchAsyncErrors(async (req, res, next) => {
 
 //Get horizontal main
 exports.getMainBannerHorizon = catchAsyncErrors(async (req, res, next) => {
-  const horizontal = await BannerHorizontal.find({ main: true }).limit(1);
+  const horizontal = await BannerHorizontal.find({ status: true }).limit(1);
 
   if (!horizontal) {
     return next(new ErrorHander("Không tìm thấy horizontal", 404));

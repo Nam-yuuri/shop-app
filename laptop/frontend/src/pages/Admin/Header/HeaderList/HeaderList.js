@@ -135,7 +135,7 @@ function HeaderList() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>Brand</h1>
+                    <h1>Header</h1>
                     <Link to={config.routes.newHeader} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
                         Thêm header
