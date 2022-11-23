@@ -9,7 +9,7 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Sidebar from '../../Sidebar';
 import './BannerList.scss';
 import config from '~/config';
-import { getAllBanners } from '~/actions/bannerAction';
+import { deleteBanner, getAllBanners } from '~/actions/bannerAction';
 import { Diversity1 } from '@mui/icons-material';
 import Loader from '~/components/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,7 +22,8 @@ function BannerList() {
     const [pageSize, setPageSize] = React.useState(5);
 
     const deleteBannerHandler = (id) => {
-        // dispatch(deleteProduct(id));
+        dispatch(deleteBanner(id));
+        window.location.reload();
     };
 
     const dispatch = useDispatch();
@@ -60,7 +61,8 @@ function BannerList() {
         {
             field: 'images',
             headerName: 'Hình ảnh',
-            minWidth: 200,
+            minWidth: 150,
+            maxWidth: 200,
             flex: 0.8,
             renderCell: (params) => (
                 <img
@@ -69,6 +71,8 @@ function BannerList() {
                     style={{
                         width: '100px',
                         height: '45px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
                     }}
                 />
             ),
@@ -77,40 +81,42 @@ function BannerList() {
             field: 'actions',
             flex: 0.3,
             headerName: 'Actions',
-            minWidth: 150,
+            minWidth: 100,
             type: 'number',
             sortable: false,
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
-                            <EditIcon />
-                        </Link>
-
-                        <Button
-                            onClick={() => {
-                                confirmAlert({
-                                    title: 'Xác nhận',
-                                    message: 'Bạn có muốn xóa banner này?',
-                                    buttons: [
-                                        {
-                                            label: 'Có',
-                                            onClick: () => {
-                                                deleteBannerHandler(params.getValue(params.id, 'id'));
+                        <div className='box-Action-admin'>
+                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                                <EditIcon />
+                            </Link>
+    
+                            <Button
+                                onClick={() => {
+                                    confirmAlert({
+                                        title: 'Xác nhận',
+                                        message: 'Bạn có muốn xóa banner này?',
+                                        buttons: [
+                                            {
+                                                label: 'Có',
+                                                onClick: () => {
+                                                    deleteBannerHandler(params.getValue(params.id, 'id'));
+                                                },
                                             },
-                                        },
-                                        {
-                                            label: 'Không',
-                                            onClick: () => {
-                                                return;
+                                            {
+                                                label: 'Không',
+                                                onClick: () => {
+                                                    return;
+                                                },
                                             },
-                                        },
-                                    ],
-                                });
-                            }}
-                        >
-                            <DeleteIcon />
-                        </Button>
+                                        ],
+                                    });
+                                }}
+                            >
+                                <DeleteIcon />
+                            </Button>
+                        </div>
                     </React.Fragment>
                 );
             },

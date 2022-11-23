@@ -122,7 +122,7 @@ exports.updateBanner = catchAsyncErrors(async (req, res, next) => {
 
 //Delete banner
 exports.deleteBanner = catchAsyncErrors(async (req, res, next) => {
-  const banner = await Banner.findByIdAndUpdate(req.params.id);
+  const banner = await Banner.findByIdAndDelete(req.params.id);
 
   if (!banner) {
     return next(new ErrorHander("Không tìm thấy banner", 404));

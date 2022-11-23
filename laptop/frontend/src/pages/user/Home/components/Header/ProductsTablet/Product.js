@@ -9,6 +9,7 @@ import './Product.css';
 import { DataProduct } from '~/Data/Product/Product';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllBrands } from '~/actions/brandAction';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -46,7 +47,7 @@ function ProductTablet() {
                 {brands.map((product) => (
                     <div key={product._id}>
                         <div className={cx('')}>
-                            <Button to={product.to} className={cx('box')}>
+                            <Button to={config.routes.brand} className={cx('box')}>
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
                                         <img src={product.logo.url} alt="" />

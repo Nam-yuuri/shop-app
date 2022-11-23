@@ -11,13 +11,15 @@ import './ProductList.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
-import { getAdminProduct } from '~/actions/productAction';
+import { deleteProduct, getAdminProduct } from '~/actions/productAction';
 import { getAllBanners } from '~/actions/bannerAction';
+import formatPrice from '~/utils/formatPrice';
 function ProductList() {
     const [pageSize, setPageSize] = React.useState(5);
 
     const deleteProductHandler = (id) => {
-        // dispatch(deleteProduct(id));
+        dispatch(deleteProduct(id));
+        window.location.reload();
     };
 
     const dispatch = useDispatch();
@@ -30,21 +32,21 @@ function ProductList() {
     console.log('products: ', products);
 
     const columns = [
-        { field: 'id', headerName: 'ID', minWidth: 150, maxWidth: 200, flex: 0.5 },
+        { field: 'id', headerName: 'ID', minWidth: 100, maxWidth: 150, flex: 0.5 },
 
         {
             field: 'name',
             headerName: 'Tên sản phẩm',
-            minWidth: 250,
-            maxWidth: 280,
+            minWidth: 300,
             flex: 1,
         },
         {
             field: 'Stock',
             headerName: 'Kho hàng',
             type: 'number',
-            minWidth: 70,
+            minWidth: 100,
             flex: 0.3,
+            renderCell: (params) => <span>{params.value}</span>,
         },
         {
             field: 'cost',
@@ -52,22 +54,23 @@ function ProductList() {
             type: 'number',
             minWidth: 100,
             flex: 0.5,
+            renderCell: (params) => <span>{formatPrice(params.value)}</span>,
         },
         {
             field: 'Status_promotional',
             headerName: 'Đang giảm giá',
-            minWidth: 70,
+            minWidth: 100,
             flex: 0.3,
             renderCell: (params) =>
                 params.value ? <span className="greenColor">Có</span> : <span className="redColor">Không</span>,
         },
         {
             field: 'promotional',
-            headerName: 'Giảm giá',
+            headerName: 'Giảm giá(%)',
             type: 'number',
-            minWidth: 0,
-            flex: 0.5,
-            renderCell: (params) => <span>{params.value}%</span>,
+            minWidth: 80,
+            flex: 0.3,
+            renderCell: (params) => <span>{params.value}</span>,
         },
         {
             field: 'image',
@@ -82,6 +85,8 @@ function ProductList() {
                     style={{
                         width: '45px',
                         height: '45px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
                     }}
                 />
             ),
@@ -99,6 +104,8 @@ function ProductList() {
                     style={{
                         width: '45px',
                         height: '45px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
                     }}
                 />
             ),
@@ -112,48 +119,50 @@ function ProductList() {
         },
         {
             field: 'brand',
-            headerName: 'Danh mục',
-            minWidth: 150,
+            headerName: 'Thương hiệu',
+            minWidth: 80,
             flex: 0.5,
         },
         {
             field: 'actions',
             flex: 0.3,
             headerName: 'Actions',
-            minWidth: 150,
+            minWidth: 100,
             type: 'number',
             sortable: false,
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <Link to={`/admin/product/${params.getValue(params.id, 'id')}`}>
-                            <EditIcon />
-                        </Link>
-
-                        <Button
-                            onClick={() => {
-                                confirmAlert({
-                                    title: 'Xác nhận',
-                                    message: 'Bạn có muốn xóa sản phẩm này',
-                                    buttons: [
-                                        {
-                                            label: 'Có',
-                                            onClick: () => {
-                                                deleteProductHandler(params.getValue(params.id, 'id'));
+                        <div className='box-Action-admin'>
+                            <Link to={`/admin/product/${params.getValue(params.id, 'id')}`}>
+                                <EditIcon />
+                            </Link>
+    
+                            <Button
+                                onClick={() => {
+                                    confirmAlert({
+                                        title: 'Xác nhận',
+                                        message: 'Bạn có muốn xóa sản phẩm này',
+                                        buttons: [
+                                            {
+                                                label: 'Có',
+                                                onClick: () => {
+                                                    deleteProductHandler(params.getValue(params.id, 'id'));
+                                                },
                                             },
-                                        },
-                                        {
-                                            label: 'Không',
-                                            onClick: () => {
-                                                return;
+                                            {
+                                                label: 'Không',
+                                                onClick: () => {
+                                                    return;
+                                                },
                                             },
-                                        },
-                                    ],
-                                });
-                            }}
-                        >
-                            <DeleteIcon />
-                        </Button>
+                                        ],
+                                    });
+                                }}
+                            >
+                                <DeleteIcon />
+                            </Button>
+                        </div>
                     </React.Fragment>
                 );
             },
@@ -214,8 +223,8 @@ function ProductList() {
                         pageSize={pageSize}
                         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                         rowsPerPageOptions={[5, 10, 20]}
+                        pageSize={10}
                         pagination
-                        // pageSize={10}
                         disableSelectionOnClick
                         className="productListTable"
                         autoHeight

@@ -35,7 +35,7 @@ router.put(
 router.delete(
   "/admin/product/:id",
   // isAuthenticatedUser,
-  authorizeRoles("admin"),
+  // authorizeRoles("admin"),
   deleteProduct
 );
 

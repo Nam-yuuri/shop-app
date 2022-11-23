@@ -99,12 +99,13 @@ exports.updatePromotion = catchAsyncErrors(async (req, res, next) => {
 
 //Delete promotion
 exports.deletePromotion = catchAsyncErrors(async (req, res, next) => {
-  const promotion = await Promotion.findById(req.params.id);
+  const promotion = await Promotion.findByIdAndDelete(req.params.id);
 
   await promotion.remove();
   res.status(200).json({
     success: true,
     promotion,
+    message: "Xóa khuyến mãi thành công",
   });
 });
 

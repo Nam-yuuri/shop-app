@@ -12,7 +12,7 @@ import './HeaderList.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
-import { getAllHeaders } from '~/actions/headerAction';
+import { deleteHeader, getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 function HeaderList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
@@ -21,8 +21,9 @@ function HeaderList() {
 
     const [pageSize, setPageSize] = React.useState(5);
 
-    const deleteBannerHandler = (id) => {
-        // dispatch(deleteProduct(id));
+    const deleteHeaderHandler = (id) => {
+        dispatch(deleteHeader(id));
+        window.location.reload();
     };
 
     const dispatch = useDispatch();
@@ -71,40 +72,43 @@ function HeaderList() {
             field: 'actions',
             flex: 0.3,
             headerName: 'Actions',
-            minWidth: 150,
+            minWidth: 100,
+            maxWidth: 100,
             type: 'number',
             sortable: false,
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
-                            <EditIcon />
-                        </Link>
-
-                        <Button
-                            onClick={() => {
-                                confirmAlert({
-                                    title: 'Xác nhận',
-                                    message: 'Bạn có muốn xóa banner này?',
-                                    buttons: [
-                                        {
-                                            label: 'Có',
-                                            onClick: () => {
-                                                deleteBannerHandler(params.getValue(params.id, 'id'));
+                        <div className='box-Action-admin'>
+                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                                <EditIcon />
+                            </Link>
+    
+                            <Button
+                                onClick={() => {
+                                    confirmAlert({
+                                        title: 'Xác nhận',
+                                        message: 'Bạn có muốn xóa banner này?',
+                                        buttons: [
+                                            {
+                                                label: 'Có',
+                                                onClick: () => {
+                                                    deleteHeaderHandler(params.getValue(params.id, 'id'));
+                                                },
                                             },
-                                        },
-                                        {
-                                            label: 'Không',
-                                            onClick: () => {
-                                                return;
+                                            {
+                                                label: 'Không',
+                                                onClick: () => {
+                                                    return;
+                                                },
                                             },
-                                        },
-                                    ],
-                                });
-                            }}
-                        >
-                            <DeleteIcon />
-                        </Button>
+                                        ],
+                                    });
+                                }}
+                            >
+                                <DeleteIcon />
+                            </Button>
+                        </div>
                     </React.Fragment>
                 );
             },

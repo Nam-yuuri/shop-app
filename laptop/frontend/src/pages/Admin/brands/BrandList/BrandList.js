@@ -8,7 +8,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Sidebar from '../../Sidebar';
 import './BrandList.scss';
-import { getAllBrands } from '~/actions/brandAction';
+import { deleteBrand, getAllBrands } from '~/actions/brandAction';
 import Loader from '~/components/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -21,8 +21,9 @@ function BrandList() {
 
     const [pageSize, setPageSize] = React.useState(5);
 
-    const deleteProductHandler = (id) => {
-        // dispatch(deleteProduct(id));
+    const deleteBrandHandler = (id) => {
+        dispatch(deleteBrand(id));
+        window.location.reload();
     };
 
     const dispatch = useDispatch();
@@ -40,8 +41,8 @@ function BrandList() {
         {
             field: 'name',
             headerName: 'Tên thương hiệu',
-            minWidth: 80,
-            maxWidth: 100,
+            minWidth: 100,
+            maxWidth: 150,
             flex: 1,
         },
         {
@@ -64,6 +65,8 @@ function BrandList() {
                     style={{
                         width: '45px',
                         height: '45px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
                     }}
                 />
             ),
@@ -81,6 +84,8 @@ function BrandList() {
                     style={{
                         width: '100px',
                         height: '45px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
                     }}
                 />
             ),
@@ -89,41 +94,43 @@ function BrandList() {
             field: 'actions',
             flex: 0.3,
             headerName: 'Actions',
-            minWidth: 150,
-            maxWidth: 200,
+            minWidth: 100,
+            maxWidth: 100,
             type: 'number',
             sortable: false,
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <Link to={`/admin/product/${params.getValue(params.id, 'id')}`}>
-                            <EditIcon />
-                        </Link>
-
-                        <Button
-                            onClick={() => {
-                                confirmAlert({
-                                    title: 'Xác nhận',
-                                    message: 'Bạn có muốn xóa sản phẩm này',
-                                    buttons: [
-                                        {
-                                            label: 'Có',
-                                            onClick: () => {
-                                                deleteProductHandler(params.getValue(params.id, 'id'));
+                        <div className='box-Action-admin'>
+                            <Link to={`/admin/product/${params.getValue(params.id, 'id')}`}>
+                                <EditIcon />
+                            </Link>
+    
+                            <Button
+                                onClick={() => {
+                                    confirmAlert({
+                                        title: 'Xác nhận',
+                                        message: 'Bạn có muốn xóa sản phẩm này',
+                                        buttons: [
+                                            {
+                                                label: 'Có',
+                                                onClick: () => {
+                                                    deleteBrandHandler(params.getValue(params.id, 'id'));
+                                                },
                                             },
-                                        },
-                                        {
-                                            label: 'Không',
-                                            onClick: () => {
-                                                return;
+                                            {
+                                                label: 'Không',
+                                                onClick: () => {
+                                                    return;
+                                                },
                                             },
-                                        },
-                                    ],
-                                });
-                            }}
-                        >
-                            <DeleteIcon />
-                        </Button>
+                                        ],
+                                    });
+                                }}
+                            >
+                                <DeleteIcon />
+                            </Button>
+                        </div>
                     </React.Fragment>
                 );
             },

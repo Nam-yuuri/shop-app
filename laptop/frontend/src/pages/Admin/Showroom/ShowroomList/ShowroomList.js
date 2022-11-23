@@ -71,40 +71,42 @@ function ShowroomList() {
             field: 'actions',
             flex: 0.3,
             headerName: 'Actions',
-            minWidth: 150,
+            minWidth: 100,
             type: 'number',
             sortable: false,
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
-                            <EditIcon />
-                        </Link>
-
-                        <Button
-                            onClick={() => {
-                                confirmAlert({
-                                    title: 'Xác nhận',
-                                    message: 'Bạn có muốn xóa banner này?',
-                                    buttons: [
-                                        {
-                                            label: 'Có',
-                                            onClick: () => {
-                                                deleteBannerHandler(params.getValue(params.id, 'id'));
+                        <div className='box-Action-admin'>
+                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                                <EditIcon />
+                            </Link>
+    
+                            <Button
+                                onClick={() => {
+                                    confirmAlert({
+                                        title: 'Xác nhận',
+                                        message: 'Bạn có muốn xóa banner này?',
+                                        buttons: [
+                                            {
+                                                label: 'Có',
+                                                onClick: () => {
+                                                    deleteBannerHandler(params.getValue(params.id, 'id'));
+                                                },
                                             },
-                                        },
-                                        {
-                                            label: 'Không',
-                                            onClick: () => {
-                                                return;
+                                            {
+                                                label: 'Không',
+                                                onClick: () => {
+                                                    return;
+                                                },
                                             },
-                                        },
-                                    ],
-                                });
-                            }}
-                        >
-                            <DeleteIcon />
-                        </Button>
+                                        ],
+                                    });
+                                }}
+                            >
+                                <DeleteIcon />
+                            </Button>
+                        </div>
                     </React.Fragment>
                 );
             },

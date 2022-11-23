@@ -14,7 +14,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import { getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { getAllPromotion } from '~/actions/promotionAction';
+import { deletePromotion, getAllPromotion } from '~/actions/promotionAction';
 function PromotionList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
@@ -22,8 +22,9 @@ function PromotionList() {
 
     const [pageSize, setPageSize] = React.useState(5);
 
-    const deleteBannerHandler = (id) => {
-        // dispatch(deleteProduct(id));
+    const deletePromotionHandler = (id) => {
+        dispatch(deletePromotion(id));
+        window.location.reload();
     };
 
     const dispatch = useDispatch();
@@ -63,6 +64,8 @@ function PromotionList() {
                     style={{
                         minWidth: '100px',
                         height: '45px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto'
                     }}
                 />
             ),
@@ -71,40 +74,42 @@ function PromotionList() {
             field: 'actions',
             flex: 0.3,
             headerName: 'Actions',
-            minWidth: 150,
+            minWidth: 100,
             type: 'number',
             sortable: false,
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
-                            <EditIcon />
-                        </Link>
-
-                        <Button
-                            onClick={() => {
-                                confirmAlert({
-                                    title: 'Xác nhận',
-                                    message: 'Bạn có muốn xóa banner này?',
-                                    buttons: [
-                                        {
-                                            label: 'Có',
-                                            onClick: () => {
-                                                deleteBannerHandler(params.getValue(params.id, 'id'));
+                        <div className='box-Action-admin'>
+                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                                <EditIcon />
+                            </Link>
+    
+                            <Button
+                                onClick={() => {
+                                    confirmAlert({
+                                        title: 'Xác nhận',
+                                        message: 'Bạn có muốn xóa banner này?',
+                                        buttons: [
+                                            {
+                                                label: 'Có',
+                                                onClick: () => {
+                                                    deletePromotionHandler(params.getValue(params.id, 'id'));
+                                                },
                                             },
-                                        },
-                                        {
-                                            label: 'Không',
-                                            onClick: () => {
-                                                return;
+                                            {
+                                                label: 'Không',
+                                                onClick: () => {
+                                                    return;
+                                                },
                                             },
-                                        },
-                                    ],
-                                });
-                            }}
-                        >
-                            <DeleteIcon />
-                        </Button>
+                                        ],
+                                    });
+                                }}
+                            >
+                                <DeleteIcon />
+                            </Button>
+                        </div>
                     </React.Fragment>
                 );
             },

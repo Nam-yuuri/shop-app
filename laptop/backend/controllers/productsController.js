@@ -54,7 +54,7 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
 
 //get all product
 exports.getAdminAllProducts = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.find();
+  const product = await Product.find().populate("brand");
 
   res.status(200).json({
     success: true,
@@ -197,13 +197,13 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Delete Product
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findByIdAndDelete(req.params.id);
 
   if (!product) {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
   }
 
-  // Xóa ảnh ở Cloudinary
+  // // Xóa ảnh ở Cloudinary
   // for (let i = 0; i < product.images.length; i++) {
   //   await cloudinary.v2.uploader.destroy(product.images[i].public_id);
   // }

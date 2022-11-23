@@ -99,7 +99,7 @@ exports.updateBanner = catchAsyncErrors(async (req, res, next) => {
 
 //Delete horizontal
 exports.deleteBanner = catchAsyncErrors(async (req, res, next) => {
-  const horizontal = await BannerHorizontal.findByIdAndUpdate(req.params.id);
+  const horizontal = await BannerHorizontal.findByIdAndDelete(req.params.id);
 
   if (!horizontal) {
     return next(new ErrorHander("Không tìm thấy horizontal", 404));

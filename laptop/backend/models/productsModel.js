@@ -35,7 +35,7 @@ const productSchema = mongoose.Schema({
   },
   brand: {
     required: [true, "Hãy nhập thương hiệu của sản phẩm"],
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Brand",
     required: true,
   },

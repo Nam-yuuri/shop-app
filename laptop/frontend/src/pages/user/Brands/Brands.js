@@ -51,6 +51,10 @@ function Brands() {
     const [clickColor, setClickColor] = useState(true);
     const [checkColors, setCheckColors] = useState([]);
 
+    const [demands, setDemands] = useState([]);
+    const [clickDemand, setClickDemand] = useState(true);
+    const [checkDemands, setCheckDemands] = useState([]);
+
     const [CPU, setCPU] = useState([]);
     const [clickCPU, setClickCPU] = useState(true);
     const [checkCPU, setCheckCPU] = useState([]);
@@ -142,7 +146,22 @@ function Brands() {
     };
 
     const handleClickColor = () => {
-        clickColor ? setClickColor(false) : setClickColor(true);
+        setClickColor(!clickColor);
+    };
+
+    const handleCheckDemands = (name) => {
+        setCheckDemands((prev) => {
+            const isChecked = checkDemands.includes(name);
+            if (isChecked) {
+                return checkDemands.filter((item) => item !== name);
+            } else {
+                return [...prev, name];
+            }
+        });
+    };
+
+    const handleClickDemand = () => {
+        setClickDemand(!clickDemand);
     };
 
     const handleCheckCPU = (name) => {
@@ -324,7 +343,7 @@ function Brands() {
                         </div>
                         <div className={cx('container-Trademark', 'container-box')}>
                             <div className={cx('box-header')} onClick={handleClickTrademark}>
-                                <h5>Thương hiệu</h5>
+                                <h5>Series laptop</h5>
                                 <FontAwesomeIcon
                                     icon={faAngleDown}
                                     style={{ transform: clickTrademark ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -361,6 +380,29 @@ function Brands() {
                                                 type={'checkbox'}
                                                 checked={checkColors.includes(color.name)}
                                                 onChange={() => handleCheckColors(color.name)}
+                                            />
+                                            <span>{color.name}</span>
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={cx('container-Color', 'container-box')}>
+                            <div className={cx('box-header')} onClick={handleClickDemand}>
+                                <h5>Nhu cầu</h5>
+                                <FontAwesomeIcon
+                                    icon={faAngleDown}
+                                    style={{ transform: clickDemand ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                />
+                            </div>
+                            <div className={cx('Demand', 'box')} style={{ height: clickDemand ? 'auto' : '0' }}>
+                                {colors.map((color) => (
+                                    <div className={cx('check')} key={color.id}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={checkDemands.includes(color.name)}
+                                                onChange={() => handleCheckDemands(color.name)}
                                             />
                                             <span>{color.name}</span>
                                         </label>
@@ -553,7 +595,7 @@ function Brands() {
                         </div>
                         <div className={cx('container-Trademark', 'container-box')}>
                             <div className={cx('box-header')} onClick={handleClickTrademark}>
-                                <h5>Thương hiệu</h5>
+                                <h5>Series laptop</h5>
                                 <FontAwesomeIcon
                                     icon={faAngleDown}
                                     style={{ transform: clickTrademark ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -590,6 +632,29 @@ function Brands() {
                                                 type={'checkbox'}
                                                 checked={checkColors.includes(color.name)}
                                                 onChange={() => handleCheckColors(color.name)}
+                                            />
+                                            <span>{color.name}</span>
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={cx('container-Color', 'container-box')}>
+                            <div className={cx('box-header')} onClick={handleClickDemand}>
+                                <h5>Nhu cầu</h5>
+                                <FontAwesomeIcon
+                                    icon={faAngleDown}
+                                    style={{ transform: clickDemand ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                />
+                            </div>
+                            <div className={cx('Demand', 'box')} style={{ height: clickDemand ? 'auto' : '0' }}>
+                                {colors.map((color) => (
+                                    <div className={cx('check')} key={color.id}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={checkDemands.includes(color.name)}
+                                                onChange={() => handleCheckDemands(color.name)}
                                             />
                                             <span>{color.name}</span>
                                         </label>
