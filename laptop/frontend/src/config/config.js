@@ -28,9 +28,11 @@ const routes = {
     newBannerHorizon: '/admin/BannerHorizon/newBannerHorizon',
     headerList: '/admin/HeaderList',
     newHeader: '/admin/HeaderList/newHeader',
-    dashBoard: '/admin/Dashboard',
     promotionList: '/admin/PromotionList',
     newPromotion: '/admin/PromotionList/newPromotion',
+    carouselList: '/admin/CarouselList',
+    newCarousel: '/admin/CarouselList/newCarousel',
+    dashBoard: '/admin/Dashboard',
 
     loading: '/loading',
 };

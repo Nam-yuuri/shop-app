@@ -14,8 +14,10 @@ import {
     Panorama,
     PanoramaHorizontal,
     PanoramaHorizontalSelect,
+    RecentActors,
     ShoppingCart,
     ViewCarousel,
+    ViewDay,
 } from '@mui/icons-material';
 
 const cx = classNames.bind(styles);
@@ -33,7 +35,7 @@ function Sidebar() {
             <Menu>
                 <MenuItem
                     title="Dashboard"
-                    to={config.routes.productList}
+                    to={config.routes.dashBoard}
                     icon={<Dashboard />}
                     activeIcon={<Dashboard />}
                 />
@@ -61,6 +63,12 @@ function Sidebar() {
                     to={config.routes.headerList}
                     icon={<PanoramaHorizontalSelect />}
                     activeIcon={<PanoramaHorizontalSelect />}
+                />
+                <MenuItem
+                    title="Carousel"
+                    to={config.routes.carouselList}
+                    icon={<RecentActors />}
+                    activeIcon={<RecentActors />}
                 />
                 <MenuItem
                     title="Promotion"

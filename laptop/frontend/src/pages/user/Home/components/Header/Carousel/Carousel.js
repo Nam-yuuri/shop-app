@@ -8,7 +8,7 @@ import Button from '~/components/Button';
 import './Carousel.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllBanners, getAllBannersMain } from '~/actions/bannerAction';
-import { getAllCarousels } from '~/actions/carouselAction';
+import { getAllCarousels, getCarouselsMain } from '~/actions/carouselAction';
 
 const cx = classNames.bind(styles);
 
@@ -37,9 +37,9 @@ function Carousel() {
 
     // console.log('banner',banners)
 
-    const { carousels } = useSelector((state) => state.carousels);
+    const { carousels } = useSelector((state) => state.carouselsMain);
     useEffect(() => {
-        dispatch(getAllCarousels());
+        dispatch(getCarouselsMain());
     }, [dispatch]);
 
     // console.log('carousel :', carousels);
@@ -51,7 +51,7 @@ function Carousel() {
                     {carousels.map((carousel) => (
                         <div className={cx('cart')} key={carousel._id}>
                             <div className={cx('cart-top')}>
-                                <img src={carousel.url} alt={carousel.title} />
+                                <img src={carousel.images.url} alt={carousel.title} />
                             </div>
                         </div>
                     ))}

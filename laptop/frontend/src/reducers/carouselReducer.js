@@ -53,3 +53,33 @@ export const carouselsReducer = (state = { carousels: [] }, action) => {
             return state;
     }
 };
+
+export const carouselsMainReducer = (state = { carousels: [] }, action) => {
+    switch (action.type) {
+        case 'ALL_CAROUSEL_MAIN_REQUEST':
+            return {
+                loading: true,
+                carousels: [],
+            };
+
+        case 'ALL_CAROUSEL_MAIN_SUCCESS':
+            return {
+                loading: false,
+                carousels: action.payload,
+            };
+        case 'ALL_CAROUSEL_MAIN_FAIL':
+            return {
+                loading: false,
+                error: action.payload,
+            };
+
+        case 'CLEAR_ERRORS':
+            return {
+                ...state,
+                error: null,
+            };
+
+        default:
+            return state;
+    }
+};

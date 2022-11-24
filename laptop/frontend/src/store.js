@@ -46,7 +46,7 @@ import {
     newBannerReducer,
 } from './reducers/bannerReducer';
 
-import { carouselsReducer } from './reducers/carouselReducer';
+import { carouselsReducer,carouselsMainReducer } from './reducers/carouselReducer';
 
 import {
     bannersHorizontalReducer,
@@ -104,6 +104,7 @@ const reducer = combineReducers({
 
     // Carousel
     carousels: carouselsReducer,
+    carouselsMain: carouselsMainReducer,
 
     // Banner Horizontal
     horizontals: bannersHorizontalReducer,

@@ -77,11 +77,11 @@ function ShowroomList() {
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <div className='box-Action-admin'>
+                        <div className="box-Action-admin">
                             <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
-    
+
                             <Button
                                 onClick={() => {
                                     confirmAlert({
@@ -145,12 +145,14 @@ function ShowroomList() {
                 </div>
             </div>
             <div className="productList">
-                <div
-                    className="sidebar"
-                    style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                >
-                    <div className="box-sidebar">
-                        <Sidebar />
+                <div>
+                    <div
+                        className="sidebar"
+                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                    >
+                        <div className="box-sidebar">
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
                 <div className="data">

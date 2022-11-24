@@ -12,7 +12,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import { getAllBanners } from '~/actions/bannerAction';
-import { deleteBannerHorizontal, getAllBannerHorizontalMain, getAllBannersHorizontal } from '~/actions/bannerHorizontalAction';
+import {
+    deleteBannerHorizontal,
+    getAllBannerHorizontalMain,
+    getAllBannersHorizontal,
+} from '~/actions/bannerHorizontalAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 function BannerHorizonList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
@@ -66,7 +70,7 @@ function BannerHorizonList() {
                         width: '480px',
                         height: '45px',
                         marginLeft: 'auto',
-                        marginRight: 'auto'
+                        marginRight: 'auto',
                     }}
                 />
             ),
@@ -82,11 +86,11 @@ function BannerHorizonList() {
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <div className='box-Action-admin'>
+                        <div className="box-Action-admin">
                             <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
-    
+
                             <Button
                                 onClick={() => {
                                     confirmAlert({
@@ -150,12 +154,14 @@ function BannerHorizonList() {
                 </div>
             </div>
             <div className="productList">
-                <div
-                    className="sidebar"
-                    style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                >
-                    <div className="box-sidebar">
-                        <Sidebar />
+                <div>
+                    <div
+                        className="sidebar"
+                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                    >
+                        <div className="box-sidebar">
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
                 <div className="data">

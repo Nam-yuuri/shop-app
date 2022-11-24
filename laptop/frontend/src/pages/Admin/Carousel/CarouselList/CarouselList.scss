@@ -1,0 +1,26 @@
+.CarouselList{
+    padding-right: 030px ;
+    display: flex;
+    // gap: 20px;
+    margin-top: 64px;
+
+    .data{
+        width: 100%;
+    }
+}
+
+.sidebar{
+    // width: 222px;
+    // margin-top: 45px;
+    // margin-top: 64px;
+    transition: all 0.3s ease 0s ;
+}
+
+.data{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
+    // margin-top: 64px;
+
+}

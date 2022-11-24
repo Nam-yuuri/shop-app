@@ -30,6 +30,8 @@ import Dashboard from '~/pages/Admin/Dashboard';
 import PromotionList from '~/pages/Admin/Promotion/PromotionList';
 import NewPromotion from '~/pages/Admin/Promotion/newPromotion/NewPromotion';
 import Loading from '~/components/Loading/Loading';
+import CarouselList from '~/pages/Admin/Carousel/CarouselList';
+import NewCarousel from '~/pages/Admin/Carousel/NewCarousel/NewCarousel';
 // Public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -55,9 +57,11 @@ const publicRoutes = [
     { path: config.routes.newBannerHorizon, component: NewBannerHorizon, layout: null},
     { path: config.routes.headerList, component: HeaderList, layout: null},
     { path: config.routes.newHeader, component: NewHeader, layout: null},
-    { path: config.routes.dashboard, component: Dashboard, layout: null},
+    { path: config.routes.dashBoard, component: Dashboard, layout: null},
     { path: config.routes.promotionList, component: PromotionList, layout: null},
     { path: config.routes.newPromotion, component: NewPromotion, layout: null},
+    { path: config.routes.carouselList, component: CarouselList, layout: null},
+    { path: config.routes.newCarousel, component: NewCarousel, layout: null},
 
     { path: config.routes.loading, component: Loading, layout: null},
 

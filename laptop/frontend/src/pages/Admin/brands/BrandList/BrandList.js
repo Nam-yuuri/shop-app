@@ -36,7 +36,7 @@ function BrandList() {
     // console.log('brand: ', brands);
 
     const columns = [
-        { field: 'id', headerName: 'ID', minWidth: 200,maxWidth: 200, flex: 0.5 },
+        { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
 
         {
             field: 'name',
@@ -66,7 +66,7 @@ function BrandList() {
                         width: '45px',
                         height: '45px',
                         marginLeft: 'auto',
-                        marginRight: 'auto'
+                        marginRight: 'auto',
                     }}
                 />
             ),
@@ -85,7 +85,7 @@ function BrandList() {
                         width: '100px',
                         height: '45px',
                         marginLeft: 'auto',
-                        marginRight: 'auto'
+                        marginRight: 'auto',
                     }}
                 />
             ),
@@ -101,11 +101,11 @@ function BrandList() {
             renderCell: (params) => {
                 return (
                     <React.Fragment>
-                        <div className='box-Action-admin'>
+                        <div className="box-Action-admin">
                             <Link to={`/admin/product/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
-    
+
                             <Button
                                 onClick={() => {
                                     confirmAlert({
@@ -173,12 +173,17 @@ function BrandList() {
                     <p>aaaa</p>
                 ) : (
                     <div className="BrandList">
-                        <div
-                            className="sidebar"
-                            style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                        >
-                            <div className="box-sidebar">
-                                <Sidebar />
+                        <div>
+                            <div
+                                className="sidebar"
+                                style={{
+                                    width: wrapperWidth ? '222px' : '0px',
+                                    display: wrapperWidth ? 'block' : 'none',
+                                }}
+                            >
+                                <div className="box-sidebar">
+                                    <Sidebar />
+                                </div>
                             </div>
                         </div>
                         <div className="data">
