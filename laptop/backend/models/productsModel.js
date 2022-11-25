@@ -12,6 +12,12 @@ const productSchema = mongoose.Schema({
     required: [true, "Hãy nhập tên sản phẩm"],
     trim: true,
   },
+  name_Compact: {
+    type: String,
+    required: [true, "Hãy nhập tên sản phẩm"],
+    maxLength: [15, "Tên không được quá 30 kí tự"],
+    trim: true,
+  },
   description: {
     type: String,
     required: [true, "Hãy nhập giới thiệu của sản phẩm"],

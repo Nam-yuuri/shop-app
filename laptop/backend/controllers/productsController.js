@@ -62,9 +62,19 @@ exports.getAdminAllProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//get all Out of stock product
+exports.getAdminStockProducts = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.find({Stock: req.params.Stock < 6});
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
 //get top product
 exports.getTopProducts = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.find().sort({ sold: -1 }).limit(5);
+  const product = await Product.find().sort({ sold: -1 }).limit(10);
 
   res.status(200).json({
     success: true,

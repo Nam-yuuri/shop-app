@@ -107,7 +107,7 @@ export const getAdminProduct = () => async (dispatch) => {
 
         const data = await axios.get('http://localhost:8000/api/v1/admin/products');
 
-        console.log('product db: ', data);
+        // console.log('product db: ', data);
 
         dispatch({
             type: ADMIN_PRODUCT_SUCCESS,
@@ -124,25 +124,27 @@ export const getAdminProduct = () => async (dispatch) => {
 // Get Top Products For Admin
 export const getTopProducts = () => async (dispatch) => {
     try {
-        dispatch({ type: TOP_PRODUCT_REQUEST });
+        dispatch({ type: 'TOP_PRODUCT_REQUEST' });
 
-        const token = localStorage.getItem('token');
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `token ${token}`,
-            },
-        };
+        // const token = localStorage.getItem('token');
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         Authorization: `token ${token}`,
+        //     },
+        // };
 
-        const data = await axiosClient.get('/api/v1/admin/topProducts', config);
+        // const data = await axiosClient.get('/api/v1/admin/topProducts', config);
+        const data = await axios.get('http://localhost:8000/api/v1/product/top');
+        console.log('product db: ', data.data.product);
 
         dispatch({
-            type: TOP_PRODUCT_SUCCESS,
-            payload: data.products,
+            type: 'TOP_PRODUCT_SUCCESS',
+            payload: data.data.product,    
         });
     } catch (error) {
         dispatch({
-            type: TOP_PRODUCT_FAIL,
+            type: 'TOP_PRODUCT_FAIL',
             payload: error.response.data.message,
         });
     }

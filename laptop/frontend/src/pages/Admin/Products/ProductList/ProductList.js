@@ -110,13 +110,13 @@ function ProductList() {
                 />
             ),
         },
-        {
-            field: 'gift_image_name',
-            headerName: 'Tên quà',
-            type: 'number',
-            minWidth: 0,
-            flex: 0.5,
-        },
+        // {
+        //     field: 'gift_image_name',
+        //     headerName: 'Tên quà',
+        //     type: 'number',
+        //     minWidth: 0,
+        //     flex: 0.5,
+        // },
         {
             field: 'brand',
             headerName: 'Thương hiệu',

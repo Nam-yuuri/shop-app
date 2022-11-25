@@ -1,4 +1,4 @@
-// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import '../Admin.scss';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import PeopleIcon from '@mui/icons-material/People';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
@@ -10,18 +10,10 @@ import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import CancelIcon from '@mui/icons-material/Cancel';
-// import Menu from '@mui/material/Menu';
-// import AccountBoxIcon from '@mui/icons-material/AccountBox';
-// import HomeIcon from '@mui/icons-material/Home';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import ChatIcon from '@mui/icons-material/Chat';
-// import Tooltip from '@mui/material/Tooltip';
-// import LogoutIcon from '@mui/icons-material/Logout';
-// import MenuItem from '@mui/material/MenuItem';
 import {
     Avatar,
-    Button,
     Grid,
+    Input,
     Paper,
     Table,
     TableBody,
@@ -30,51 +22,35 @@ import {
     TableHead,
     TableRow,
 } from '@mui/material';
+import Button from '~/components/Button';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-// import Divider from '@mui/material/Divider';
-// import Drawer from '@mui/material/Drawer';
-// import IconButton from '@mui/material/IconButton';
 import { styled, useTheme } from '@mui/material/styles';
-// import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
-import { Doughnut, Line } from 'react-chartjs-2';
-// import Chart from "chart.js/auto";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-// import {
-//   getAllOrders,
-//   getAllOrdersStatistical,
-//   getAllOrdersStatus,
-// } from "../../actions/orderAction";
-// import { logout } from "../../actions/userAction.js";
-// import { getAdminProduct, getTopProducts } from "../../actions/productAction";
-// import { getAllUsers } from "../../actions/userAction";
-import '../Admin.scss';
-// import Sidebar from "./components/Sidebar";
 import formatPrice from '~/utils/formatPrice';
-// import MetaData from "../../components/Layout/MetaData";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-// import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import moment from "moment";
-// import "moment/locale/vi";
-// import { getAllBlogs } from "../../actions/blogAction";
-// import { display } from '@mui/system';
 import MoodIcon from '@mui/icons-material/Mood';
-import { getAdminProduct } from '~/actions/productAction';
+import { getAdminProduct, getTopProducts } from '~/actions/productAction';
 import Sidebar from '../Sidebar';
 import './Dashboard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
+import ReCharts from './chart';
+import Turnover from './turnover';
+import { Discount } from '@mui/icons-material';
+import Sumproducts from './Sumproducts';
+import { getAllPromotion } from '~/actions/promotionAction';
 
 // moment.locale("vi");
 
@@ -191,10 +167,12 @@ export default function Dashboard() {
     const [open, setOpen] = React.useState(true);
     const dispatch = useDispatch();
 
-    const { products } = useSelector((state) => state.productsAdmin);
+    const { products } = useSelector((state) => state.topProducts);
     useEffect(() => {
-        dispatch(getAdminProduct());
+        dispatch(getTopProducts());
     }, [dispatch]);
+
+    console.log('products: ', products);
 
     const [dateStart, setDateStart] = useState(null);
     const [dateEnd, setDateEnd] = useState(null);
@@ -333,6 +311,13 @@ export default function Dashboard() {
 
     const [wrapperWidth, setWapperWidth] = useState(true);
 
+    const { promotions } = useSelector((state) => state.promotions);
+
+    useEffect(() => {
+        dispatch(getAllPromotion());
+    }, [dispatch]);
+    console.log('promotion: ', promotions);
+
     return (
         <Box sx={{ display: 'flex', backgroundColor: 'rgb(255, 255, 248)', padding: '30px' }} className={classes.root}>
             {/* <MetaData title="Admin - Dashboard" />; */}
@@ -360,7 +345,7 @@ export default function Dashboard() {
                     <h1>Dashboard</h1>
                     <Link to={config.routes.home} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
-                        QUAY VỀ GIAO DIỆN KHÁCH HÀNG
+                        VỀ GIAO DIỆN NGƯỜI DÙNG
                     </Link>
                 </div>
             </div>
@@ -377,121 +362,180 @@ export default function Dashboard() {
                 </div>
                 <div className="data">
                     <Main open={open}>
-                        <DrawerHeader />
-                        {/* <Typography variant="h3">
-                            Welcome back, user.name! <MoodIcon />
-                        </Typography>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quidem.</p> */}
+                        <p style={{ fontSize: '30px', fontWeight: 'bold' }}>Quản lý cửa hàng</p>
                         <Grid container spacing={2} className="dashboardSummary">
                             <Grid item xs={12} sm={6} md={3}>
-                                <Paper className={classes.flexPaper} style={{ borderLeft: '5px solid yellow' }} square>
-                                    <InventoryIcon />
-                                    <Link to="/admin/products">
-                                        <p className="statistical-number">1</p>
-                                        <p>Sản phẩm</p>
-                                    </Link>
-                                    <Link to="/admin/products">
-                                        <p>
-                                            Go to detail <ChevronRightIcon />
-                                        </p>
-                                    </Link>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={3} className="dashboardSummaryBox2">
                                 <Paper
                                     className={classes.flexPaper}
-                                    style={{ borderLeft: '5px solid red', backgroundColor: '#e3ffa8' }}
-                                >
-                                    <FeedIcon />
-
-                                    <Link to="/admin/blogs">
-                                        <p className="statistical-number">2</p>
-                                        <p>Tin tức</p>
-                                    </Link>
-                                    <Link to="/admin/blogs">
-                                        <p>
-                                            Go to detail <ChevronRightIcon />
-                                        </p>
-                                    </Link>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={3}>
-                                <Paper
-                                    className={classes.flexPaper}
-                                    style={{ borderLeft: '5px solid blue', backgroundColor: '#45ffbc' }}
-                                >
-                                    <ShoppingBasketIcon />
-                                    <Link to="/admin/orders">
-                                        <p className="statistical-number">3</p>
-                                        <p>Đơn hàng</p>
-                                    </Link>
-                                    <Link to="/admin/orders">
-                                        <p>
-                                            Go to detail <ChevronRightIcon />
-                                        </p>
-                                    </Link>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={3}>
-                                <Paper
-                                    className={classes.flexPaper}
-                                    style={{ borderLeft: '5px solid green', backgroundColor: '#bdbbb7' }}
-                                >
-                                    <PeopleIcon />
-                                    <Link to="/admin/users">
-                                        <p className="statistical-number">4</p>
-                                        <p>Tài khoản</p>
-                                    </Link>
-                                    <Link to="/admin/users">
-                                        <p>
-                                            Go to detail <ChevronRightIcon />
-                                        </p>
-                                    </Link>
-                                </Paper>
-                            </Grid>
-                            {/* <Grid item xs={12} md={6} className="lineChart">
-                                <div
                                     style={{
+                                        borderLeft: '5px solid yellow',
                                         display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '2rem',
+                                        flexDirection: 'column',
+                                        padding: '20px 10px',
+                                        borderRadius: '4px',
                                     }}
+                                    square
                                 >
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                        <DatePicker
-                                            label="Chọn ngày bắt đầu"
-                                            value={dateStart}
-                                            onChange={(newValue) => {
-                                                setDateStart(newValue);
-                                            }}
-                                            renderInput={(params) => <TextField {...params} />}
-                                        />
-                                    </LocalizationProvider>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                        <DatePicker
-                                            label="Chọn ngày kết thúc"
-                                            value={dateEnd}
-                                            onChange={(newValue) => {
-                                                setDateEnd(newValue);
-                                            }}
-                                            renderInput={(params) => <TextField {...params} />}
-                                        />
-                                    </LocalizationProvider>
-                                    <Button
-                                        onClick={handleStatistical}
-                                        variant="contained"
-                                        sx={{
-                                            fontSize: '1.3rem',
-                                            padding: '10px 20px',
+                                    <InventoryIcon />
+                                    <p style={{ fontSize: '20px', marginBottom: '0px', fontWeight: 'bold' }}>
+                                        Sản phẩm
+                                    </p>
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-around',
                                         }}
                                     >
-                                        Thống kê
-                                    </Button>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                            <p className="statistical-number">Sản phẩm: </p>
+                                            <p className="statistical-number">1</p>
+                                        </div>
+                                        <Link
+                                            to={config.routes.productList}
+                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                        >
+                                            <p className="go-to-detail">
+                                                Go to detail <ChevronRightIcon />
+                                            </p>
+                                        </Link>
+                                    </div>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Paper
+                                    className={classes.flexPaper}
+                                    style={{
+                                        borderLeft: '5px solid red',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        padding: '20px 10px',
+                                        borderRadius: '4px',
+                                    }}
+                                    square
+                                >
+                                    <PeopleIcon />
+                                    <p style={{ fontSize: '20px', marginBottom: '0px', fontWeight: 'bold' }}>
+                                        Tài khoản
+                                    </p>
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-around',
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                            <p className="statistical-number">Tài khoản: </p>
+                                            <p className="statistical-number">1</p>
+                                        </div>
+                                        <Link
+                                            to={config.routes.productList}
+                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                        >
+                                            <p className="go-to-detail">
+                                                Go to detail <ChevronRightIcon />
+                                            </p>
+                                        </Link>
+                                    </div>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Paper
+                                    className={classes.flexPaper}
+                                    style={{
+                                        borderLeft: '5px solid green',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        padding: '20px 10px',
+                                        borderRadius: '4px',
+                                    }}
+                                    square
+                                >
+                                    <ShoppingBasketIcon />
+                                    <p style={{ fontSize: '20px', marginBottom: '0px', fontWeight: 'bold' }}>
+                                        Đơn hàng
+                                    </p>
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-around',
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                            <p className="statistical-number">Đơn hàng: </p>
+                                            <p className="statistical-number">1</p>
+                                        </div>
+                                        <Link
+                                            to={config.routes.productList}
+                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                        >
+                                            <p className="go-to-detail">
+                                                Go to detail <ChevronRightIcon />
+                                            </p>
+                                        </Link>
+                                    </div>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Paper
+                                    className={classes.flexPaper}
+                                    style={{
+                                        borderLeft: '5px solid blue',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        padding: '20px 10px',
+                                        borderRadius: '4px',
+                                    }}
+                                    square
+                                >
+                                    <Discount />
+                                    <p style={{ fontSize: '20px', marginBottom: '0px', fontWeight: 'bold' }}>
+                                        Khuyến mãi
+                                    </p>
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-around',
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                            <p className="statistical-number">Khuyến mãi: </p>
+                                            <p className="statistical-number">{promotions && promotions.length}</p>
+                                        </div>
+                                        <Link
+                                            to={config.routes.promotionList}
+                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                        >
+                                            <p className="go-to-detail">
+                                                Go to detail <ChevronRightIcon />
+                                            </p>
+                                        </Link>
+                                    </div>
+                                </Paper>
+                            </Grid>
+
+                            <Grid item xs={12} md={6} mt={5}>
+                                <div style={{ width: '80%', display: 'flex', justifyContent: 'space-around' }}>
+                                    <Input type="date" style={{ border: '1px solid #eaeaea', borderRadius: '4px' }} />
+                                    <Input type="date" style={{ border: '1px solid #eaeaea', borderRadius: '4px' }} />
+                                    <Button primary>Thống kê</Button>
                                 </div>
-                                <Line data={lineState} />
+                                <div style={{ marginTop: '10px', marginBottom: '20px' }}>
+                                    <Turnover />
+                                </div>
                                 <Grid container spacing={2}>
                                     <Grid item xs={6}>
-                                        <Paper className={classes.flexPaper} style={{ borderLeft: '5px solid #541690' }}>
+                                        <Paper
+                                            className={classes.flexPaper}
+                                            style={{ borderLeft: '5px solid #541690' }}
+                                        >
                                             <AttachMoneyIcon />
                                             <div>
                                                 <p className="statistical-number">{formatPrice(totalAmount)}</p>
@@ -500,7 +544,7 @@ export default function Dashboard() {
                                         </Paper>
                                     </Grid>
                                 </Grid>
-                            </Grid> */}
+                            </Grid>
                             <Grid item xs={12} md={6} className="doughnutChart" sx={{ mt: 5 }}>
                                 <Grid container spacing={5}>
                                     <Grid item xs={12} sm={6}>
@@ -556,42 +600,9 @@ export default function Dashboard() {
                                         </Paper>
                                     </Grid>
                                 </Grid>
-                                
-                            </Grid>
-                            <Grid item sx={12} sm={6} sx={{ mt: 5 }}>
-                                <Paper
-                                    elevation={3}
-                                    sx={{
-                                        p: 2,
-                                    }}
-                                >
-                                    <Grid container spacing={2} className="tableInventory">
-                                        <Grid item sx={12} sm={7}>
-                                            <Box className={classes.flexBox}>
-                                                <h6>Sản phẩm hết hàng</h6>
-                                                <h6>{outOfStock}</h6>
-                                            </Box>
-                                            <Box className={classes.flexBox}>
-                                                <h6>Sản phẩm sắp hết hàng</h6>
-                                                <h6>{lowStock}</h6>
-                                            </Box>
-                                            <Box className={classes.flexBox}>
-                                                <h6>Sản phẩm có sẵn</h6>
-                                                <h6>products && products.length - outOfStock </h6>
-                                            </Box>
-                                        </Grid>
-                                        {/* <Grid item sx={12} sm={5}>
-                                            <Doughnut
-                                                data={doughnutState}
-                                                width={'200%'}
-                                                height={'200%'}
-                                                options={{ maintainAspectRatio: false }}
-                                            />
-                                        </Grid> */}
-                                    </Grid>
-                                </Paper>
                             </Grid>
                         </Grid>
+
                         <Grid
                             container
                             spacing={2}
@@ -615,13 +626,18 @@ export default function Dashboard() {
                                                 mt: 2,
                                                 ml: 2,
                                             }}
+                                            style={{ textAlign: 'center', fontWeight: 'bold' }}
                                         >
                                             Sản phẩm bán chạy
                                         </Typography>
                                     </Box>
                                     <Box>
                                         <TableContainer>
-                                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                            <Table
+                                                sx={{ minWidth: 650 }}
+                                                aria-label="simple table"
+                                                className="w3-striped"
+                                            >
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell>Tên sản phẩm</TableCell>
@@ -631,7 +647,7 @@ export default function Dashboard() {
                                                         {/* <TableCell>Action</TableCell> */}
                                                     </TableRow>
                                                 </TableHead>
-                                                <TableBody>
+                                                <TableBody style={{ maxHeight: '500px', overflow: 'hidden' }}>
                                                     {products &&
                                                         products.map((item) => (
                                                             <TableRow
@@ -647,7 +663,7 @@ export default function Dashboard() {
                                                                     <Avatar src={item.images[0].url} alt={item.name} />
                                                                 </TableCell>
                                                                 <TableCell>{item.sold}</TableCell>
-                                                                <TableCell>{item.Stock}</TableCell>
+                                                                <TableCell>{item.Stock - item.sold}</TableCell>
                                                                 {/* <TableCell>
                                                                     <Link
                                                                         to={`/admin/product/${item._id}`}
@@ -667,10 +683,20 @@ export default function Dashboard() {
                                     </Box>
                                 </Paper>
                             </Grid>
-                            
                         </Grid>
-                        <Grid>
-                            
+                        <Grid style={{ display: 'flex' }}>
+                            {/* <div>
+                                <Sumproducts />
+                                <p style={{ textAlign: 'center', marginTop: '20px' }}>
+                                    Số lượng sản phẩm còn trong kho{' '}
+                                </p>
+                            </div> */}
+                            <div>
+                                <ReCharts />
+                                <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '20px', fontWeight: 'bold' }}>
+                                    Sản phẩm đã bán và còn trong kho{' '}
+                                </p>
+                            </div>
                         </Grid>
 
                         {/* <div className="lineChart"></div> */}

@@ -9,6 +9,7 @@ const {
   deleteProduct,
   getProduct,
   getAdminAllProducts,
+  getAdminStockProducts
 } = require("../controllers/productsController");
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -18,6 +19,8 @@ router.get("/products", getAllProducts);
 router.get("/admin/products", getAdminAllProducts);
 
 router.get("/product/top", getTopProducts);
+
+router.get("/admin/product/stock", getAdminStockProducts);
 
 router.get("/product/:id", getProduct);
 
