@@ -1,44 +1,44 @@
 import axios from 'axios';
 import axiosClient from '~/api/axiosClient';
 
-import {
-    ALL_BANNER_HORIZONTAL_FAIL,
-    ALL_BANNER_HORIZONTAL_REQUEST,
-    ALL_BANNER_HORIZONTAL_SUCCESS,
-    MAIN_BANNER_HORIZONTAL_FAIL,
-    MAIN_BANNER_HORIZONTAL_REQUEST,
-    MAIN_BANNER_HORIZONTAL_SUCCESS,
-    BANNER_DETAILS_HORIZONTAL_FAIL,
-    BANNER_DETAILS_HORIZONTAL_REQUEST,
-    BANNER_DETAILS_HORIZONTAL_SUCCESS,
-    CLEAR_ERRORS,
-    DELETE_BANNER_HORIZONTAL_FAIL,
-    DELETE_BANNER_HORIZONTAL_REQUEST,
-    DELETE_BANNER_HORIZONTAL_SUCCESS,
-    NEW_BANNER_HORIZONTAL_FAIL,
-    NEW_BANNER_HORIZONTAL_REQUEST,
-    NEW_BANNER_HORIZONTAL_SUCCESS,
-    UPDATE_BANNER_HORIZONTAL_FAIL,
-    UPDATE_BANNER_HORIZONTAL_REQUEST,
-    UPDATE_BANNER_HORIZONTAL_SUCCESS,
-} from '../constants/bannerHorizontalConstants';
+// import {
+//     ALL_BANNER_HORIZONTAL_FAIL,
+//     ALL_BANNER_HORIZONTAL_REQUEST,
+//     ALL_BANNER_HORIZONTAL_SUCCESS,
+//     MAIN_BANNER_HORIZONTAL_FAIL,
+//     MAIN_BANNER_HORIZONTAL_REQUEST,
+//     MAIN_BANNER_HORIZONTAL_SUCCESS,
+//     BANNER_DETAILS_HORIZONTAL_FAIL,
+//     BANNER_DETAILS_HORIZONTAL_REQUEST,
+//     BANNER_DETAILS_HORIZONTAL_SUCCESS,
+//     CLEAR_ERRORS,
+//     DELETE_BANNER_HORIZONTAL_FAIL,
+//     DELETE_BANNER_HORIZONTAL_REQUEST,
+//     DELETE_BANNER_HORIZONTAL_SUCCESS,
+//     NEW_BANNER_HORIZONTAL_FAIL,
+//     NEW_BANNER_HORIZONTAL_REQUEST,
+//     NEW_BANNER_HORIZONTAL_SUCCESS,
+//     UPDATE_BANNER_HORIZONTAL_FAIL,
+//     UPDATE_BANNER_HORIZONTAL_REQUEST,
+//     UPDATE_BANNER_HORIZONTAL_SUCCESS,
+// } from '../constants/bannerHorizontalConstants';
 
 // Get All Banners
 export const getAllBannersHorizontal = () => async (dispatch) => {
     try {
-        dispatch({ type: ALL_BANNER_HORIZONTAL_REQUEST });
+        dispatch({ type: 'ALL_BANNER_HORIZONTAL_REQUEST' });
 
         const data = await axios.get('http://localhost:8000/api/v1/bannerHorizontal');
 
         // console.log('horizon db: ', data);
 
         dispatch({
-            type: ALL_BANNER_HORIZONTAL_SUCCESS,
+            type: 'ALL_BANNER_HORIZONTAL_SUCCESS',
             payload: data.data.horizontal,
         });
     } catch (error) {
         dispatch({
-            type: ALL_BANNER_HORIZONTAL_FAIL,
+            type: 'ALL_BANNER_HORIZONTAL_FAIL',
             payload: error.response.data.message,
         });
     }
@@ -68,7 +68,7 @@ export const getHorizontalMain = () => async (dispatch) => {
 // Create Banner
 export const createBannerHorizontal = (bannerData) => async (dispatch) => {
     try {
-        dispatch({ type: NEW_BANNER_HORIZONTAL_REQUEST });
+        dispatch({ type: 'NEW_BANNER_HORIZONTAL_REQUEST' });
 
         // const token = localStorage.getItem("token");
 
@@ -86,12 +86,12 @@ export const createBannerHorizontal = (bannerData) => async (dispatch) => {
         );
 
         dispatch({
-            type: NEW_BANNER_HORIZONTAL_SUCCESS,
+            type: 'NEW_BANNER_HORIZONTAL_SUCCESS',
             payload: data,
         });
     } catch (error) {
         dispatch({
-            type: NEW_BANNER_HORIZONTAL_FAIL,
+            type: 'NEW_BANNER_HORIZONTAL_FAIL',
             payload: error.response.data.message,
         });
     }
@@ -100,7 +100,7 @@ export const createBannerHorizontal = (bannerData) => async (dispatch) => {
 // Update Banner
 export const updateBannerHorizontal = (id, bannerData) => async (dispatch) => {
     try {
-        dispatch({ type: UPDATE_BANNER_HORIZONTAL_REQUEST });
+        dispatch({ type: 'UPDATE_BANNER_HORIZONTAL_REQUEST' });
 
         const token = localStorage.getItem('token');
 
@@ -114,12 +114,12 @@ export const updateBannerHorizontal = (id, bannerData) => async (dispatch) => {
         const data = await axiosClient.put(`/api/v1/admin/banner/${id}`, bannerData, config);
 
         dispatch({
-            type: UPDATE_BANNER_HORIZONTAL_SUCCESS,
+            type: 'UPDATE_BANNER_HORIZONTAL_SUCCESS',
             payload: data.success,
         });
     } catch (error) {
         dispatch({
-            type: UPDATE_BANNER_HORIZONTAL_FAIL,
+            type: 'UPDATE_BANNER_HORIZONTAL_FAIL',
             payload: error.response.data.message,
         });
     }
@@ -157,17 +157,17 @@ export const deleteBannerHorizontal = (id) => async (dispatch) => {
 // Get Banner Details
 export const getBannerHorizontalDetails = (id) => async (dispatch) => {
     try {
-        dispatch({ type: BANNER_DETAILS_HORIZONTAL_REQUEST });
+        dispatch({ type: 'BANNER_DETAILS_HORIZONTAL_REQUEST' });
 
         const data = await axiosClient.get(`/api/v1/banner/${id}`);
 
         dispatch({
-            type: BANNER_DETAILS_HORIZONTAL_SUCCESS,
+            type: 'BANNER_DETAILS_HORIZONTAL_SUCCESS',
             payload: data.banner,
         });
     } catch (error) {
         dispatch({
-            type: BANNER_DETAILS_HORIZONTAL_FAIL,
+            type: 'BANNER_DETAILS_HORIZONTAL_FAIL',
             payload: error.response.data.message,
         });
     }
@@ -175,5 +175,5 @@ export const getBannerHorizontalDetails = (id) => async (dispatch) => {
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {
-    dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: 'CLEAR_ERRORS' });
 };

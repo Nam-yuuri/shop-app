@@ -33,7 +33,7 @@ function BannerList() {
         dispatch(getAllBanners());
     }, [dispatch]);
 
-    console.log('banner: ', banners);
+    // console.log('banner: ', banners);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, flex: 0.5 },
@@ -148,7 +148,7 @@ function BannerList() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>Brand</h1>
+                    <h1>Banner</h1>
                     <Link to={config.routes.newBannerList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
                         Thêm banner

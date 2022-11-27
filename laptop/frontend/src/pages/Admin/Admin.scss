@@ -237,7 +237,7 @@
 
 .sidebar {
     position: relative;
-    height: 100% !important;
+    // height: 100% !important;
 
     .box-sidebar {
         position: fixed;
@@ -433,7 +433,7 @@ body.react-confirm-alert-body-element {
 
 .css-1ex1afd-MuiTableCell-root {
     padding: 0px !important;
-    padding-left: 16px !important;
+    padding-left: 10px !important;
     border: 1px solid #ddd !important;
 }
 
@@ -461,4 +461,17 @@ body.react-confirm-alert-body-element {
     height: 50px;
     max-height: 50px;
     overflow-y: scroll;
+}
+
+.sidebar{
+    height: max(100%, 100vh);
+    border-right: 1px solid #ddd;
+}
+
+.css-xz1dy3-MuiButtonBase-root-MuiButton-root{
+    font-size: 1.5rem !important;
+}
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root{
+    font-size: 1.5rem !important;
 }

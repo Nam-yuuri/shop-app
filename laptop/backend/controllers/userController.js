@@ -14,6 +14,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     crop: "scale",
   });
 
+
   const { name, email, password, shippingInfo } = req.body;
 
   const user = await User.create({
@@ -27,7 +28,11 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     shippingInfo,
   });
 
-  sendToken(user, 201, res);
+  // sendToken(user, 201, res);
+  res.status(200).json({
+    success: true,
+    user,
+  });
 });
 
 // Login User
@@ -275,7 +280,7 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 
 // Delete User --Admin
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findByIdAndDelete(req.params.id);
 
   if (!user) {
     return next(

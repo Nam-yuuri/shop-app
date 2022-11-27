@@ -79,12 +79,16 @@ export const createBanner = (bannerData) => async (dispatch) => {
         //   },
         // };
 
-        const data = await axios.post(
-            'http://localhost:8000/api/v1/admin/banner/new',
-            bannerData,
-            // config
-        );
+        // const data = await axios.post(
+        //     'http://localhost:8000/api/v1/admin/banner/new',
+        //     bannerData,
+        //     // config
+        // );
+        // console.log(bannerData)
 
+        const data = await axios.post('http://localhost:8000/api/v1/admin/banner/new', bannerData);
+
+        // console.log(data)
         dispatch({
             type: NEW_BANNER_SUCCESS,
             payload: data,

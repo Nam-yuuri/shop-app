@@ -15,6 +15,7 @@ import config from '~/config';
 import { getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { getAllPromotion } from '~/actions/promotionAction';
+import { getAllShowroom } from '~/actions/showroomAction';
 function ShowroomList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
@@ -28,45 +29,40 @@ function ShowroomList() {
 
     const dispatch = useDispatch();
 
-    const { promotions } = useSelector((state) => state.promotions);
+    const { showrooms } = useSelector((state) => state.showrooms);
 
     useEffect(() => {
-        dispatch(getAllPromotion());
+        dispatch(getAllShowroom());
     }, [dispatch]);
-    console.log('promotion: ', promotions);
+    // console.log('promotion: ', showrooms);
 
     const columns = [
-        { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
+        // { field: 'id', headerName: 'ID', minWidth: 100, maxWidth: 150, flex: 0.5 },
         {
-            field: 'title',
-            headerName: 'Giới thiệu',
-            minWidth: 500,
+            field: 'name',
+            headerName: 'Tên chi nhánh',
+            minWidth: 300,
             flex: 0.5,
         },
         {
-            field: 'status',
-            headerName: 'Status',
-            minWidth: 200,
+            field: 'address',
+            headerName: 'Địa chỉ',
+            minWidth: 600,
             flex: 0.5,
-            renderCell: (params) =>
-                params.value ? <span className="greenColor">Bật</span> : <span className="redColor">Tắt</span>,
         },
         {
-            field: 'image',
-            headerName: 'Hình ảnh',
-            minWidth: 200,
-            flex: 0.8,
-            renderCell: (params) => (
-                <img
-                    src={params.value}
-                    alt=""
-                    style={{
-                        minWidth: '100px',
-                        height: '45px',
-                    }}
-                />
-            ),
+            field: 'phone',
+            headerName: 'Điện thoại',
+            minWidth: 100,
+            flex: 0.5,
         },
+        {
+            field: 'open_door',
+            headerName: 'Giờ làm việc',
+            minWidth: 350,
+            flex: 0.5,
+        },
+
         {
             field: 'actions',
             flex: 0.3,
@@ -115,13 +111,14 @@ function ShowroomList() {
 
     const rows = [];
 
-    promotions &&
-        promotions.forEach((item) => {
+    showrooms &&
+        showrooms.forEach((item) => {
             rows.push({
                 id: item._id,
-                title: item.title,
-                status: item.status,
-                image: item.images.url,
+                name: item.name,
+                address: item.address,
+                phone: item.phone,
+                open_door: item.open_door,
             });
         });
 
@@ -138,7 +135,7 @@ function ShowroomList() {
                 </div>
                 <div className="header-sidebar">
                     <h1>Khuyến mãi</h1>
-                    <Link to={config.routes.newPromotion} className="header-sidebar-btn">
+                    <Link to={config.routes.newShowroom} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
                         Thêm khuyến mãi
                     </Link>

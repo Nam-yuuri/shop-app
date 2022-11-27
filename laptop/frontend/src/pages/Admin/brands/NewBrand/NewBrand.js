@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { NEW_BANNER_RESET } from '~/constants/bannerConstants';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 function NewBrand() {
     const [wrapperWidth, setWapperWidth] = useState(true);
@@ -32,9 +31,6 @@ function NewBrand() {
 
     const { banners } = useSelector((state) => state.newBanner);
 
-    useEffect(() => {
-        dispatch({ type: NEW_BANNER_RESET });
-    }, [dispatch]);
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
@@ -117,10 +113,14 @@ function NewBrand() {
                 </div>
             </div>
             <div className="NewBrand">
-                <div className="sidebar" style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                >
-                    <div className="box-sidebar">
-                        <Sidebar />
+                <div>
+                    <div
+                        className="sidebar"
+                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                    >
+                        <div className="box-sidebar">
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
                 <div className="data">
@@ -153,7 +153,6 @@ function NewBrand() {
                                     rows="7"
                                 ></textarea>
                             </Grid>
-
 
                             <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                 <p>Logo</p>
@@ -250,7 +249,7 @@ function NewBrand() {
                                         marginBottom: '50px',
                                     }}
                                 >
-                                    Tạo brand
+                                    Tạo thương hiệu
                                 </Button>
                             </Grid>
                         </Grid>

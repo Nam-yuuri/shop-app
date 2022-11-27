@@ -18,28 +18,25 @@ import { Link } from 'react-router-dom';
 import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { NEW_BANNER_RESET } from '~/constants/bannerConstants';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 function NewPromotion() {
     const [wrapperWidth, setWapperWidth] = useState(true);
-    const [title, setTitle] = useState('');
+    // const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState(false);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
-    const [newHeader, setNewHeader] = useState({
-        description,
-        status,
-        images,
-    });
+    // const [newHeader, setNewHeader] = useState({
+    //     description,
+    //     status,
+    //     images,
+    // });
 
     const dispatch = useDispatch();
 
     const { banners } = useSelector((state) => state.newBanner);
 
-    useEffect(() => {
-        dispatch({ type: NEW_BANNER_RESET });
-    }, [dispatch]);
+
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
@@ -56,11 +53,20 @@ function NewPromotion() {
         // });
 
         // console.log('form: ', images);
-        console.log('form: ', myForm);
+        console.log('form: ', myForm.entries());
         // dispatch(createBanner(myForm));
 
-        console.log("newHeader: ",newHeader)
+        // console.log('newHeader: ', newHeader);
+        // console.log(`${pair[0]}: ${pair[1]}`);
     };
+
+    // const formData = new FormData();
+    // formData.append('picture', 'somePictureData');
+    // formData.append('firstName', 'some name');
+
+    // for (var pair of formData.entries()) {
+    //     console.log(`${pair[0]}: ${pair[1]}`);
+    // }
 
     const createBannerImagesChange = (e) => {
         const files = Array.from(e.target.files);
@@ -94,7 +100,7 @@ function NewPromotion() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>New Header</h1>
+                    <h1>Thêm khuyến mãi </h1>
                     <Link to={config.routes.promotionList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
                         HỦY
@@ -102,12 +108,14 @@ function NewPromotion() {
                 </div>
             </div>
             <div className="NewHeader">
-                <div
-                    className="sidebar"
-                    style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                >
-                    <div className="box-sidebar">
-                        <Sidebar />
+                <div>
+                    <div
+                        className="sidebar"
+                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                    >
+                        <div className="box-sidebar">
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
                 <div className="data">

@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { NEW_BANNER_RESET } from '~/constants/bannerConstants';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 function NewCarousel() {
     const [wrapperWidth, setWapperWidth] = useState(true);
@@ -32,9 +31,7 @@ function NewCarousel() {
 
     const { banners } = useSelector((state) => state.newBanner);
 
-    useEffect(() => {
-        dispatch({ type: NEW_BANNER_RESET });
-    }, [dispatch]);
+
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
@@ -117,10 +114,12 @@ function NewCarousel() {
                 </div>
             </div>
             <div className="NewCarousel">
-                <div className="sidebar" style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                >
-                    <div className="box-sidebar">
-                        <Sidebar />
+                <div>
+                    <div className="sidebar" style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                    >
+                        <div className="box-sidebar">
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
                 <div className="data">
@@ -250,7 +249,7 @@ function NewCarousel() {
                                         marginBottom: '50px',
                                     }}
                                 >
-                                    Tạo brand
+                                    Tạo carousel
                                 </Button>
                             </Grid>
                         </Grid>

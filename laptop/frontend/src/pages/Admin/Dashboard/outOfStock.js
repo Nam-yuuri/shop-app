@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush } from 'recharts';
 import { getAdminProduct, getTopProducts } from '~/actions/productAction';
 
-export default function LowStock() {
+export default function OutOfStock() {
     const dispatch = useDispatch();
 
     const { products } = useSelector((state) => state.productsAdmin);
@@ -17,7 +17,7 @@ export default function LowStock() {
 
     products &&
         products.forEach((item) => {
-            if (item.Stock <= 5 && item.Stock > 0) {
+            if (item.Stock == 0) {
                 product.push({
                     name: item.name_Compact,
                     stock: item.Stock,
@@ -30,7 +30,7 @@ export default function LowStock() {
         <div style={{ marginTop: '20px' }}>
             <BarChart
                 width={600}
-                height={400}
+                height={300}
                 data={product}
                 margin={{
                     top: 0,
@@ -56,9 +56,9 @@ export default function LowStock() {
                 }}
             >
                 {product.length > 0 ? (
-                    <p>Có {product.length} sản phẩm sắp hết hàng</p>
+                    <p>Có {product.length} sản phẩm hết hàng</p>
                 ) : (
-                    <p>Chưa có sản phẩm nào sắp hết hàng</p>
+                    <p>Chưa có sản phẩm nào hết hàng</p>
                 )}
             </p> */}
         </div>

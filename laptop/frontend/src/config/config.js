@@ -33,6 +33,9 @@ const routes = {
     carouselList: '/admin/CarouselList',
     newCarousel: '/admin/CarouselList/newCarousel',
     dashBoard: '/admin/Dashboard',
+    showroomList: '/admin/ShowroomList',
+    newShowroom: '/admin/ShowroomList/newShowroom',
+    userList: '/admin/UserList',
 
     loading: '/loading',
 };

@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { NEW_BANNER_RESET } from '~/constants/bannerConstants';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 function NewHeader() {
     const [wrapperWidth, setWapperWidth] = useState(true);
@@ -37,9 +36,6 @@ function NewHeader() {
 
     const { banners } = useSelector((state) => state.newBanner);
 
-    useEffect(() => {
-        dispatch({ type: NEW_BANNER_RESET });
-    }, [dispatch]);
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
@@ -94,7 +90,7 @@ function NewHeader() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>New Header</h1>
+                    <h1>Thêm Header</h1>
                     <Link to={config.routes.headerList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
                         HỦY
@@ -102,12 +98,14 @@ function NewHeader() {
                 </div>
             </div>
             <div className="NewHeader">
-                <div
-                    className="sidebar"
-                    style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                >
-                    <div className="box-sidebar">
-                        <Sidebar />
+                <div>
+                    <div
+                        className="sidebar"
+                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                    >
+                        <div className="box-sidebar">
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
                 <div className="data">

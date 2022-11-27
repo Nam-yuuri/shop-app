@@ -11,7 +11,7 @@ export default function Sumproducts() {
         dispatch(getAdminProduct());
     }, [dispatch]);
 
-    console.log('products: ', products);
+    // console.log('products: ', products);
 
     const data = [];
 

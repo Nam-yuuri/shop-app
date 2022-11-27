@@ -3,10 +3,11 @@
     align-items: center;
     padding: 8px;
     font-size: 1.8rem;
-    font-weight: 700;
-    border-radius: 4px;
+    font-weight: 500;
+    // border-radius: 4px;
     color: var(--tex-color);
     transition: background ease-in-out 200ms;
+    border-bottom: 1px solid #ddd;
 
     &.active {
         color: var(--primary);

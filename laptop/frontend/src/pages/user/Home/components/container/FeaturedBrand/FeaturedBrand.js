@@ -50,10 +50,12 @@ function FeaturedBrand() {
 
     const dispatch = useDispatch();
 
-    const { loading, brands } = useSelector((state) => state.brands);
+    const {brands } = useSelector((state) => state.brands);
     useEffect(() => {
         dispatch(getAllBrands());
     }, [dispatch]);
+
+    // console.log("brand: ",brands)
 
     return (
         <div className={cx('container')}>

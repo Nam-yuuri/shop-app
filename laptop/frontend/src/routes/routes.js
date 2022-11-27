@@ -32,6 +32,9 @@ import NewPromotion from '~/pages/Admin/Promotion/newPromotion/NewPromotion';
 import Loading from '~/components/Loading/Loading';
 import CarouselList from '~/pages/Admin/Carousel/CarouselList';
 import NewCarousel from '~/pages/Admin/Carousel/NewCarousel/NewCarousel';
+import ShowroomList from '~/pages/Admin/Showroom/ShowroomList';
+import UserList from '~/pages/Admin/User/UserList';
+import NewShowroom from '~/pages/Admin/Showroom/newShowroom/NewShowroom';
 // Public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -62,7 +65,9 @@ const publicRoutes = [
     { path: config.routes.newPromotion, component: NewPromotion, layout: null},
     { path: config.routes.carouselList, component: CarouselList, layout: null},
     { path: config.routes.newCarousel, component: NewCarousel, layout: null},
-
+    { path: config.routes.showroomList, component: ShowroomList, layout: null},
+    { path: config.routes.newShowroom, component: NewShowroom, layout: null},
+    { path: config.routes.userList, component: UserList, layout: null},
     { path: config.routes.loading, component: Loading, layout: null},
 
 ];

@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom';
 import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { NEW_BANNER_RESET } from '~/constants/bannerConstants';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import FormData from 'form-data';
 function NewBannerHorizon() {
@@ -34,9 +33,7 @@ function NewBannerHorizon() {
 
     const { banners } = useSelector((state) => state.newBanner);
 
-    useEffect(() => {
-        dispatch({ type: NEW_BANNER_RESET });
-    }, [dispatch]);
+
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
@@ -94,7 +91,7 @@ function NewBannerHorizon() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>New Banner Horizontal</h1>
+                    <h1>Thêm Banner Horizontal</h1>
                     <Link to={config.routes.bannerHorizonList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
                         HỦY
@@ -102,12 +99,14 @@ function NewBannerHorizon() {
                 </div>
             </div>
             <div className="NewBannerHorizon">
-                <div
-                    className="sidebar"
-                    style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                >
-                    <div className="box-sidebar">
-                        <Sidebar />
+                <div>
+                    <div
+                        className="sidebar"
+                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
+                    >
+                        <div className="box-sidebar">
+                            <Sidebar />
+                        </div>
                     </div>
                 </div>
                 <div className="data">
@@ -195,7 +194,7 @@ function NewBannerHorizon() {
                                         marginBottom: '50px',
                                     }}
                                 >
-                                    Tạo banner
+                                    Tạo banner horizontal
                                 </Button>
                             </Grid>
                         </Grid>

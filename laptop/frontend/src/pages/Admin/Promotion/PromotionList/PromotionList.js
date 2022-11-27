@@ -34,7 +34,7 @@ function PromotionList() {
     useEffect(() => {
         dispatch(getAllPromotion());
     }, [dispatch]);
-    console.log('promotion: ', promotions);
+    // console.log('promotion: ', promotions);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },

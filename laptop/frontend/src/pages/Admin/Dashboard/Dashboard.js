@@ -51,6 +51,9 @@ import Turnover from './turnover';
 import { Discount } from '@mui/icons-material';
 import Sumproducts from './Sumproducts';
 import { getAllPromotion } from '~/actions/promotionAction';
+import { getAllUsers } from '~/actions/userAction';
+import LowStock from './chart';
+import OutOfStock from './outOfStock';
 
 // moment.locale("vi");
 
@@ -165,14 +168,6 @@ export default function Dashboard() {
     const theme = useTheme();
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
-    const dispatch = useDispatch();
-
-    const { products } = useSelector((state) => state.topProducts);
-    useEffect(() => {
-        dispatch(getTopProducts());
-    }, [dispatch]);
-
-    console.log('products: ', products);
 
     const [dateStart, setDateStart] = useState(null);
     const [dateEnd, setDateEnd] = useState(null);
@@ -193,8 +188,8 @@ export default function Dashboard() {
 
     // const { users } = useSelector((state) => state.allUsers);
 
-    let outOfStock = 0;
-    let lowStock = 0;
+    // let outOfStock = 0;
+    // let lowStock = 0;
 
     // products &&
     //     products.forEach((item) => {
@@ -266,16 +261,16 @@ export default function Dashboard() {
         }
     };
 
-    const doughnutState = {
-        labels: ['Hết hàng', 'Còn hàng', 'Sắp hết hàng'],
-        datasets: [
-            {
-                backgroundColor: ['rgb(255, 61, 87)', 'rgb(25, 118, 210)', 'rgb(255, 175, 56)'],
-                hoverBackgroundColor: ['rgba(255, 61, 87, 0.7)', 'rgba(25, 118, 210, 0.7)', 'rgb(255, 175, 56, 0.7)'],
-                data: [outOfStock, products.length - outOfStock, lowStock],
-            },
-        ],
-    };
+    // const doughnutState = {
+    //     labels: ['Hết hàng', 'Còn hàng', 'Sắp hết hàng'],
+    //     datasets: [
+    //         {
+    //             backgroundColor: ['rgb(255, 61, 87)', 'rgb(25, 118, 210)', 'rgb(255, 175, 56)'],
+    //             hoverBackgroundColor: ['rgba(255, 61, 87, 0.7)', 'rgba(25, 118, 210, 0.7)', 'rgb(255, 175, 56, 0.7)'],
+    //             data: [outOfStock, products.length - outOfStock, lowStock],
+    //         },
+    //     ],
+    // };
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -311,12 +306,65 @@ export default function Dashboard() {
 
     const [wrapperWidth, setWapperWidth] = useState(true);
 
+    const dispatch = useDispatch();
+
+    const { products } = useSelector((state) => state.productsAdmin);
+    const { products: topProducts } = useSelector((state) => state.topProducts);
     const { promotions } = useSelector((state) => state.promotions);
+    const { users } = useSelector((state) => state.allUsers);
 
     useEffect(() => {
+        dispatch(getTopProducts());
         dispatch(getAllPromotion());
+        dispatch(getAdminProduct());
+        dispatch(getAllUsers());
     }, [dispatch]);
-    console.log('promotion: ', promotions);
+
+    // console.log('products: ', products);
+
+    // useEffect(() => {
+    //     dispatch(getAllPromotion());
+    // }, [dispatch]);
+    // // console.log('promotion: ', promotions);
+
+    const outOfStock = [];
+    const lowStock = [];
+
+    products &&
+        products.forEach((item) => {
+            if (item.Stock == 0) {
+                outOfStock.push({
+                    id: item._id,
+                    name: item.name,
+                    Stock: item.Stock,
+                    cost: item.cost,
+                    promotional: item.promotional,
+                    Status_promotional: item.Status_promotional,
+                    image: item.images[0].url,
+                    brand: item.brand.name,
+                    gift_image_name: item.gift_image_name,
+                    gift_images: item.gift_images[0].url,
+                    sold: item.sold,
+                });
+            } else if (item.Stock <= 5) {
+                lowStock.push({
+                    id: item._id,
+                    name: item.name,
+                    Stock: item.Stock,
+                    cost: item.cost,
+                    promotional: item.promotional,
+                    Status_promotional: item.Status_promotional,
+                    image: item.images[0].url,
+                    brand: item.brand.name,
+                    gift_image_name: item.gift_image_name,
+                    gift_images: item.gift_images[0].url,
+                    sold: item.sold,
+                });
+            }
+        });
+
+    console.log('topProducts: ', topProducts[0]);
+    console.log('outOfStock: ', outOfStock[0]);
 
     return (
         <Box sx={{ display: 'flex', backgroundColor: 'rgb(255, 255, 248)', padding: '30px' }} className={classes.root}>
@@ -390,11 +438,13 @@ export default function Dashboard() {
                                     >
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <p className="statistical-number">Sản phẩm: </p>
-                                            <p className="statistical-number">1</p>
+                                            <p className="statistical-number" style={{ fontWeight: 'bold' }}>
+                                                {products && products.length}
+                                            </p>
                                         </div>
                                         <Link
                                             to={config.routes.productList}
-                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                            style={{ paddingLeft: '0px', fontSize: '14px' }}
                                         >
                                             <p className="go-to-detail">
                                                 Go to detail <ChevronRightIcon />
@@ -429,11 +479,13 @@ export default function Dashboard() {
                                     >
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <p className="statistical-number">Tài khoản: </p>
-                                            <p className="statistical-number">1</p>
+                                            <p className="statistical-number" style={{ fontWeight: 'bold' }}>
+                                                {users && users.length}
+                                            </p>
                                         </div>
                                         <Link
-                                            to={config.routes.productList}
-                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                            to={config.routes.userList}
+                                            style={{ paddingLeft: '0px', fontSize: '14px' }}
                                         >
                                             <p className="go-to-detail">
                                                 Go to detail <ChevronRightIcon />
@@ -468,11 +520,13 @@ export default function Dashboard() {
                                     >
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <p className="statistical-number">Đơn hàng: </p>
-                                            <p className="statistical-number">1</p>
+                                            <p className="statistical-number" style={{ fontWeight: 'bold' }}>
+                                                1
+                                            </p>
                                         </div>
                                         <Link
                                             to={config.routes.productList}
-                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                            style={{ paddingLeft: '0px', fontSize: '14px' }}
                                         >
                                             <p className="go-to-detail">
                                                 Go to detail <ChevronRightIcon />
@@ -507,11 +561,13 @@ export default function Dashboard() {
                                     >
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <p className="statistical-number">Khuyến mãi: </p>
-                                            <p className="statistical-number">{promotions && promotions.length}</p>
+                                            <p className="statistical-number" style={{ fontWeight: 'bold' }}>
+                                                {promotions && promotions.length}
+                                            </p>
                                         </div>
                                         <Link
                                             to={config.routes.promotionList}
-                                            style={{ paddingLeft: '20px', fontSize: '14px' }}
+                                            style={{ paddingLeft: '0px', fontSize: '14px' }}
                                         >
                                             <p className="go-to-detail">
                                                 Go to detail <ChevronRightIcon />
@@ -648,8 +704,8 @@ export default function Dashboard() {
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody style={{ maxHeight: '500px', overflow: 'hidden' }}>
-                                                    {products &&
-                                                        products.map((item) => (
+                                                    {topProducts &&
+                                                        topProducts.map((item) => (
                                                             <TableRow
                                                                 key={item._id}
                                                                 sx={{
@@ -684,20 +740,139 @@ export default function Dashboard() {
                                 </Paper>
                             </Grid>
                         </Grid>
-                        <Grid style={{ display: 'flex' }}>
-                            {/* <div>
+                        <p style={{ fontSize: '30px', fontWeight: 'bold',marginTop: '20px'  }}>Quản lý sản phẩm</p>
+                        <Grid style={{ display: 'flex' }}></Grid>
+                        <Grid item xs={12} sm={12} style={{ display: 'flex', alignItems: 'center', margin: '0px 0px 10px' }}>
+                            <Paper elevation={3} style={{ height: '100%' }}>
+                                <Box
+                                    sx={{
+                                        pt: 1,
+                                        ml: 1,
+                                        mb: 1,
+                                    }}
+                                >
+                                    <Typography
+                                        variant="h4"
+                                        sx={{
+                                            mt: 2,
+                                            ml: 2,
+                                        }}
+                                        style={{ textAlign: 'center', fontWeight: 'bold' }}
+                                    >
+                                        {lowStock.length > 0 ? (
+                                            <p>Có {lowStock.length} sản phẩm sắp hết hàng</p>
+                                        ) : (
+                                            <p>Chưa có sản phẩm nào sắp hết hàng</p>
+                                        )}
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <TableContainer>
+                                        <Table sx={{ minWidth: 650 }} aria-label="simple table" className="w3-striped">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Tên sản phẩm</TableCell>
+                                                    <TableCell>Hình ảnh</TableCell>
+                                                    <TableCell>Đã bán</TableCell>
+                                                    <TableCell>Kho hàng</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody style={{ maxHeight: '500px', overflow: 'hidden' }}>
+                                                {lowStock &&
+                                                    lowStock.map((item) => (
+                                                        <TableRow
+                                                            key={item._id}
+                                                            sx={{
+                                                                '& td, & th': { border: 0 },
+                                                            }}
+                                                        >
+                                                            <TableCell component="th" scope="row">
+                                                                {item.name}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Avatar src={item.image} alt={item.name} />
+                                                            </TableCell>
+                                                            <TableCell>{item.sold}</TableCell>
+                                                            <TableCell>{item.Stock}</TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Box>
+                            </Paper>
+                            <LowStock />
+                        </Grid>
+                        <Grid item xs={12} sm={12} style={{ display: 'flex', alignItems: 'center', margin: '30px 0px 0px' }}>
+                            <Paper elevation={3} style={{ height: '100%' }}>
+                                <Box
+                                    sx={{
+                                        pt: 1,
+                                        ml: 1,
+                                        mb: 1,
+                                    }}
+                                >
+                                    <Typography
+                                        variant="h4"
+                                        sx={{
+                                            mt: 2,
+                                            ml: 2,
+                                        }}
+                                        style={{ textAlign: 'center', fontWeight: 'bold' }}
+                                    >
+                                        {outOfStock.length > 0 ? (
+                                            <p>Có {outOfStock.length} sản phẩm hết hàng</p>
+                                        ) : (
+                                            <p>Chưa có sản phẩm nào hết hàng</p>
+                                        )}
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <TableContainer>
+                                        <Table sx={{ minWidth: 650 }} aria-label="simple table" className="w3-striped">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Tên sản phẩm</TableCell>
+                                                    <TableCell>Hình ảnh</TableCell>
+                                                    <TableCell>Đã bán</TableCell>
+                                                    {/* <TableCell>Kho hàng</TableCell> */}
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody style={{ maxHeight: '500px', overflow: 'hidden' }}>
+                                                {outOfStock &&
+                                                    outOfStock.map((item) => (
+                                                        <TableRow
+                                                            key={item._id}
+                                                            sx={{
+                                                                '& td, & th': { border: 0 },
+                                                            }}
+                                                        >
+                                                            <TableCell component="th" scope="row">
+                                                                {item.name}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Avatar src={item.image} alt={item.name} />
+                                                            </TableCell>
+                                                            <TableCell>{item.sold}</TableCell>
+                                                            {/* <TableCell>{item.Stock}</TableCell> */}
+                                                        </TableRow>
+                                                    ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Box>
+                            </Paper>
+                            <OutOfStock />
+                        </Grid>
+
+                        {/* <Grid>
+                            <div>
                                 <Sumproducts />
                                 <p style={{ textAlign: 'center', marginTop: '20px' }}>
                                     Số lượng sản phẩm còn trong kho{' '}
                                 </p>
-                            </div> */}
-                            <div>
-                                <ReCharts />
-                                <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '20px', fontWeight: 'bold' }}>
-                                    Sản phẩm đã bán và còn trong kho{' '}
-                                </p>
                             </div>
-                        </Grid>
+                        </Grid> */}
 
                         {/* <div className="lineChart"></div> */}
 

@@ -136,7 +136,7 @@ export const getTopProducts = () => async (dispatch) => {
 
         // const data = await axiosClient.get('/api/v1/admin/topProducts', config);
         const data = await axios.get('http://localhost:8000/api/v1/product/top');
-        console.log('product db: ', data.data.product);
+        // console.log('product db: ', data.data.product);
 
         dispatch({
             type: 'TOP_PRODUCT_SUCCESS',

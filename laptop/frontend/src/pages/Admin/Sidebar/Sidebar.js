@@ -11,9 +11,12 @@ import {
     Category,
     Dashboard,
     Discount,
+    Laptop,
+    LocationCity,
     Panorama,
     PanoramaHorizontal,
     PanoramaHorizontalSelect,
+    Person,
     RecentActors,
     ShoppingCart,
     ViewCarousel,
@@ -39,13 +42,26 @@ function Sidebar() {
                     icon={<Dashboard />}
                     activeIcon={<Dashboard />}
                 />
+                <MenuItem title="Sản phẩm" to={config.routes.productList} icon={<Laptop />} activeIcon={<Laptop />} />
                 <MenuItem
-                    title="Product"
-                    to={config.routes.productList}
-                    icon={<ShoppingCart />}
-                    activeIcon={<ShoppingCart />}
+                    title="Thương hiệu"
+                    to={config.routes.brandList}
+                    icon={<Category />}
+                    activeIcon={<Category />}
                 />
-                <MenuItem title="Brand" to={config.routes.brandList} icon={<Category />} activeIcon={<Category />} />
+                <MenuItem
+                    title="Khuyến mãi"
+                    to={config.routes.promotionList}
+                    icon={<Discount />}
+                    activeIcon={<Discount />}
+                />
+                <MenuItem title="Tài khoản" to={config.routes.userList} icon={<Person />} activeIcon={<Person />} />
+                <MenuItem
+                    title="Cửa hàng"
+                    to={config.routes.showroomList}
+                    icon={<LocationCity />}
+                    activeIcon={<LocationCity />}
+                />
                 <MenuItem
                     title="Banner"
                     to={config.routes.bannerList}
@@ -69,12 +85,6 @@ function Sidebar() {
                     to={config.routes.carouselList}
                     icon={<RecentActors />}
                     activeIcon={<RecentActors />}
-                />
-                <MenuItem
-                    title="Promotion"
-                    to={config.routes.promotionList}
-                    icon={<Discount />}
-                    activeIcon={<Discount />}
                 />
             </Menu>
         </aside>

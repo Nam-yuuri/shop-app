@@ -11,68 +11,53 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 import { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import '../../Admin.scss';
-import './NewBanner.scss';
+import './NewShowroom.scss';
 import Sidebar from '../../Sidebar';
 import { createBanner } from '~/actions/bannerAction';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { NEW_BANNER_RESET } from '~/constants/bannerConstants';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
-function NewBanner() {
+function NewShowroom() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState(false);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
+    const [NewShowroom, setNewShowroom] = useState({
+        description,
+        status,
+        images,
+    });
 
     const dispatch = useDispatch();
 
-    const { success } = useSelector((state) => state.newBanner);
-
-    // useEffect(() => {
-    //     dispatch({ type: NEW_BANNER_RESET });
-    // }, [dispatch]);
-
-    useEffect(() => {
-        if (success) {
-            Swal.fire('Thành công!', 'Tạo banner thành công!', 'success');
-            dispatch({ type: NEW_BANNER_RESET });
-        }
-    }, [dispatch, success]);
+    const { banners } = useSelector((state) => state.newBanner);
 
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
 
-        let myForm = new FormData();
+        const myForm = new FormData();
 
-        // console.log('des: ', description);
-        myForm.set('description', description);
+        console.log('des: ', description);
+        myForm.append('description', description);
         // console.log('sta: ', status);
-        myForm.set('status', status);
+        // myForm.set('status', status);
 
-        images.forEach((image) => {
-            myForm.append('images', image);
-        });
+        // images.forEach((image) => {
+        //     myForm.append('images', image);
+        // });
 
-        // console.log('form: ', myForm);
-        for (const [key, value] of myForm) {
-            console.log(`${key}: ${value}\n`);
-        }
+        console.log('form: ', images);
+        console.log('form: ', myForm);
+        // dispatch(createBanner(myForm));
 
-        dispatch(createBanner(myForm));
+        console.log("NewShowroom: ",NewShowroom)
     };
 
-    
-    console.log("banner: ",success)
-
-    // console.log(`${pair[0]}: ${pair[1]}`);
-
-    // console.log(myForm)
     const createBannerImagesChange = (e) => {
         const files = Array.from(e.target.files);
 
@@ -105,14 +90,14 @@ function NewBanner() {
                     />
                 </div>
                 <div className="header-sidebar">
-                    <h1>New Banner</h1>
-                    <Link to={config.routes.bannerList} className="header-sidebar-btn">
+                    <h1>Thêm cửa hàng </h1>
+                    <Link to={config.routes.showroomList} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faChevronLeft} />
                         HỦY
                     </Link>
                 </div>
             </div>
-            <div className="NewBanner">
+            <div className="NewShowroom">
                 <div>
                     <div
                         className="sidebar"
@@ -126,14 +111,13 @@ function NewBanner() {
                 <div className="data">
                     <form className="flexDiv" encType="multipart/form-data" onSubmit={createBannerSubmitHandler}>
                         <Grid container spacing={2}>
-                            {/* <div className="flexDiv"> */}
                             <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <p>Tiêu đề</p>
+                                <p>Tên chi nhánh</p>
                             </Grid>
                             <Grid item xs={12} sm={8} md={10}>
                                 <TextField
                                     type="text"
-                                    label="Tiêu đề"
+                                    label="Tên chi nhánh"
                                     required
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
@@ -142,19 +126,49 @@ function NewBanner() {
                                 />
                             </Grid>
                             <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <p>Giới thiệu</p>
+                                <p>Địa chỉ</p>
                             </Grid>
                             <Grid item xs={12} sm={8} md={10}>
-                                <textarea
-                                    placeholder="Giới thiệu"
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    cols="100"
-                                    rows="7"
-                                ></textarea>
+                                <TextField
+                                    type="text"
+                                    label="Địa chỉ"
+                                    required
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    variant="outlined"
+                                    sx={{ width: '50%' }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <p>Điện thoại</p>
+                            </Grid>
+                            <Grid item xs={12} sm={8} md={10}>
+                                <TextField
+                                    type="text"
+                                    label="Điện thoại"
+                                    required
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    variant="outlined"
+                                    sx={{ width: '50%' }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <p>Giờ làm việc</p>
+                            </Grid>
+                            <Grid item xs={12} sm={8} md={10}>
+                                <TextField
+                                    type="text"
+                                    label="Giờ làm việc"
+                                    required
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    variant="outlined"
+                                    sx={{ width: '50%' }}
+                                />
                             </Grid>
 
-                            <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                            {/* <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                 <p>Trạng thái</p>
                             </Grid>
                             <Grid item xs={12} sm={8} md={10}>
@@ -166,17 +180,17 @@ function NewBanner() {
                                         value={status}
                                         label="Trạng thái"
                                         onChange={(e) => setStatus(e.target.value)}
+                                        // onChange={(e) => setNewShowroom({...NewShowroom, status:e.target.value})}
                                     >
                                         <MenuItem value={true}>Bật</MenuItem>
                                         <MenuItem value={false}>Tắt</MenuItem>
                                     </Select>
                                 </FormControl>
-                            </Grid>
+                            </Grid> */}
 
-                            <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <p>Chọn ảnh</p>
+                            {/* <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <p>Ảnh giới thiệu</p>
                             </Grid>
-
                             <Grid
                                 item
                                 xs={12}
@@ -206,7 +220,7 @@ function NewBanner() {
                                         <img
                                             key={index}
                                             src={image}
-                                            alt="Banner Preview"
+                                            alt="Header Preview"
                                             style={{
                                                 maxHeight: '150px',
                                                 maxWidth: '250px',
@@ -214,7 +228,7 @@ function NewBanner() {
                                         />
                                     ))}
                                 </Box>
-                            </Grid>
+                            </Grid> */}
 
                             <Grid item xs={12}>
                                 <Button
@@ -226,7 +240,7 @@ function NewBanner() {
                                         marginBottom: '50px',
                                     }}
                                 >
-                                    Tạo banner
+                                    Thêm cửa hàng 
                                 </Button>
                             </Grid>
                         </Grid>
@@ -237,4 +251,4 @@ function NewBanner() {
     );
 }
 
-export default NewBanner;
+export default NewShowroom;

@@ -1,10 +1,11 @@
 const Product = require("../models/productsModel");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const cloudinary = require("cloudinary");
+const ApiFeatures = require("../utils/apifeatures");
 
 // Get All Product with Pagination
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  const resultPerPage = 9;
+  const resultPerPage = 25;
   const productsCount = await Product.countDocuments();
 
   const apiFeature = new ApiFeatures(Product.find(), req.query)
@@ -46,9 +47,12 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
   }
 
+  const brand = req.params.brand
+
   res.status(200).json({
     success: true,
     product,
+    brand
   });
 });
 
@@ -74,11 +78,12 @@ exports.getAdminStockProducts = catchAsyncErrors(async (req, res, next) => {
 
 //get top product
 exports.getTopProducts = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.find().sort({ sold: -1 }).limit(10);
-
+  const product = await Product.find().sort({ sold: -1 }).limit(10).populate("brand", "name");
+  const brand = req.params.brand
   res.status(200).json({
     success: true,
     product,
+    brand
   });
 });
 

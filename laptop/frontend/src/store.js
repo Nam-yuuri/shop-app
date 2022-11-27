@@ -19,13 +19,14 @@ import {
 //   categoryDetailsReducer,
 // } from "./reducers/categoryReducer.js";
 
-// import {
-//   allUsersReducer,
-//   forgotPasswordReducer,
-//   profileReducer,
-//   userDetailsReducer,
-//   userReducer,
-// } from "./reducers/userReducer";
+import {
+  allUsersReducer,
+  forgotPasswordReducer,
+  profileReducer,
+  userDetailsReducer,
+  userReducer,
+} from "./reducers/userReducer";
+
 // import { cartLocalReducer, cartReducer } from "./reducers/cartReducer";
 
 // import {
@@ -72,12 +73,12 @@ const reducer = combineReducers({
     nProducts: nProductsReducer,
     newProduct: newProductReducer,
     product: productReducer,
-    // // User
-    // user: userReducer,
-    // profile: profileReducer,
-    // forgotPassword: forgotPasswordReducer,
-    // allUsers: allUsersReducer,
-    // userDetails: userDetailsReducer,
+    // User
+    user: userReducer,
+    profile: profileReducer,
+    forgotPassword: forgotPasswordReducer,
+    allUsers: allUsersReducer,
+    userDetails: userDetailsReducer,
     // // Category
     // categories: categoriesReducer,
     // categoryDetails: categoryDetailsReducer,

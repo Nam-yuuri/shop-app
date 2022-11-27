@@ -41,8 +41,8 @@ router.put("/user/shippingInfo/update", isAuthenticatedUser, updateShippingInfo)
 
 router.get(
   "/admin/users",
-  isAuthenticatedUser,
-  authorizeRoles("admin"),
+  // isAuthenticatedUser,
+  // authorizeRoles("admin"),
   getAllUser
 );
 
@@ -61,8 +61,8 @@ router
   )
   .delete(
     "/admin/user/:id",
-    isAuthenticatedUser,
-    authorizeRoles("admin"),
+    // isAuthenticatedUser,
+    // authorizeRoles("admin"),
     deleteUser
   );
 

@@ -25,10 +25,6 @@ const showroomSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  ID:{
-    type: String,
-    require: true,
-  }
 });
 
 module.exports = mongoose.model("showroom", showroomSchema);
