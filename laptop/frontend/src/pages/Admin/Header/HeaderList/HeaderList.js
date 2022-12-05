@@ -12,28 +12,47 @@ import './HeaderList.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
-import { deleteHeader, getAllHeaders } from '~/actions/headerAction';
+import { clearErrors, deleteHeader, getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import Loading from '~/components/Loading/Loading';
+import { useNavigate, useParams } from 'react-router-dom';
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { DELETE_HEADER_RESET } from '~/constants/headerConstants';
 function HeaderList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
 
-    const [pageSize, setPageSize] = React.useState(5);
+    const [pageSize, setPageSize] = React.useState(10);
 
     const deleteHeaderHandler = (id) => {
         dispatch(deleteHeader(id));
-        window.location.reload();
+        // window.location.reload();
     };
 
+    const { loading, error, headers } = useSelector((state) => state.headers);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.header);
+
     const dispatch = useDispatch();
+    let navigate = useNavigate();
 
-    const { headers } = useSelector((state) => state.headers);
-    useEffect(() => {
+    React.useEffect(() => {
+        if (error) {
+            dispatch(clearErrors());
+        }
+
+        if (deleteError) {
+            dispatch(clearErrors);
+        }
+
+        if (isDeleted) {
+            Swal.fire('Thành công!', 'Xóa header thành công!', 'success');
+            dispatch({ type: DELETE_HEADER_RESET });
+        }
+
         dispatch(getAllHeaders());
-    }, [dispatch]);
-
-    // console.log('header: ', headers[0]);
+    }, [dispatch, error, deleteError, navigate, isDeleted]);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
@@ -80,7 +99,7 @@ function HeaderList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/HeaderList/updateHeader/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -88,7 +107,7 @@ function HeaderList() {
                                 onClick={() => {
                                     confirmAlert({
                                         title: 'Xác nhận',
-                                        message: 'Bạn có muốn xóa banner này?',
+                                        message: 'Bạn có muốn xóa header này?',
                                         buttons: [
                                             {
                                                 label: 'Có',
@@ -129,52 +148,61 @@ function HeaderList() {
 
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Header</h1>
-                    <Link to={config.routes.newHeader} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm header
-                    </Link>
-                </div>
-            </div>
-            <div className="productList">
+            {loading ? (
+                <Loading />
+            ) : (
                 <div>
-                    <div
-                        className="sidebar"
-                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                    >
-                        <div className="box-sidebar">
-                            <Sidebar />
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
+                                }}
+                            />
+                        </div>
+                        <div className="header-sidebar">
+                            <h1>Header</h1>
+                            <Link to={config.routes.newHeader} className="header-sidebar-btn">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Thêm header
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="productList">
+                        <div>
+                            <div
+                                className="sidebar"
+                                style={{
+                                    width: wrapperWidth ? '222px' : '0px',
+                                    display: wrapperWidth ? 'block' : 'none',
+                                }}
+                            >
+                                <div className="box-sidebar">
+                                    <Sidebar />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="data">
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={pageSize}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                rowsPerPageOptions={[5, 10, 20]}
+                                pagination
+                                // pageSize={10}
+                                disableSelectionOnClick
+                                className="productListTable"
+                                autoHeight
+                                components={{
+                                    Toolbar: GridToolbar,
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
-                <div className="data">
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={pageSize}
-                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                        rowsPerPageOptions={[5, 10, 20]}
-                        pagination
-                        // pageSize={10}
-                        disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                    />
-                </div>
-            </div>
+            )}
         </div>
     );
 }

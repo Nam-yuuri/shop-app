@@ -8,30 +8,69 @@ import { confirmAlert } from 'react-confirm-alert';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Sidebar from '../../Sidebar';
 import './BrandList.scss';
-import { deleteBrand, getAllBrands } from '~/actions/brandAction';
+import { clearErrors, deleteBrand, getAllBrands, getBrandsMain } from '~/actions/brandAction';
 import Loader from '~/components/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
+import { DELETE_SHOWROOM_RESET } from '~/constants/showroomConstants';
+import { useNavigate, useParams } from 'react-router-dom';
+import Loading from '~/components/Loading/Loading';
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 function BrandList() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
 
-    const [pageSize, setPageSize] = React.useState(5);
+    const [pageSize, setPageSize] = React.useState(10);
 
     const deleteBrandHandler = (id) => {
         dispatch(deleteBrand(id));
-        window.location.reload();
     };
 
-    const dispatch = useDispatch();
+    const { loading, error, brands } = useSelector((state) => state.brands);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.brand);
 
-    const { loading, brands } = useSelector((state) => state.brands);
-    useEffect(() => {
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+
+    const deleteShowroomHandler = (id) => {
+        dispatch(deleteBrand(id));
+    };
+
+    React.useEffect(() => {
+        if (error) {
+            setOpenError(true);
+            setErrorAlert(error);
+            dispatch(clearErrors());
+        }
+
+        if (deleteError) {
+            setOpenError(true);
+            setErrorAlert(deleteError);
+            dispatch(clearErrors);
+        }
+
+        if (isDeleted) {
+            Swal.fire('Thành công!', 'Xóa thương hiệu thành công!', 'success');
+            dispatch({ type: DELETE_SHOWROOM_RESET });
+        }
+
         dispatch(getAllBrands());
-    }, [dispatch]);
+    }, [dispatch, error, deleteError, navigate, isDeleted]);
+
+    // const dispatch = useDispatch();
+
+    // const { loading, brands } = useSelector((state) => state.brands);
+    // useEffect(() => {
+    //     dispatch(getAllBrands());
+    // }, [dispatch]);
 
     // console.log('brand: ', brands);
 
@@ -102,7 +141,7 @@ function BrandList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/product/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/BrandList/updateBrand/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -110,7 +149,7 @@ function BrandList() {
                                 onClick={() => {
                                     confirmAlert({
                                         title: 'Xác nhận',
-                                        message: 'Bạn có muốn xóa sản phẩm này',
+                                        message: 'Bạn có muốn xóa thương hiệu này',
                                         buttons: [
                                             {
                                                 label: 'Có',
@@ -151,61 +190,67 @@ function BrandList() {
         });
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Thương hiệu </h1>
-                    <Link to={config.routes.newBrandList} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm thương hiệu
-                    </Link>
-                </div>
-            </div>
-            <div>
-                {!brands ? (
-                    <p>aaaa</p>
-                ) : (
-                    <div className="BrandList">
-                        <div>
-                            <div
-                                className="sidebar"
-                                style={{
-                                    width: wrapperWidth ? '222px' : '0px',
-                                    display: wrapperWidth ? 'block' : 'none',
-                                }}
-                            >
-                                <div className="box-sidebar">
-                                    <Sidebar />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="data">
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                pageSize={pageSize}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                rowsPerPageOptions={[5, 10, 20]}
-                                pagination
-                                // pageSize={10}
-                                disableSelectionOnClick
-                                className="productListTable"
-                                autoHeight
-                                components={{
-                                    Toolbar: GridToolbar,
+            {loading ? (
+                <Loading />
+            ) : (
+                <div>
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
                                 }}
                             />
                         </div>
+                        <div className="header-sidebar">
+                            <h1>Thương hiệu </h1>
+                            <Link to={config.routes.newBrand} className="header-sidebar-btn">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Thêm thương hiệu
+                            </Link>
+                        </div>
                     </div>
-                )}
-            </div>
+                    <div>
+                        {!brands ? (
+                            <p>aaaa</p>
+                        ) : (
+                            <div className="BrandList">
+                                <div>
+                                    <div
+                                        className="sidebar"
+                                        style={{
+                                            width: wrapperWidth ? '222px' : '0px',
+                                            display: wrapperWidth ? 'block' : 'none',
+                                        }}
+                                    >
+                                        <div className="box-sidebar">
+                                            <Sidebar />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="data">
+                                    <DataGrid
+                                        rows={rows}
+                                        columns={columns}
+                                        pageSize={pageSize}
+                                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                        rowsPerPageOptions={[5, 10, 20]}
+                                        pagination
+                                        // pageSize={10}
+                                        disableSelectionOnClick
+                                        className="productListTable"
+                                        autoHeight
+                                        components={{
+                                            Toolbar: GridToolbar,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -62,6 +62,16 @@ exports.getBrands = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//Get brands main
+exports.getBrandsMain = catchAsyncErrors(async (req, res, next) => {
+  const brand = await Brand.find({status: true})
+
+  res.status(200).json({
+    success: true,
+    brand,
+  });
+});
+
 //Get top brands
 exports.getTopBrands = catchAsyncErrors(async (req, res, next) => {
   const brand = await Brand.find().sort({ sold: -1 }).limit(10);

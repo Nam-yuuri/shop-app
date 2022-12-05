@@ -68,7 +68,7 @@ export const getAllBannersMain = () => async (dispatch) => {
 // Create Banner
 export const createBanner = (bannerData) => async (dispatch) => {
     try {
-        dispatch({ type: NEW_BANNER_REQUEST });
+        dispatch({ type: 'NEW_BANNER_REQUEST' });
 
         // const token = localStorage.getItem("token");
 
@@ -84,18 +84,16 @@ export const createBanner = (bannerData) => async (dispatch) => {
         //     bannerData,
         //     // config
         // );
-        // console.log(bannerData)
 
         const data = await axios.post('http://localhost:8000/api/v1/admin/banner/new', bannerData);
 
-        // console.log(data)
         dispatch({
-            type: NEW_BANNER_SUCCESS,
+            type: 'NEW_BANNER_SUCCESS',
             payload: data,
         });
     } catch (error) {
         dispatch({
-            type: NEW_BANNER_FAIL,
+            type: 'NEW_BANNER_FAIL',
             payload: error.response.data.message,
         });
     }
@@ -162,11 +160,11 @@ export const getBannerDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: BANNER_DETAILS_REQUEST });
 
-        const data = await axiosClient.get(`/api/v1/banner/${id}`);
-
+        const data = await axios.get(`http://localhost:8000/api/v1/admin/banner/${id}`);
+        console.log("data", data.data.banner)
         dispatch({
             type: BANNER_DETAILS_SUCCESS,
-            payload: data.banner,
+            payload: data.data.banner,
         });
     } catch (error) {
         dispatch({

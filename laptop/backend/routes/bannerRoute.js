@@ -13,7 +13,7 @@ const {
 router.post("/admin/banner/new", createBanner);
 router.get("/banners", getAllBanner);
 router.get("/banner/main", getMainBanner);
-router.get("/banner/:id", getBanner);
+router.get("/admin/banner/:id", getBanner);
 router.put("/admin/banner/:id", updateBanner);
 router.delete("/admin/banner/:id", deleteBanner);
 

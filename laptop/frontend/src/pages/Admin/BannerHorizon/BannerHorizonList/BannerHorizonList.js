@@ -13,31 +13,59 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import { getAllBanners } from '~/actions/bannerAction';
 import {
+    clearErrors,
     deleteBannerHorizontal,
     getAllBannerHorizontalMain,
     getAllBannersHorizontal,
 } from '~/actions/bannerHorizontalAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import Loading from '~/components/Loading/Loading';
+import { DELETE_BANNER_RESET } from '~/constants/bannerConstants';
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import {DELETE_BANNER_HORIZONTAL_RESET} from '~/constants/bannerHorizontalConstants'
 function BannerHorizonList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
 
-    const [pageSize, setPageSize] = React.useState(5);
+    const { loading, error, horizontals } = useSelector((state) => state.horizontals);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.horizontal);
+
+    const [pageSize, setPageSize] = React.useState(10);
 
     const deleteBannerHandler = (id) => {
         dispatch(deleteBannerHorizontal(id));
-        window.location.reload();
+        // window.location.reload();
     };
 
     const dispatch = useDispatch();
+    let navigate = useNavigate();
 
-    const { horizontals } = useSelector((state) => state.horizontals);
-    useEffect(() => {
+    React.useEffect(() => {
+        if (error) {
+            dispatch(clearErrors());
+        }
+
+        if (deleteError) {
+            dispatch(clearErrors);
+        }
+
+        if (isDeleted) {
+            Swal.fire('Thành công!', 'Xóa banner thành công!', 'success');
+            dispatch({ type: DELETE_BANNER_HORIZONTAL_RESET });
+        }
+
         dispatch(getAllBannersHorizontal());
-    }, [dispatch]);
+    }, [dispatch, error, deleteError, navigate, isDeleted]);
 
-    // console.log('bannersHorizontal: ', horizontals);
+    // const { loading, horizontals } = useSelector((state) => state.horizontals);
+    // useEffect(() => {
+    //     dispatch(getAllBannersHorizontal());
+    // }, [dispatch]);
+
+    // // console.log('bannersHorizontal: ', horizontals);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
@@ -87,7 +115,7 @@ function BannerHorizonList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/BannerHorizon/updateBannerHorizon/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -136,52 +164,61 @@ function BannerHorizonList() {
 
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Banner Horizontal</h1>
-                    <Link to={config.routes.newBannerHorizon} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm banner Horizontal
-                    </Link>
-                </div>
-            </div>
-            <div className="productList">
+            {loading ? (
+                <Loading />
+            ) : (
                 <div>
-                    <div
-                        className="sidebar"
-                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                    >
-                        <div className="box-sidebar">
-                            <Sidebar />
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
+                                }}
+                            />
+                        </div>
+                        <div className="header-sidebar">
+                            <h1>Banner Horizontal</h1>
+                            <Link to={config.routes.newBannerHorizon} className="header-sidebar-btn">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Thêm banner Horizontal
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="productList">
+                        <div>
+                            <div
+                                className="sidebar"
+                                style={{
+                                    width: wrapperWidth ? '222px' : '0px',
+                                    display: wrapperWidth ? 'block' : 'none',
+                                }}
+                            >
+                                <div className="box-sidebar">
+                                    <Sidebar />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="data">
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={pageSize}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                rowsPerPageOptions={[5, 10, 20]}
+                                pagination
+                                // pageSize={10}
+                                disableSelectionOnClick
+                                className="productListTable"
+                                autoHeight
+                                components={{
+                                    Toolbar: GridToolbar,
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
-                <div className="data">
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={pageSize}
-                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                        rowsPerPageOptions={[5, 10, 20]}
-                        pagination
-                        // pageSize={10}
-                        disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                    />
-                </div>
-            </div>
+            )}
         </div>
     );
 }

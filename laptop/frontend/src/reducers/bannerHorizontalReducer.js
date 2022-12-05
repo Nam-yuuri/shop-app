@@ -5,9 +5,9 @@ import {
   MAIN_BANNER_HORIZONTAL_FAIL,
   MAIN_BANNER_HORIZONTAL_REQUEST,
   MAIN_BANNER_HORIZONTAL_SUCCESS,
-  BANNER_DETAILS_HORIZONTAL_FAIL,
-  BANNER_DETAILS_HORIZONTAL_REQUEST,
-  BANNER_DETAILS_HORIZONTAL_SUCCESS,
+  BANNER_HORIZONTAL_DETAILS_FAIL,
+  BANNER_HORIZONTAL_DETAILS_REQUEST,
+  BANNER_HORIZONTAL_DETAILS_SUCCESS,
   CLEAR_ERRORS,
   DELETE_BANNER_HORIZONTAL_FAIL,
   DELETE_BANNER_HORIZONTAL_REQUEST,
@@ -18,6 +18,8 @@ import {
   UPDATE_BANNER_HORIZONTAL_FAIL,
   UPDATE_BANNER_HORIZONTAL_REQUEST,
   UPDATE_BANNER_HORIZONTAL_SUCCESS,
+  DELETE_BANNER_HORIZONTAL_RESET,
+  UPDATE_BANNER_HORIZONTAL_RESET,
   NEW_BANNER_HORIZONTAL_RESET
 } from '../constants/bannerHorizontalConstants';
 
@@ -53,24 +55,24 @@ export const bannersHorizontalReducer = (state = { horizontals: [] }, action) =>
 
 export const mainHorizontalReducer = (state = { horizontals: [] }, action) => {
   switch (action.type) {
-      case 'MAIN_BANNER_HORIZONTAL_REQUEST':
+      case MAIN_BANNER_HORIZONTAL_REQUEST:
           return {
               loading: true,
               horizontals: [],
           };
 
-      case 'MAIN_BANNER_HORIZONTAL_SUCCESS':
+      case MAIN_BANNER_HORIZONTAL_SUCCESS:
           return {
               loading: false,
               horizontals: action.payload,
           };
-      case 'MAIN_BANNER_HORIZONTAL_FAIL':
+      case MAIN_BANNER_HORIZONTAL_FAIL:
           return {
               loading: false,
               error: action.payload,
           };
 
-      case 'CLEAR_ERRORS':
+      case CLEAR_ERRORS:
           return {
               ...state,
               error: null,
@@ -81,87 +83,116 @@ export const mainHorizontalReducer = (state = { horizontals: [] }, action) => {
   }
 };
 
-export const newBannerHorizontalReducer = (state = { banner: {} }, action) => {
-    switch (action.type) {
+export const newHorizontalReducer = (state = { horizontal: {} }, action) => {
+  switch (action.type) {
       case NEW_BANNER_HORIZONTAL_REQUEST:
-        return {
-          ...state,
-          loading: true,
-          success: false,
-        };
+          return {
+              ...state,
+              loading: true,
+              success: false,
+          };
       case NEW_BANNER_HORIZONTAL_SUCCESS:
-        return {
-          loading: false,
-          success: action.payload.success,
-          banner: action.payload.banner,
-        };
+          return {
+              loading: false,
+              // success: action.payload.success,
+              success: true,
+              horizontal: action.payload.horizontal,
+          };
       case NEW_BANNER_HORIZONTAL_FAIL:
-        return {
-          ...state,
-          loading: false,
-          error: action.payload,
-        };
+          return {
+              ...state,
+              loading: false,
+              error: action.payload,
+          };
       case NEW_BANNER_HORIZONTAL_RESET:
-        return {
-          ...state,
-          success: false,
-        };
+          return {
+              ...state,
+              success: false,
+          };
       case CLEAR_ERRORS:
-        return {
-          ...state,
-          error: null,
-        };
+          return {
+              ...state,
+              error: null,
+          };
       default:
-        return state;
-    }
-  };
+          return state;
+  }
+};
 
 // //
 
 export const bannerHorizontalReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'DELETE_BANNER_HORIZONTAL_REQUEST':
-    case 'UPDATE_BANNER_HORIZONTAL_REQUEST':
+    case DELETE_BANNER_HORIZONTAL_REQUEST:
+    case UPDATE_BANNER_HORIZONTAL_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case 'DELETE_BANNER_HORIZONTAL_SUCCESS':
+    case DELETE_BANNER_HORIZONTAL_SUCCESS:
       return {
         ...state,
         loading: false,
-        isDeleted: action.payload,
+        isDeleted: true,
       };
 
-    case 'UPDATE_BANNER_HORIZONTAL_SUCCESS':
+    case UPDATE_BANNER_HORIZONTAL_SUCCESS:
       return {
         ...state,
         loading: false,
-        isUpdated: action.payload,
+        isUpdated: true,
       };
-    case 'DELETE_BANNER_HORIZONTAL_FAIL':
-    case 'UPDATE_BANNER_HORIZONTAL_FAIL':
+    case DELETE_BANNER_HORIZONTAL_FAIL:
+    case UPDATE_BANNER_HORIZONTAL_FAIL:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: true,
       };
-    case 'DELETE_BANNER_HORIZONTAL_RESET':
+    case DELETE_BANNER_HORIZONTAL_RESET:
       return {
         ...state,
         isDeleted: false,
       };
-    case 'UPDATE_BANNER_HORIZONTAL_RESET':
+    case UPDATE_BANNER_HORIZONTAL_RESET:
       return {
         ...state,
         isUpdated: false,
       };
-    case 'CLEAR_ERRORS':
+    case CLEAR_ERRORS:
       return {
         ...state,
         error: null,
       };
     default:
       return state;
+  }
+};
+
+export const bannerHorizontalDetailsReducer = (state = { horizontals: {} }, action) => {
+  switch (action.type) {
+      case BANNER_HORIZONTAL_DETAILS_REQUEST:
+          return {
+              loading: true,
+              ...state,
+          };
+      case BANNER_HORIZONTAL_DETAILS_SUCCESS:
+          return {
+              loading: false,
+              horizontals: action.payload,
+          };
+      case BANNER_HORIZONTAL_DETAILS_FAIL:
+          return {
+              loading: false,
+              error: action.payload,
+          };
+
+      case CLEAR_ERRORS:
+          return {
+              ...state,
+              error: null,
+          };
+      default:
+          return state;
   }
 };

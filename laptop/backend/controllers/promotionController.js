@@ -56,46 +56,80 @@ exports.createPromotion = catchAsyncErrors(async (req, res, next) => {
 
 //Update promotion
 exports.updatePromotion = catchAsyncErrors(async (req, res, next) => {
-  const newPromotion = {
-    title: req.body.title,
-    date: req.body.date,
-    status: req.body.status,
-  };
+  let promotion = await Promotion.findByIdAndUpdate(req.params.id);
+  // Xử lý Images
+  let url = [];
+  if (typeof req.body.url === "string") {
+    url.push(req.body.url);
+  } else {
+    url = req.body.url;
+  }
+  if (url !== undefined) {
+    // Xóa ảnh ở Cloudinary
+    for (let i = 0; i < promotion.url.length; i++) {
+      await cloudinary.v2.uploader.destroy(promotion.url[i].public_id);
+    }
+    const imagesLinks = [];
+    for (let i = 0; i < url.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(url[i], {
+        folder: "banners",
+      });
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
 
-  if (req.body.images !== "") {
-    const promotion = await User.findById(req.promotion.id);
-
-    const imageId = promotion.images.public_id;
-
-    await cloudinary.v2.uploader.destroy(imageId);
-
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.images, {
-      folder: "promotion",
-      width: 150,
-      crop: "scale",
-    });
-
-    newUserData.images = {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    };
+    req.body.url = imagesLinks;
   }
 
-  const promotion = await Promotion.findByIdAndUpdate(
-    req.promotion.id,
-    newPromotion,
-    {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
-    }
-  );
+  promotion = await Promotion.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
 
   res.status(200).json({
     success: true,
     promotion,
   });
 });
+
+// exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+//   const newUserData = {
+//     name: req.body.name,
+//     email: req.body.email,
+//   };
+
+//   if (req.body.avatar !== "") {
+//     const user = await User.findById(req.user.id);
+
+//     const imageId = user.avatar.public_id;
+
+//     await cloudinary.v2.uploader.destroy(imageId);
+
+//     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+//       folder: "avatars",
+//       width: 150,
+//       crop: "scale",
+//     });
+
+//     newUserData.avatar = {
+//       public_id: myCloud.public_id,
+//       url: myCloud.secure_url,
+//     };
+//   }
+
+//   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+//     new: true,
+//     runValidators: true,
+//     useFindAndModify: false,
+//   });
+
+//   res.status(200).json({
+//     success: true,
+//   });
+// });
 
 //Delete promotion
 exports.deletePromotion = catchAsyncErrors(async (req, res, next) => {

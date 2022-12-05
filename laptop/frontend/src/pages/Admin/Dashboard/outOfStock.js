@@ -17,7 +17,7 @@ export default function OutOfStock() {
 
     products &&
         products.forEach((item) => {
-            if (item.Stock == 0) {
+            if (item.Stock === 0) {
                 product.push({
                     name: item.name_Compact,
                     stock: item.Stock,

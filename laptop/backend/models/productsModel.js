@@ -18,14 +18,6 @@ const productSchema = mongoose.Schema({
     maxLength: [15, "Tên không được quá 30 kí tự"],
     trim: true,
   },
-  description: {
-    type: String,
-    required: [true, "Hãy nhập giới thiệu của sản phẩm"],
-  },
-  description_more: {
-    type: String,
-    required: [true, "Hãy nhập giới thiệu của sản phẩm"],
-  },
   cost: {
     type: Number,
     required: [true, "Hãy nhập giá gốc của sản phẩm"],
@@ -37,18 +29,29 @@ const productSchema = mongoose.Schema({
   },
   Status_promotional: {
     type: Boolean,
-    default: false
+    default: false,
   },
   brand: {
-    required: [true, "Hãy nhập thương hiệu của sản phẩm"],
+    // required: [true, "Hãy nhập thương hiệu của sản phẩm"],
     type: mongoose.Schema.Types.ObjectId,
     ref: "Brand",
     required: true,
   },
-  //   SKU: {
-  //     type: String,
-  //     required: [true, "Hãy nhập mã của sản phẩm"],
-  //   },
+  RAM: {
+    type: String,
+    required: [true, "Hãy nhập RAM của sản phẩm"],
+  },
+  RAM_specs: {
+    type: String,
+    required: [true, "Hãy nhập RAM của sản phẩm"],
+  },
+  description: {
+    type: String,
+    required: [true, "Hãy nhập giới thiệu của sản phẩm"],
+  },
+  description_more: {
+    type: String,
+  },
   gift_images: [
     {
       public_id: {
@@ -68,7 +71,6 @@ const productSchema = mongoose.Schema({
     type: Number,
     default: 1,
   },
-
   images: [
     {
       public_id: {
@@ -94,11 +96,15 @@ const productSchema = mongoose.Schema({
     type: String,
     required: [true, "Hãy nhập nhu cầu của sản phẩm"],
   },
+  CPU: {
+    type: String,
+    required: [true, "Hãy nhập CPU của sản phẩm"],
+  },
   CPU_The_system: {
     type: String,
     required: [true, "Hãy nhập Nhu cầu của sản phẩm"],
   },
-  CPU: {
+  CPU_specs: {
     type: String,
     required: [true, "Hãy nhập CPU của sản phẩm"],
   },
@@ -106,11 +112,12 @@ const productSchema = mongoose.Schema({
     type: String,
     required: [true, "Hãy nhập chip đồ họa của sản phẩm"],
   },
-  RAM: {
-    type: String,
-    required: [true, "Hãy nhập RAM của sản phẩm"],
-  },
+
   Monitor: {
+    type: String,
+    required: [true, "Hãy nhập kích thước màn hình của sản phẩm"],
+  },
+  Monitor_specs: {
     type: String,
     required: [true, "Hãy nhập kích thước màn hình của sản phẩm"],
   },
@@ -121,10 +128,6 @@ const productSchema = mongoose.Schema({
   Port_number: {
     type: String,
     required: [true, "Hãy nhập số cổng tối đa của sản phẩm"],
-  },
-  Support_slot_type: {
-    type: String,
-    required: [true, "Hãy nhập cổng hỗ trợ của sản phẩm"],
   },
   Output_port: {
     type: String,
@@ -159,7 +162,7 @@ const productSchema = mongoose.Schema({
     required: [true, "Hãy nhập khối lượng của sản phẩm"],
   },
   Led: {
-    type: Boolean,
+    type: String,
     required: [true, "Đèn led trên máy"],
     default: false,
   },

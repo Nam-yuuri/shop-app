@@ -12,6 +12,21 @@ exports.getAllShowroom = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//get showroom
+exports.getShowroom = catchAsyncErrors(async (req, res, next) => {
+  const showroom = await Showroom.findById(req.params.id);
+
+  try {
+    res.status(200).json({
+      success: true,
+      showroom,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 //get all showroom with city
 exports.getCityShowroom = catchAsyncErrors(async (req, res, next) => {
   const showroom = await Showroom.find({city: req.params.city});
@@ -54,7 +69,7 @@ exports.updateShowroom = catchAsyncErrors(async (req, res, next) => {
 
 //delete
 exports.deleteShowroom = catchAsyncErrors(async (req, res, next) => {
-  const showroom = await Showroom.findByIdAndUpdate(req.params.id);
+  const showroom = await Showroom.findByIdAndDelete(req.params.id);
 
   if (!showroom) {
     return next(new ErrorHander("Không tìm thấy showroom", 404));

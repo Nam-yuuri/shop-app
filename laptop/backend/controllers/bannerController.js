@@ -59,46 +59,37 @@ exports.getMainBanner = catchAsyncErrors(async (req, res, next) => {
 exports.getBanner = catchAsyncErrors(async (req, res, next) => {
   const banner = await Banner.findById(req.params.id);
 
-  if (!banner) {
-    return next(new ErrorHander("Không tìm thấy banner", 404));
+  try {
+    res.status(200).json({
+      success: true,
+      banner,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
-
-  res.status(200).json({
-    success: true,
-    banner,
-  });
 });
 
 //Update banner
 exports.updateBanner = catchAsyncErrors(async (req, res, next) => {
   let banner = await Banner.findByIdAndUpdate(req.params.id);
-
-  if (!banner) {
-    return next(new ErrorHander("Không tìm thấy banner", 404));
-  }
-
   // Xử lý Images
   let url = [];
-
   if (typeof req.body.url === "string") {
     url.push(req.body.url);
   } else {
     url = req.body.url;
   }
-
   if (url !== undefined) {
     // Xóa ảnh ở Cloudinary
     for (let i = 0; i < banner.url.length; i++) {
       await cloudinary.v2.uploader.destroy(banner.url[i].public_id);
     }
-
     const imagesLinks = [];
-
     for (let i = 0; i < url.length; i++) {
       const result = await cloudinary.v2.uploader.upload(url[i], {
         folder: "banners",
       });
-
       imagesLinks.push({
         public_id: result.public_id,
         url: result.secure_url,

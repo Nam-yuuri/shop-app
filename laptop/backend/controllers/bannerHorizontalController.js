@@ -54,6 +54,25 @@ exports.getAllBannerHorizontal = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+//Get all horizontal
+exports.getHorizontal = catchAsyncErrors(async (req, res, next) => {
+  const horizontal = await BannerHorizontal.findById(req.params.id);
+
+  if (!horizontal) {
+    return next(new ErrorHander("Không tìm thấy horizontal", 404));
+  }
+
+  try {
+    res.status(200).json({
+      success: true,
+      horizontal,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 //Get horizontal main
 exports.getMainBannerHorizon = catchAsyncErrors(async (req, res, next) => {
   const horizontal = await BannerHorizontal.find({ status: true }).limit(1);

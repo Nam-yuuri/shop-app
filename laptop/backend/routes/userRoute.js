@@ -19,25 +19,25 @@ const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.post("/user/register", registerUser);
+router.post("/register", registerUser);
 
-router.post("/user/login", loginUser);
+router.post("/login", loginUser);
 
-router.get("/user/logout", logout);
+router.get("/logout", logout);
 
-router.post("/user/password/forgot", forgotPassword);
+router.post("/password/forgot", forgotPassword);
 
-router.put("/user/password/reset/:token", resetPassword);
+router.put("/password/reset/:token", resetPassword);
 
-router.get("/user/me", isAuthenticatedUser, getUserDetails);
+router.get("/me", isAuthenticatedUser, getUserDetails);
 
-router.put("/user/password/update", isAuthenticatedUser, updatePassword);
+router.put("/password/update", isAuthenticatedUser, updatePassword);
 
-router.put("/user/ship/update", isAuthenticatedUser, updateShippingInfo);
+router.put("/ship/update", isAuthenticatedUser, updateShippingInfo);
 
-router.put("/user/me/update", isAuthenticatedUser, updateProfile);
+router.put("/me/update", isAuthenticatedUser, updateProfile);
 
-router.put("/user/shippingInfo/update", isAuthenticatedUser, updateShippingInfo);
+router.put("/shippingInfo/update", isAuthenticatedUser, updateShippingInfo);
 
 router.get(
   "/admin/users",

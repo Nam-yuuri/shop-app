@@ -20,12 +20,12 @@ import {
 // } from "./reducers/categoryReducer.js";
 
 import {
-  allUsersReducer,
-  forgotPasswordReducer,
-  profileReducer,
-  userDetailsReducer,
-  userReducer,
-} from "./reducers/userReducer";
+    allUsersReducer,
+    forgotPasswordReducer,
+    profileReducer,
+    userDetailsReducer,
+    userReducer,
+} from './reducers/userReducer';
 
 // import { cartLocalReducer, cartReducer } from "./reducers/cartReducer";
 
@@ -40,29 +40,59 @@ import {
 // } from "./reducers/orderReducer";
 
 import {
-    // bannerDetailsReducer,
-    // bannerReducer,
+    bannerDetailsReducer,
+    bannerReducer,
     bannersReducer,
     mainBannersReducer,
     newBannerReducer,
 } from './reducers/bannerReducer';
 
-import { carouselsReducer,carouselsMainReducer } from './reducers/carouselReducer';
+import {
+    carouselsReducer,
+    carouselsMainReducer,
+    newCarouselReducer,
+    carouselDetailsReducer,
+    carouselReducer,
+} from './reducers/carouselReducer';
 
 import {
     bannersHorizontalReducer,
     mainHorizontalReducer,
-    newBannerHorizontalReducer,
+    newHorizontalReducer,
     bannerHorizontalReducer,
+    bannerHorizontalDetailsReducer
 } from './reducers/bannerHorizontalReducer';
 
-import { headersReducer, mainHeaderReducer } from './reducers/headerReducer';
+import {
+    headersReducer,
+    mainHeaderReducer,
+    headerDetailsReducer,
+    headerReducer,
+    newHeaderReducer,
+} from './reducers/headerReducer';
 
-import { brandsReducer } from './reducers/brandReducer';
+import {
+    brandsReducer,
+    brandsMainReducer,
+    brandDetailsReducer,
+    brandReducer,
+    newBrandReducer,
+} from './reducers/brandReducer';
 
-import { promotionsReducer, mainPromotionReducer } from './reducers/promotionReducer';
+import {
+    promotionsReducer,
+    mainPromotionReducer,
+    promotionDetailsReducer,
+    promotionReducer,
+    newPromotionReducer,
+} from './reducers/promotionReducer';
 
-import {showroomsReducer} from './reducers/showroomReducer'
+import {
+    showroomsReducer,
+    showroomReducer,
+    showroomDetailsReducer,
+    newShowroomReducer,
+} from './reducers/showroomReducer';
 
 const reducer = combineReducers({
     // Product
@@ -73,59 +103,61 @@ const reducer = combineReducers({
     nProducts: nProductsReducer,
     newProduct: newProductReducer,
     product: productReducer,
+
     // User
     user: userReducer,
     profile: profileReducer,
     forgotPassword: forgotPasswordReducer,
     allUsers: allUsersReducer,
     userDetails: userDetailsReducer,
-    // // Category
-    // categories: categoriesReducer,
-    // categoryDetails: categoryDetailsReducer,
-    // newCategory: newCategoryReducer,
-    // category: categoryReducer,
-    // //Cart
-    // cart: cartReducer,
-    // cartLocal: cartLocalReducer,
-    // //Order
-    // newOrder: newOrderReducer,
-    // myOrders: myOrdersReducer,
-    // orderDetails: orderDetailsReducer,
-    // allOrders: allOrdersReducer,
-    // order: orderReducer,
-    // allOrdersStatistical: allOrdersStatisticalReducer,
-    // allOrdersStatus: allOrdersStatusReducer,
 
-    // //Banner
+    //Banner
     banners: bannersReducer,
     bannersMain: mainBannersReducer,
-    // bannerDetails: bannerDetailsReducer,
+    bannerDetails: bannerDetailsReducer,
     newBanner: newBannerReducer,
-    // banner: bannerReducer,
+    banner: bannerReducer,
 
     // Carousel
     carousels: carouselsReducer,
+    carousel: carouselReducer,
+    carouselDetails: carouselDetailsReducer,
+    newCarousel: newCarouselReducer,
     carouselsMain: carouselsMainReducer,
 
     // Banner Horizontal
     horizontals: bannersHorizontalReducer,
     horizontalMain: mainHorizontalReducer,
-    newBannerHorizontal: newBannerHorizontalReducer,
     horizontal: bannerHorizontalReducer,
+    horizontalDetails: bannerHorizontalDetailsReducer,
+    newHorizontal: newHorizontalReducer,
 
     // Header
     headers: headersReducer,
+    header: headerReducer,
     headersMain: mainHeaderReducer,
+    newHeader: newHeaderReducer,
+    headerDetails: headerDetailsReducer,
 
     // Brand
     brands: brandsReducer,
+    brand: brandReducer,
+    newBrand: newBrandReducer,
+    mainBrands: brandsMainReducer,
+    brandDetails: brandDetailsReducer,
 
     //Promotion
     promotions: promotionsReducer,
     promotionsMain: mainPromotionReducer,
+    promotionDetails: promotionDetailsReducer,
+    promotion: promotionReducer,
+    newPromotion: newPromotionReducer,
 
     //Showroom
     showrooms: showroomsReducer,
+    showroom: showroomReducer,
+    newShowroom: newShowroomReducer,
+    showroomDetails: showroomDetailsReducer,
 });
 
 let initialState = {

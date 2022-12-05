@@ -6,11 +6,13 @@ const {
   getAllBannerHorizontal,
   getMainBannerHorizon,
   updateBanner,
-  deleteBanner
+  deleteBanner,
+  getHorizontal
 } = require("../controllers/bannerHorizontalController");
 
 router.post("/admin/bannerHorizontal/new", createBannerHorizontal);
 router.get("/bannerHorizontal/", getAllBannerHorizontal);
+router.get("/admin/bannerHorizontal/:id", getHorizontal);
 router.get("/bannerHorizontal/main", getMainBannerHorizon);
 router.put("/bannerHorizontal/:id", updateBanner);
 router.delete("/bannerHorizontal/:id", deleteBanner);

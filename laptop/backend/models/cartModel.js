@@ -36,11 +36,11 @@ const cartSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
-    // user: {
-    //   type: mongoose.Schema.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,

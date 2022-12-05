@@ -29,7 +29,7 @@ function ProductList() {
         dispatch(getAdminProduct());
     }, [dispatch]);
 
-    // console.log('products: ', products);
+    // console.log('products: ', products[0]);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 100, maxWidth: 150, flex: 0.5 },

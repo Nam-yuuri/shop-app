@@ -9,31 +9,59 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Sidebar from '../../Sidebar';
 import './BannerList.scss';
 import config from '~/config';
-import { deleteBanner, getAllBanners } from '~/actions/bannerAction';
+import { clearErrors, deleteBanner, getAllBanners } from '~/actions/bannerAction';
 import { Diversity1 } from '@mui/icons-material';
 import Loader from '~/components/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate, useParams } from 'react-router-dom';
+import Loading from '~/components/Loading/Loading';
+import { DELETE_BANNER_RESET } from '~/constants/bannerConstants';
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 function BannerList() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
 
-    const [pageSize, setPageSize] = React.useState(5);
+    const { loading, error, banners } = useSelector((state) => state.banners);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.banner);
+
+    const [pageSize, setPageSize] = React.useState(10);
 
     const deleteBannerHandler = (id) => {
         dispatch(deleteBanner(id));
-        window.location.reload();
     };
 
     const dispatch = useDispatch();
+    let navigate = useNavigate();
 
-    const { loading, banners } = useSelector((state) => state.banners);
-    useEffect(() => {
+    React.useEffect(() => {
+        if (error) {
+            setOpenError(true);
+            setErrorAlert(error);
+            dispatch(clearErrors());
+        }
+
+        if (deleteError) {
+            setOpenError(true);
+            setErrorAlert(deleteError);
+            dispatch(clearErrors);
+        }
+
+        if (isDeleted) {
+            Swal.fire('Thành công!', 'Xóa banner thành công!', 'success');
+            dispatch({ type: DELETE_BANNER_RESET });
+        }
+
         dispatch(getAllBanners());
-    }, [dispatch]);
+    }, [dispatch, error, deleteError, navigate, isDeleted]);
 
-    // console.log('banner: ', banners);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, flex: 0.5 },
@@ -88,7 +116,7 @@ function BannerList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/BannerList/updateBanner/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -149,7 +177,7 @@ function BannerList() {
                 </div>
                 <div className="header-sidebar">
                     <h1>Banner</h1>
-                    <Link to={config.routes.newBannerList} className="header-sidebar-btn">
+                    <Link to={config.routes.newBanner} className="header-sidebar-btn">
                         <FontAwesomeIcon icon={faPlus} />
                         Thêm banner
                     </Link>

@@ -169,28 +169,30 @@ export const getNProducts = (numOfProducts) => async (dispatch) => {
     }
 };
 
-// Create Product
+//create
 export const createProduct = (productData) => async (dispatch) => {
     try {
-        dispatch({ type: NEW_PRODUCT_REQUEST });
+        dispatch({ type: 'NEW_PRODUCT_REQUEST' });
 
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
 
-        const config = {
-            headers: {
-                Authorization: `token ${token}`,
-            },
-        };
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data',
+        //         Authorization: `token ${token}`,
+        //     },
+        // };
 
-        const { data } = await axios.post(`http://localhost:5000/api/v1/admin/product/new`, productData, config);
+        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, productData, config);
+        const data = await axios.post(`http://localhost:8000/api/v1/admin/product/new`, productData);
 
         dispatch({
-            type: NEW_PRODUCT_SUCCESS,
+            type: 'NEW_PRODUCT_SUCCESS',
             payload: data,
         });
     } catch (error) {
         dispatch({
-            type: NEW_PRODUCT_FAIL,
+            type: 'NEW_PRODUCT_FAIL',
             payload: error.response.data.message,
         });
     }

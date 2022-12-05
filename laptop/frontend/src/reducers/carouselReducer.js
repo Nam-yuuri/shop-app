@@ -2,9 +2,9 @@ import {
     ALL_CAROUSEL_SUCCESS,
     ALL_CAROUSEL_FAIL,
     ALL_CAROUSEL_REQUEST,
-    MAIN_CAROUSEL_REQUEST,
-    MAIN_CAROUSEL_SUCCESS,
-    MAIN_CAROUSEL_FAIL,
+    ALL_CAROUSEL_MAIN_REQUEST,
+    ALL_CAROUSEL_MAIN_SUCCESS,
+    ALL_CAROUSEL_MAIN_FAIL,
     NEW_CAROUSEL_REQUEST,
     NEW_CAROUSEL_SUCCESS,
     NEW_CAROUSEL_RESET,
@@ -56,24 +56,24 @@ export const carouselsReducer = (state = { carousels: [] }, action) => {
 
 export const carouselsMainReducer = (state = { carousels: [] }, action) => {
     switch (action.type) {
-        case 'ALL_CAROUSEL_MAIN_REQUEST':
+        case ALL_CAROUSEL_MAIN_REQUEST:
             return {
                 loading: true,
                 carousels: [],
             };
 
-        case 'ALL_CAROUSEL_MAIN_SUCCESS':
+        case ALL_CAROUSEL_MAIN_SUCCESS:
             return {
                 loading: false,
                 carousels: action.payload,
             };
-        case 'ALL_CAROUSEL_MAIN_FAIL':
+        case ALL_CAROUSEL_MAIN_FAIL:
             return {
                 loading: false,
                 error: action.payload,
             };
 
-        case 'CLEAR_ERRORS':
+        case CLEAR_ERRORS:
             return {
                 ...state,
                 error: null,
@@ -83,3 +83,117 @@ export const carouselsMainReducer = (state = { carousels: [] }, action) => {
             return state;
     }
 };
+
+export const newCarouselReducer = (state = { carousel: {} }, action) => {
+    switch (action.type) {
+        case NEW_CAROUSEL_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            };
+        case NEW_CAROUSEL_SUCCESS:
+            return {
+                loading: false,
+                // success: action.payload.success,
+                success: true,
+                carousel: action.payload.carousel,
+            };
+        case NEW_CAROUSEL_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case NEW_CAROUSEL_RESET:
+            return {
+                ...state,
+                success: false,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+};
+
+export const carouselDetailsReducer = (state = { carousels: {} }, action) => {
+    switch (action.type) {
+        case CAROUSEL_DETAILS_REQUEST:
+            return {
+                loading: true,
+                ...state,
+            };
+        case CAROUSEL_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                carousels: action.payload,
+            };
+        case CAROUSEL_DETAILS_FAIL:
+            return {
+                loading: false,
+                error: action.payload,
+            };
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+};
+
+export const carouselReducer = (state = {}, action) => {
+    switch (action.type) {
+      case DELETE_CAROUSEL_REQUEST:
+      case UPDATE_CAROUSEL_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+      case DELETE_CAROUSEL_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          isDeleted: true,
+        };
+  
+      case UPDATE_CAROUSEL_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+        //   isUpdated: action.payload,
+          isUpdated: true,
+        };
+      case DELETE_CAROUSEL_FAIL:
+      case UPDATE_CAROUSEL_FAIL:
+        return {
+          ...state,
+          loading: false,
+          error: action.payload,
+        };
+      case DELETE_CAROUSEL_RESET:
+        return {
+          ...state,
+          isDeleted: false,
+        };
+      case UPDATE_CAROUSEL_RESET:
+        return {
+          ...state,
+          isUpdated: false,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+      default:
+        return state;
+    }
+  };
+  

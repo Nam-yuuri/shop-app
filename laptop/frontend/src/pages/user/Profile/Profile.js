@@ -406,11 +406,10 @@ function Profile() {
                                     <strong>Màn hình LCD Msi</strong>
                                 </a>
                                 <strong>
-                                    {' '}
                                     Pro MP271QP (2560 x 1440/IPS/60Hz/5ms) là một sản phẩm màn hình phẳng cao cấp đến từ
                                     hãng Msi với thiết kế sang trọng cho tầm nhìn tuyệt hảo. Bạn đang có nhu cầu mua một
                                     chiếc màn hình phẳng để làm việc, giải trí hoặc dùng cho gia đình của mình, chiếc
-                                    LCD này sẽ đáp ứng tốt.{' '}
+                                    LCD này sẽ đáp ứng tốt.
                                 </strong>
                             </h2>
                             <h3>
@@ -565,66 +564,86 @@ function Profile() {
                             <div className={cx('box-text')}>Nhu cầu</div>
                             <div className={cx('box-value')}>Văn phòng, Doanh nhân</div>
                         </div>
+
                         <div className={cx('box-title')}>Cấu hình chi tiết</div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Kích thước</div>
-                            <div className={cx('box-value')}>27"</div>
+                            <div className={cx('box-text')}>Thế hệ CPU</div>
+                            <div className={cx('box-value')}>Core i5 , Intel Core thế hệ thứ 11</div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Độ phân giải</div>
-                            <div className={cx('box-value')}>2560 x 1440 ( 16:9 )</div>
+                            <div className={cx('box-text')}>CPU</div>
+                            <div className={cx('box-value')}>
+                                ntel Core i5-1155G7 ( 2.5 GHz - 4.5 GHz / 8MB / 4 nhân, 8 luồng ) i5-1155G7
+                            </div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Tấm nền</div>
-                            <div className={cx('box-value')}>IPS</div>
+                            <div className={cx('box-text')}>Chip đồ họa</div>
+                            <div className={cx('box-value')}>Onboard Intel Iris Xe Graphics</div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Tần số quét</div>
-                            <div className={cx('box-value')}>60Hz</div>
+                            <div className={cx('box-text')}>RAM</div>
+                            <div className={cx('box-value')}>
+                                1 x 8GB DDR4 3200MHz ( 2 Khe cắm / Hỗ trợ tối đa 64GB )
+                            </div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Thời gian phản hồi</div>
-                            <div className={cx('box-value')}>5 ms</div>
+                            <div className={cx('box-text')}>Màn hình</div>
+                            <div className={cx('box-value')}>
+                                15.6" ( 1920 x 1080 ) Full HD IPS không cảm ứng , HD webcam
+                            </div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Kiểu màn hình</div>
-                            <div className={cx('box-value')}>Màn hình phẳng</div>
+                            <div className={cx('box-text')}>Lưu trữ</div>
+                            <div className={cx('box-value')}>512GB SSD M.2 NVMe /</div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Độ sáng</div>
-                            <div className={cx('box-value')}>300 cd/m2</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Góc nhìn</div>
-                            <div className={cx('box-value')}>178 (H) / 178 (V)</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Khả năng hiển thị màu sắc</div>
-                            <div className={cx('box-value')}>16.7 triệu màu</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Độ tương phản tĩnh</div>
-                            <div className={cx('box-value')}>1,000:1</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Bề mặt</div>
-                            <div className={cx('box-value')}>Màn hình chống lóa</div>
+                            <div className={cx('box-text')}>Số cổng lưu trữ tối đa</div>
+                            <div className={cx('box-value')}>2 x M.2 NVMe</div>
                         </div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Cổng xuất hình</div>
-                            <div className={cx('box-value')}>2 x HDMI 1.4 , 1 x DisplayPort 1.2</div>
+                            <div className={cx('box-value')}>1 x HDMI</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Cổng kết nối</div>
+                            <div className={cx('box-value')}>
+                                3 x USB 3.2 , 1 x Thunderbolt , 1 x micro SD card slot , Audio combo
+                            </div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Kết nối không dây</div>
+                            <div className={cx('box-value')}>WiFi 802.11ax (Wifi 6) , Bluetooth 5.1</div>
+                        </div>
+                        
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Bàn phím</div>
+                            <div className={cx('box-value')}>thường , LED</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Hệ điều hành</div>
+                            <div className={cx('box-value')}>Windows 11 Windows 11</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Kích thước</div>
+                            <div className={cx('box-value')}>35.68 x 23.375 x 1.69 cm</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Pin</div>
+                            <div className={cx('box-value')}>3 cell 52 Wh , Pin liền</div>
                         </div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Khối lượng</div>
-                            <div className={cx('box-value')}>6 kg</div>
+                            <div className={cx('box-value')}>1.6 kg</div>
+                        </div>
+
+                        <div className={cx('box-title')}>Thông tin khác</div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Đèn LED trên máy</div>
+                            <div className={cx('box-value')}>không đèn</div>
                         </div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Phụ kiện đi kèm</div>
-                            <div className={cx('box-value')}>HDMI cable</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Loa</div>
-                            <div className={cx('box-value')}>có</div>
+                            <div className={cx('box-value')}>Adapter, dây nguồn</div>
                         </div>
                         <div className={cx('box-title')}>Thông tin kích thước</div>
                     </div>
@@ -634,7 +653,7 @@ function Profile() {
                     <div className={cx('box-title-bottom')}>
                         <div className={cx('box-title')}>Thông tin chi tiết</div>
                     </div>
-                    <div className={cx('Details-content')} style={{ height: details ? '100%' : '300px' }}>
+                    <div className={cx('Details-content')}>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Thương hiệu</div>
                             <div className={cx('box-value')}>MSI</div>
@@ -652,66 +671,86 @@ function Profile() {
                             <div className={cx('box-text')}>Nhu cầu</div>
                             <div className={cx('box-value')}>Văn phòng, Doanh nhân</div>
                         </div>
+
                         <div className={cx('box-title')}>Cấu hình chi tiết</div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Kích thước</div>
-                            <div className={cx('box-value')}>27"</div>
+                            <div className={cx('box-text')}>Thế hệ CPU</div>
+                            <div className={cx('box-value')}>Core i5 , Intel Core thế hệ thứ 11</div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Độ phân giải</div>
-                            <div className={cx('box-value')}>2560 x 1440 ( 16:9 )</div>
+                            <div className={cx('box-text')}>CPU</div>
+                            <div className={cx('box-value')}>
+                                ntel Core i5-1155G7 ( 2.5 GHz - 4.5 GHz / 8MB / 4 nhân, 8 luồng ) i5-1155G7
+                            </div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Tấm nền</div>
-                            <div className={cx('box-value')}>IPS</div>
+                            <div className={cx('box-text')}>Chip đồ họa</div>
+                            <div className={cx('box-value')}>Onboard Intel Iris Xe Graphics</div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Tần số quét</div>
-                            <div className={cx('box-value')}>60Hz</div>
+                            <div className={cx('box-text')}>RAM</div>
+                            <div className={cx('box-value')}>
+                                1 x 8GB DDR4 3200MHz ( 2 Khe cắm / Hỗ trợ tối đa 64GB )
+                            </div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Thời gian phản hồi</div>
-                            <div className={cx('box-value')}>5 ms</div>
+                            <div className={cx('box-text')}>Màn hình</div>
+                            <div className={cx('box-value')}>
+                                15.6" ( 1920 x 1080 ) Full HD IPS không cảm ứng , HD webcam
+                            </div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Kiểu màn hình</div>
-                            <div className={cx('box-value')}>Màn hình phẳng</div>
+                            <div className={cx('box-text')}>Lưu trữ</div>
+                            <div className={cx('box-value')}>512GB SSD M.2 NVMe /</div>
                         </div>
                         <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Độ sáng</div>
-                            <div className={cx('box-value')}>300 cd/m2</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Góc nhìn</div>
-                            <div className={cx('box-value')}>178 (H) / 178 (V)</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Khả năng hiển thị màu sắc</div>
-                            <div className={cx('box-value')}>16.7 triệu màu</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Độ tương phản tĩnh</div>
-                            <div className={cx('box-value')}>1,000:1</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Bề mặt</div>
-                            <div className={cx('box-value')}>Màn hình chống lóa</div>
+                            <div className={cx('box-text')}>Số cổng lưu trữ tối đa</div>
+                            <div className={cx('box-value')}>2 x M.2 NVMe</div>
                         </div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Cổng xuất hình</div>
-                            <div className={cx('box-value')}>2 x HDMI 1.4 , 1 x DisplayPort 1.2</div>
+                            <div className={cx('box-value')}>1 x HDMI</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Cổng kết nối</div>
+                            <div className={cx('box-value')}>
+                                3 x USB 3.2 , 1 x Thunderbolt , 1 x micro SD card slot , Audio combo
+                            </div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Kết nối không dây</div>
+                            <div className={cx('box-value')}>WiFi 802.11ax (Wifi 6) , Bluetooth 5.1</div>
+                        </div>
+                        
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Bàn phím</div>
+                            <div className={cx('box-value')}>thường , LED</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Hệ điều hành</div>
+                            <div className={cx('box-value')}>Windows 11 Windows 11</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Kích thước</div>
+                            <div className={cx('box-value')}>35.68 x 23.375 x 1.69 cm</div>
+                        </div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Pin</div>
+                            <div className={cx('box-value')}>3 cell 52 Wh , Pin liền</div>
                         </div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Khối lượng</div>
-                            <div className={cx('box-value')}>6 kg</div>
+                            <div className={cx('box-value')}>1.6 kg</div>
+                        </div>
+
+                        <div className={cx('box-title')}>Thông tin khác</div>
+                        <div className={cx('box-content')}>
+                            <div className={cx('box-text')}>Đèn LED trên máy</div>
+                            <div className={cx('box-value')}>không đèn</div>
                         </div>
                         <div className={cx('box-content')}>
                             <div className={cx('box-text')}>Phụ kiện đi kèm</div>
-                            <div className={cx('box-value')}>HDMI cable</div>
-                        </div>
-                        <div className={cx('box-content')}>
-                            <div className={cx('box-text')}>Loa</div>
-                            <div className={cx('box-value')}>có</div>
+                            <div className={cx('box-value')}>Adapter, dây nguồn</div>
                         </div>
                         <div className={cx('box-title')}>Thông tin kích thước</div>
                     </div>

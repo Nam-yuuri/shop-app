@@ -44,26 +44,24 @@ app.use(function (req, res, next) {
 
 // Route Imports
 const productRoute = require("./routes/productsRoute");
-const categoryRoute = require("./routes/categoryRoute");
 const headerRoute = require("./routes/headerRoute");
 const brandRoute = require("./routes/brandRoute");
 const carouselRoute = require("./routes/carouselRoute");
 const bannerRoute = require("./routes/bannerRoute");
 const HorizontalRoute = require("./routes/bannerHorizontalRoute");
-const imageRoute = require("./routes/image");
+// const imageRoute = require("./routes/image");
 const promotionRoute = require("./routes/PromotionRoute")
 const showroomRoute = require("./routes/showroomRoute")
 const userRoute = require("./routes/userRoute")
 
 app.use("/api/v1", productRoute);
 app.use("/api/v1", userRoute);
-app.use("/api/v1", categoryRoute);
 app.use("/api/v1", headerRoute);
 app.use("/api/v1", brandRoute);
 app.use("/api/v1", carouselRoute);
 app.use("/api/v1", bannerRoute);
 app.use("/api/v1", HorizontalRoute);
-app.use("/api/v1", imageRoute);
+// app.use("/api/v1", imageRoute);
 app.use("/api/v1", promotionRoute);
 app.use("/api/v1", showroomRoute);
 app.use("/api/v1", userRoute);

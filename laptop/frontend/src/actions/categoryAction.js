@@ -18,7 +18,7 @@ import {
   CATEGORY_DETAILS_FAIL,
   CATEGORY_DETAILS_SUCCESS,
   CLEAR_ERRORS,
-} from "../constants/categoryConstants.js";
+} from "../constants/brandConstants.js";
 
 // Get All Categories
 export const getAllCategories = () => async (dispatch) => {

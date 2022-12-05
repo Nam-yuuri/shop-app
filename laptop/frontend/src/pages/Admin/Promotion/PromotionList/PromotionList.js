@@ -14,27 +14,54 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import { getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { deletePromotion, getAllPromotion } from '~/actions/promotionAction';
+import { clearErrors, deletePromotion, getAllPromotion } from '~/actions/promotionAction';
+import { DELETE_PROMOTION_RESET } from '~/constants/promotionConstants';
+import { useNavigate, useParams } from 'react-router-dom';
+import Loading from '~/components/Loading/Loading';
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 function PromotionList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
 
-    const [pageSize, setPageSize] = React.useState(5);
+    const [pageSize, setPageSize] = React.useState(10);
+
+    const { loading, error, promotions } = useSelector((state) => state.promotions);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.promotion);
+
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
 
     const deletePromotionHandler = (id) => {
         dispatch(deletePromotion(id));
-        window.location.reload();
     };
 
-    const dispatch = useDispatch();
+    React.useEffect(() => {
+        if (error) {
+            // setOpenError(true);
+            // setErrorAlert(error);
+            dispatch(clearErrors());
+        }
 
-    const { promotions } = useSelector((state) => state.promotions);
+        if (deleteError) {
+            // setOpenError(true);
+            // setErrorAlert(deleteError);
+            dispatch(clearErrors);
+        }
 
-    useEffect(() => {
+        if (isDeleted) {
+            Swal.fire('Thành công!', 'Xóa khuyến mãi thành công!', 'success');
+            dispatch({ type: DELETE_PROMOTION_RESET });
+        }
+
         dispatch(getAllPromotion());
-    }, [dispatch]);
-    // console.log('promotion: ', promotions);
+    }, [dispatch, error, deleteError, navigate, isDeleted]);
+
+    // useEffect(() => {
+    //     dispatch(getAllPromotion());
+    // }, [dispatch]);
+    // // console.log('promotion: ', promotions);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
@@ -81,7 +108,7 @@ function PromotionList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/PromotionList/updatePromotion/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -89,7 +116,7 @@ function PromotionList() {
                                 onClick={() => {
                                     confirmAlert({
                                         title: 'Xác nhận',
-                                        message: 'Bạn có muốn xóa banner này?',
+                                        message: 'Bạn có muốn xóa khuyến mãi này?',
                                         buttons: [
                                             {
                                                 label: 'Có',
@@ -130,52 +157,61 @@ function PromotionList() {
 
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Khuyến mãi</h1>
-                    <Link to={config.routes.newPromotion} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm khuyến mãi
-                    </Link>
-                </div>
-            </div>
-            <div className="productList">
+            {loading ? (
+                <Loading />
+            ) : (
                 <div>
-                    <div
-                        className="sidebar"
-                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                    >
-                        <div className="box-sidebar">
-                            <Sidebar />
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
+                                }}
+                            />
+                        </div>
+                        <div className="header-sidebar">
+                            <h1>Khuyến mãi</h1>
+                            <Link to={config.routes.newPromotion} className="header-sidebar-btn">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Thêm khuyến mãi
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="productList">
+                        <div>
+                            <div
+                                className="sidebar"
+                                style={{
+                                    width: wrapperWidth ? '222px' : '0px',
+                                    display: wrapperWidth ? 'block' : 'none',
+                                }}
+                            >
+                                <div className="box-sidebar">
+                                    <Sidebar />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="data">
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={pageSize}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                rowsPerPageOptions={[5, 10, 20]}
+                                pagination
+                                // pageSize={10}
+                                disableSelectionOnClick
+                                className="productListTable"
+                                autoHeight
+                                components={{
+                                    Toolbar: GridToolbar,
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
-                <div className="data">
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={pageSize}
-                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                        rowsPerPageOptions={[5, 10, 20]}
-                        pagination
-                        // pageSize={10}
-                        disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                    />
-                </div>
-            </div>
+            )}
         </div>
     );
 }

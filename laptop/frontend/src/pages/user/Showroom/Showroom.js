@@ -22,17 +22,26 @@ function Showroom() {
         dispatch(getAllShowroom());
     }, [dispatch]);
 
-    console.log('showroom', showrooms);
+    // console.log('showroom', showrooms);
+
+    const store = []
+
+    showrooms && showrooms.forEach((item) => {
+        if (store.indexOf(item.city) === -1) {
+            store.push(item.city)
+          }
+    })
+
+    // console.log('store', store);
 
     return (
         <div className={cx('Showroom')}>
-            <div><Earth /></div>
             <div className={cx('left')}>
                 <h5>Chọn showroom theo tỉnh/thành phố</h5>
                 <select>
                     <option>Chọn tỉnh/ thành phố</option>
-                    {showrooms.map((showroom) => (
-                        <option value={1}>{showroom.city}</option>
+                    {store.map((item) => (
+                        <option value={1}>{item}</option>
                     ))}
                     {/* <option value={1}>Hà Nội</option>
                     <option value={2}>Thanh Hóa</option>

@@ -15,26 +15,56 @@ import config from '~/config';
 import { getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { getAllPromotion } from '~/actions/promotionAction';
-import { getAllShowroom } from '~/actions/showroomAction';
+import { clearErrors, deleteShowroom, getAllShowroom } from '~/actions/showroomAction';
+import { DELETE_SHOWROOM_RESET } from '~/constants/showroomConstants';
+import { useNavigate, useParams } from 'react-router-dom';
+import Loading from '~/components/Loading/Loading';
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 function ShowroomList() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
-
-    const [pageSize, setPageSize] = React.useState(5);
-
-    const deleteBannerHandler = (id) => {
-        // dispatch(deleteProduct(id));
-    };
+    const { loading, error, showrooms } = useSelector((state) => state.showrooms);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.showroom);
 
     const dispatch = useDispatch();
+    let navigate = useNavigate();
 
-    const { showrooms } = useSelector((state) => state.showrooms);
+    const [pageSize, setPageSize] = React.useState(10);
 
-    useEffect(() => {
+    const deleteShowroomHandler = (id) => {
+        dispatch(deleteShowroom(id));
+    };
+
+    React.useEffect(() => {
+        if (error) {
+            setOpenError(true);
+            setErrorAlert(error);
+            dispatch(clearErrors());
+        }
+
+        if (deleteError) {
+            setOpenError(true);
+            setErrorAlert(deleteError);
+            dispatch(clearErrors);
+        }
+
+        if (isDeleted) {
+
+            Swal.fire('Thành công!', 'Xóa thông tin cửa hàng thành công!', 'success');
+            dispatch({ type: DELETE_SHOWROOM_RESET });
+        }
+
         dispatch(getAllShowroom());
-    }, [dispatch]);
-    // console.log('promotion: ', showrooms);
+    }, [dispatch, error, deleteError, navigate, isDeleted]);
+
+
 
     const columns = [
         // { field: 'id', headerName: 'ID', minWidth: 100, maxWidth: 150, flex: 0.5 },
@@ -74,7 +104,7 @@ function ShowroomList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/ShowroomList/updateShowroom/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -82,12 +112,12 @@ function ShowroomList() {
                                 onClick={() => {
                                     confirmAlert({
                                         title: 'Xác nhận',
-                                        message: 'Bạn có muốn xóa banner này?',
+                                        message: 'Bạn có muốn xóa thông tin cửa hàng này?',
                                         buttons: [
                                             {
                                                 label: 'Có',
                                                 onClick: () => {
-                                                    deleteBannerHandler(params.getValue(params.id, 'id'));
+                                                    deleteShowroomHandler(params.getValue(params.id, 'id'));
                                                 },
                                             },
                                             {
@@ -124,52 +154,61 @@ function ShowroomList() {
 
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Khuyến mãi</h1>
-                    <Link to={config.routes.newShowroom} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm khuyến mãi
-                    </Link>
-                </div>
-            </div>
-            <div className="productList">
+            {loading ? (
+                <Loading />
+            ) : (
                 <div>
-                    <div
-                        className="sidebar"
-                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                    >
-                        <div className="box-sidebar">
-                            <Sidebar />
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
+                                }}
+                            />
+                        </div>
+                        <div className="header-sidebar">
+                            <h1>Khuyến mãi</h1>
+                            <Link to={config.routes.newShowroom} className="header-sidebar-btn">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Thêm khuyến mãi
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="productList">
+                        <div>
+                            <div
+                                className="sidebar"
+                                style={{
+                                    width: wrapperWidth ? '222px' : '0px',
+                                    display: wrapperWidth ? 'block' : 'none',
+                                }}
+                            >
+                                <div className="box-sidebar">
+                                    <Sidebar />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="data">
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={pageSize}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                rowsPerPageOptions={[5, 10, 20]}
+                                pagination
+                                // pageSize={10}
+                                disableSelectionOnClick
+                                className="productListTable"
+                                autoHeight
+                                components={{
+                                    Toolbar: GridToolbar,
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
-                <div className="data">
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={pageSize}
-                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                        rowsPerPageOptions={[5, 10, 20]}
-                        pagination
-                        // pageSize={10}
-                        disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                    />
-                </div>
-            </div>
+            )}
         </div>
     );
 }

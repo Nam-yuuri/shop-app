@@ -332,7 +332,7 @@ export default function Dashboard() {
 
     products &&
         products.forEach((item) => {
-            if (item.Stock == 0) {
+            if (item.Stock === 0) {
                 outOfStock.push({
                     id: item._id,
                     name: item.name,
@@ -363,8 +363,8 @@ export default function Dashboard() {
             }
         });
 
-    console.log('topProducts: ', topProducts[0]);
-    console.log('outOfStock: ', outOfStock[0]);
+    // console.log('topProducts: ', topProducts[0]);
+    // console.log('outOfStock: ', outOfStock[0]);
 
     return (
         <Box sx={{ display: 'flex', backgroundColor: 'rgb(255, 255, 248)', padding: '30px' }} className={classes.root}>

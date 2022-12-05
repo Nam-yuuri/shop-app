@@ -18,23 +18,41 @@ const routes = {
     admin: '/admin',
     showroom: '/showroom',
     promotion: '/promotion',
+
     productList: '/admin/ProductList',
     newProduct: '/admin/ProductList/NewProduct',
+    
     bannerList: '/admin/BannerList',
-    newBannerList: '/admin/BannerList/newBanner',
+    newBanner: '/admin/BannerList/newBanner',
+    updateBanner: '/admin/BannerList/updateBanner/:id',
+
     brandList: '/admin/BrandList',
-    newBrandList: '/admin/BrandList/newBrand',
+    newBrand: '/admin/BrandList/newBrand',
+    updateBrand: '/admin/BrandList/updateBrand/:id',
+
     bannerHorizonList: '/admin/BannerHorizon',
     newBannerHorizon: '/admin/BannerHorizon/newBannerHorizon',
+    updateBannerHorizon: '/admin/BannerHorizon/updateBannerHorizon/:id',
+
     headerList: '/admin/HeaderList',
     newHeader: '/admin/HeaderList/newHeader',
+    updateHeader: '/admin/HeaderList/updateHeader/:id',
+
     promotionList: '/admin/PromotionList',
     newPromotion: '/admin/PromotionList/newPromotion',
+    updatePromotion: '/admin/PromotionList/updatePromotion/:id',
+
     carouselList: '/admin/CarouselList',
     newCarousel: '/admin/CarouselList/newCarousel',
+    updateCarousel: '/admin/CarouselList/updateCarousel/:id',
+
     dashBoard: '/admin/Dashboard',
+
     showroomList: '/admin/ShowroomList',
     newShowroom: '/admin/ShowroomList/newShowroom',
+    updateShowroom: '/admin/ShowroomList/updateShowroom/:id',
+
+
     userList: '/admin/UserList',
 
     loading: '/loading',

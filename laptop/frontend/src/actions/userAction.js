@@ -77,9 +77,15 @@ export const register = (userData) => async (dispatch) => {
 
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-        const { data } = await axios.post(`http://localhost:5000/api/v1/register`, userData, config);
+        // const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData, config);
+        const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData);
 
-        dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+        console.log('data: ', data);
+
+        dispatch({
+            type: REGISTER_USER_SUCCESS,
+            payload: data,
+        });
     } catch (error) {
         dispatch({
             type: REGISTER_USER_FAIL,
@@ -269,14 +275,11 @@ export const getAllUsers = () => async (dispatch) => {
 
         // console.log('user db:', data.users);
 
-
         dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
     } catch (error) {
         dispatch({ type: ALL_USERS_FAIL, payload: error.response.data.message });
     }
 };
-
-
 
 // get  User Details
 export const getUserDetails = (id) => async (dispatch) => {

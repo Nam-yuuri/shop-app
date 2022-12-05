@@ -54,19 +54,49 @@ export const bannersReducer = (state = { banners: [] }, action) => {
 };
 
 export const mainBannersReducer = (state = { banners: [] }, action) => {
+    switch (action.type) {
+        case MAIN_BANNER_REQUEST:
+            return {
+                loading: true,
+                banners: [],
+            };
+
+        case MAIN_BANNER_SUCCESS:
+            return {
+                loading: false,
+                banners: action.payload,
+            };
+        case MAIN_BANNER_FAIL:
+            return {
+                loading: false,
+                error: action.payload,
+            };
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+
+        default:
+            return state;
+    }
+};
+
+
+export const bannerDetailsReducer = (state = { banners: {} }, action) => {
   switch (action.type) {
-      case MAIN_BANNER_REQUEST:
+      case BANNER_DETAILS_REQUEST:
           return {
               loading: true,
-              banners: [],
+              ...state,
           };
-
-      case MAIN_BANNER_SUCCESS:
+      case BANNER_DETAILS_SUCCESS:
           return {
               loading: false,
               banners: action.payload,
           };
-      case MAIN_BANNER_FAIL:
+      case BANNER_DETAILS_FAIL:
           return {
               loading: false,
               error: action.payload,
@@ -77,43 +107,93 @@ export const mainBannersReducer = (state = { banners: [] }, action) => {
               ...state,
               error: null,
           };
-            
       default:
           return state;
   }
 };
 
+
 export const newBannerReducer = (state = { banner: {} }, action) => {
     switch (action.type) {
-      case NEW_BANNER_REQUEST:
-        return {
-          ...state,
-          loading: true,
-          success: false,
-        };
-      case NEW_BANNER_SUCCESS:
-        return {
-          loading: false,
-          success: action.payload.success,
-          banner: action.payload.banner,
-        };
-      case NEW_BANNER_FAIL:
-        return {
-          ...state,
-          loading: false,
-          error: action.payload,
-        };
-      case NEW_BANNER_RESET:
-        return {
-          ...state,
-          success: false,
-        };
-      case CLEAR_ERRORS:
-        return {
-          ...state,
-          error: null,
-        };
-      default:
-        return state;
+        case NEW_BANNER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            };
+        case NEW_BANNER_SUCCESS:
+            return {
+                loading: false,
+                // success: action.payload.success,
+                success: true,
+                banner: action.payload.banner,
+            };
+        case NEW_BANNER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case NEW_BANNER_RESET:
+            return {
+                ...state,
+                success: false,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
     }
-  };
+};
+
+export const bannerReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_BANNER_REQUEST:
+    case UPDATE_BANNER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_BANNER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case UPDATE_BANNER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      };
+    case DELETE_BANNER_FAIL:
+    case UPDATE_BANNER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_BANNER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case UPDATE_BANNER_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
