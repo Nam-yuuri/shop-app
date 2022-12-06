@@ -20,7 +20,7 @@ function UserList() {
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
 
-    const [pageSize, setPageSize] = React.useState(5);
+    const [pageSize, setPageSize] = React.useState(10);
 
     const deleteUserHandler = (id) => {
         dispatch(deleteUser(id));
@@ -65,6 +65,25 @@ function UserList() {
                         : 'redColor'
                     : 'greenColor';
             },
+        },
+        {
+            field: 'avatar',
+            headerName: 'Hình ảnh',
+            minWidth: 100,
+            maxWidth: 100,
+            flex: 0.8,
+            renderCell: (params) => (
+                <img
+                    src={params.value}
+                    alt=""
+                    style={{
+                        width: '45px',
+                        height: '45px',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                    }}
+                />
+            ),
         },
 
         {
@@ -125,6 +144,7 @@ function UserList() {
                 role: item.role,
                 email: item.email,
                 name: item.name,
+                avatar: item.avatar.url
             });
         });
 

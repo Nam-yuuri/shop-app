@@ -24,18 +24,18 @@ const userSchema = new mongoose.Schema(
       minLength: [6, "Mật khẩu cần nhiều hơn 8 kí tự"],
       select: false,
     },
-    // avatar: {
-    //   public_id: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   url: {
-    //     type: String,
-    //     required: true,
-    //     default:
-    //       "https://res.cloudinary.com/dx1ecgla5/image/upload/v1666833940/noimg/noimg_phsgc3.jpg",
-    //   },
-    // },
+    avatar: {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+        default:
+          "https://res.cloudinary.com/dx1ecgla5/image/upload/v1666833940/noimg/noimg_phsgc3.jpg",
+      },
+    },
     role: {
       type: String,
       default: "user",

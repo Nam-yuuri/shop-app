@@ -10,6 +10,7 @@ import { DataProduct } from '~/Data/Product/Product';
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBrands } from '~/actions/brandAction';
 import config from '~/config';
+import { Bands } from '~/Data/Asus/Asus';
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +48,7 @@ function Product() {
                 {brands.map((product) => (
                     <div key={product._id}>
                         <div className={cx('')}>
-                            <Button to={config.routes.brand} className={cx('box')}>
+                            <Button  className={cx('box')}>
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
                                         <img src={product.logo.url} alt="" />

@@ -44,7 +44,7 @@ function ProductItem() {
                 {brands.map((product) => (
                     <div key={product._id}>
                         <div className={cx('')}>
-                            <Button to={product.to} className={cx('box')}>
+                            <Button href={`brand/${product.name}`} className={cx('box')} onClick={() => {}}>
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
                                         <img src={product.logo.url} alt="" />

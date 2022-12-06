@@ -8,7 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { DataPanelProduct } from '~/Data/Panel/DataPanel';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdminProduct, getTopProducts } from '~/actions/productAction';
+import formatPrice from '~/utils/formatPrice';
 const cx = classNames.bind(styles);
 
 const url =
@@ -40,14 +42,25 @@ function Panel() {
 
     const slider = React.useRef(null);
 
-    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+
+    const { products: topProducts } = useSelector((state) => state.topProducts);
+    useEffect(() => {
+        dispatch(getTopProducts());
+    }, [dispatch]);
+
+    // const money = (topProducts.cost * topProducts.promotional) / 100
+
+    // console.log('products: ', topProducts[0]);
+
+    const [product, setProducts] = useState([]);
 
     useEffect(() => {
         setTimeout(() => {
             setProducts(DataPanelProduct);
         }, 0);
     });
-
+    // parseFloat((your_number).toFixed(2));
     return (
         <div className={cx('wrapper')}>
             <div
@@ -58,47 +71,45 @@ function Panel() {
             >
                 <div className={cx('header')}>
                     <div className={cx('header-text')}>Laptop bán chạy</div>
-                    <Button to={'/brand'}>
-                        <div>Xem tất cả</div>
-                        <FontAwesomeIcon icon={faChevronRight} />
-                    </Button>
+                    
                 </div>
+
                 <div className={cx('products')}>
                     <div className={cx('box')}>
                         <Slider ref={slider} {...settings}>
-                            {products.map((product) => (
-                                <div className={cx('box-content')} key={product.id}>
-                                    <Button to={product.to}>
+                            {topProducts.map((product) => (
+                                <div className={cx('box-content')} key={product._id}>
+                                    <Button to={`/profile/${product._id}`}>
                                         <div className={cx('box-product')}>
                                             <div>
                                                 <div className={cx('image')}>
                                                     <div className={cx('box-image')}>
                                                         <div>
-                                                            <img src={product.img} alt="" />
+                                                            <img src={product.images[0].url} alt="" />
                                                         </div>
                                                     </div>
                                                     <div className={cx('promotion')}>
                                                         <div className={cx('box-promotion')}>
                                                             <div className={cx('promotion-text')}>TIẾT KIỆM</div>
                                                             <div className={cx('promotion-money')}>
-                                                                {product.promotion_money}&nbsp;₫
+                                                                {formatPrice(parseFloat(((product.cost * product.promotional) / 100).toFixed(0)))}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className={cx('info')}>
                                                     <div className={cx('box-info')}>
-                                                        <h3>{product.info}</h3>
+                                                        <h3>{product.name}{product.description}</h3>
                                                     </div>
                                                 </div>
                                                 <div className={cx('price')}>
                                                     <div className={cx('price-content')}>
-                                                        <div className={cx('cost')}>{product.cost}&nbsp;₫</div>
+                                                        <div className={cx('cost')}>{formatPrice(product.cost)}</div>
                                                         <div className={cx('promotional')}>
                                                             <div className={cx('promotional_price')}>
-                                                                {product.promotional_price}&nbsp;₫
+                                                                {formatPrice(parseFloat((product.cost - ((product.cost * product.promotional) / 100).toFixed(0))))}
                                                             </div>
-                                                            <div className={cx('percent')}>-{product.percent}%</div>
+                                                            <div className={cx('percent')}>-{product.promotional}%</div>
                                                         </div>
                                                     </div>
                                                     <div className={cx('price-icon')}>
@@ -108,7 +119,7 @@ function Panel() {
                                                 <div className={cx('gift')}>
                                                     <div className={cx('gift-text')}>QUÀ TẶNG</div>
                                                     <div className={cx('gift-image')}>
-                                                        <img src={product.gift_image} alt="" />
+                                                        <img src={product.gift_images[0].url} alt="" />
                                                     </div>
                                                 </div>
                                             </div>

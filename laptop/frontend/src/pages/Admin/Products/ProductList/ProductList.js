@@ -15,7 +15,7 @@ import { deleteProduct, getAdminProduct } from '~/actions/productAction';
 import { getAllBanners } from '~/actions/bannerAction';
 import formatPrice from '~/utils/formatPrice';
 function ProductList() {
-    const [pageSize, setPageSize] = React.useState(5);
+    const [pageSize, setPageSize] = React.useState(10);
 
     const deleteProductHandler = (id) => {
         dispatch(deleteProduct(id));

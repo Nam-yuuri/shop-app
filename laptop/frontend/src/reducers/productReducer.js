@@ -92,24 +92,24 @@ export const productsAdminReducer = (state = { products: [] }, action) => {
 
 export const topProductsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
-    case 'TOP_PRODUCT_REQUEST':
+    case TOP_PRODUCT_REQUEST:
       return {
         loading: true,
         products: [],
       };
 
-    case 'TOP_PRODUCT_SUCCESS':
+    case TOP_PRODUCT_SUCCESS:
       return {
         loading: false,
         products: action.payload,
       };
-    case 'TOP_PRODUCT_FAIL':
+    case TOP_PRODUCT_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
 
-    case 'CLEAR_ERRORS':
+    case CLEAR_ERRORS:
       return {
         ...state,
         error: null,
@@ -231,7 +231,7 @@ export const productReducer = (state = {}, action) => {
   }
 };
 
-export const productDetailsReducer = (state = { product: {} }, action) => {
+export const productDetailsReducer = (state = { products: {} }, action) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
       return {
@@ -241,7 +241,7 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
     case PRODUCT_DETAILS_SUCCESS:
       return {
         loading: false,
-        product: action.payload,
+        products: action.payload,
       };
     case PRODUCT_DETAILS_FAIL:
       return {

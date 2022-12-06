@@ -1,10 +1,10 @@
 const routes = {
     home: '/',
     // profiles: '/profiles/@:id',
-    profile: '/profile',
+    profile: '/profile/:id',
     search: '/search',
     laptop: '/laptop',
-    brand: '/brand',
+    brand: '/brand/:brand',
     cart: '/cart',
     login: '/login',
     info: '/info',

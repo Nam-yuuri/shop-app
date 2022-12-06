@@ -107,7 +107,10 @@ export const loadUser = () => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.get(`http://localhost:5000/api/v1/me`, config);
+        // const { data } = await axios.get(`http://localhost:8000/api/v1/me`, config);
+        const { data } = await axios.get(`http://localhost:8000/api/v1/me`);
+
+        console.log("data: ", data.user)
 
         dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
     } catch (error) {
@@ -293,7 +296,7 @@ export const getUserDetails = (id) => async (dispatch) => {
                 Authorization: `token ${token}`,
             },
         };
-        const { data } = await axios.get(`http://localhost:5000/api/v1/admin/user/${id}`, config);
+        const { data } = await axios.get(`http://localhost:8000/api/v1/admin/user/${id}`, config);
 
         dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
     } catch (error) {

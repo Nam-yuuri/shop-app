@@ -719,7 +719,7 @@ export default function Dashboard() {
                                                                     <Avatar src={item.images[0].url} alt={item.name} />
                                                                 </TableCell>
                                                                 <TableCell>{item.sold}</TableCell>
-                                                                <TableCell>{item.Stock - item.sold}</TableCell>
+                                                                <TableCell>{item.Stock}</TableCell>
                                                                 {/* <TableCell>
                                                                     <Link
                                                                         to={`/admin/product/${item._id}`}

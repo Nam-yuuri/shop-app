@@ -29,7 +29,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllBanners, getAllBannersMain } from '~/actions/bannerAction';
 import config from '~/config';
 import { getAllHeaderMain, getAllHeaders } from '~/actions/headerAction';
-
+import { getUserDetails } from '~/actions/userAction';
+import { Link, useHistory, useParams } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -116,7 +117,11 @@ function Header() {
         );
     };
 
-    const user = null;
+    // const user = null;
+    // const { user, loading: userLoading } = useSelector((state) => state.user);
+    // const { error, isUpdated, loading } = useSelector((state) => state.profile);
+
+    // console.log(user)
     /////
 
     const [openError, setOpenError] = useState(false);
@@ -125,8 +130,50 @@ function Header() {
     const [successAlert, setSuccessAlert] = useState('');
 
     const dispatch = useDispatch();
+    let match = useParams();
+
+    const userId = match.id;
 
     const { headers } = useSelector((state) => state.headersMain);
+
+
+
+
+    // const { user, loading: userLoading } = useSelector((state) => state.user);
+    // const { error, isUpdated, loading } = useSelector((state) => state.profile);
+    // const { user: userNow } = useSelector((state) => state.user);
+    // const { loading, error, user } = useSelector((state) => state.userDetails);
+    const { isAuthenticated, user } = useSelector((state) => state.user);
+
+    // useEffect(() => {
+    //     if (user && user._id !== userId) {
+    //       dispatch(getUserDetails(userId));
+    //     } else {
+
+    // useEffect(() => {
+    //     dispatch(getUserDetails(userId))
+    // }, [dispatch])
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+  
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [country, setCountry] = useState("");
+    const [phoneNo, setPhoneNo] = useState("");
+  
+    const [addressInfo, setAddressInfo] = useState("");
+    const [cityInfo, setCityInfo] = useState("");
+    const [stateInfo, setStateInfo] = useState("");
+    const [countryInfo, setCountryInfo] = useState("");
+    const [phoneNoInfo, setPhoneNoInfo] = useState("");
+
+    // console.log("user: ", user)
+
     useEffect(() => {
         dispatch(getAllHeaderMain());
     }, [dispatch]);
@@ -215,14 +262,14 @@ function Header() {
                                         <div className={cx('box', 'hover')}>
                                             <div>
                                                 <img
-                                                    src={user.result.imageUrl}
-                                                    alt={user.result.name}
+                                                    src={user.imageUrl}
+                                                    alt={user.name}
                                                     style={{ width: '36px', height: '36px' }}
                                                 />
                                             </div>
                                             <div>
                                                 <div className={cx('text')}>Xin chào,</div>
-                                                <div className={cx('text')}>{user.result.name}</div>
+                                                {/* <div className={cx('text')}>{user.name}</div> */}
                                             </div>
                                         </div>
                                     </Tippy>
@@ -338,14 +385,14 @@ function Header() {
                                             <div className={cx('box', 'hover')}>
                                                 <div>
                                                     <img
-                                                        src={user.result.imageUrl}
-                                                        alt={user.result.name}
+                                                        // src={user.result.imageUrl}
+                                                        // alt={user.result.name}
                                                         style={{ width: '36px', height: '36px' }}
                                                     />
                                                 </div>
                                                 <div>
                                                     <div className={cx('text')}>Xin chào,</div>
-                                                    <div className={cx('text')}>{user.result.name}</div>
+                                                    {/* <div className={cx('text')}>{user.result.name}</div> */}
                                                 </div>
                                             </div>
                                         </Tippy>

@@ -2,3 +2,7 @@
 - sửa banner dùng isUpdate được nhưng dùng cho cái khác không được
 - chưa làm xóa cửa hàng
 - horizontal chua hien thong bao
+
+
+
+- tìm sản phẩm theo từng thương hiệu bị lỗi. 

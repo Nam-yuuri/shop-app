@@ -4,19 +4,43 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import './Login.css';
 import { Fragment, useEffect, useState } from 'react';
 import Button from '~/components/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-import { login, register } from '~/actions/userAction';
+import { clearErrors, loadUser, login, register } from '~/actions/userAction';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Alert, Box, Grid, Snackbar } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 // import {createOrGetUser} from '~/utils/auth.js'
 
 const cx = classNames.bind(styles);
 
+const useStyles = makeStyles({
+    root: {},
+    avatarInput: {
+        display: 'flex',
+        alignItems: ' center',
+    },
+    avatarPreview: {
+        width: '6rem',
+        height: '6rem',
+        borderRadius: '100%',
+        marginRight: '15px',
+    },
+    avatarFile: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0%',
+    },
+});
+
 function Login() {
     // const [username, setUsername] = useState('');
     // const [password, setPassword] = useState('');
+    const classes = useStyles();
 
     const [isSingup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -24,43 +48,112 @@ function Login() {
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [name, setName] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    const [checkPassword, setCheckpassword] = useState('');
+    const [images, setImages] = useState([]);
+    const [imagesPreview, setImagesPreview] = useState([]);
 
-    // const [user, setUser] = useState({
-    //     name: '',
-    //     email: '',
-    //     password: '',
-    // });
-    // const { name, email, password } = user;
+    const [open, setOpen] = useState(false);
     // const [er, setEr] = useState('');
-    // const [avatar, setAvatar] = useState('/Profile.png');
-    // const [avatarPreview, setAvatarPreview] = useState('/Profile.png');
+
+    // const [avatar, setAvatar] = useState('');
+    // const [avatarPreview, setAvatarPreview] = useState('');
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    const createBannerImagesChange = (e) => {
+        const files = Array.from(e.target.files);
+
+        setImages([]);
+        setImagesPreview([]);
+
+        files.forEach((file) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setImagesPreview((old) => [...old, reader.result]);
+                    setImages((old) => [...old, reader.result]);
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const [user, setUser] = useState({
+        name: '',
+        email: '',
+        password: '',
+    });
+    const { name, email, password } = user;
+    const [er, setEr] = useState('');
+    const [avatar, setAvatar] = useState('https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg');
+    const [avatarPreview, setAvatarPreview] = useState('https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg');
 
     // const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
+    let navigate = useNavigate();
 
     const handleShowPassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
     };
 
+    const { error, loading, isAuthenticated } = useSelector((state) => state.user);
+
     const loginSubmit = (e) => {
         e.preventDefault();
         dispatch(login(loginEmail, loginPassword));
-      };
+    };
 
     const registerSubmit = (e) => {
         e.preventDefault();
-
+    
         const myForm = new FormData();
-
-        myForm.set('name', name);
-        myForm.set('email', email);
-        myForm.set('password', password);
-
+    
+        myForm.set("name", name);
+        myForm.set("email", email);
+        myForm.set("password", password);
+        myForm.set("avatar", avatar);
+    
         dispatch(register(myForm));
-    };
+      };
+
+    // const registerSubmit = () => {
+    //     if (checkPassword === password) {
+    //         Register();
+    //     } else {
+    //         setOpen(true);
+    //         setEr('Mật khẩu không trùng khớp');
+    //         // dispatch(clearErrors());
+    //         setIsSignup(true);
+    //     }
+    // };
+
+    const id = user._id
+
+    useEffect(() => {
+        if (error) {
+            //   alert(error);
+            setOpen(true);
+            setEr(error);
+            dispatch(clearErrors());
+        }
+        if (isAuthenticated) {
+            // hop le
+            dispatch(loadUser());
+            //   history.push("/");
+            navigate('/', id);
+        }
+    }, [dispatch, error, isAuthenticated]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -73,18 +166,18 @@ function Login() {
     };
 
     const registerDataChange = (e) => {
-        // if (e.target.name === 'avatar') {
-        //     const reader = new FileReader();
-        //     reader.onload = () => {
-        //         if (reader.readyState === 2) {
-        //             setAvatarPreview(reader.result);
-        //             setAvatar(reader.result);
-        //         }
-        //     };
-        //     reader.readAsDataURL(e.target.files[0]);
-        // } else {
-        //     setUser({ ...user, [e.target.name]: e.target.value });
-        // }
+        if (e.target.name === 'avatar') {
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setAvatarPreview(reader.result);
+                    setAvatar(reader.result);
+                }
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        } else {
+            setUser({ ...user, [e.target.name]: e.target.value });
+        }
     };
 
     const switchMode = () => {
@@ -94,6 +187,7 @@ function Login() {
 
     const googleSuccess = async (response) => {
         // createOrGetUser(response)
+        navigate('/');
     };
 
     const googleFailure = (res) => {
@@ -104,8 +198,14 @@ function Login() {
 
     return (
         <div className={cx('Login')}>
-            {/* <h1>Chào mừng bạn đến với PhongVu.vn | Laptop, PC, Màn hình, điện thoại, linh kiện Chính Hãng!</h1> */}
-
+            <h1 style={{ textAlign: 'center' }}>
+                Chào mừng bạn đến với PhongVu.vn | Laptop, PC, Màn hình, điện thoại, linh kiện Chính Hãng!
+            </h1>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                    {er}
+                </Alert>
+            </Snackbar>
             <div className="container">
                 <div className="row">
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -115,9 +215,9 @@ function Login() {
                                     <img src={createOrGetUser} alt='' />
                                 </div> */}
                                 <h2 className="card-title text-center mb-5 fw-light fs-5">
-                                    {isSingup ? 'Sign Up' : 'Sign In'}
+                                    {!isSingup ? 'Sign Up' : 'Sign In'}
                                 </h2>
-                                {isSingup ? (
+                                {!isSingup ? (
                                     <form onSubmit={registerSubmit}>
                                         <div className="row">
                                             <div className="col">
@@ -125,10 +225,15 @@ function Login() {
                                                     type="text"
                                                     className="form-control"
                                                     placeholder="Name *"
-                                                    // handlechange={handlechange}
+                                                    // // handlechange={handlechange}
                                                     autoFocus
                                                     value={name}
-                                                    onChange={(e) => setName(e.target.value)}
+                                                    // // onChange={(e) => setName(e.target.value)}
+                                                    // type="text"
+                                                    // placeholder="Name"
+                                                    name="name"
+                                                    // value={name}
+                                                    onChange={registerDataChange}
                                                 />
                                             </div>
                                             {/* <div className="col">
@@ -149,9 +254,11 @@ function Login() {
                                                 placeholder="Email *"
                                                 // handlechange={handlechange}
                                                 value={email}
-                                                onChange={(e) => {
-                                                    setEmail(e.target.value);
-                                                }}
+                                                name='email'
+                                                // onChange={(e) => {
+                                                //     setEmail(e.target.value);
+                                                // }}
+                                                onChange={registerDataChange}
                                             />
                                         </div>
                                         <div className="form-group password">
@@ -164,11 +271,13 @@ function Login() {
                                                 // handlechange={handlechange}
                                                 // handleShowPassword={handleShowPassword}
                                                 value={password}
-                                                onChange={(e) => {
-                                                    setPassword(e.target.value);
-                                                }}
+                                                name='password'
+                                                // onChange={(e) => {
+                                                //     setPassword(e.target.value);
+                                                // }}
+                                                onChange={registerDataChange}
                                             />
-                                            {/* <div
+                                            <div
                                                 className={cx('eye')}
                                                 onClick={() => {
                                                     setShowPassword(!showPassword);
@@ -179,25 +288,31 @@ function Login() {
                                                 ) : (
                                                     <FontAwesomeIcon icon={faEyeSlash} />
                                                 )}
-                                            </div> */}
+                                            </div>
                                         </div>
-                                        {/* {isSingup ? (
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="inputRepeat"
-                                                placeholder="Repeat Password *"
-                                            />
+                                        
+                                        <div className="form-group" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+                                            <label htmlFor="register-avatar">Ảnh đại diện</label>
+                                            <div id="registerImage" className={classes.avatarInput}>
+                                                <img
+                                                    src={avatarPreview}
+                                                    alt="Avatar"
+                                                    className={classes.avatarPreview}
+                                                />
+                                                <input
+                                                    id="register-avatar"
+                                                    className={classes.avatarFile}
+                                                    type="file"
+                                                    name="avatar"
+                                                    accept="image/*"
+                                                    onChange={registerDataChange}
+                                                />
+                                            </div>
                                         </div>
-                                    ) : (
-                                        <Fragment />
-                                    )} */}
-
                                         <div>
-                                            {/* <div>
                                             <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
-                                        </div> */}
+                                        </div>
+                                        <div>
                                             <div className="d-grid">
                                                 <button
                                                     className="btn btn-primary btn-login text-uppercase fw-bold"
@@ -225,9 +340,9 @@ function Login() {
                                                 id="inputAddress"
                                                 placeholder="Email *"
                                                 // handlechange={handlechange}
-                                                value={email}
+                                                value={loginEmail}
                                                 onChange={(e) => {
-                                                    setEmail(e.target.value);
+                                                    setLoginEmail(e.target.value);
                                                 }}
                                             />
                                         </div>
@@ -239,9 +354,9 @@ function Login() {
                                                 placeholder="Password *"
                                                 // handlechange={handlechange}
                                                 // handleShowPassword={handleShowPassword}
-                                                value={password}
+                                                value={loginPassword}
                                                 onChange={(e) => {
-                                                    setPassword(e.target.value);
+                                                    setLoginPassword(e.target.value);
                                                 }}
                                             />
                                             <div

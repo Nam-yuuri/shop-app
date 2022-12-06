@@ -107,7 +107,7 @@ export const getAdminProduct = () => async (dispatch) => {
 
         const data = await axios.get('http://localhost:8000/api/v1/admin/products');
 
-        // console.log('product db: ', data);
+        // console.log('product db: ', data.data.product);
 
         dispatch({
             type: ADMIN_PRODUCT_SUCCESS,
@@ -257,11 +257,13 @@ export const getProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-        const data = await axiosClient.get(`/api/v1/product/${id}`);
+        const data = await axios.get(`http://localhost:8000/api/v1/product/${id}`);
+
+        // console.log("data: ", data.data.product)
 
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
-            payload: data.product,
+            payload: data.data.product,
         });
     } catch (error) {
         dispatch({
