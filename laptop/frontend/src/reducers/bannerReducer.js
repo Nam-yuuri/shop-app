@@ -39,7 +39,8 @@ export const bannersReducer = (state = { banners: [] }, action) => {
         case ALL_BANNER_FAIL:
             return {
                 loading: false,
-                error: action.payload,
+                // error: action.payload,
+                error: true,
             };
 
         case CLEAR_ERRORS:
@@ -69,7 +70,8 @@ export const mainBannersReducer = (state = { banners: [] }, action) => {
         case MAIN_BANNER_FAIL:
             return {
                 loading: false,
-                error: action.payload,
+                // error: action.payload,
+                error: true,
             };
 
         case CLEAR_ERRORS:
@@ -94,12 +96,14 @@ export const bannerDetailsReducer = (state = { banners: {} }, action) => {
       case BANNER_DETAILS_SUCCESS:
           return {
               loading: false,
-              banners: action.payload,
+            //   banners: action.payload,
+              banners: true,
           };
       case BANNER_DETAILS_FAIL:
           return {
               loading: false,
-              error: action.payload,
+            //   error: action.payload,
+              error: true,
           };
 
       case CLEAR_ERRORS:
@@ -132,7 +136,8 @@ export const newBannerReducer = (state = { banner: {} }, action) => {
             return {
                 ...state,
                 loading: false,
-                error: action.payload,
+                // error: action.payload,
+                error: true,
             };
         case NEW_BANNER_RESET:
             return {
@@ -161,21 +166,24 @@ export const bannerReducer = (state = {}, action) => {
       return {
         ...state,
         loading: false,
-        isDeleted: action.payload,
+        // isDeleted: action.payload,
+        isDeleted: true,
       };
 
     case UPDATE_BANNER_SUCCESS:
       return {
         ...state,
         loading: false,
-        isUpdated: action.payload,
+        // isUpdated: action.payload,
+        isUpdated: true,
       };
     case DELETE_BANNER_FAIL:
     case UPDATE_BANNER_FAIL:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        // error: action.payload,
+        error: true,
       };
     case DELETE_BANNER_RESET:
       return {

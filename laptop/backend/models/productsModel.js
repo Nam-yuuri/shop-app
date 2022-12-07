@@ -115,7 +115,7 @@ const productSchema = mongoose.Schema({
   },
 
   Monitor: {
-    type: String,
+    type: Number,
     required: [true, "Hãy nhập kích thước màn hình của sản phẩm"],
   },
   Monitor_specs: {

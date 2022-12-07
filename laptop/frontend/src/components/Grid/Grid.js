@@ -8,116 +8,167 @@ import Button from '~/components/Button';
 import styles from './Grid.module.scss';
 import { DataGrid } from '~/Data/Grid/DataGrid';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getBrandProducts } from '~/actions/productAction';
+import formatPrice from '~/utils/formatPrice';
+import Loading from '../Loading/Loading';
 // import { useSelector } from 'react-redux'
 
 const cx = classNames.bind(styles);
 
 function Panel() {
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setProducts(DataGrid);
+    //     }, 0);
+    // });
+
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+    let match = useParams();
+
+    const productId = match.id;
+
+    const { loading, products } = useSelector((state) => state.productsBrand);
+
+    console.log('pro: ', products.length);
 
     useEffect(() => {
-        setTimeout(() => {
-            setProducts(DataGrid);
-        }, 0);
-    });
+        dispatch(getBrandProducts(productId));
+    }, [dispatch]);
 
     // const productss = useSelector((state) => state.products)
     // console.log(productss)
 
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('container')}>
-                {/* <div className={cx('header')}>
-                    <div className={cx('header-text')}>Laptop</div>
-                    <Button to={''}>
-                        <Button to={'laptop'}>Xem tất cả</Button>
-                        <FontAwesomeIcon icon={faChevronRight} />
-                    </Button>
-                </div> */}
-                <div className={cx('products')}>
-                    <div className={cx('box')}>
-                        {products.map((product) => (
-                            <div className={cx('box-content')} key={product.id}>
-                                <Button to={product.to}>
-                                    <div className={cx('box-product')}>
-                                        <div>
-                                            <div className={cx('image')}>
-                                                <div className={cx('box-image')}>
+        <div>
+            {loading ? (
+                <Loading />
+            ) : (
+                <div className={cx('wrapper')}>
+                    <div className={cx('container')}>
+                        {products.length > 0 ? (
+                            <div className={cx('products')}>
+                                <div className={cx('box')}>
+                                    {products.map((product) => (
+                                        <div className={cx('box-content')} key={product._id}>
+                                            <Button to={`/profile/${product._id}`}>
+                                                <div className={cx('box-product')}>
                                                     <div>
-                                                        <img src={product.img} alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className={cx('promotion')}>
-                                                    <div className={cx('box-promotion')}>
-                                                        <div className={cx('promotion-text')}>TIẾT KIỆM</div>
-                                                        <div className={cx('promotion-money')}>
-                                                            {product.promotion_money}&nbsp;₫
+                                                        <div className={cx('image')}>
+                                                            <div className={cx('box-image')}>
+                                                                <div>
+                                                                    <img src={product.images[0].url} alt="" />
+                                                                </div>
+                                                            </div>
+                                                            <div className={cx('promotion')}>
+                                                                <div className={cx('box-promotion')}>
+                                                                    <div className={cx('promotion-text')}>
+                                                                        TIẾT KIỆM
+                                                                    </div>
+                                                                    <div className={cx('promotion-money')}>
+                                                                        {formatPrice(
+                                                                            parseFloat(
+                                                                                (
+                                                                                    ((product.cost / 1000000) *
+                                                                                        product.promotional) /
+                                                                                    100
+                                                                                ).toFixed(1) * 1000000,
+                                                                            ),
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className={cx('info')}>
+                                                            <div className={cx('box-info')}>
+                                                                <h3>
+                                                                    {product.name}
+                                                                    {product.description}
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <div className={cx('price')}>
+                                                            <div className={cx('price-content')}>
+                                                                <div className={cx('cost')}>
+                                                                    {formatPrice(
+                                                                        parseFloat(
+                                                                            (product.cost / 1000000 -
+                                                                                (
+                                                                                    ((product.cost / 1000000) *
+                                                                                        product.promotional) /
+                                                                                    100
+                                                                                ).toFixed(0)) *
+                                                                                1000000,
+                                                                        ),
+                                                                    )}
+                                                                </div>
+                                                                <div className={cx('promotional')}>
+                                                                    <div className={cx('promotional_price')}>
+                                                                        {formatPrice(product.cost)}
+                                                                    </div>
+                                                                    <div className={cx('percent')}>
+                                                                        -{product.promotional}%
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className={cx('price-icon')}>
+                                                                <ShipIcon />
+                                                            </div>
+                                                        </div>
+                                                        <div className={cx('gift')}>
+                                                            <div className={cx('gift-text')}>QUÀ TẶNG</div>
+                                                            <div className={cx('gift-image')}>
+                                                                <img src={product.gift_images[0].url} alt="" />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className={cx('info')}>
-                                                <div className={cx('box-info')}>
-                                                    <h3>{product.info}</h3>
-                                                </div>
-                                            </div>
-                                            <div className={cx('price')}>
-                                                <div className={cx('price-content')}>
-                                                    <div className={cx('cost')}>{product.cost}&nbsp;₫</div>
-                                                    <div className={cx('promotional')}>
-                                                        <div className={cx('promotional_price')}>
-                                                            {product.promotional_price}&nbsp;₫
-                                                        </div>
-                                                        <div className={cx('percent')}>-{product.percent}%</div>
-                                                    </div>
-                                                </div>
-                                                <div className={cx('price-icon')}>
-                                                    <ShipIcon />
-                                                </div>
-                                            </div>
-                                            <div className={cx('gift')}>
-                                                <div className={cx('gift-text')}>QUÀ TẶNG</div>
-                                                <div className={cx('gift-image')}>
-                                                    <img src={product.gift_image} alt="" />
-                                                </div>
-                                            </div>
+                                            </Button>
                                         </div>
-                                    </div>
-                                </Button>
+                                    ))}
+                                </div>
                             </div>
-                        ))}
+                        ) : (
+                            <p style={{ textAlign: 'center', fontSize: '30px', fontWeight: '500', marginBottom: '0px', padding: '10px' }}>
+                                SẢN PHẨM SẼ ĐƯỢC CẬP NHẬT SỚM NHẤT!
+                            </p>
+                        )}
                     </div>
+                    {/* <div className={cx('pagination')}>
+            <nav aria-label="...">
+                <ul className="pagination justify-content-center">
+                    <li className="page-item disabled">
+                        <span className="page-link">Previous</span>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#">
+                            1
+                        </a>
+                    </li>
+                    <li className="page-item active">
+                        <span className="page-link">
+                            2<span className="sr-only">(current)</span>
+                        </span>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#">
+                            3
+                        </a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div> */}
                 </div>
-            </div>
-            <div className={cx('pagination')}>
-                <nav aria-label="...">
-                    <ul className="pagination justify-content-center">
-                        <li className="page-item disabled">
-                            <span className="page-link">Previous</span>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                1
-                            </a>
-                        </li>
-                        <li className="page-item active">
-                            <span className="page-link">
-                                2<span className="sr-only">(current)</span>
-                            </span>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                3
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                Next
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            )}
         </div>
     );
 }

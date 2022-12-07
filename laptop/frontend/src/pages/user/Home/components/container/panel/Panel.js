@@ -71,7 +71,6 @@ function Panel() {
             >
                 <div className={cx('header')}>
                     <div className={cx('header-text')}>Laptop bán chạy</div>
-                    
                 </div>
 
                 <div className={cx('products')}>
@@ -92,22 +91,42 @@ function Panel() {
                                                         <div className={cx('box-promotion')}>
                                                             <div className={cx('promotion-text')}>TIẾT KIỆM</div>
                                                             <div className={cx('promotion-money')}>
-                                                                {formatPrice(parseFloat(((product.cost * product.promotional) / 100).toFixed(0)))}
+                                                                {formatPrice(
+                                                                    parseFloat(
+                                                                        ((
+                                                                            ((product.cost / 1000000) * product.promotional) /
+                                                                            100
+                                                                        ).toFixed(1)) * 1000000,
+                                                                    ),
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className={cx('info')}>
                                                     <div className={cx('box-info')}>
-                                                        <h3>{product.name}{product.description}</h3>
+                                                        <h3>
+                                                            {product.name}
+                                                            {product.description}
+                                                        </h3>
                                                     </div>
                                                 </div>
                                                 <div className={cx('price')}>
                                                     <div className={cx('price-content')}>
-                                                        <div className={cx('cost')}>{formatPrice(product.cost)}</div>
+                                                        <div className={cx('cost')}>
+                                                            {formatPrice(
+                                                                parseFloat(
+                                                                    (product.cost / 1000000 -
+                                                                        (
+                                                                            (product.cost / 1000000 * product.promotional) /
+                                                                            100
+                                                                        ).toFixed(0)) * 1000000,
+                                                                ),
+                                                            )}
+                                                        </div>
                                                         <div className={cx('promotional')}>
                                                             <div className={cx('promotional_price')}>
-                                                                {formatPrice(parseFloat((product.cost - ((product.cost * product.promotional) / 100).toFixed(0))))}
+                                                                {formatPrice(product.cost)}
                                                             </div>
                                                             <div className={cx('percent')}>-{product.promotional}%</div>
                                                         </div>

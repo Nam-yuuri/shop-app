@@ -113,7 +113,8 @@ export const updateBanner = (id, bannerData) => async (dispatch) => {
             },
         };
 
-        const data = await axiosClient.put(`/api/v1/admin/banner/${id}`, bannerData, config);
+        // const data = await axios.put(`http://localhost:8000/api/v1/admin/banner/${id}`, bannerData, config);
+        const data = await axios.put(`http://localhost:8000/api/v1/admin/banner/${id}`, bannerData);
 
         dispatch({
             type: UPDATE_BANNER_SUCCESS,

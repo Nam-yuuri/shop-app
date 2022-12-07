@@ -4,7 +4,7 @@ const routes = {
     profile: '/profile/:id',
     search: '/search',
     laptop: '/laptop',
-    brand: '/brand/:brand',
+    brand: '/brand/:id',
     cart: '/cart',
     login: '/login',
     info: '/info',
@@ -21,6 +21,7 @@ const routes = {
 
     productList: '/admin/ProductList',
     newProduct: '/admin/ProductList/NewProduct',
+    updateProduct: '/admin/ProductList/UpdateProduct/:id',
     
     bannerList: '/admin/BannerList',
     newBanner: '/admin/BannerList/newBanner',

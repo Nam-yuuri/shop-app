@@ -74,8 +74,4 @@ export const img = [
         id: 6,
         image: 'https://lh3.googleusercontent.com/eCYH_G5ref70Kt7l5vGobbDO46QYaqSbLw1fDwYwhte3gObpGB_WTU-ClYXZl5czML0ASp8E4XvMvxf5sIdt7H1WqO0fBei5jg=w150-rw',
     },
-    {
-        id: 7,
-        image: 'https://lh3.googleusercontent.com/WTOykHX0eeMD40Wu794zRFBU_4pZm5-4JVEdcidFA1XaNtyX_7jF432JY54Glv1eAvAXpdMGpOMVshs1Nc3dQjKX_8ix4Rgg=w150-rw',
-    },
 ];

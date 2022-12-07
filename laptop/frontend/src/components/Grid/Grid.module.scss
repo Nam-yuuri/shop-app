@@ -92,10 +92,11 @@
         flex-wrap: wrap;
         padding: 12px;
         width: 100%;
-        place-content: flex-start space-between;
+        place-content: flex-start;
         background: #f6f6f6;
         padding: 2px 0;
         padding-bottom: 0;
+        gap: 2px;
 
         .box-content {
             background-color: #fff;

@@ -68,6 +68,27 @@ function NewBanner() {
         setImagesPreview([]);
     };
 
+    // const updateBannerImagesChange = (e) => {
+    //     const files = Array.from(e.target.files);
+    
+    //     setImages([]);
+    //     setImagesPreview([]);
+    //     setOldImages([]);
+    
+    //     files.forEach((file) => {
+    //       const reader = new FileReader();
+    
+    //       reader.onload = () => {
+    //         if (reader.readyState === 2) {
+    //           setImagesPreview((old) => [...old, reader.result]);
+    //           setImages((old) => [...old, reader.result]);
+    //         }
+    //       };
+    
+    //       reader.readAsDataURL(file);
+    //     });
+    //   };
+
    
     const createBannerImagesChange = (e) => {
         const files = Array.from(e.target.files);

@@ -74,29 +74,32 @@ exports.getBanner = catchAsyncErrors(async (req, res, next) => {
 exports.updateBanner = catchAsyncErrors(async (req, res, next) => {
   let banner = await Banner.findByIdAndUpdate(req.params.id);
   // Xử lý Images
-  let url = [];
-  if (typeof req.body.url === "string") {
-    url.push(req.body.url);
-  } else {
-    url = req.body.url;
-  }
-  if (url !== undefined) {
-    // Xóa ảnh ở Cloudinary
-    for (let i = 0; i < banner.url.length; i++) {
-      await cloudinary.v2.uploader.destroy(banner.url[i].public_id);
-    }
-    const imagesLinks = [];
-    for (let i = 0; i < url.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(url[i], {
-        folder: "banners",
-      });
-      imagesLinks.push({
-        public_id: result.public_id,
-        url: result.secure_url,
-      });
-    }
+  let images = [];
 
-    req.body.url = imagesLinks;
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+  if (images !== undefined) {
+    // Xóa ảnh ở Cloudinary
+    // for (let i = 0; i < banner.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(banner.images.public_id);
+    // }
+    const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "banners",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+    req.body.images = imagesLinks;
   }
 
   banner = await Banner.findByIdAndUpdate(req.params.id, req.body, {

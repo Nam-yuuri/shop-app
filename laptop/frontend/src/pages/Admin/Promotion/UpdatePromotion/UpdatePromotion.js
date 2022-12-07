@@ -101,25 +101,26 @@ function UpdatePromotion() {
         dispatch(updatePromotion(promotionId, myForm));
     };
 
-    const createBrandImagesChange = (e) => {
+    const updateBannerImagesChange = (e) => {
         const files = Array.from(e.target.files);
-
+    
         setImages([]);
         setImagesPreview([]);
-
+        setOldImages([]);
+    
         files.forEach((file) => {
-            const reader = new FileReader();
-
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setImagesPreview((old) => [...old, reader.result]);
-                    setImages((old) => [...old, reader.result]);
-                }
-            };
-
-            reader.readAsDataURL(file);
+          const reader = new FileReader();
+    
+          reader.onload = () => {
+            if (reader.readyState === 2) {
+              setImagesPreview((old) => [...old, reader.result]);
+              setImages((old) => [...old, reader.result]);
+            }
+          };
+    
+          reader.readAsDataURL(file);
         });
-    };
+      };
 
     const updatePromotionImagesChange = (e) => {
         const files = Array.from(e.target.files);

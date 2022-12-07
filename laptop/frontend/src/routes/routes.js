@@ -18,6 +18,7 @@ import Checkout from '~/pages/user/Checkout';
 
 import ProductList from '~/pages/Admin/Products/ProductList';
 import NewProduct from '~/pages/Admin/Products/NewProduct';
+import UpdateProduct from '~/pages/Admin/Products/UpdateProduct';
 
 import BrandList from '~/pages/Admin/brands/BrandList';
 import NewBrand from '~/pages/Admin/brands/NewBrand';
@@ -70,6 +71,7 @@ const publicRoutes = [
     
     { path: config.routes.productList, component: ProductList, layout: null},
     { path: config.routes.newProduct, component: NewProduct, layout: null},
+    { path: config.routes.updateProduct, component: UpdateProduct, layout: null},
 
     { path: config.routes.bannerList, component: BannerList, layout: null},
     { path: config.routes.newBanner, component: Newbanner, layout: null},

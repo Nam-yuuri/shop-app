@@ -93,14 +93,16 @@ export const promotionReducer = (state = {}, action) => {
         return {
           ...state,
           loading: false,
-          isDeleted: action.payload,
+        //   isDeleted: action.payload,
+          isDeleted: true,
         };
   
       case UPDATE_PROMOTION_SUCCESS:
         return {
           ...state,
           loading: false,
-          isUpdated: action.payload,
+        //   isUpdated: action.payload,
+          isUpdated: true,
         };
       case DELETE_PROMOTION_FAIL:
       case UPDATE_PROMOTION_FAIL:

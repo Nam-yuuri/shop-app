@@ -85,12 +85,11 @@ function UpdateBanner() {
         }
 
         if (isUpdated) {
-            Swal.fire('Thành công!', 'Chỉnh sửa thông tin banners thành công!', 'success');
+            Swal.fire('Thành công!', 'Chỉnh sửa thông tin banner thành công!', 'success');
             navigate('/admin/BannerList');
             dispatch({ type: UPDATE_BANNER_RESET });
         }
     }, [dispatch, error, isUpdated, bannerId, banners, updateError]);
-
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
@@ -102,10 +101,11 @@ function UpdateBanner() {
         myForm.set('status', status);
 
         images.forEach((image) => {
-            myForm.append('images', image);
+            // myForm.append('images', image);
+            console.log(image)
         });
 
-        dispatch(updateBanner(bannerId, myForm));
+        // dispatch(updateBanner(bannerId, myForm));
     };
 
     const createBannerImagesChange = (e) => {
@@ -113,6 +113,44 @@ function UpdateBanner() {
 
         setImages([]);
         setImagesPreview([]);
+
+        files.forEach((file) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setImagesPreview((old) => [...old, reader.result]);
+                    setImages((old) => [...old, reader.result]);
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const updateBannerSubmitHandler = (e) => {
+        e.preventDefault();
+
+        const myForm = new FormData();
+
+        myForm.set('title', title);
+        myForm.set('description', description);
+        myForm.set('status', status);
+
+        images.forEach((image) => {
+            myForm.append('images', image);
+            // console.log(image)
+        });
+
+        dispatch(updateBanner(bannerId, myForm));
+    };
+
+    const updateBannerImagesChange = (e) => {
+        const files = Array.from(e.target.files);
+
+        setImages([]);
+        setImagesPreview([]);
+        setOldImages([]);
 
         files.forEach((file) => {
             const reader = new FileReader();
@@ -183,7 +221,7 @@ function UpdateBanner() {
                             <form
                                 className="flexDiv"
                                 encType="multipart/form-data"
-                                onSubmit={createBannerSubmitHandler}
+                                onSubmit={updateBannerSubmitHandler}
                             >
                                 <Grid container spacing={2}>
                                     {/* <div className="flexDiv"> */}
@@ -251,12 +289,30 @@ function UpdateBanner() {
                                                     type="file"
                                                     name="avatar"
                                                     accept="image/*"
-                                                    onChange={createBannerImagesChange}
+                                                    onChange={updateBannerImagesChange}
                                                     multiple
                                                     hidden
                                                 />
                                             </Button>
                                         </div>
+
+                                        <Box
+                                            id="createProductFormImage"
+                                            sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
+                                        >
+                                            {oldImages &&
+                                                oldImages.map((image, index) => (
+                                                    <img
+                                                        key={index}
+                                                        src={image.url}
+                                                        alt="old Banner Preview"
+                                                        style={{
+                                                            maxHeight: '150px',
+                                                            maxWidth: '250px',
+                                                        }}
+                                                    />
+                                                ))}
+                                        </Box>
 
                                         <Box
                                             id="createProductFormImage"

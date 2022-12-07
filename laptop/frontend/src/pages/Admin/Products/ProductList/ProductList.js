@@ -11,25 +11,52 @@ import './ProductList.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
-import { deleteProduct, getAdminProduct } from '~/actions/productAction';
+import { clearErrors, deleteProduct, getAdminProduct } from '~/actions/productAction';
 import { getAllBanners } from '~/actions/bannerAction';
 import formatPrice from '~/utils/formatPrice';
+import { useNavigate, useParams } from 'react-router-dom';
+import { DELETE_PRODUCT_RESET } from '~/constants/productConstants';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 function ProductList() {
     const [pageSize, setPageSize] = React.useState(10);
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
 
     const deleteProductHandler = (id) => {
         dispatch(deleteProduct(id));
-        window.location.reload();
+        // window.location.reload();
     };
 
     const dispatch = useDispatch();
+    let navigate = useNavigate();
 
-    const { products } = useSelector((state) => state.productsAdmin);
-    useEffect(() => {
-        dispatch(getAdminProduct());
-    }, [dispatch]);
+    const { loading, error, products } = useSelector((state) => state.productsAdmin);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.product);
+    // useEffect(() => {
+    //     dispatch(getAdminProduct());
+    // }, [dispatch]);
 
     // console.log('products: ', products[0]);
+
+    React.useEffect(() => {
+        if (error) {
+            dispatch(clearErrors());
+        }
+
+        if (deleteError) {
+            dispatch(clearErrors);
+        }
+
+        if (isDeleted) {
+            Swal.fire('Thành công!', 'Xóa sản phẩm thành công!', 'success');
+            dispatch({ type: DELETE_PRODUCT_RESET });
+        }
+
+        dispatch(getAdminProduct());
+    }, [dispatch, error, deleteError, navigate, isDeleted]);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 100, maxWidth: 150, flex: 0.5 },
@@ -134,7 +161,7 @@ function ProductList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/product/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/ProductList/UpdateProduct/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -186,8 +213,6 @@ function ProductList() {
                 gift_images: item.gift_images[0].url,
             });
         });
-
-
 
     const [wrapperWidth, setWapperWidth] = useState(true);
     return (

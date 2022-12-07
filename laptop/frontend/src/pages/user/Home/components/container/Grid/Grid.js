@@ -83,10 +83,10 @@ function Panel() {
                                                                                 {formatPrice(
                                                                                     parseFloat(
                                                                                         (
-                                                                                            (product.cost *
+                                                                                            ((product.cost / 1000000) *
                                                                                                 product.promotional) /
                                                                                             100
-                                                                                        ).toFixed(0),
+                                                                                        ).toFixed(1) * 1000000,
                                                                                     ),
                                                                                 )}
                                                                             </div>
@@ -104,20 +104,20 @@ function Panel() {
                                                                 <div className={cx('price')}>
                                                                     <div className={cx('price-content')}>
                                                                         <div className={cx('cost')}>
-                                                                            {formatPrice(product.cost)}
+                                                                            {formatPrice(
+                                                                                parseFloat(
+                                                                                   ( product.cost / 1000000 -
+                                                                                        (
+                                                                                            ((product.cost / 1000000) *
+                                                                                                product.promotional) /
+                                                                                            100
+                                                                                        ).toFixed(0)) * 1000000 ,
+                                                                                ),
+                                                                            )}
                                                                         </div>
                                                                         <div className={cx('promotional')}>
                                                                             <div className={cx('promotional_price')}>
-                                                                                {formatPrice(
-                                                                                    parseFloat(
-                                                                                        product.cost -
-                                                                                            (
-                                                                                                (product.cost *
-                                                                                                    product.promotional) /
-                                                                                                100
-                                                                                            ).toFixed(0),
-                                                                                    ),
-                                                                                )}
+                                                                                {formatPrice(product.cost )}
                                                                             </div>
                                                                             <div className={cx('percent')}>
                                                                                 -{product.promotional}%

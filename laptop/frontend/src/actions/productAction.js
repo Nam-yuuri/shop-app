@@ -39,6 +39,9 @@ import {
     ALL_PRODUCT_REVIEW_REQUEST,
     ALL_PRODUCT_REVIEW_SUCCESS,
     ALL_PRODUCT_REVIEW_FAIL,
+    BRAND_PRODUCT_SUCCESS,
+    BRAND_PRODUCT_REQUEST,
+    BRAND_PRODUCT_FAIL,
 } from '../constants/productConstants';
 
 // Get All Products
@@ -124,7 +127,7 @@ export const getAdminProduct = () => async (dispatch) => {
 // Get Top Products For Admin
 export const getTopProducts = () => async (dispatch) => {
     try {
-        dispatch({ type: 'TOP_PRODUCT_REQUEST' });
+        dispatch({ type: TOP_PRODUCT_REQUEST });
 
         // const token = localStorage.getItem('token');
         // const config = {
@@ -139,16 +142,52 @@ export const getTopProducts = () => async (dispatch) => {
         // console.log('product db: ', data.data.product);
 
         dispatch({
-            type: 'TOP_PRODUCT_SUCCESS',
-            payload: data.data.product,    
+            type: TOP_PRODUCT_SUCCESS,
+            payload: data.data.product,
         });
     } catch (error) {
         dispatch({
-            type: 'TOP_PRODUCT_FAIL',
+            type: TOP_PRODUCT_FAIL,
             payload: error.response.data.message,
         });
     }
 };
+
+// Get Top Products For Admin
+export const getBrandProducts =
+    (id, price = [0, 151], RAM, CPU) =>
+    async (dispatch) => {
+        try {
+            dispatch({ type: BRAND_PRODUCT_REQUEST });
+
+            let priceSort0 = price[0] * 1000000;
+            let priceSort1 = price[1] * 1000000;
+
+            let link = `http://localhost:8000/api/v1/user/product/${id}?price[gte]=${priceSort0}&price[lte]=${priceSort1}`;
+
+            // const token = localStorage.getItem('token');
+            // const config = {
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         Authorization: `token ${token}`,
+            //     },
+            // };
+
+            // const data = await axiosClient.get('/api/v1/admin/topProducts', config);
+            const data = await axios.get(link);
+            console.log('product db: ', data.data.product);
+
+            dispatch({
+                type: BRAND_PRODUCT_SUCCESS,
+                payload: data.data.product,
+            });
+        } catch (error) {
+            dispatch({
+                type: BRAND_PRODUCT_FAIL,
+                payload: error.response.data.message,
+            });
+        }
+    };
 
 // Get N Products
 export const getNProducts = (numOfProducts) => async (dispatch) => {

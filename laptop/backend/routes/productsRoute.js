@@ -24,7 +24,7 @@ router.get("/admin/product/stock", getAdminStockProducts);
 
 router.get("/product/:id", getProduct);
 
-router.get("/product/:brand", getProductsBrand);
+router.get("/user/product/:brand", getProductsBrand);
 
 router.post("/admin/product/new", createProduct);
 

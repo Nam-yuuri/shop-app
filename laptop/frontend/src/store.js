@@ -10,6 +10,7 @@ import {
     productsAdminReducer,
     productsReducer,
     topProductsReducer,
+    productsBrandReducer
 } from './reducers/productReducer';
 
 // import {
@@ -103,6 +104,7 @@ const reducer = combineReducers({
     nProducts: nProductsReducer,
     newProduct: newProductReducer,
     product: productReducer,
+    productsBrand: productsBrandReducer,
 
     // User
     user: userReducer,
