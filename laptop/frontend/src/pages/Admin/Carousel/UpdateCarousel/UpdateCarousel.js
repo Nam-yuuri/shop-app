@@ -34,7 +34,6 @@ function UpdateCarousel() {
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
     const [oldImages, setOldImages] = useState([]);
-    const [oldLogos, setOldLogos] = useState([]);
 
     const { loading: carouselLoading, error, carousels } = useSelector((state) => state.carouselDetails);
     const { loading, error: updateError, isUpdated } = useSelector((state) => state.carousel);
@@ -52,7 +51,6 @@ function UpdateCarousel() {
             setDescription(carousels.description);
             setStatus(carousels.status);
             setOldImages(carousels.images);
-            setOldLogos(carousels.logo);
         }
         if (error) {
             setOpenError(true);
@@ -87,7 +85,7 @@ function UpdateCarousel() {
             myForm.append('images', image);
         });
 
-        dispatch(updateCarousel(carouselId,myForm));
+        dispatch(updateCarousel(carouselId, myForm));
     };
 
     // console.log(myForm)
@@ -133,7 +131,7 @@ function UpdateCarousel() {
 
     return (
         <div>
-            {carouselLoading ? (
+            {loading ? (
                 <Loading />
             ) : (
                 <div>
@@ -249,6 +247,21 @@ function UpdateCarousel() {
                                                 />
                                             </Button>
                                         </div>
+
+                                        <Box
+                                            id="createProductFormImage"
+                                            sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
+                                        >
+                                            <img
+                                                key={oldImages.public_id}
+                                                src={oldImages.url}
+                                                alt="Banner Preview"
+                                                style={{
+                                                    maxHeight: '150px',
+                                                    maxWidth: '250px',
+                                                }}
+                                            />
+                                        </Box>
 
                                         <Box
                                             id="createProductFormImage"

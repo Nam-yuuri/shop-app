@@ -13,16 +13,18 @@ const bannerSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  images: {
-    public_id: {
-      type: String,
-      required: true,
+  images: [
+    {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
     },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
+  ],
 });
 
 module.exports = mongoose.model("Banner", bannerSchema);

@@ -46,7 +46,7 @@ function UpdateShowroom() {
     //     dispatch(getShowroomDetails(showroomId));
     // }, [dispatch]);
 
-    console.log('aaa: ', error);
+    // console.log('aaa: ', error);
 
     useEffect(() => {
         if (showrooms && showrooms._id !== showroomId) {

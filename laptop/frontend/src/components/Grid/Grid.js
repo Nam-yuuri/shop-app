@@ -34,7 +34,7 @@ function Panel() {
 
     const { loading, products } = useSelector((state) => state.productsBrand);
 
-    console.log('pro: ', products.length);
+    // console.log('pro: ', products.length);
 
     useEffect(() => {
         dispatch(getBrandProducts(productId));
@@ -101,7 +101,7 @@ function Panel() {
                                                                                     ((product.cost / 1000000) *
                                                                                         product.promotional) /
                                                                                     100
-                                                                                ).toFixed(0)) *
+                                                                                ).toFixed(1)) *
                                                                                 1000000,
                                                                         ),
                                                                     )}

@@ -83,21 +83,21 @@ exports.updateBanner = catchAsyncErrors(async (req, res, next) => {
   }
   if (images !== undefined) {
     // Xóa ảnh ở Cloudinary
-    // for (let i = 0; i < banner.images.length; i++) {
-      await cloudinary.v2.uploader.destroy(banner.images.public_id);
-    // }
+    for (let i = 0; i < banner.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(banner.images[i].public_id);
+    }
     const imagesLinks = [];
 
-  for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "banners",
-    });
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "banners",
+      });
 
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
-  }
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
 
     req.body.images = imagesLinks;
   }
@@ -122,10 +122,10 @@ exports.deleteBanner = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Không tìm thấy banner", 404));
   }
 
-  //   // Xóa ảnh ở Cloudinary
-  //   for (let i = 0; i < banner.url.length; i++) {
-  //     await cloudinary.v2.uploader.destroy(banner.url[i].public_id);
-  //   }
+  // Xóa ảnh ở Cloudinary
+  for (let i = 0; i < banner.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(banner.images[i].public_id);
+  }
 
   await banner.remove();
   res.status(200).json({

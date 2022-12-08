@@ -77,9 +77,25 @@ exports.createHeader = catchAsyncErrors(async (req, res, next) => {
 //Update header
 exports.updateHeader = catchAsyncErrors(async (req, res, next) => {
   let header = await Header.findByIdAndUpdate(req.params.id);
+  let images = [];
 
-  if (!header) {
-    return next(new ErrorHander("Không tìm thấy ảnh", 404));
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    if (!header) {
+      return next(new ErrorHander("Không tìm thấy ảnh", 404));
+    }
+    await cloudinary.v2.uploader.destroy(header.images.public_id);
+
+    const result = await cloudinary.v2.uploader.upload(req.body.images, {
+      folder: "header",
+    });
+
+    req.body.images = result;
   }
 
   header = await Header.findByIdAndUpdate(req.params.id, req.body, {
@@ -103,9 +119,7 @@ exports.deleteHeader = catchAsyncErrors(async (req, res, next) => {
   }
 
   //   // Xóa ảnh ở Cloudinary
-  //   for (let i = 0; i < header.images.length; i++) {
-  //     await cloudinary.v2.uploader.destroy(header.images[i].public_id);
-  //   }
+  await cloudinary.v2.uploader.destroy(header.images.public_id);
 
   await header.remove();
 

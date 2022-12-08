@@ -15,7 +15,7 @@ exports.createBrand = catchAsyncErrors(async (req, res, next) => {
 
   const { name, description } = req.body;
 
-  const brand = req.body; 
+  const brand = req.body;
   if (!brand.name) {
     return res.status(400).json({
       success: false,
@@ -64,7 +64,7 @@ exports.getBrands = catchAsyncErrors(async (req, res, next) => {
 
 //Get brands main
 exports.getBrandsMain = catchAsyncErrors(async (req, res, next) => {
-  const brand = await Brand.find({status: true})
+  const brand = await Brand.find({ status: true });
 
   res.status(200).json({
     success: true,
@@ -104,6 +104,31 @@ exports.UpdateBrand = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Không tìm thấy brand", 404));
   }
 
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+  if (images !== undefined) {
+    await cloudinary.v2.uploader.destroy(brand.images.public_id);
+    await cloudinary.v2.uploader.destroy(brand.logo.public_id);
+
+    const images = await cloudinary.v2.uploader.upload(req.body.images, {
+      folder: "images-brand",
+    });
+
+    const logo = await cloudinary.v2.uploader.upload(req.body.logo, {
+      folder: "logo-brand",
+    });
+
+    req.body.images = images;
+    req.body.logo = logo;
+  }
+
+  // const { name, description } = req.body;
+
   brand = await Brand.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -118,16 +143,15 @@ exports.UpdateBrand = catchAsyncErrors(async (req, res, next) => {
 
 //Delete brand
 exports.DeleteBrand = catchAsyncErrors(async (req, res, next) => {
-  let brand = await Brand.findById(req.params.id);
+  let brand = await Brand.findByIdAndDelete(req.params.id);
 
   if (!brand) {
     return next(new ErrorHander("Không tìm thấy brand", 404));
   }
 
-  //   // Xóa ảnh ở Cloudinary
-  //   for (let i = 0; i < brand.images.length; i++) {
-  //     await cloudinary.v2.uploader.destroy(brand.images[i].public_id);
-  //   }
+  // Xóa ảnh ở Cloudinary
+  await cloudinary.v2.uploader.destroy(brand.images.public_id);
+  await cloudinary.v2.uploader.destroy(brand.logo.public_id);
 
   await brand.remove();
   res.status(200).json({

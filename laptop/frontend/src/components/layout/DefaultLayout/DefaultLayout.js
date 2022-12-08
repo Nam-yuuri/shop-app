@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import HeaderTablet from '../components/HeaderTablet';
 import FooterTablet from '../components/FooterTablet';
+import { faMessage } from '@fortawesome/free-regular-svg-icons';
+import Tippy from '@tippyjs/react';
 
 const cx = classNames.bind(styles);
 
@@ -58,6 +60,36 @@ function DefaultLayout({ children }) {
                 <div className={cx('footertablet')}>
                     <FooterTablet />
                 </div>
+            </div>
+            <div className={cx('hotline')}>
+                <a style={{ display: 'table-cell' }} href="tel:18006867">
+                    {/* <FontAwesomeIcon icon={faMessage} /> */}
+                    {/* <img src={'https://shopfront-cdn.tekoapis.com/static/3ad4c9a97ab98ff3.png'} alt={'mess'} /> */}
+                    <img src={'https://sdk-vn.pushdi.com/image/maxlead/icon-phone-s2.svg'} alt={'facebook'} />
+                </a>
+                <span>Hotline: 18006867</span>
+            </div>
+            <div className={cx('facebook')}>
+                <a style={{ display: 'table-cell' }} href={'https://www.facebook.com/phongvuvietnam/'} target="_blank">
+                    {/* <FontAwesomeIcon icon={faMessage} /> */}
+                    {/* <img src={'https://shopfront-cdn.tekoapis.com/static/3ad4c9a97ab98ff3.png'} alt={'mess'} /> */}
+                    <img src={'https://sdk-vn.pushdi.com/image/maxlead/icon-fanpage-s2.svg'} alt={'facebook'} />
+                </a>
+                <span>Like fanpage & trúng quà minigame mỗi ngày!</span>
+            </div>
+            <div className={cx('mess')}>
+                <a
+                    style={{ display: 'table-cell' }}
+                    href={
+                        'https://www.messenger.com/t/1779447358956308/?messaging_source=source%3Apages%3Amessage_shortlink&source_id=1441792&recurring_notification=0'
+                    }
+                    target="_blank"
+                >
+                    {/* <FontAwesomeIcon icon={faMessage} /> */}
+                    {/* <img src={'https://shopfront-cdn.tekoapis.com/static/3ad4c9a97ab98ff3.png'} alt={'mess'} /> */}
+                    <img src={'https://shopfront-cdn.tekoapis.com/static/a8e347d31db4d701.png'} alt={'messenger'} />
+                </a>
+                <span>Chat với tư vấn viên</span>
             </div>
             {scrollHeader ? (
                 <div className={cx('btn')} onClick={handleScrollToTop}>

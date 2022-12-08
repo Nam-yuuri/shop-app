@@ -18,6 +18,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { DELETE_PRODUCT_RESET } from '~/constants/productConstants';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import Loading from '~/components/Loading/Loading';
 function ProductList() {
     const [pageSize, setPageSize] = React.useState(10);
     const [openError, setOpenError] = useState(false);
@@ -217,52 +218,61 @@ function ProductList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Sản phẩm </h1>
-                    <Link to={config.routes.newProduct} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm sản phẩm
-                    </Link>
-                </div>
-            </div>
-            <div className="productList">
+            {loading ? (
+                <Loading />
+            ) : (
                 <div>
-                    <div
-                        className="sidebar"
-                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                    >
-                        <div className="box-sidebar">
-                            <Sidebar />
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
+                                }}
+                            />
+                        </div>
+                        <div className="header-sidebar">
+                            <h1>Sản phẩm </h1>
+                            <Link to={config.routes.newProduct} className="header-sidebar-btn">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Thêm sản phẩm
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="productList">
+                        <div>
+                            <div
+                                className="sidebar"
+                                style={{
+                                    width: wrapperWidth ? '222px' : '0px',
+                                    display: wrapperWidth ? 'block' : 'none',
+                                }}
+                            >
+                                <div className="box-sidebar">
+                                    <Sidebar />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="data">
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={pageSize}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                rowsPerPageOptions={[5, 10, 20]}
+                                // pageSize={10}
+                                pagination
+                                disableSelectionOnClick
+                                className="productListTable"
+                                autoHeight
+                                components={{
+                                    Toolbar: GridToolbar,
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
-                <div className="data">
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={pageSize}
-                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                        rowsPerPageOptions={[5, 10, 20]}
-                        // pageSize={10}
-                        pagination
-                        disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                    />
-                </div>
-            </div>
+            )}
         </div>
     );
 }

@@ -19,7 +19,7 @@ export default function LowStock() {
         products.forEach((item) => {
             if (item.Stock <= 5 && item.Stock > 0) {
                 product.push({
-                    name: item.name_Compact,
+                    name: item.name,
                     stock: item.Stock,
                     sold: item.sold,
                 });
@@ -43,24 +43,11 @@ export default function LowStock() {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                {/* <Legend /> */}
+                <Legend />
                 <Bar dataKey="sold" stackId="a" fill="#8884d8" />
                 <Bar dataKey="stock" stackId="a" fill="#82ca9d" />
             </BarChart>
-            {/* <p
-                style={{
-                    textAlign: 'center',
-                    marginTop: '10px',
-                    fontSize: '20px',
-                    fontWeight: 'bold',
-                }}
-            >
-                {product.length > 0 ? (
-                    <p>Có {product.length} sản phẩm sắp hết hàng</p>
-                ) : (
-                    <p>Chưa có sản phẩm nào sắp hết hàng</p>
-                )}
-            </p> */}
+            
         </div>
     );
 }

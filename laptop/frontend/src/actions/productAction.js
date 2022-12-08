@@ -175,7 +175,7 @@ export const getBrandProducts =
 
             // const data = await axiosClient.get('/api/v1/admin/topProducts', config);
             const data = await axios.get(link);
-            console.log('product db: ', data.data.product);
+            // console.log('product db: ', data.data.product);
 
             dispatch({
                 type: BRAND_PRODUCT_SUCCESS,
@@ -250,7 +250,8 @@ export const updateProduct = (id, productData) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put(`http://localhost:5000/api/v1/admin/product/${id}`, productData, config);
+        // const { data } = await axios.put(`http://localhost:8000/api/v1/admin/product/${id}`, productData, config);
+        const { data } = await axios.put(`http://localhost:8000/api/v1/admin/product/${id}`, productData);
 
         dispatch({
             type: UPDATE_PRODUCT_SUCCESS,

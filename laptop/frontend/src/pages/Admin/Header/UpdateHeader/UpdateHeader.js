@@ -38,7 +38,7 @@ function UpdateHeader() {
     const [oldImages, setOldImages] = useState([]);
 
     const { loading: headerLoading, error, headers } = useSelector((state) => state.headerDetails);
-    const {  error: updateError, isUpdated } = useSelector((state) => state.header);
+    const { loading, error: updateError, isUpdated } = useSelector((state) => state.header);
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
@@ -50,7 +50,6 @@ function UpdateHeader() {
         if (headers && headers._id !== headerId) {
             dispatch(getHeaderDetails(headerId));
         } else {
-            // setTitle(header.title);
             setDescription(headers.description);
             setStatus(headers.status);
             setOldImages(headers.images);
@@ -215,23 +214,20 @@ function UpdateHeader() {
                                             </Button>
                                         </div>
 
-                                        {/* <Box
+                                        <Box
                                             id="createProductFormImage"
                                             sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
                                         >
-                                            {oldImages &&
-                                                oldImages.map((image, index) => (
-                                                    <img
-                                                        key={index}
-                                                        src={image.url}
-                                                        alt="old Banner Preview"
-                                                        style={{
-                                                            maxHeight: '150px',
-                                                            maxWidth: '250px',
-                                                        }}
-                                                    />
-                                                ))}
-                                        </Box> */}
+                                            <img
+                                                key={oldImages.public_id}
+                                                src={oldImages.url}
+                                                alt="Banner Preview"
+                                                style={{
+                                                    maxHeight: '150px',
+                                                    maxWidth: '250px',
+                                                }}
+                                            />
+                                        </Box>
 
                                         <Box
                                             id="createProductFormImage"

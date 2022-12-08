@@ -36,105 +36,7 @@ import { getAllBrands } from '~/actions/brandAction';
 import { useNavigate } from 'react-router-dom';
 import { NEW_PRODUCT_RESET } from '~/constants/productConstants';
 function NewProduct() {
-    {
-        // console.log('products: ', brands);
-        // {    // const Operatings = [];
-        //     // const ColorOptions = [];
-        //     // const DemandOptions = [];
-        //     // const CPUOptions = [];
-        //     // const CPU_The_systemOptions = [];
-        //     // const CPU_specsOptions = [];
-        //     // const Card_GraphicOptions = [];
-        //     // const MonitorOptions = [];
-        //     // const Monitor_specsOptions = [];
-        //     // const StorageOptions = [];
-        //     // const Port_numberOptions = [];
-        //     // const Output_portOptions = [];
-        //     // const ConnectorOptions = [];
-        //     // const Wireless_ConnectivityOptions = [];
-        //     // const KeyboardOptions = [];
-        //     // const SizeOptions = [];
-        //     // const MassOptions = [];
-        //     // const BatteryOptions = [];
-        //     // const Accessories_includedOptions = [];
-        //     // const Gift_image_nameOptions = [];
-        //     // const RAM_Options = [];
-        //     // const RAM_specs_Options = [];
-        //     // products &&
-        //     //     products.forEach((item) => {
-        //     //         // if (BrandOptions.indexOf(item.brand.name) === -1) {
-        //     //         //     BrandOptions.push(item.brand.name);
-        //     //         // }
-        //     //         if (CPUOptions.indexOf(item.CPU) === -1) {
-        //     //             CPUOptions.push(item.CPU);
-        //     //         }
-        //     //         if (Operatings.indexOf(item.Operating_system) === -1) {
-        //     //             Operatings.push(item.Operating_system);
-        //     //         }
-        //     //         if (ColorOptions.indexOf(item.Color) === -1) {
-        //     //             ColorOptions.push(item.Color);
-        //     //         }
-        //     //         if (DemandOptions.indexOf(item.Demand) === -1) {
-        //     //             DemandOptions.push(item.Demand);
-        //     //         }
-        //     //         if (CPU_The_systemOptions.indexOf(item.CPU_The_system) === -1) {
-        //     //             CPU_The_systemOptions.push(item.CPU_The_system);
-        //     //         }
-        //     //         if (CPU_specsOptions.indexOf(item.CPU_specs) === -1) {
-        //     //             CPU_specsOptions.push(item.CPU_specs);
-        //     //         }
-        //     //         if (Card_GraphicOptions.indexOf(item.Card_Graphic) === -1) {
-        //     //             Card_GraphicOptions.push(item.Card_Graphic);
-        //     //         }
-        //     //         if (MonitorOptions.indexOf(item.Monitor) === -1) {
-        //     //             MonitorOptions.push(item.Monitor);
-        //     //         }
-        //     //         if (Monitor_specsOptions.indexOf(item.Monitor_specs) === -1) {
-        //     //             Monitor_specsOptions.push(item.Monitor_specs);
-        //     //         }
-        //     //         if (StorageOptions.indexOf(item.Storage) === -1) {
-        //     //             StorageOptions.push(item.Storage);
-        //     //         }
-        //     //         if (Port_numberOptions.indexOf(item.Port_number) === -1) {
-        //     //             Port_numberOptions.push(item.Port_number);
-        //     //         }
-        //     //         if (Output_portOptions.indexOf(item.Output_port) === -1) {
-        //     //             Output_portOptions.push(item.Output_port);
-        //     //         }
-        //     //         if (ConnectorOptions.indexOf(item.Connector) === -1) {
-        //     //             ConnectorOptions.push(item.Connector);
-        //     //         }
-        //     //         if (Wireless_ConnectivityOptions.indexOf(item.Wireless_Connectivity) === -1) {
-        //     //             Wireless_ConnectivityOptions.push(item.Wireless_Connectivity);
-        //     //         }
-        //     //         if (KeyboardOptions.indexOf(item.Keyboard) === -1) {
-        //     //             KeyboardOptions.push(item.Keyboard);
-        //     //         }
-        //     //         if (SizeOptions.indexOf(item.Size) === -1) {
-        //     //             SizeOptions.push(item.Size);
-        //     //         }
-        //     //         if (MassOptions.indexOf(item.Mass) === -1) {
-        //     //             MassOptions.push(item.Mass);
-        //     //         }
-        //     //         if (BatteryOptions.indexOf(item.Battery) === -1) {
-        //     //             BatteryOptions.push(item.Battery);
-        //     //         }
-        //     //         if (Accessories_includedOptions.indexOf(item.Accessories_included) === -1) {
-        //     //             Accessories_includedOptions.push(item.Accessories_included);
-        //     //         }
-        //     //         if (Gift_image_nameOptions.indexOf(item.gift_image_name) === -1) {
-        //     //             Gift_image_nameOptions.push(item.gift_image_name);
-        //     //         }
-        //     //         if (RAM_Options.indexOf(item.RAM) === -1) {
-        //     //             RAM_Options.push(item.RAM);
-        //     //         }
-        //     //         if (RAM_specs_Options.indexOf(item.RAM_specs) === -1) {
-        //     //             RAM_specs_Options.push(item.RAM_specs);
-        //     //         }
-        //     //     });
-        // }
-    }
-
+   
     // console.log(BrandOptions)
     const cpuOptions = [
         'Intel Celeron/Pentium',
@@ -210,7 +112,7 @@ function NewProduct() {
     const [size, setSize] = useState('');
     const [battery, setBattery] = useState('');
     const [mass, setMass] = useState(0);
-    const [led, setLed] = useState(LedOptions[0]);
+    const [led, setLed] = useState('');
     const [accessories_included, setAccessories_included] = useState('');
     const [Stock, setStock] = useState(0);
     const [gift_image_name, setGift_image_name] = useState('');
@@ -283,7 +185,7 @@ function NewProduct() {
             setOpenError(true);
             setErrorAlert('Thông tin không hợp lệ');
             dispatch(clearErrors());
-            Swal.fire('Thành công!', 'Thêm sản phẩm không thành công!', 'error');
+            // Swal.fire('Thành công!', 'Thêm sản phẩm không thành công!', 'error');
         }
 
         if (success) {
@@ -343,45 +245,9 @@ function NewProduct() {
         });
 
         dispatch(createProduct(myForm));
-        // setName('');
-        // setName_Compact('');
-        // setCost(0);
-        // setPromotional(0);
-        // setStatus_promotional(false);
-        // // setBrand('')
-        // // setBrandName('')
-        // setRAM(RAMOptions[0]);
-        // setRAM_specs('');
-        // setDescription('');
-        // setDescription_more('');
-        // setInsurance(12);
-        // setColor('');
-        // setDemand('');
-        // setCPU('');
-        // setCPU_The_system('');
-        // setCPU_specs('');
-        // setCard_Graphic(Card_GraphicOptions[0]);
-        // setMonitor(MonitorOptions[0]);
-        // setMonitor_specs('');
-        // setStorage('');
-        // setPort_number('');
-        // setOutput_port('');
-        // setConnector('');
-        // setWireless_Connectivity('');
-        // setKeyboard('');
-        // setOperating_system(operatingSystemOptions[0]);
-        // setSize('');
-        // setBattery('');
-        // setMass(0);
-        // setLed(LedOptions[0]);
-        // setAccessories_included('');
-        // setStock(0);
-        // setImagesPreview([]);
-        // setGiftPreview([]);
-        // // {loading ? '' : Swal.fire('Thành công!', 'Tạo header thành công!', 'success')}
     };
 
-    // console.log("brand: ", BrandOptions[0])
+    // console.log("brand: ", brand)
 
     const handleCloseError = (event, reason) => {
         if (reason === "clickaway") {
@@ -510,7 +376,7 @@ function NewProduct() {
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                        {/* <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Tên tóm tắt </p>
                                         </Grid>
                                         <Grid item xs={12} sm={8} md={10}>
@@ -523,7 +389,7 @@ function NewProduct() {
                                                 variant="outlined"
                                                 sx={{ width: '50%' }}
                                             />
-                                        </Grid>
+                                        </Grid> */}
 
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Giá tiền</p>
@@ -767,7 +633,7 @@ function NewProduct() {
                                                 value={RAM_specs}
                                                 onChange={(e) => setRAM_specs(e.target.value)}
                                                 variant="outlined"
-                                                sx={{ width: '50%' }}
+                                                sx={{ width: 500 }}
                                             />
                                         </Grid>
 
@@ -791,13 +657,13 @@ function NewProduct() {
                                                 required
                                             /> */}
                                             <TextField
-                                                type="Number"
+                                                type="text"
                                                 label="Màn hình"
                                                 // required
                                                 value={monitor}
                                                 onChange={(e) => setMonitor(e.target.value)}
                                                 variant="outlined"
-                                                sx={{ width: '50%' }}
+                                                sx={{ width: 500 }}
                                             />
                                             <TextField
                                                 type="text"
@@ -984,7 +850,7 @@ function NewProduct() {
                                             <p>Đèn LED trên máy</p>
                                         </Grid>
                                         <Grid item xs={12} sm={8} md={10}>
-                                            <Autocomplete
+                                            {/* <Autocomplete
                                                 value={led}
                                                 onChange={(event, newValue) => {
                                                     setLed(newValue);
@@ -999,6 +865,15 @@ function NewProduct() {
                                                 renderInput={(params) => (
                                                     <TextField {...params} label="Đèn LED trên máy" />
                                                 )}
+                                            /> */}
+                                            <TextField
+                                                type="text"
+                                                label="Đèn LED trên máy"
+                                                // required
+                                                value={led}
+                                                onChange={(e) => setLed(e.target.value)}
+                                                variant="outlined"
+                                                sx={{ width: 500 }}
                                             />
                                         </Grid>
 

@@ -95,9 +95,24 @@ exports.getMainBannerHorizon = catchAsyncErrors(async (req, res, next) => {
 //update horizontal
 exports.updateBanner = catchAsyncErrors(async (req, res, next) => {
   let horizontal = await BannerHorizontal.findByIdAndUpdate(req.params.id);
+  let images = [];
 
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
   if (!horizontal) {
     return next(new ErrorHander("Không tìm thấy horizontal", 404));
+  }
+
+  if (images !== undefined) {
+    await cloudinary.v2.uploader.destroy(horizontal.images.public_id);
+
+    const result = await cloudinary.v2.uploader.upload(req.body.images, {
+      folder: "banner horizontal",
+    });
+    req.body.images = result;
   }
 
   horizontal = await BannerHorizontal.findByIdAndUpdate(
@@ -125,9 +140,7 @@ exports.deleteBanner = catchAsyncErrors(async (req, res, next) => {
   }
 
   //   // Xóa ảnh ở Cloudinary
-  //   for (let i = 0; i < horizontal.images.length; i++) {
-  //     await cloudinary.v2.uploader.destroy(horizontal.images[i].public_id);
-  //   }
+  await cloudinary.v2.uploader.destroy(horizontal.images.public_id);
 
   await horizontal.remove();
   res.status(200).json({

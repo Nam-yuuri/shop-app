@@ -96,8 +96,7 @@ export const bannerDetailsReducer = (state = { banners: {} }, action) => {
       case BANNER_DETAILS_SUCCESS:
           return {
               loading: false,
-            //   banners: action.payload,
-              banners: true,
+              banners: action.payload,
           };
       case BANNER_DETAILS_FAIL:
           return {

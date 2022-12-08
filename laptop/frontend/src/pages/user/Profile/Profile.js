@@ -55,64 +55,6 @@ function Profile() {
         window.scrollTo(0, 0);
     }, []);
 
-    // const a = products.images;
-    // const ima = [];
-    // let i = 1;
-
-    // a &&
-    //     a.forEach((item) => {
-    //         ima.push({
-    //             id: i,
-    //             image: item.url,
-    //         });
-    //         i++;
-    //     });
-
-    // // console.log('product: ', products.brand.name);
-    // console.log('a: ', a);
-    // console.log('ima: ', ima);
-    // console.log('img: ', img);
-
-    // const a = 9.5
-    // const b = 39300000
-
-    // const c = a * b / 100
-
-    // const d = b - c
-
-    // const cost = formatPrice(products.cost);
-    // const dis = formatPrice(parseFloat(products.cost - ((products.cost * products.promotional) / 100).toFixed(0)));
-    // const pro = formatPrice(parseFloat(products.cost - (products.cost - ((products.cost * products.promotional) / 100)).toFixed(0)));
-
-    // console.log("cost: ", cost )
-    // console.log("dis: ", dis)
-    // console.log("pro: ", pro)
-    // console.log("a: ", a)
-    // console.log("b: ", b)
-    // console.log("c: ", c)
-    // console.log("d: ", d)
-
-    // const settings = {
-    //     customPaging: function (i) {
-    //         return (
-    //             <a href={' '}>
-    //                 <img src={`${image[0]}`} alt="" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
-    //             </a>
-    //         );
-    //     },
-    //     dots: true,
-    //     dotsClass: 'slick-dots slick-thumb',
-    //     infinite: true,
-    //     // speed: 500,
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     autoplay: true,
-    //     speed: 2000,
-    //     autoplaySpeed: 2000,
-    //     thumbnails: true
-    //     // cssEase: 'linear',
-    // };
-
     const captionStyle = {
         fontSize: '2em',
         fontWeight: 'bold',
@@ -141,15 +83,22 @@ function Profile() {
             ) : (
                 <div>
                     <div className={cx('profile')}>
-                        <div className={cx('href')}>
-                            <a href="/" className={cx('home-href')}>
-                                <div className={cx('href-text')}>Trang chủ</div>
-                                <div className={cx('href-icon')}>
-                                    <FontAwesomeIcon icon={faAngleRight} />
-                                </div>
-                            </a>
-                            <div className={cx('href-text', 'href-text-cart')}>Laptop</div>
+                    <div className={cx('href')}>
+                    <a href="/" className={cx('home-href')}>
+                        <div className={cx('href-text')}>Trang chủ</div>
+                        <div className={cx('href-icon')}>
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </div>
+                    </a>
+                    {/* style={{display: 'flex', height: '19.5px'}} */}
+                    <div className={cx('text_laptop')}>
+                        <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
+                        <div className={cx('href-icon')}>
+                            <FontAwesomeIcon icon={faAngleRight} />
+                        </div>
+                    </div>
+                    <div className={cx('href-text', 'href-text-cart')}>{products.name}</div>
+                </div>
                         <div className={cx('content')}>
                             <div className={cx('Left')}>
                                 <div className={cx('container-left')}>
@@ -267,7 +216,7 @@ function Profile() {
                                                                     (
                                                                         ((products.cost / 1000000) * products.promotional) /
                                                                         100
-                                                                    ).toFixed(0)) * 1000000,
+                                                                    ).toFixed(1)) * 1000000,
                                                             ),
                                                         )}
                                                     </div>

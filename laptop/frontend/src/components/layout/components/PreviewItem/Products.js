@@ -38,13 +38,27 @@ function ProductItem() {
         dispatch(getAllBrands());
     }, [dispatch]);
 
+    const currentRoute = window.location.pathname;
+    const route = currentRoute.split("/")
+    // console.log(route);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 {brands.map((product) => (
                     <div key={product._id}>
                         <div className={cx('')}>
-                            <Button to={`http://localhost:3000/brand/${product._id}`} className={cx('box')} onClick={() => {}}>
+                            <Button
+                                to={`/brand/${product._id}`}
+                                className={cx('box')}
+                                onClick={() => {
+                                    if(route.length > 2){
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 100)
+                                    }
+                                }}
+                            >
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
                                         <img src={product.logo.url} alt="" />

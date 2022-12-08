@@ -49,14 +49,13 @@ function UpdatePromotion() {
     };
 
     const { loading: promotionLoading, error, promotions } = useSelector((state) => state.promotionDetails);
-    const { error: updateError, isUpdated } = useSelector((state) => state.promotion);
+    const { loading, error: updateError, isUpdated } = useSelector((state) => state.promotion);
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
     let match = useParams();
 
     const promotionId = match.id;
-
 
     useEffect(() => {
         if (promotions && promotions._id !== promotionId) {
@@ -101,26 +100,26 @@ function UpdatePromotion() {
         dispatch(updatePromotion(promotionId, myForm));
     };
 
-    const updateBannerImagesChange = (e) => {
-        const files = Array.from(e.target.files);
-    
-        setImages([]);
-        setImagesPreview([]);
-        setOldImages([]);
-    
-        files.forEach((file) => {
-          const reader = new FileReader();
-    
-          reader.onload = () => {
-            if (reader.readyState === 2) {
-              setImagesPreview((old) => [...old, reader.result]);
-              setImages((old) => [...old, reader.result]);
-            }
-          };
-    
-          reader.readAsDataURL(file);
-        });
-      };
+    // const updateBannerImagesChange = (e) => {
+    //     const files = Array.from(e.target.files);
+
+    //     setImages([]);
+    //     setImagesPreview([]);
+    //     setOldImages([]);
+
+    //     files.forEach((file) => {
+    //         const reader = new FileReader();
+
+    //         reader.onload = () => {
+    //             if (reader.readyState === 2) {
+    //                 setImagesPreview((old) => [...old, reader.result]);
+    //                 setImages((old) => [...old, reader.result]);
+    //             }
+    //         };
+
+    //         reader.readAsDataURL(file);
+    //     });
+    // };
 
     const updatePromotionImagesChange = (e) => {
         const files = Array.from(e.target.files);
@@ -256,6 +255,21 @@ function UpdatePromotion() {
                                                 />
                                             </Button>
                                         </div>
+
+                                        <Box
+                                            id="createProductFormImage"
+                                            sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
+                                        >
+                                            <img
+                                                key={oldImages.public_id}
+                                                src={oldImages.url}
+                                                alt="Banner Preview"
+                                                style={{
+                                                    maxHeight: '150px',
+                                                    maxWidth: '250px',
+                                                }}
+                                            />
+                                        </Box>
 
                                         <Box
                                             id="createProductFormImage"

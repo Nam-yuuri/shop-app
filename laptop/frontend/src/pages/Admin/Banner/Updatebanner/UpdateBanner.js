@@ -46,7 +46,7 @@ function UpdateBanner() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [status, setStatus] = useState(false);
+    const [status, setStatus] = useState('');
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
     const [oldImages, setOldImages] = useState([]);
@@ -69,6 +69,7 @@ function UpdateBanner() {
         } else {
             setTitle(banners.title);
             setDescription(banners.description);
+            setStatus(banners.status)
             setOldImages(banners.images);
             setOldLogos(banners.logo);
         }
@@ -90,6 +91,8 @@ function UpdateBanner() {
             dispatch({ type: UPDATE_BANNER_RESET });
         }
     }, [dispatch, error, isUpdated, bannerId, banners, updateError]);
+
+    console.log('title: ', title)
 
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
@@ -139,7 +142,6 @@ function UpdateBanner() {
 
         images.forEach((image) => {
             myForm.append('images', image);
-            // console.log(image)
         });
 
         dispatch(updateBanner(bannerId, myForm));

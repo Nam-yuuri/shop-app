@@ -30,7 +30,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import { Link, useHistory } from 'react-router-dom';
-import { clearErrors, createProduct, getAdminProduct, getProductDetails } from '~/actions/productAction';
+import { clearErrors, createProduct, getAdminProduct, getProductDetails, updateProduct } from '~/actions/productAction';
 import Loading from '~/components/Loading/Loading';
 import { getAllBrands } from '~/actions/brandAction';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +45,7 @@ function UpdateProduct() {
     const [successAlert, setSuccessAlert] = useState('');
 
     const { loading: productLoading, error, products } = useSelector((state) => state.productDetails);
-    const { error: updateError, isUpdated } = useSelector((state) => state.product);
+    const { loading, error: updateError, isUpdated } = useSelector((state) => state.product);
     const dispatch = useDispatch();
     let navigate = useNavigate();
     let match = useParams();
@@ -105,12 +105,12 @@ function UpdateProduct() {
     const [name_Compact, setName_Compact] = useState('');
     const [cost, setCost] = useState(0);
     const [promotional, setPromotional] = useState(0);
-    const [status_promotional, setStatus_promotional] = useState(false);
+    const [status_promotional, setStatus_promotional] = useState('');
 
     const [category, setCategory] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [brand, setBrand] = useState('');
-    const [brandName, setBrandName] = useState(BrandOptions[0]);
+    const [brandName, setBrandName] = useState('');
 
     const [RAM, setRAM] = useState(RAMOptions[0]);
     const [RAM_specs, setRAM_specs] = useState('');
@@ -136,7 +136,7 @@ function UpdateProduct() {
     const [size, setSize] = useState('');
     const [battery, setBattery] = useState('');
     const [mass, setMass] = useState(0);
-    const [led, setLed] = useState(LedOptions[0]);
+    const [led, setLed] = useState('');
     const [accessories_included, setAccessories_included] = useState('');
     const [Stock, setStock] = useState(0);
     const [gift_image_name, setGift_image_name] = useState('');
@@ -148,33 +148,13 @@ function UpdateProduct() {
     const [imagesPreview, setImagesPreview] = useState([]);
     const [GiftPreview, setGiftPreview] = useState([]);
 
-    // const [inputCPUValue, setInputCPUValue] = useState('');
     const [inputBrandValue, setInputBrandValue] = useState('');
     const [inputRAMValue, setInputRAMValue] = useState(RAMOptions[0]);
-    // const [inputRAM_specsValue, setInputRAM_specsValue] = useState('');
-    // const [inputColorValue, setInputColorValue] = useState('');
-    // const [inputDemandValue, setInputDemandValue] = useState('');
-    // const [inputCPU_systemValue, setInputCPU_systemValue] = useState('');
-    // const [inputCPU_specsValue, setInputCPU_specsValue] = useState('');
-    const [inputCard_GraphicValue, setInputCard_GraphicValue] = useState('');
-    const [inputMonitorValue, setInputMonitorValue] = useState(MonitorOptions[0]);
-    // const [inputMonitor_specsValue, setInputMonitor_specsValue] = useState('');
-    // const [inputStorageValue, setInputStorageValue] = useState('');
-    // const [inputPort_numberValue, setInputPort_numberValue] = useState('');
-    // const [inputOutput_portValue, setInputOutput_portValue] = useState('');
-    // const [inputConnectorValue, setInputConnectorValue] = useState('');
-    // const [inputWireless_ConnectivityValue, setInputWireless_ConnectivityValue] = useState('');
-    // const [inputKeyboardValue, setInputKeyboardValue] = useState('');
-    // const [inputSizeValue, setInputSizeValue] = useState('');
-    // const [inputBatteryValue, setInputBatteryValue] = useState('');
-    const [inputLedValue, setInputLedValue] = useState('');
-    // const [inputAccessories_includedValue, setInputAccessories_includedValue] = useState('');
-    // const [inputGift_image_nameValue, setInputGift_image_nameValue] = useState('');
+
     const [inputOperatingSystemValue, setInputOperatingSystemValue] = useState('');
-    // const [images, setImages] = useState([]);
-    // const [imagesPreview, setImagesPreview] = useState([]);
+
     const [oldImages, setOldImages] = useState([]);
-    const [oldLogos, setOldLogos] = useState([]);
+    const [oldGift, setOldGift] = useState([]);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -194,14 +174,14 @@ function UpdateProduct() {
         if (products && products._id !== productId) {
             dispatch(getProductDetails(productId));
         } else {
-
             setName(products.name);
             setName_Compact(products.name_Compact);
             setCost(products.cost);
             setPromotional(products.promotional);
-            // setStatus_promotional(products.status_promotional);
-            setBrand(products.brand);
-            // setRAM(products.RAM);
+            setStatus_promotional(products.Status_promotional);
+            setBrand(products.brand._id);
+            setBrandName(products.brand.name);
+            setRAM(products.RAM);
             setRAM_specs(products.RAM_specs);
             setDescription(products.description);
             setDescription_more(products.description_more);
@@ -213,25 +193,25 @@ function UpdateProduct() {
             setCPU_specs(products.CPU_specs);
             setCard_Graphic(products.Card_Graphic);
             setMonitor(products.Monitor);
-            setMonitor_specs(products.Monitor_specs)
-            setStorage(products.Storage)
-            setPort_number(products.Port_number)
-            setSupport_slot_type(products.Support_slot_type)
-            setOutput_port(products.Output_port)
-            setConnector(products.Connector)
-            setWireless_Connectivity(products.Wireless_Connectivity)
-            setKeyboard(products.Keyboard)
-            // setOperating_system(products.Operating_system)
-            setSize(products.Size)
-            setBattery(products.Battery)
-            setMass(products.Mass)
-            // setLed(products.Led)
-            setAccessories_included(products.Accessories_included)
-            setStock(products.Stock)
-            setGift_image_name(products.gift_image_name)
-            setGift_image_count(products.gift_image_count)
+            setMonitor_specs(products.Monitor_specs);
+            setStorage(products.Storage);
+            setPort_number(products.Port_number);
+            setSupport_slot_type(products.Support_slot_type);
+            setOutput_port(products.Output_port);
+            setConnector(products.Connector);
+            setWireless_Connectivity(products.Wireless_Connectivity);
+            setKeyboard(products.Keyboard);
+            setOperating_system(products.Operating_system);
+            setSize(products.Size);
+            setBattery(products.Battery);
+            setMass(products.Mass);
+            setLed(products.Led);
+            setAccessories_included(products.Accessories_included);
+            setStock(products.Stock);
+            setGift_image_name(products.gift_image_name);
+            setGift_image_count(products.gift_image_count);
             setOldImages(products.images);
-            setOldLogos(products.logo);
+            setOldGift(products.gift_images);
         }
         if (error) {
             setOpenError(true);
@@ -246,13 +226,55 @@ function UpdateProduct() {
         }
 
         if (isUpdated) {
-            Swal.fire('Thành công!', 'Chỉnh sửa thông tin header thành công!', 'success');
-            navigate('/admin/HeaderList');
+            Swal.fire('Thành công!', 'Chỉnh sửa thông tin sản phẩm thành công!', 'success');
+            navigate('/admin/ProductList');
             dispatch({ type: 'UPDATE_HEADER_RESET' });
         }
     }, [dispatch, error, isUpdated, productId, products, updateError, navigate]);
 
-    // console.log('demand: ', demand);
+    const updateBannerImagesChange = (e) => {
+        const files = Array.from(e.target.files);
+
+        setImages([]);
+        setImagesPreview([]);
+        setOldImages([]);
+
+        files.forEach((file) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setImagesPreview((old) => [...old, reader.result]);
+                    setImages((old) => [...old, reader.result]);
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const updateBannerLogoChange = (e) => {
+        const files = Array.from(e.target.files);
+
+        setGift_images([]);
+        setGiftPreview([]);
+        setOldGift([]);
+
+        files.forEach((file) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setGiftPreview((old) => [...old, reader.result]);
+                    setGift_images((old) => [...old, reader.result]);
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    };
+
+    // console.log('brand: ', products.brand.name);
 
     const createProductSubmitHandler = (e) => {
         e.preventDefault();
@@ -303,46 +325,8 @@ function UpdateProduct() {
             myForm.append('images', image);
         });
 
-        dispatch(createProduct(myForm));
-        // setName('');
-        // setName_Compact('');
-        // setCost(0);
-        // setPromotional(0);
-        // setStatus_promotional(false);
-        // // setBrand('')
-        // // setBrandName('')
-        // setRAM(RAMOptions[0]);
-        // setRAM_specs('');
-        // setDescription('');
-        // setDescription_more('');
-        // setInsurance(12);
-        // setColor('');
-        // setDemand('');
-        // setCPU('');
-        // setCPU_The_system('');
-        // setCPU_specs('');
-        // setCard_Graphic(Card_GraphicOptions[0]);
-        // setMonitor(MonitorOptions[0]);
-        // setMonitor_specs('');
-        // setStorage('');
-        // setPort_number('');
-        // setOutput_port('');
-        // setConnector('');
-        // setWireless_Connectivity('');
-        // setKeyboard('');
-        // setOperating_system(operatingSystemOptions[0]);
-        // setSize('');
-        // setBattery('');
-        // setMass(0);
-        // setLed(LedOptions[0]);
-        // setAccessories_included('');
-        // setStock(0);
-        // setImagesPreview([]);
-        // setGiftPreview([]);
-        // // {loading ? '' : Swal.fire('Thành công!', 'Tạo header thành công!', 'success')}
+        dispatch(updateProduct(productId, myForm));
     };
-
-
 
     const handleCloseError = (event, reason) => {
         if (reason === 'clickaway') {
@@ -398,7 +382,7 @@ function UpdateProduct() {
     };
     return (
         <div>
-            {productLoading ? (
+            {loading ? (
                 <Loading />
             ) : (
                 <div>
@@ -426,7 +410,7 @@ function UpdateProduct() {
                             />
                         </div>
                         <div className="header-sidebar">
-                            <h1>Thêm sản phẩm </h1>
+                            <h1>Sửa thông tin sản phẩm </h1>
                             <Link to={config.routes.productList} className="header-sidebar-btn">
                                 <FontAwesomeIcon icon={faChevronLeft} />
                                 HỦY
@@ -471,7 +455,7 @@ function UpdateProduct() {
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                        {/* <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Tên tóm tắt </p>
                                         </Grid>
                                         <Grid item xs={12} sm={8} md={10}>
@@ -484,7 +468,7 @@ function UpdateProduct() {
                                                 variant="outlined"
                                                 sx={{ width: '50%' }}
                                             />
-                                        </Grid>
+                                        </Grid> */}
 
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Giá tiền</p>
@@ -507,12 +491,13 @@ function UpdateProduct() {
                                         <Grid item xs={12} sm={8} md={10}>
                                             <br />
                                             <TextField
-                                                inputProps={{
-                                                    inputMode: 'numeric',
-                                                    type: 'number',
-                                                    pattern: '[0-9]*',
-                                                    min: '0',
-                                                }}
+                                                // inputProps={{
+                                                //     inputMode: 'numeric',
+                                                //     type: 'number',
+                                                //     pattern: '[0-9]*',
+                                                //     min: '0',
+                                                // }}
+                                                type='text'
                                                 label="Giảm giá (%)"
                                                 required
                                                 value={promotional}
@@ -555,8 +540,8 @@ function UpdateProduct() {
                                                 }}
                                                 id="controllable-category"
                                                 options={BrandOptions}
-                                                sx={{ width: 300 }}
-                                                renderInput={(params) => <TextField {...params} label="Danh mục" />}
+                                                sx={{ width: 500 }}
+                                                renderInput={(params) => <TextField {...params} label="Thương hiệu" />}
                                             />
                                         </Grid>
 
@@ -613,7 +598,7 @@ function UpdateProduct() {
                                                     value={insurance}
                                                     onChange={(e) => setInsurance(e.target.value)}
                                                     variant="outlined"
-                                                    sx={{ width: '50%', marginBottom: '1.5rem' }}
+                                                    sx={{ width: 500, marginBottom: '1.5rem' }}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -651,7 +636,13 @@ function UpdateProduct() {
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>CPU</p>
                                         </Grid>
-                                        <Grid item xs={12} sm={8} md={10}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={8}
+                                            md={10}
+                                            style={{ display: 'flex', flexDirection: 'column' }}
+                                        >
                                             <TextField
                                                 type="text"
                                                 label="Thế hệ CPU"
@@ -754,7 +745,13 @@ function UpdateProduct() {
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Màn hình</p>
                                         </Grid>
-                                        <Grid item xs={12} sm={8} md={10}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={8}
+                                            md={10}
+                                            style={{ display: 'flex', flexDirection: 'column' }}
+                                        >
                                             {/* <Autocomplete
                                                 value={monitor}
                                                 onChange={(event, newValue) => {
@@ -771,7 +768,7 @@ function UpdateProduct() {
                                                 required
                                             /> */}
                                             <TextField
-                                                type="Number"
+                                                // type="Number"
                                                 label="Màn hình"
                                                 // required
                                                 value={monitor}
@@ -964,7 +961,7 @@ function UpdateProduct() {
                                             <p>Đèn LED trên máy</p>
                                         </Grid>
                                         <Grid item xs={12} sm={8} md={10}>
-                                            <Autocomplete
+                                            {/* <Autocomplete
                                                 value={led}
                                                 onChange={(event, newValue) => {
                                                     setLed(newValue);
@@ -979,6 +976,15 @@ function UpdateProduct() {
                                                 renderInput={(params) => (
                                                     <TextField {...params} label="Đèn LED trên máy" />
                                                 )}
+                                            /> */}
+                                            <TextField
+                                                type="text"
+                                                label="Đèn LED trên máy"
+                                                required
+                                                value={led}
+                                                onChange={(e) => setLed(e.target.value)}
+                                                variant="outlined"
+                                                sx={{ width: 500 }}
                                             />
                                         </Grid>
 
@@ -1020,7 +1026,13 @@ function UpdateProduct() {
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Quà tặng </p>
                                         </Grid>
-                                        <Grid item xs={12} sm={8} md={10}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={8}
+                                            md={10}
+                                            style={{ display: 'flex', flexDirection: 'column' }}
+                                        >
                                             <TextField
                                                 type="text"
                                                 label="Quà tặng"
@@ -1052,12 +1064,36 @@ function UpdateProduct() {
                                                             type="file"
                                                             name="avatar"
                                                             accept="image/*"
-                                                            onChange={createProductGiftChange}
+                                                            onChange={updateBannerLogoChange}
                                                             multiple
                                                             hidden
                                                         />
                                                     </Button>
                                                 </div>
+
+                                                <Box
+                                                    id="createProductFormImage1"
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '30px',
+                                                        // overflowY: 'scroll',
+                                                        // maxWidth: 1000,
+                                                    }}
+                                                >
+                                                    {oldGift &&
+                                                        oldGift.map((image, index) => (
+                                                            <img
+                                                                key={index}
+                                                                src={image.url}
+                                                                alt="old Banner Preview"
+                                                                style={{
+                                                                    maxHeight: '50px',
+                                                                    maxWidth: '50px',
+                                                                }}
+                                                            />
+                                                        ))}
+                                                </Box>
 
                                                 <Box
                                                     id="createProductFormImage"
@@ -1079,14 +1115,80 @@ function UpdateProduct() {
                                         </Grid>
 
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <p>Chọn ảnh</p>
+                                            <p>Ảnh cũ</p>
                                         </Grid>
                                         <Grid
                                             item
                                             xs={12}
                                             sm={8}
                                             md={10}
-                                            style={{ display: 'flex', gap: '30px', alignItems: 'center' }}
+                                            style={{ display: 'flex', gap: '30px', flexDirection: 'column' }}
+                                        >
+                                            {/* <div id="createProductFormFile">
+                                                <Button variant="contained" component="label">
+                                                    Tải ảnh lên
+                                                    <input
+                                                        type="file"
+                                                        name="avatar"
+                                                        accept="image/*"
+                                                        onChange={updateBannerImagesChange}
+                                                        multiple
+                                                        hidden
+                                                    />
+                                                </Button>
+                                            </div> */}
+
+                                            <Box
+                                                id="createProductFormImage1"
+                                                sx={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '30px',
+                                                    overflowY: 'scroll',
+                                                    maxWidth: 1000,
+                                                }}
+                                            >
+                                                {oldImages &&
+                                                    oldImages.map((image, index) => (
+                                                        <img
+                                                            key={index}
+                                                            src={image.url}
+                                                            alt="old Banner Preview"
+                                                            style={{
+                                                                maxHeight: '150px',
+                                                                maxWidth: '250px',
+                                                            }}
+                                                        />
+                                                    ))}
+                                            </Box>
+
+                                            {/* <Box
+                                                id="createProductFormImage"
+                                                sx={{ display: 'flex', alignItems: 'center', gap: '30px', overflowY: 'scroll', maxWidth: 1000 }}
+                                            >
+                                                {imagesPreview.map((image, index) => (
+                                                    <img
+                                                        key={index}
+                                                        src={image}
+                                                        alt="Product Preview"
+                                                        style={{
+                                                            maxHeight: '150px',
+                                                            maxWidth: '150px',
+                                                        }}
+                                                    />
+                                                ))}
+                                            </Box> */}
+                                        </Grid>
+
+                                        <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <p>Ảnh mới </p>
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={8}
+                                            md={10}
+                                            style={{ display: 'flex', gap: '30px', flexDirection: 'column' }}
                                         >
                                             <div id="createProductFormFile">
                                                 <Button variant="contained" component="label">
@@ -1095,16 +1197,40 @@ function UpdateProduct() {
                                                         type="file"
                                                         name="avatar"
                                                         accept="image/*"
-                                                        onChange={createProductImagesChange}
+                                                        onChange={updateBannerImagesChange}
                                                         multiple
                                                         hidden
                                                     />
                                                 </Button>
                                             </div>
 
+                                            {/* <Box
+                                                id="createProductFormImage1"
+                                                sx={{ display: 'flex', alignItems: 'center', gap: '30px', overflowY: 'scroll', maxWidth: 1000 }}
+                                            >
+                                                {oldImages &&
+                                                    oldImages.map((image, index) => (
+                                                        <img
+                                                            key={index}
+                                                            src={image.url}
+                                                            alt="old Banner Preview"
+                                                            style={{
+                                                                maxHeight: '150px',
+                                                                maxWidth: '250px',
+                                                            }}
+                                                        />
+                                                    ))}
+                                            </Box> */}
+
                                             <Box
                                                 id="createProductFormImage"
-                                                sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
+                                                sx={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '30px',
+                                                    overflowY: 'scroll',
+                                                    maxWidth: 1000,
+                                                }}
                                             >
                                                 {imagesPreview.map((image, index) => (
                                                     <img

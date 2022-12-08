@@ -6,3 +6,6 @@
 
 
 - tìm sản phẩm theo từng thương hiệu bị lỗi. 
+
+
+- đã thêm sửa xóa được banner tiếp tục cho các phần còn lại 

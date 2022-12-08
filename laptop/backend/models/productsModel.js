@@ -13,13 +13,13 @@ const productSchema = mongoose.Schema({
     trim: true,
     unique: true,
   },
-  name_Compact: {
-    type: String,
-    required: [true, "Hãy nhập tên sản phẩm"],
-    maxLength: [15, "Tên không được quá 30 kí tự"],
-    trim: true,
-    unique: true,
-  },
+  // name_Compact: {
+  //   type: String,
+  //   required: [true, "Hãy nhập tên sản phẩm"],
+  //   maxLength: [15, "Tên không được quá 30 kí tự"],
+  //   trim: true,
+  //   unique: true,
+  // },
   cost: {
     type: Number,
     required: [true, "Hãy nhập giá gốc của sản phẩm"],
@@ -169,7 +169,7 @@ const productSchema = mongoose.Schema({
   Led: {
     type: String,
     // required: [true, "Đèn led trên máy"],
-    default: false,
+    // default: false,
   },
   Accessories_included: {
     type: String,

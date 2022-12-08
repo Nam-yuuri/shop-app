@@ -36,10 +36,10 @@ function UpdateBannerHorizon() {
 
     const [wrapperWidth, setWapperWidth] = useState(true);
     const [description, setDescription] = useState('');
+    const [status, setStatus] = useState('');
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
     const [oldImages, setOldImages] = useState([]);
-    const [oldLogos, setOldLogos] = useState([]);
 
     const handleCloseError = (event, reason) => {
         if (reason === 'clickaway') {
@@ -63,15 +63,15 @@ function UpdateBannerHorizon() {
     const { loading: horizontalLoading, error, horizontals } = useSelector((state) => state.horizontalDetails);
     const { loading, error: updateError, isUpdated } = useSelector((state) => state.horizontal);
 
-    console.log('aaa: ', horizontals);
+    // console.log('aaa: ', horizontals);
 
     useEffect(() => {
         if (horizontals && horizontals._id !== horizontalId) {
             dispatch(getBannerHorizontalDetails(horizontalId));
         } else {
             setDescription(horizontals.description);
+            setStatus(horizontals.status);
             setOldImages(horizontals.images);
-            setOldLogos(horizontals.logo);
         }
         if (error) {
             setOpenError(true);
@@ -92,8 +92,6 @@ function UpdateBannerHorizon() {
         }
     }, [dispatch, error, isUpdated, horizontalId, horizontals, updateError]);
 
-
-
     const createBannerSubmitHandler = (e) => {
         e.preventDefault();
 
@@ -111,11 +109,32 @@ function UpdateBannerHorizon() {
     };
 
     // console.log(myForm)
-    const createBannerLogoChange = (e) => {
+    // const createBannerLogoChange = (e) => {
+    //     const files = Array.from(e.target.files);
+
+    //     setImages([]);
+    //     setImagesPreview([]);
+
+    //     files.forEach((file) => {
+    //         const reader = new FileReader();
+
+    //         reader.onload = () => {
+    //             if (reader.readyState === 2) {
+    //                 setImagesPreview((old) => [...old, reader.result]);
+    //                 setImages((old) => [...old, reader.result]);
+    //             }
+    //         };
+
+    //         reader.readAsDataURL(file);
+    //     });
+    // };
+
+    const updatePromotionImagesChange = (e) => {
         const files = Array.from(e.target.files);
 
         setImages([]);
         setImagesPreview([]);
+        setOldImages([]);
 
         files.forEach((file) => {
             const reader = new FileReader();
@@ -205,6 +224,26 @@ function UpdateBannerHorizon() {
                                     </Grid>
 
                                     <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <p>Trạng thái</p>
+                                    </Grid>
+                                    <Grid item xs={12} sm={8} md={10}>
+                                        <FormControl sx={{ width: '50%', marginBottom: '1.5rem' }}>
+                                            <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={status}
+                                                label="Trạng thái"
+                                                onChange={(e) => setStatus(e.target.value)}
+                                                // onChange={(e) => setNewHeader({...newHeader, status:e.target.value})}
+                                            >
+                                                <MenuItem value={true}>Bật</MenuItem>
+                                                <MenuItem value={false}>Tắt</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                         <p>Tải ảnh</p>
                                     </Grid>
 
@@ -222,12 +261,27 @@ function UpdateBannerHorizon() {
                                                     type="file"
                                                     name="avatar"
                                                     accept="image/*"
-                                                    onChange={createBannerLogoChange}
+                                                    onChange={updatePromotionImagesChange}
                                                     multiple
                                                     hidden
                                                 />
                                             </Button>
                                         </div>
+
+                                        <Box
+                                            id="createProductFormImage"
+                                            sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
+                                        >
+                                            <img
+                                                key={oldImages.public_id}
+                                                src={oldImages.url}
+                                                alt="Banner Preview"
+                                                style={{
+                                                    maxHeight: '150px',
+                                                    maxWidth: '250px',
+                                                }}
+                                            />
+                                        </Box>
 
                                         <Box
                                             id="createProductFormImage"

@@ -58,29 +58,21 @@ exports.createPromotion = catchAsyncErrors(async (req, res, next) => {
 exports.updatePromotion = catchAsyncErrors(async (req, res, next) => {
   let promotion = await Promotion.findByIdAndUpdate(req.params.id);
   // Xử lý Images
-  let url = [];
-  if (typeof req.body.url === "string") {
-    url.push(req.body.url);
-  } else {
-    url = req.body.url;
-  }
-  if (url !== undefined) {
-    // Xóa ảnh ở Cloudinary
-    for (let i = 0; i < promotion.url.length; i++) {
-      await cloudinary.v2.uploader.destroy(promotion.url[i].public_id);
-    }
-    const imagesLinks = [];
-    for (let i = 0; i < url.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(url[i], {
-        folder: "banners",
-      });
-      imagesLinks.push({
-        public_id: result.public_id,
-        url: result.secure_url,
-      });
-    }
+  let images = [];
 
-    req.body.url = imagesLinks;
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+  if (images !== undefined) {
+    await cloudinary.v2.uploader.destroy(promotion.images.public_id);
+
+    const result = await cloudinary.v2.uploader.upload(req.body.images, {
+      folder: "promotion",
+    });
+
+    req.body.images = result;
   }
 
   promotion = await Promotion.findByIdAndUpdate(req.params.id, req.body, {
@@ -95,46 +87,10 @@ exports.updatePromotion = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
-//   const newUserData = {
-//     name: req.body.name,
-//     email: req.body.email,
-//   };
-
-//   if (req.body.avatar !== "") {
-//     const user = await User.findById(req.user.id);
-
-//     const imageId = user.avatar.public_id;
-
-//     await cloudinary.v2.uploader.destroy(imageId);
-
-//     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-//       folder: "avatars",
-//       width: 150,
-//       crop: "scale",
-//     });
-
-//     newUserData.avatar = {
-//       public_id: myCloud.public_id,
-//       url: myCloud.secure_url,
-//     };
-//   }
-
-//   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
-//     new: true,
-//     runValidators: true,
-//     useFindAndModify: false,
-//   });
-
-//   res.status(200).json({
-//     success: true,
-//   });
-// });
-
 //Delete promotion
 exports.deletePromotion = catchAsyncErrors(async (req, res, next) => {
   const promotion = await Promotion.findByIdAndDelete(req.params.id);
-
+  await cloudinary.v2.uploader.destroy(promotion.images.public_id);
   await promotion.remove();
   res.status(200).json({
     success: true,
@@ -142,5 +98,3 @@ exports.deletePromotion = catchAsyncErrors(async (req, res, next) => {
     message: "Xóa khuyến mãi thành công",
   });
 });
-
-

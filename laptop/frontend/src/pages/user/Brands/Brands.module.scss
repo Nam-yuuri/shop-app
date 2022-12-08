@@ -59,6 +59,20 @@
             }
         }
     }
+
+    .text_laptop{
+        display: flex;
+        height: 19.5px;
+
+        .href-icon {
+            width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--icon-color);
+            font-size: 1.3rem;
+        }
+    }
 }
 
 .href-text {
@@ -334,6 +348,7 @@
         display: block;
     }
 }
+
 
 @media screen and (max-width: 768px) {
     .container {

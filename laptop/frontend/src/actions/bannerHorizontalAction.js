@@ -165,7 +165,7 @@ export const getBannerHorizontalDetails = (id) => async (dispatch) => {
 
         const data = await axios.get(`http://localhost:8000/api/v1/admin/bannerHorizontal/${id}`);
 
-        console.log("horizontal: ", data.data.horizontal)
+        // console.log("horizontal: ", data.data.horizontal)
         dispatch({
             type: BANNER_HORIZONTAL_DETAILS_SUCCESS,
             payload: data.data.horizontal,

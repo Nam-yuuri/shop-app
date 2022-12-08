@@ -84,7 +84,7 @@ function UpdateBrand() {
     // console.log('oldImages', oldImages);
     // console.log('imagesPreview', imagesPreview);
 
-    const createBannerSubmitHandler = (e) => {
+    const updateBrandSubmitHandler = (e) => {
         e.preventDefault();
 
         const myForm = new FormData();
@@ -155,7 +155,7 @@ function UpdateBrand() {
 
     return (
         <div>
-            {brandLoading ? (
+            {loading ? (
                 <Loading />
             ) : (
                 <div>
@@ -194,7 +194,7 @@ function UpdateBrand() {
                             <form
                                 className="flexDiv"
                                 encType="multipart/form-data"
-                                onSubmit={createBannerSubmitHandler}
+                                onSubmit={updateBrandSubmitHandler}
                             >
                                 <Grid container spacing={2}>
                                     {/* <div className="flexDiv"> */}
@@ -250,7 +250,7 @@ function UpdateBrand() {
                                             </Button>
                                         </div>
 
-                                        {/* <Box
+                                        <Box
                                             id="createProductFormImage"
                                             sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
                                         >
@@ -263,7 +263,7 @@ function UpdateBrand() {
                                                     maxWidth: '250px',
                                                 }}
                                             />
-                                        </Box> */}
+                                        </Box>
 
                                         <Box
                                             id="createProductFormImage"
@@ -307,7 +307,7 @@ function UpdateBrand() {
                                             </Button>
                                         </div>
 
-                                        {/* <Box
+                                        <Box
                                             id="createProductFormImage"
                                             sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
                                         >
@@ -320,7 +320,7 @@ function UpdateBrand() {
                                                     maxWidth: '250px',
                                                 }}
                                             />
-                                        </Box> */}
+                                        </Box>
                                         <Box
                                             id="createProductFormImage"
                                             sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}

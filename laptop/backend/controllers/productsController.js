@@ -47,12 +47,12 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
   }
 
-  const brand = req.params.brand
+  const brand = req.params.brand;
 
   res.status(200).json({
     success: true,
     product,
-    brand
+    brand,
   });
 });
 
@@ -68,7 +68,7 @@ exports.getAdminAllProducts = catchAsyncErrors(async (req, res, next) => {
 
 //get all Out of stock product
 exports.getAdminStockProducts = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.find({Stock: req.params.Stock < 6});
+  const product = await Product.find({ Stock: req.params.Stock < 6 });
 
   res.status(200).json({
     success: true,
@@ -78,12 +78,15 @@ exports.getAdminStockProducts = catchAsyncErrors(async (req, res, next) => {
 
 //get top product
 exports.getTopProducts = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.find().sort({ sold: -1 }).limit(10).populate("brand", "name");
-  const brand = req.params.brand
+  const product = await Product.find()
+    .sort({ sold: -1 })
+    .limit(10)
+    .populate("brand", "name");
+  const brand = req.params.brand;
   res.status(200).json({
     success: true,
     product,
-    brand
+    brand,
   });
 });
 
@@ -198,6 +201,37 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     req.body.images = imagesLinks;
   }
 
+  // Xử lý Images
+  let gift_images = [];
+
+  if (typeof req.body.gift_images === "string") {
+    gift_images.push(req.body.gift_images);
+  } else {
+    gift_images = req.body.gift_images;
+  }
+
+  if (gift_images !== undefined) {
+    // Xóa ảnh ở Cloudinary
+    for (let i = 0; i < product.gift_images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.gift_images[i].public_id);
+    }
+
+    const giftLinks = [];
+
+    for (let i = 0; i < gift_images.length; i++) {
+      const gift = await cloudinary.v2.uploader.upload(gift_images[i], {
+        folder: "gift images",
+      });
+
+      giftLinks.push({
+        public_id: gift.public_id,
+        url: gift.secure_url,
+      });
+    }
+
+    req.body.gift_images = giftLinks;
+  }
+
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -218,10 +252,13 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
   }
 
-  // // Xóa ảnh ở Cloudinary
-  // for (let i = 0; i < product.images.length; i++) {
-  //   await cloudinary.v2.uploader.destroy(product.images[i].public_id);
-  // }
+  // Xóa ảnh ở Cloudinary
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+  }
+  for (let i = 0; i < product.gift_images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.gift_images[i].public_id);
+  }
 
   await product.remove();
 
