@@ -72,7 +72,6 @@ function DefaultLayout({ children }) {
             <div className={cx('facebook')}>
                 <a style={{ display: 'table-cell' }} href={'https://www.facebook.com/phongvuvietnam/'} target="_blank">
                     {/* <FontAwesomeIcon icon={faMessage} /> */}
-                    {/* <img src={'https://shopfront-cdn.tekoapis.com/static/3ad4c9a97ab98ff3.png'} alt={'mess'} /> */}
                     <img src={'https://sdk-vn.pushdi.com/image/maxlead/icon-fanpage-s2.svg'} alt={'facebook'} />
                 </a>
                 <span>Like fanpage & trúng quà minigame mỗi ngày!</span>
@@ -86,10 +85,10 @@ function DefaultLayout({ children }) {
                     target="_blank"
                 >
                     {/* <FontAwesomeIcon icon={faMessage} /> */}
-                    {/* <img src={'https://shopfront-cdn.tekoapis.com/static/3ad4c9a97ab98ff3.png'} alt={'mess'} /> */}
-                    <img src={'https://shopfront-cdn.tekoapis.com/static/a8e347d31db4d701.png'} alt={'messenger'} />
+                    <img className={cx('mess_laptop')} src={'https://shopfront-cdn.tekoapis.com/static/3ad4c9a97ab98ff3.png'} alt={'mess'} />
+                    <img className={cx('mess_mobile')} src={'https://shopfront-cdn.tekoapis.com/static/a8e347d31db4d701.png'} alt={'messenger'} />
                 </a>
-                <span>Chat với tư vấn viên</span>
+                {/* <span>Chat với tư vấn viên</span> */}
             </div>
             {scrollHeader ? (
                 <div className={cx('btn')} onClick={handleScrollToTop}>
