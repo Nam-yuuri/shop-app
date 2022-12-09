@@ -13,6 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getBrandProducts } from '~/actions/productAction';
 import formatPrice from '~/utils/formatPrice';
 import Loading from '../Loading/Loading';
+import Pagination from 'react-js-pagination';
 // import { useSelector } from 'react-redux'
 
 const cx = classNames.bind(styles);
@@ -26,13 +27,22 @@ function Panel() {
     //     }, 0);
     // });
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sort, setSort] = useState('');
+
     const dispatch = useDispatch();
     let navigate = useNavigate();
     let match = useParams();
 
+    const setCurrentPageNo = (e) => {
+        setCurrentPage(e);
+    };
+
     const productId = match.id;
 
     const { loading, products } = useSelector((state) => state.productsBrand);
+
+    const { productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
 
     // console.log('pro: ', products.length);
 
@@ -133,40 +143,68 @@ function Panel() {
                                 </div>
                             </div>
                         ) : (
-                            <p style={{ textAlign: 'center', fontSize: '30px', fontWeight: '500', marginBottom: '0px', padding: '10px' }}>
+                            <p
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: '30px',
+                                    fontWeight: '500',
+                                    marginBottom: '0px',
+                                    padding: '10px',
+                                }}
+                            >
                                 SẢN PHẨM SẼ ĐƯỢC CẬP NHẬT SỚM NHẤT!
                             </p>
                         )}
                     </div>
+                    <div>
+                        {resultPerPage < filteredProductsCount && (
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    marginTop: '20px',
+                                }}
+                            >
+                                <Pagination
+                                    activePage={currentPage}
+                                    itemsCountPerPage={resultPerPage}
+                                    totalItemsCount={productsCount}
+                                    onChange={setCurrentPageNo}
+                                    nextPageText="Trang sau"
+                                    prevPageText="Trang trước"
+                                    // firstPageText="Trang đầu"
+                                    // lastPageText="Trang cuối"
+                                    itemClass="page-item"
+                                    linkClass="page-link"
+                                />
+                            </div>
+                        )}
+                    </div>
                     {/* <div className={cx('pagination')}>
-            <nav aria-label="...">
-                <ul className="pagination justify-content-center">
-                    <li className="page-item disabled">
-                        <span className="page-link">Previous</span>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            1
-                        </a>
-                    </li>
-                    <li className="page-item active">
-                        <span className="page-link">
-                            2<span className="sr-only">(current)</span>
-                        </span>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            3
-                        </a>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            Next
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div> */}
+                        <nav aria-label="...">
+                            <ul className="pagination justify-content-center">
+                                <li className="page-item disabled">
+                                    <span className="page-link">Previous</span>
+                                </li>
+                                <li className="page-item active">
+                                    <a className="page-link" href="#">
+                                        1
+                                    </a>
+                                </li>
+                                <li className="page-item ">
+                                    <span className="page-link">
+                                        2<span className="sr-only">(current)</span>
+                                    </span>
+                                </li>
+                                
+                                <li className="page-item">
+                                    <a className="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> */}
                 </div>
             )}
         </div>

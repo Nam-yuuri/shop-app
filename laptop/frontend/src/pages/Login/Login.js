@@ -69,25 +69,25 @@ function Login() {
         setOpen(false);
     };
 
-    const createBannerImagesChange = (e) => {
-        const files = Array.from(e.target.files);
+    // const createBannerImagesChange = (e) => {
+    //     const files = Array.from(e.target.files);
 
-        setImages([]);
-        setImagesPreview([]);
+    //     setImages([]);
+    //     setImagesPreview([]);
 
-        files.forEach((file) => {
-            const reader = new FileReader();
+    //     files.forEach((file) => {
+    //         const reader = new FileReader();
 
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setImagesPreview((old) => [...old, reader.result]);
-                    setImages((old) => [...old, reader.result]);
-                }
-            };
+    //         reader.onload = () => {
+    //             if (reader.readyState === 2) {
+    //                 setImagesPreview((old) => [...old, reader.result]);
+    //                 setImages((old) => [...old, reader.result]);
+    //             }
+    //         };
 
-            reader.readAsDataURL(file);
-        });
-    };
+    //         reader.readAsDataURL(file);
+    //     });
+    // };
 
     const [user, setUser] = useState({
         name: '',
@@ -95,9 +95,18 @@ function Login() {
         password: '',
     });
     const { name, email, password } = user;
+
+    // const [name, setName] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
+
     const [er, setEr] = useState('');
-    const [avatar, setAvatar] = useState('https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg');
-    const [avatarPreview, setAvatarPreview] = useState('https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg');
+    const [avatar, setAvatar] = useState(
+        'https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg',
+    );
+    const [avatarPreview, setAvatarPreview] = useState(
+        'https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg',
+    );
 
     // const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
@@ -116,16 +125,18 @@ function Login() {
 
     const registerSubmit = (e) => {
         e.preventDefault();
-    
+
         const myForm = new FormData();
-    
-        myForm.set("name", name);
-        myForm.set("email", email);
-        myForm.set("password", password);
-        myForm.set("avatar", avatar);
-    
+
+        myForm.set('name', name);
+        myForm.set('email', email);
+        myForm.set('password', password);
+        myForm.set('avatar', avatar);
+
         dispatch(register(myForm));
-      };
+    };
+
+    // console.log('id: ', user);
 
     // const registerSubmit = () => {
     //     if (checkPassword === password) {
@@ -138,7 +149,9 @@ function Login() {
     //     }
     // };
 
-    const id = user._id
+    // const id = user._id;
+
+    // console.log("id: ", id)
 
     useEffect(() => {
         if (error) {
@@ -149,9 +162,10 @@ function Login() {
         }
         if (isAuthenticated) {
             // hop le
-            dispatch(loadUser());
+            // dispatch(loadUser());
+            // alert("ok")
             //   history.push("/");
-            navigate('/', id);
+            navigate('/');
         }
     }, [dispatch, error, isAuthenticated]);
 
@@ -176,7 +190,8 @@ function Login() {
             };
             reader.readAsDataURL(e.target.files[0]);
         } else {
-            setUser({ ...user, [e.target.name]: e.target.value });
+            // setUser({ ...user, [e.target.name]: e.target.value });
+            // setName
         }
     };
 
@@ -215,9 +230,9 @@ function Login() {
                                     <img src={createOrGetUser} alt='' />
                                 </div> */}
                                 <h2 className="card-title text-center mb-5 fw-light fs-5">
-                                    {!isSingup ? 'Sign Up' : 'Sign In'}
+                                    {isSingup ? 'Sign Up' : 'Sign In'}
                                 </h2>
-                                {!isSingup ? (
+                                {isSingup ? (
                                     <form onSubmit={registerSubmit}>
                                         <div className="row">
                                             <div className="col">
@@ -233,6 +248,9 @@ function Login() {
                                                     // placeholder="Name"
                                                     name="name"
                                                     // value={name}
+                                                    // onChange={(e) => {
+                                                    //     setName(e.target.value);
+                                                    // }}
                                                     onChange={registerDataChange}
                                                 />
                                             </div>
@@ -254,7 +272,7 @@ function Login() {
                                                 placeholder="Email *"
                                                 // handlechange={handlechange}
                                                 value={email}
-                                                name='email'
+                                                name="email"
                                                 // onChange={(e) => {
                                                 //     setEmail(e.target.value);
                                                 // }}
@@ -271,7 +289,7 @@ function Login() {
                                                 // handlechange={handlechange}
                                                 // handleShowPassword={handleShowPassword}
                                                 value={password}
-                                                name='password'
+                                                name="password"
                                                 // onChange={(e) => {
                                                 //     setPassword(e.target.value);
                                                 // }}
@@ -290,8 +308,15 @@ function Login() {
                                                 )}
                                             </div>
                                         </div>
-                                        
-                                        <div className="form-group" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+
+                                        <div
+                                            className="form-group"
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'space-around',
+                                                alignItems: 'center',
+                                            }}
+                                        >
                                             <label htmlFor="register-avatar">Ảnh đại diện</label>
                                             <div id="registerImage" className={classes.avatarInput}>
                                                 <img

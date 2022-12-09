@@ -10,9 +10,10 @@ import { DataGrid } from '~/Data/Grid/DataGrid';
 import { ShipIcon } from '~/components/Icons';
 import { useSelector, useDispatch } from 'react-redux';
 import './Grid.css';
-import { getAdminProduct } from '~/actions/productAction';
+import { getAdminProduct, getProduct } from '~/actions/productAction';
 import formatPrice from '~/utils/formatPrice';
 import Loading from '~/components/Loading/Loading';
+import Pagination from 'react-js-pagination';
 const cx = classNames.bind(styles);
 
 function Panel() {
@@ -37,20 +38,30 @@ function Panel() {
     // console.log(products)
     // console.log(data)
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sort, setSort] = useState("");
+
+    const setCurrentPageNo = (e) => {
+        setCurrentPage(e);
+    };
+
     const dispatch = useDispatch();
 
-    const { loading, products } = useSelector((state) => state.productsAdmin);
+    // const { loading, products } = useSelector((state) => state.products);
+    const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector(
+        (state) => state.products,
+    );
     useEffect(() => {
-        dispatch(getAdminProduct());
-    }, [dispatch]);
+        dispatch(getProduct(currentPage, sort));
+    }, [dispatch, currentPage, sort ]);
 
-    // console.log(products);
+    console.log(products);
 
     return (
         <div>
-            {loading ? (
+            {/* {loading ? (
                 <Loading />
-            ) : (
+            ) : ( */}
                 <div className={cx('wrapper')}>
                     <div className={cx('container')}>
                         <div className={cx('box')}>
@@ -106,18 +117,19 @@ function Panel() {
                                                                         <div className={cx('cost')}>
                                                                             {formatPrice(
                                                                                 parseFloat(
-                                                                                   ( product.cost / 1000000 -
+                                                                                    (product.cost / 1000000 -
                                                                                         (
                                                                                             ((product.cost / 1000000) *
                                                                                                 product.promotional) /
                                                                                             100
-                                                                                        ).toFixed(1)) * 1000000 ,
+                                                                                        ).toFixed(1)) *
+                                                                                        1000000,
                                                                                 ),
                                                                             )}
                                                                         </div>
                                                                         <div className={cx('promotional')}>
                                                                             <div className={cx('promotional_price')}>
-                                                                                {formatPrice(product.cost )}
+                                                                                {formatPrice(product.cost)}
                                                                             </div>
                                                                             <div className={cx('percent')}>
                                                                                 -{product.promotional}%
@@ -149,37 +161,59 @@ function Panel() {
                             </div>
                         </div>
                     </div>
+                    {resultPerPage < filteredProductsCount && (
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '20px',
+                            }}
+                        >
+                            <Pagination
+                                activePage={currentPage}
+                                itemsCountPerPage={resultPerPage}
+                                totalItemsCount={productsCount}
+                                onChange={setCurrentPageNo}
+                                nextPageText="Trang sau"
+                                prevPageText="Trang trước"
+                                // firstPageText="Trang đầu"
+                                // lastPageText="Trang cuối"
+                                itemClass="page-item"
+                                linkClass="page-link"
+                            />
+                        </div>
+                    )}
                     {/* <div className={cx('pagination')}>
-            <nav aria-label="...">
-                <ul className="pagination justify-content-center">
-                    <li className="page-item disabled">
-                        <span className="page-link">Previous</span>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            1
-                        </a>
-                    </li>
-                    <li className="page-item active">
-                        <span className="page-link">
-                            2<span className="sr-only">(current)</span>
-                        </span>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            3
-                        </a>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            Next
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div> */}
+                        <nav aria-label="...">
+                            <ul className="pagination justify-content-center">
+                                <li className="page-item disabled">
+                                    <span className="page-link">Previous</span>
+                                </li>
+                                <li className="page-item active">
+                                    <a className="page-link" href="#">
+                                        1
+                                    </a>
+                                </li>
+                                <li className="page-item ">
+                                    <span className="page-link">
+                                        2<span className="sr-only">(current)</span>
+                                    </span>
+                                </li>
+                                <li className="page-item">
+                                    <a className="page-link" href="#">
+                                        3
+                                    </a>
+                                </li>
+                                <li className="page-item">
+                                    <a className="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> */}
                 </div>
-            )}
+            {/* )} */}
         </div>
     );
 }

@@ -10,7 +10,7 @@ import {
     productsAdminReducer,
     productsReducer,
     topProductsReducer,
-    productsBrandReducer
+    productsBrandReducer,
 } from './reducers/productReducer';
 
 // import {
@@ -28,7 +28,7 @@ import {
     userReducer,
 } from './reducers/userReducer';
 
-// import { cartLocalReducer, cartReducer } from "./reducers/cartReducer";
+import { cartLocalReducer, cartReducer } from './reducers/cartReducer';
 
 // import {
 //   allOrdersReducer,
@@ -61,7 +61,7 @@ import {
     mainHorizontalReducer,
     newHorizontalReducer,
     bannerHorizontalReducer,
-    bannerHorizontalDetailsReducer
+    bannerHorizontalDetailsReducer,
 } from './reducers/bannerHorizontalReducer';
 
 import {
@@ -160,6 +160,10 @@ const reducer = combineReducers({
     showroom: showroomReducer,
     newShowroom: newShowroomReducer,
     showroomDetails: showroomDetailsReducer,
+
+    //Cart
+    cart: cartReducer,
+    cartLocal: cartLocalReducer,
 });
 
 let initialState = {

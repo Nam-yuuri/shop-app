@@ -13,13 +13,13 @@ const productSchema = mongoose.Schema({
     trim: true,
     unique: true,
   },
-  // name_Compact: {
-  //   type: String,
-  //   required: [true, "Hãy nhập tên sản phẩm"],
-  //   maxLength: [15, "Tên không được quá 30 kí tự"],
-  //   trim: true,
-  //   unique: true,
-  // },
+  name_Compact: {
+    type: String,
+    required: [false, "Hãy nhập tên sản phẩm"],
+    maxLength: [15, "Tên không được quá 30 kí tự"],
+    trim: true,
+    unique: false,
+  },
   cost: {
     type: Number,
     required: [true, "Hãy nhập giá gốc của sản phẩm"],

@@ -25,14 +25,11 @@
         cursor: pointer;
     }
     .mess {
-        // background-color: var(--black-color);
-        // opacity: 0.6;
         border-radius: 50%;
         position: fixed;
         right: 4%;
         bottom: calc(5% + 50px);
-        // width: 50px;
-        // height: 50px;
+
         margin-right: -6px;
         display: flex;
         flex-direction: row-reverse;
@@ -56,20 +53,12 @@
             display: none;
             transition: all ease 0.3s ease 0s;
         }
-        // &:hover span{
-        //     display: block;
-        // }
     }
     .facebook {
-        // background-color: var(--black-color);
-        // opacity: 0.6;
         border-radius: 50%;
         position: fixed;
         right: 4%;
         bottom: calc(5% + 125px);
-        // width: 50px;
-        // height: 50px;
-        // margin-right: -6px;
         display: flex;
         flex-direction: row-reverse;
         justify-content: center;
@@ -240,7 +229,7 @@
                 display: none;
                 transition: all ease 0.3s ease 0s;
             }
-            &:hover span{
+            &:hover span {
                 display: block;
             }
         }
@@ -260,7 +249,7 @@
             align-items: center;
             color: var(--white-color);
             cursor: pointer;
-    
+
             span {
                 background-color: var(--primary);
                 padding: 5px;
@@ -269,18 +258,18 @@
                 display: none;
                 transition: all ease 0.3s ease 0s;
             }
-    
+
             a {
                 height: 48px;
                 width: 48px;
                 border-radius: 50%;
                 overflow: hidden;
-    
+
                 img {
                     width: 100%;
                 }
             }
-    
+
             &:hover span {
                 display: none;
             }
@@ -301,7 +290,7 @@
             align-items: center;
             color: var(--white-color);
             cursor: pointer;
-    
+
             span {
                 background-color: var(--primary);
                 padding: 5px;
@@ -310,23 +299,22 @@
                 display: none;
                 transition: all ease 0.3s ease 0s;
             }
-    
+
             a {
                 height: 48px;
                 width: 48px;
                 border-radius: 50%;
                 overflow: hidden;
-    
+
                 img {
                     width: 100%;
                 }
             }
-    
+
             &:hover span {
                 display: none;
             }
         }
-    
     }
 }
 

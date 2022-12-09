@@ -47,7 +47,7 @@ function ProductTablet() {
                 {brands.map((product) => (
                     <div key={product._id}>
                         <div className={cx('')}>
-                            <Button href={`brand/${product.name}`} className={cx('box')}>
+                            <Button href={`brand/${product._id}`} className={cx('box')}>
                                 <div className={cx('content')}>
                                     <div className={cx('box-img')}>
                                         <img src={product.logo.url} alt="" />

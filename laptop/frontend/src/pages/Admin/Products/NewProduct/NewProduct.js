@@ -183,7 +183,8 @@ function NewProduct() {
     useEffect(() => {
         if (error) {
             setOpenError(true);
-            setErrorAlert('Thông tin không hợp lệ');
+            // setErrorAlert('Thông tin không hợp lệ');
+            setErrorAlert(error);
             dispatch(clearErrors());
             // Swal.fire('Thành công!', 'Thêm sản phẩm không thành công!', 'error');
         }
@@ -383,7 +384,7 @@ function NewProduct() {
                                             <TextField
                                                 type="text"
                                                 label="Tên tóm tắt"
-                                                required
+                                                // required
                                                 value={name_Compact}
                                                 onChange={(e) => setName_Compact(e.target.value)}
                                                 variant="outlined"
@@ -412,12 +413,13 @@ function NewProduct() {
                                         <Grid item xs={12} sm={8} md={10}>
                                             <br />
                                             <TextField
-                                                inputProps={{
-                                                    inputMode: 'numeric',
-                                                    type: 'number',
-                                                    pattern: '[0-9]*',
-                                                    min: '0',
-                                                }}
+                                                // inputProps={{
+                                                //     inputMode: 'numeric',
+                                                //     type: 'text',
+                                                //     pattern: '[0-9]*',
+                                                //     min: '0',
+                                                // }}
+                                                type="number"
                                                 label="Giảm giá (%)"
                                                 required
                                                 value={promotional}

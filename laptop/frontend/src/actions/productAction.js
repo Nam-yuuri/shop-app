@@ -48,15 +48,15 @@ import {
 export const getProduct =
     (
         currentPage = 1,
-        brand,
-        price = [0, 151],
+        // brand,
+        // price = [0, 151],
         // ratings = 0,
         sort,
-        keyword = '',
+        // keyword = '',
         RAM,
         CPU,
-        machineSeries,
-        monitorSize = [11, 100],
+        // machineSeries,
+        // monitorSize = [11, 100],
     ) =>
     async (dispatch) => {
         try {
@@ -68,28 +68,29 @@ export const getProduct =
             //   link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&brand=${brand}&ratings[gte]=${ratings}&${sort}`;
             // }
 
-            let priceSort0 = price[0] * 1000000;
-            let priceSort1 = price[1] * 1000000;
+            // let priceSort0 = price[0] * 1000000;
+            // let priceSort1 = price[1] * 1000000;
 
-            let link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
+            // let link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
 
-            if (brand) {
-                link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&brand=${brand}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
-            }
+            // if (brand) {
+            //     link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&brand=${brand}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
+            // }
 
-            if (RAM) {
-                link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&RAM=${RAM}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
-            }
+            // if (RAM) {
+            //     link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&RAM=${RAM}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
+            // }
 
-            if (CPU) {
-                link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&CPU=${CPU}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
-            }
+            // if (CPU) {
+            //     link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&CPU=${CPU}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
+            // }
 
-            if (machineSeries) {
-                link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&machineSeries=${machineSeries}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
-            }
+            // if (machineSeries) {
+            //     link = `http://localhost:5000/api/v1/products?keyword=${keyword}&price[gte]=${priceSort0}&price[lte]=${priceSort1}&page=${currentPage}&machineSeries=${machineSeries}&${sort}&monitorSize[gte]=${monitorSize[0]}&monitorSize[lte]=${monitorSize[1]}`;
+            // }
 
-            const { data } = await axios.get(link);
+            // const { data } = await axios.get(`http://localhost:8000/api/v1/products?&page=${currentPage}&${sort}&RAM=${RAM}`);
+            const { data } = await axios.get(`http://localhost:8000/api/v1/products`);
 
             dispatch({
                 type: ALL_PRODUCT_SUCCESS,
@@ -153,7 +154,7 @@ export const getTopProducts = () => async (dispatch) => {
     }
 };
 
-// Get Top Products For Admin
+// Get Top Products with brand
 export const getBrandProducts =
     (id, price = [0, 151], RAM, CPU) =>
     async (dispatch) => {
@@ -163,7 +164,7 @@ export const getBrandProducts =
             let priceSort0 = price[0] * 1000000;
             let priceSort1 = price[1] * 1000000;
 
-            let link = `http://localhost:8000/api/v1/user/product/${id}?price[gte]=${priceSort0}&price[lte]=${priceSort1}`;
+            let link = `http://localhost:8000/api/v1/user/product/${id}?price[gte]=${priceSort0}&price[lte]=${priceSort1}&CPU=Intel Core i5-1155G77`;
 
             // const token = localStorage.getItem('token');
             // const config = {

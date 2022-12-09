@@ -14,14 +14,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetails } from '~/actions/productAction';
 import formatPrice from '~/utils/formatPrice';
 import Loading from '~/components/Loading/Loading';
+import { addItemsToCartLocal, addToCart } from '~/actions/cartAction';
 
 const cx = classNames.bind(styles);
 
 function Profile() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
     const [image, setImage] = useState([]);
     const [discount, setDiscount] = useState(false);
     const [description, setDescription] = useState(false);
     const [details, SetDetails] = useState(false);
+
+    const [quantity, setQuantity] = useState(1);
 
     const handleDiscount = () => {
         discount ? setDiscount(false) : setDiscount(true);
@@ -64,6 +72,28 @@ function Profile() {
         fontWeight: 'bold',
     };
 
+    const { error: cartError, isUpdated } = useSelector((state) => state.cart);
+
+    const addToCartHandler = () => {
+        if (cartError) {
+            setOpenError(true);
+            setErrorAlert(cartError);
+            return;
+        }
+        dispatch(addToCart(products._id, quantity));
+        // alert("Thêm sản phẩm vào giỏ hàng thành công");
+        setOpenSuccess(true);
+        setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
+        // dispatch(getProductDetails(match.id));
+    };
+
+    const addToCartLocalHandler = () => {
+        dispatch(addItemsToCartLocal(match.id, quantity));
+        // alert("Thêm sản phẩm vào giỏ hàng thành công");
+        setOpenSuccess(true);
+        setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
+    };
+
     const settings = {
         dots: true,
         Number: false,
@@ -83,22 +113,22 @@ function Profile() {
             ) : (
                 <div>
                     <div className={cx('profile')}>
-                    <div className={cx('href')}>
-                    <a href="/" className={cx('home-href')}>
-                        <div className={cx('href-text')}>Trang chủ</div>
-                        <div className={cx('href-icon')}>
-                            <FontAwesomeIcon icon={faAngleRight} />
+                        <div className={cx('href')}>
+                            <a href="/" className={cx('home-href')}>
+                                <div className={cx('href-text')}>Trang chủ</div>
+                                <div className={cx('href-icon')}>
+                                    <FontAwesomeIcon icon={faAngleRight} />
+                                </div>
+                            </a>
+                            {/* style={{display: 'flex', height: '19.5px'}} */}
+                            <div className={cx('text_laptop')}>
+                                <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
+                                <div className={cx('href-icon')}>
+                                    <FontAwesomeIcon icon={faAngleRight} />
+                                </div>
+                            </div>
+                            <div className={cx('href-text', 'href-text-cart')}>{products.name}</div>
                         </div>
-                    </a>
-                    {/* style={{display: 'flex', height: '19.5px'}} */}
-                    <div className={cx('text_laptop')}>
-                        <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
-                        <div className={cx('href-icon')}>
-                            <FontAwesomeIcon icon={faAngleRight} />
-                        </div>
-                    </div>
-                    <div className={cx('href-text', 'href-text-cart')}>{products.name}</div>
-                </div>
                         <div className={cx('content')}>
                             <div className={cx('Left')}>
                                 <div className={cx('container-left')}>
@@ -212,11 +242,13 @@ function Profile() {
                                                     <div className={cx('discount-price')}>
                                                         {formatPrice(
                                                             parseFloat(
-                                                               ( products.cost / 1000000 -
+                                                                (products.cost / 1000000 -
                                                                     (
-                                                                        ((products.cost / 1000000) * products.promotional) /
+                                                                        ((products.cost / 1000000) *
+                                                                            products.promotional) /
                                                                         100
-                                                                    ).toFixed(1)) * 1000000,
+                                                                    ).toFixed(1)) *
+                                                                    1000000,
                                                             ),
                                                         )}
                                                     </div>
@@ -358,7 +390,12 @@ function Profile() {
                                                 <Button primary large className={cx('buy-now')}>
                                                     MUA NGAY
                                                 </Button>
-                                                <Button outline large className={cx('add-cart')}>
+                                                <Button
+                                                    outline
+                                                    large
+                                                    className={cx('add-cart')}
+                                                    onClick={addToCartHandler}
+                                                >
                                                     THÊM VÀO GIỎ HÀNG
                                                 </Button>
                                             </div>

@@ -35,7 +35,7 @@ function ProductList() {
     let navigate = useNavigate();
 
     const { loading, error, products } = useSelector((state) => state.productsAdmin);
-    const { error: deleteError, isDeleted } = useSelector((state) => state.product);
+    const { loading: loadingg, error: deleteError, isDeleted } = useSelector((state) => state.product);
     // useEffect(() => {
     //     dispatch(getAdminProduct());
     // }, [dispatch]);
@@ -218,7 +218,7 @@ function ProductList() {
     const [wrapperWidth, setWapperWidth] = useState(true);
     return (
         <div>
-            {loading ? (
+            {loadingg ? (
                 <Loading />
             ) : (
                 <div>

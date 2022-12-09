@@ -77,8 +77,8 @@ export const register = (userData) => async (dispatch) => {
 
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-        // const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData, config);
-        const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData);
+        const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData, config);
+        // const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData);
 
         console.log('data: ', data);
 
@@ -99,20 +99,20 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST });
 
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
 
-        const config = {
-            headers: {
-                Authorization: `token ${token}`,
-            },
-        };
+        // const config = {
+        //     headers: {
+        //         Authorization: `token ${token}`,
+        //     },
+        // };
 
         // const { data } = await axios.get(`http://localhost:8000/api/v1/me`, config);
         const { data } = await axios.get(`http://localhost:8000/api/v1/me`);
 
-        console.log("data: ", data.user)
+        console.log("data: ", data.data.user)
 
-        dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
+        dispatch({ type: LOAD_USER_SUCCESS, payload: data.data.user });
     } catch (error) {
         dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
     }
@@ -121,8 +121,8 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logout = () => async (dispatch) => {
     try {
-        await axiosClient.get(`/api/v1/logout`);
-        localStorage.removeItem('token');
+        await axios.get(`http://localhost:8000/api/v1/logout`);
+        // localStorage.removeItem('token');
         dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
         dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });

@@ -28,7 +28,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     shippingInfo,
   });
 
-  // sendToken(user, 201, res);
+  sendToken(user, 201, res);
   res.status(200).json({
     success: true,
     user,
@@ -155,6 +155,7 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
     user,
   });
 });
+
 
 // update User password
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {

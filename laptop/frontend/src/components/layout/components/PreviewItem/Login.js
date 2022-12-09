@@ -3,10 +3,30 @@ import Button from '~/components/Button';
 import { AddressIcon, NewsIcon, NotifyIcon, OderIcon, UserIcon } from '~/components/Icons';
 import { DataAccount } from '~/Data/Account/Account';
 import styles from './Login.module.scss';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { logout } from '~/actions/userAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
 function LoginItem() {
+
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+
+    function logoutUser() {
+        dispatch(logout());
+        // alert("Đăng xuất thành công");
+        setOpenSuccess(true);
+        setSuccessAlert("Đăng xuất thành công");
+        navigate("/login");
+      }
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -52,7 +72,7 @@ function LoginItem() {
                         <div className={cx('news-text', 'box-text')}>Bản tin</div>
                     </Button>
 
-                    <div className={cx('btn')}>
+                    <div className={cx('btn')} onClick={logoutUser}>
                         <Button primary>Đăng xuất</Button>
                     </div>
                 </div>

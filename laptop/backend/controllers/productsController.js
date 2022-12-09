@@ -5,7 +5,7 @@ const ApiFeatures = require("../utils/apifeatures");
 
 // Get All Product with Pagination
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  const resultPerPage = 5;
+  const resultPerPage = 15;
   const productsCount = await Product.countDocuments();
 
   const apiFeature = new ApiFeatures(Product.find(), req.query)
@@ -39,6 +39,30 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
 
 // Get Product with brand
 exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
+
+  const resultPerPage = 15;
+  const productsCount = await Product.countDocuments();
+
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .sorting();
+
+  const products2 = await apiFeature.query;
+
+  let filteredProductsCount = await products2.length;
+
+  const apiFeature2 = new ApiFeatures(
+    Product.find().populate("brand"),
+    req.query
+  )
+    .search()
+    .filter()
+    .sorting()
+    .pagination(resultPerPage);
+
+  const products = await apiFeature2.query;
+
   const product = await Product.find({ brand: req.params.brand }).populate(
     "brand"
   );
@@ -53,6 +77,9 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
     success: true,
     product,
     brand,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
   });
 });
 

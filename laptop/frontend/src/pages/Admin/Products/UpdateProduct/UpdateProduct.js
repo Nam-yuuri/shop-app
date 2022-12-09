@@ -102,7 +102,7 @@ function UpdateProduct() {
     const [open, setOpen] = useState(true);
 
     const [name, setName] = useState('');
-    const [name_Compact, setName_Compact] = useState('');
+    // const [name_Compact, setName_Compact] = useState('');
     const [cost, setCost] = useState(0);
     const [promotional, setPromotional] = useState(0);
     const [status_promotional, setStatus_promotional] = useState('');
@@ -175,7 +175,7 @@ function UpdateProduct() {
             dispatch(getProductDetails(productId));
         } else {
             setName(products.name);
-            setName_Compact(products.name_Compact);
+            // setName_Compact(products.name_Compact);
             setCost(products.cost);
             setPromotional(products.promotional);
             setStatus_promotional(products.Status_promotional);
@@ -282,7 +282,7 @@ function UpdateProduct() {
         const myForm = new FormData();
 
         myForm.set('name', name);
-        myForm.set('name_Compact', name_Compact);
+        // myForm.set('name_Compact', name_Compact);
         myForm.set('cost', cost);
         myForm.set('promotional', promotional);
         myForm.set('Status_promotional', status_promotional);
