@@ -62,21 +62,21 @@ function UpdateProduct() {
         return item.name;
     });
 
-    const cpuOptions = [
-        'Intel Celeron/Pentium',
-        'Intel Core i3',
-        'Intel Core i5',
-        'Intel Core i7',
-        'Intel Core i9',
-        'AMD Ryzen 3',
-        'Intel Xeon',
-        'AMD Ryzen 5',
-        'AMD Ryzen 7',
-        'AMD Ryzen 9',
-        'Microsoft SQ2',
-        'Apple M1',
-        'Apple M2',
-    ];
+    // const cpuOptions = [
+    //     'Intel Celeron/Pentium',
+    //     'Intel Core i3',
+    //     'Intel Core i5',
+    //     'Intel Core i7',
+    //     'Intel Core i9',
+    //     'AMD Ryzen 3',
+    //     'Intel Xeon',
+    //     'AMD Ryzen 5',
+    //     'AMD Ryzen 7',
+    //     'AMD Ryzen 9',
+    //     'Microsoft SQ2',
+    //     'Apple M1',
+    //     'Apple M2',
+    // ];
 
     const RAMOptions = ['4GB', '8GB', '16GB', '32GB', '64GB'];
 
@@ -980,7 +980,7 @@ function UpdateProduct() {
                                             <TextField
                                                 type="text"
                                                 label="Đèn LED trên máy"
-                                                required
+                                                // required
                                                 value={led}
                                                 onChange={(e) => setLed(e.target.value)}
                                                 variant="outlined"

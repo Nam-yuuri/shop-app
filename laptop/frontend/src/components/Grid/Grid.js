@@ -55,9 +55,9 @@ function Panel() {
 
     return (
         <div>
-            {loading ? (
+            {/* {loading ? (
                 <Loading />
-            ) : (
+            ) : ( */}
                 <div className={cx('wrapper')}>
                     <div className={cx('container')}>
                         {products.length > 0 ? (
@@ -96,7 +96,7 @@ function Panel() {
                                                         <div className={cx('info')}>
                                                             <div className={cx('box-info')}>
                                                                 <h3>
-                                                                    {product.name}
+                                                                    {product.name} {' '}
                                                                     {product.description}
                                                                 </h3>
                                                             </div>
@@ -152,7 +152,7 @@ function Panel() {
                                     padding: '10px',
                                 }}
                             >
-                                SẢN PHẨM SẼ ĐƯỢC CẬP NHẬT SỚM NHẤT!
+                                KHÔNG TÌM THẤY SẢN PHẨM PHÙ HỢP!
                             </p>
                         )}
                     </div>
@@ -206,7 +206,7 @@ function Panel() {
                         </nav>
                     </div> */}
                 </div>
-            )}
+            {/* )} */}
         </div>
     );
 }

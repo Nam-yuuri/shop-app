@@ -9,3 +9,5 @@
 
 
 - đã thêm sửa xóa được banner tiếp tục cho các phần còn lại 
+
+-đang truyền đata.data.product không có dữ liệu  

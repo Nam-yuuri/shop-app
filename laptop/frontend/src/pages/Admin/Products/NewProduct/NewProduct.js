@@ -38,21 +38,21 @@ import { NEW_PRODUCT_RESET } from '~/constants/productConstants';
 function NewProduct() {
    
     // console.log(BrandOptions)
-    const cpuOptions = [
-        'Intel Celeron/Pentium',
-        'Intel Core i3',
-        'Intel Core i5',
-        'Intel Core i7',
-        'Intel Core i9',
-        'AMD Ryzen 3',
-        'Intel Xeon',
-        'AMD Ryzen 5',
-        'AMD Ryzen 7',
-        'AMD Ryzen 9',
-        'Microsoft SQ2',
-        'Apple M1',
-        'Apple M2',
-    ];
+    // const cpuOptions = [
+    //     'Intel Celeron/Pentium',
+    //     'Intel Core i3',
+    //     'Intel Core i5',
+    //     'Intel Core i7',
+    //     'Intel Core i9',
+    //     'AMD Ryzen 3',
+    //     'Intel Xeon',
+    //     'AMD Ryzen 5',
+    //     'AMD Ryzen 7',
+    //     'AMD Ryzen 9',
+    //     'Microsoft SQ2',
+    //     'Apple M1',
+    //     'Apple M2',
+    // ];
 
     const RAMOptions = ['4GB', '8GB', '16GB', '32GB', '64GB'];
 
@@ -81,7 +81,7 @@ function NewProduct() {
     const [name_Compact, setName_Compact] = useState('');
     const [cost, setCost] = useState(0);
     const [promotional, setPromotional] = useState(0);
-    const [status_promotional, setStatus_promotional] = useState(false);
+    const [status_promotional, setStatus_promotional] = useState(true);
 
     const [category, setCategory] = useState('');
     const [categoryName, setCategoryName] = useState('');
@@ -377,7 +377,7 @@ function NewProduct() {
                                             />
                                         </Grid>
 
-                                        {/* <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Tên tóm tắt </p>
                                         </Grid>
                                         <Grid item xs={12} sm={8} md={10}>
@@ -390,7 +390,7 @@ function NewProduct() {
                                                 variant="outlined"
                                                 sx={{ width: '50%' }}
                                             />
-                                        </Grid> */}
+                                        </Grid>
 
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Giá tiền</p>

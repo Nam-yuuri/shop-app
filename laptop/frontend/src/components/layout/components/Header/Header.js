@@ -30,7 +30,7 @@ import { getAllBanners, getAllBannersMain } from '~/actions/bannerAction';
 import config from '~/config';
 import { getAllHeaderMain, getAllHeaders } from '~/actions/headerAction';
 import { getUserDetails, loadUser } from '~/actions/userAction';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useNavigate, useParams } from 'react-router-dom';
 import Loading from '~/components/Loading/Loading';
 const cx = classNames.bind(styles);
 
@@ -177,6 +177,10 @@ function Header() {
     const [countryInfo, setCountryInfo] = useState('');
     const [phoneNoInfo, setPhoneNoInfo] = useState('');
 
+    const [keyword, setKeyword] = useState("");
+
+    const navigate = useNavigate()
+
     // console.log("user: ", user)
 
     useEffect(() => {
@@ -190,7 +194,16 @@ function Header() {
     // }, [dispatch]);
 
     // console.log('header nay:', headers);
-    console.log('user: ', user);
+    // console.log('user: ', user);
+
+    const searchSubmitHandler = (e) => {
+        e.preventDefault();
+        if (keyword.trim()) {
+          navigate(`/products/${keyword}`);
+        } else {
+          navigate("/");
+        }
+      };
 
     return (
         <div>
@@ -252,12 +265,14 @@ function Header() {
                                             placement="bottom-start"
                                             render={renderSearch}
                                         >
-                                            <div className={cx('box', 'hover')}>
-                                                <input placeholder="Nhập từ khóa cần tìm" />
-                                                <button>
-                                                    <FontAwesomeIcon icon={faSearch} />
-                                                </button>
-                                            </div>
+                                            <form onSubmit={searchSubmitHandler}>
+                                                <div className={cx('box', 'hover')}>
+                                                    <input placeholder="Nhập từ khóa cần tìm" />
+                                                    <button>
+                                                        <FontAwesomeIcon icon={faSearch} />
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </Tippy>
                                     </div>
                                     {(user.user && (

@@ -39,7 +39,7 @@ function Panel() {
     // console.log(data)
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [sort, setSort] = useState("");
+    const [sort, setSort] = useState('');
 
     const setCurrentPageNo = (e) => {
         setCurrentPage(e);
@@ -53,38 +53,39 @@ function Panel() {
     );
     useEffect(() => {
         dispatch(getProduct(currentPage, sort));
-    }, [dispatch, currentPage, sort ]);
+    }, [dispatch, currentPage, sort]);
 
-    console.log(products);
+    console.log("products: ",products   );
 
     return (
         <div>
             {/* {loading ? (
                 <Loading />
             ) : ( */}
-                <div className={cx('wrapper')}>
-                    <div className={cx('container')}>
-                        <div className={cx('box')}>
-                            <div className={cx('header')}>
-                                <div className={cx('header-text')}>Laptop</div>
-                            </div>
+            <div className={cx('wrapper')}>
+                <div className={cx('container')}>
+                    <div className={cx('box')}>
+                        <div className={cx('header')}>
+                            <div className={cx('header-text')}>Laptop</div>
                         </div>
-                        <div className={cx('wrapper')}>
-                            <div className={cx('container')}>
-                                <div className={cx('products')}>
-                                    <div className={cx('box')}>
-                                        {products ? (
-                                            products.map((product) => (
-                                                <div className={cx('box-content')} key={product._id}>
-                                                    <Button to={`/profile/${product._id}`}>
-                                                        <div className={cx('box-product')}>
-                                                            <div>
-                                                                <div className={cx('image')}>
-                                                                    <div className={cx('box-image')}>
-                                                                        <div>
-                                                                            <img src={product.images[0].url} alt="" />
-                                                                        </div>
+                    </div>
+                    <div className={cx('wrapper')}>
+                        <div className={cx('container')}>
+                            <div className={cx('products')}>
+                                <div className={cx('box')}>
+                                    {products ? (
+                                        products.map((product) => (
+                                            <div className={cx('box-content')} key={product._id}>
+                                                <Button to={`/profile/${product._id}`}>
+                                                    <div className={cx('box-product')}>
+                                                        <div>
+                                                            <div className={cx('image')}>
+                                                                <div className={cx('box-image')}>
+                                                                    <div>
+                                                                        <img src={product.images[0].url} alt="" />
                                                                     </div>
+                                                                </div>
+                                                                {product.Status_promotional && (
                                                                     <div className={cx('promotion')}>
                                                                         <div className={cx('box-promotion')}>
                                                                             <div className={cx('promotion-text')}>
@@ -103,30 +104,32 @@ function Panel() {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                )}
+                                                            </div>
+                                                            <div className={cx('info')}>
+                                                                <div className={cx('box-info')}>
+                                                                    <h3>
+                                                                        {product.name}{' '}
+                                                                        {product.description}
+                                                                    </h3>
                                                                 </div>
-                                                                <div className={cx('info')}>
-                                                                    <div className={cx('box-info')}>
-                                                                        <h3>
-                                                                            {product.name}
-                                                                            {product.description}
-                                                                        </h3>
+                                                            </div>
+                                                            <div className={cx('price')}>
+                                                                <div className={cx('price-content')}>
+                                                                    <div className={cx('cost')}>
+                                                                        {formatPrice(
+                                                                            parseFloat(
+                                                                                (product.cost / 1000000 -
+                                                                                    (
+                                                                                        ((product.cost / 1000000) *
+                                                                                            product.promotional) /
+                                                                                        100
+                                                                                    ).toFixed(1)) *
+                                                                                    1000000,
+                                                                            ),
+                                                                        )}
                                                                     </div>
-                                                                </div>
-                                                                <div className={cx('price')}>
-                                                                    <div className={cx('price-content')}>
-                                                                        <div className={cx('cost')}>
-                                                                            {formatPrice(
-                                                                                parseFloat(
-                                                                                    (product.cost / 1000000 -
-                                                                                        (
-                                                                                            ((product.cost / 1000000) *
-                                                                                                product.promotional) /
-                                                                                            100
-                                                                                        ).toFixed(1)) *
-                                                                                        1000000,
-                                                                                ),
-                                                                            )}
-                                                                        </div>
+                                                                    {product.Status_promotional && (
                                                                         <div className={cx('promotional')}>
                                                                             <div className={cx('promotional_price')}>
                                                                                 {formatPrice(product.cost)}
@@ -135,55 +138,56 @@ function Panel() {
                                                                                 -{product.promotional}%
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div className={cx('price-icon')}>
-                                                                        <ShipIcon />
-                                                                    </div>
+                                                                    )}
                                                                 </div>
-                                                                <div className={cx('gift')}>
-                                                                    <div className={cx('gift-text')}>QUÀ TẶNG</div>
-                                                                    <div className={cx('gift-image')}>
-                                                                        <img src={product.gift_images[0].url} alt="" />
-                                                                    </div>
+                                                                <div className={cx('price-icon')}>
+                                                                    <ShipIcon />
+                                                                </div>
+                                                            </div>
+                                                            <div className={cx('gift')}>
+                                                                <div className={cx('gift-text')}>QUÀ TẶNG</div>
+                                                                <div className={cx('gift-image')}>
+                                                                    <img src={product.gift_images[0].url} alt="" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </Button>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <div>
-                                                <p>Không có sản phẩm nào</p>
+                                                    </div>
+                                                </Button>
                                             </div>
-                                        )}
-                                    </div>
+                                        ))
+                                    ) : (
+                                        <div>
+                                            <p>Không có sản phẩm nào</p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {resultPerPage < filteredProductsCount && (
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                marginTop: '20px',
-                            }}
-                        >
-                            <Pagination
-                                activePage={currentPage}
-                                itemsCountPerPage={resultPerPage}
-                                totalItemsCount={productsCount}
-                                onChange={setCurrentPageNo}
-                                nextPageText="Trang sau"
-                                prevPageText="Trang trước"
-                                // firstPageText="Trang đầu"
-                                // lastPageText="Trang cuối"
-                                itemClass="page-item"
-                                linkClass="page-link"
-                            />
-                        </div>
-                    )}
-                    {/* <div className={cx('pagination')}>
+                </div>
+                {resultPerPage < filteredProductsCount && (
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '20px',
+                        }}
+                    >
+                        <Pagination
+                            activePage={currentPage}
+                            itemsCountPerPage={resultPerPage}
+                            totalItemsCount={productsCount}
+                            onChange={setCurrentPageNo}
+                            nextPageText="Trang sau"
+                            prevPageText="Trang trước"
+                            // firstPageText="Trang đầu"
+                            // lastPageText="Trang cuối"
+                            itemClass="page-item"
+                            linkClass="page-link"
+                        />
+                    </div>
+                )}
+                {/* <div className={cx('pagination')}>
                         <nav aria-label="...">
                             <ul className="pagination justify-content-center">
                                 <li className="page-item disabled">
@@ -212,7 +216,7 @@ function Panel() {
                             </ul>
                         </nav>
                     </div> */}
-                </div>
+            </div>
             {/* )} */}
         </div>
     );

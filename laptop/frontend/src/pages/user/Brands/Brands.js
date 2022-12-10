@@ -35,6 +35,14 @@ function Brands() {
     const [onWidth, setOnWidth] = useState(false);
     const [value, setValue] = useState([0, 150]);
     const [price, setPrice] = useState([0, 150]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cost, setCost] = useState([0, 150]);
+    const [RAM, setRAM] = useState('');
+    const [CPU, setCPU] = useState('');
+    const [Color, setColor] = useState('');
+    const [Monitor, setMonitor] = useState('');
+    const [Operating_system, setOperating_system] = useState('');
+
     const priceHandler = (event, newPrice) => {
         setPrice([value[0], value[1]]);
     };
@@ -46,218 +54,32 @@ function Brands() {
      * !useState
      */
 
-    const [min, setMin] = useState(0);
-    const [max, setMax] = useState(500);
-
-    const [trademark, setTrademark] = useState([]);
-    const [clickTrademark, setClickTrademark] = useState(true);
-    const [checkTrademark, setCheckTrademark] = useState([]);
-
-    const [colors, setColors] = useState([]);
     const [clickColor, setClickColor] = useState(true);
-    const [checkColors, setCheckColors] = useState([]);
 
-    const [demands, setDemands] = useState([]);
-    const [clickDemand, setClickDemand] = useState(true);
-    const [checkDemands, setCheckDemands] = useState([]);
-
-    const [CPU, setCPU] = useState([]);
-    const [clickCPU, setClickCPU] = useState(true);
-    const [checkCPU, setCheckCPU] = useState([]);
-
-    const [graphics, setGraphics] = useState([]);
     const [clickGraphic, setClickGraphic] = useState(true);
-    const [checkGraphics, setCheckGraphics] = useState([]);
 
-    const [rams, setRams] = useState([]);
     const [clickRam, setClickRam] = useState(true);
-    const [checkRams, setCheckRams] = useState([]);
 
-    const [monitors, setMonitors] = useState([]);
     const [clickMonitor, setClickMonitor] = useState(true);
-    const [checkMonitors, setCheckMonitors] = useState([]);
-
-    const [resolutions, setResolutions] = useState([]);
-    const [clickResolution, setClickResolution] = useState(false);
-    const [checkResolutions, setCheckResolutions] = useState([]);
-
-    const [Touch, setTouch] = useState([]);
-    const [clickTouch, setClickTouch] = useState(false);
-    const [checkTouch, setCheckTouch] = useState([]);
-
-    /**
-     * !useEffect
-     */
-
-    useEffect(() => {
-        setTrademark(TrademarkData);
-    }, []);
-
-    useEffect(() => {
-        setColors(ColorsData);
-    }, []);
-
-    useEffect(() => {
-        setCPU(CPUData);
-    }, []);
-
-    useEffect(() => {
-        setGraphics(chipGraphicsData);
-    }, []);
-
-    useEffect(() => {
-        setRams(RamData);
-    }, []);
-
-    useEffect(() => {
-        setMonitors(MonitorsData);
-    }, []);
-
-    useEffect(() => {
-        setResolutions(ResolutionsData);
-    }, []);
-
-    useEffect(() => {
-        setTouch(TouchData);
-    }, []);
 
     /**
      * !Function
      */
 
-    const handleCheckTrademark = (name) => {
-        setCheckTrademark((prev) => {
-            const isChecked = checkTrademark.includes(name);
-            if (isChecked) {
-                return checkTrademark.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
-    const handleClickTrademark = () => {
-        clickTrademark ? setClickTrademark(false) : setClickTrademark(true);
-    };
-
-    const handleCheckColors = (name) => {
-        setCheckColors((prev) => {
-            const isChecked = checkColors.includes(name);
-            if (isChecked) {
-                return checkColors.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
     const handleClickColor = () => {
         setClickColor(!clickColor);
-    };
-
-    const handleCheckDemands = (name) => {
-        setCheckDemands((prev) => {
-            const isChecked = checkDemands.includes(name);
-            if (isChecked) {
-                return checkDemands.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
-    const handleClickDemand = () => {
-        setClickDemand(!clickDemand);
-    };
-
-    const handleCheckCPU = (name) => {
-        setCheckCPU((prev) => {
-            const isChecked = checkCPU.includes(name);
-            if (isChecked) {
-                return checkCPU.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
-    const handleClickCPU = () => {
-        clickCPU ? setClickCPU(false) : setClickCPU(true);
-    };
-
-    const handleCheckGraphics = (name) => {
-        setCheckGraphics((prev) => {
-            const isChecked = checkGraphics.includes(name);
-            if (isChecked) {
-                return checkGraphics.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
     };
 
     const handleClickGraphic = () => {
         clickGraphic ? setClickGraphic(false) : setClickGraphic(true);
     };
 
-    const handleCheckRams = (name) => {
-        setCheckRams((prev) => {
-            const isChecked = checkRams.includes(name);
-            if (isChecked) {
-                return checkRams.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
     const handleClickRam = () => {
         clickRam ? setClickRam(false) : setClickRam(true);
     };
 
-    const handleCheckMonitors = (name) => {
-        setCheckMonitors((prev) => {
-            const isChecked = checkMonitors.includes(name);
-            if (isChecked) {
-                return checkMonitors.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
     const handleClickMonitor = () => {
         clickMonitor ? setClickMonitor(false) : setClickMonitor(true);
-    };
-
-    const handleCheckResolutions = (name) => {
-        setCheckResolutions((prev) => {
-            const isChecked = checkResolutions.includes(name);
-            if (isChecked) {
-                return checkResolutions.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
-    const handleClickResolution = () => {
-        clickResolution ? setClickResolution(false) : setClickResolution(true);
-    };
-
-    const handleCheckTouch = (name) => {
-        setCheckTouch((prev) => {
-            const isChecked = checkTouch.includes(name);
-            if (isChecked) {
-                return checkTouch.filter((item) => item !== name);
-            } else {
-                return [...prev, name];
-            }
-        });
-    };
-
-    const handleClickTouch = () => {
-        clickTouch ? setClickTouch(false) : setClickTouch(true);
     };
 
     /**
@@ -269,622 +91,863 @@ function Brands() {
 
     const { loading: brandLoading, error, brands } = useSelector((state) => state.brandDetails);
     // const { loading, error: updateError, isUpdated } = useSelector((state) => state.brand);
-    const { loading, products } = useSelector((state) => state.productsBrand);
+    // const { loading, products } = useSelector((state) => state.productsBrand);
+    // const { productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
     let match = useParams();
 
     const brandId = match.id;
+    const id = brandId;
+    const keyword = match && match.keyword;
+
     useEffect(() => {
         dispatch(getBrandDetails(brandId));
         dispatch(getBrandProducts(brandId));
     }, [dispatch]);
 
-    // console.log('pro: ', brands.name);
+    useEffect(() => {
+        dispatch(getBrandProducts(id, currentPage, cost, keyword, RAM, CPU, Color, Monitor, Operating_system));
+    }, [id, currentPage, cost, keyword, RAM, CPU, Color, Monitor, Operating_system]);
+
+    // const dispatch = useDispatch();
+    // let navigate = useNavigate();
+    // let match = useParams();
+
+    // const setCurrentPageNo = (e) => {
+    //     setCurrentPage(e);
+    // };
+
+    // const productId = match.id;
+
+    // const { loading, products } = useSelector((state) => state.productsBrand);
+
+    // console.log('pro: ', products.length);
+
+    // useEffect(() => {
+    //     dispatch(getBrandProducts(productId));
+    // }, [dispatch]);
+
+    // console.log('RAM: ', products);
 
     return (
         <div>
-            {brandLoading ? (
+            {/* {brandLoading ? (
                 <Loading />
-            ) : (
-                <div className={cx('brands')}>
-                    <div className={cx('href')}>
-                        <a href="/" className={cx('home-href')}>
-                            <div className={cx('href-text')}>Trang chủ</div>
-                            <div className={cx('href-icon')}>
-                                <FontAwesomeIcon icon={faAngleRight} />
-                            </div>
-                        </a>
-                        {/* style={{display: 'flex', height: '19.5px'}} */}
-                        <div className={cx('text_laptop')}>
-                            <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
-                            <div className={cx('href-icon')}>
-                                <FontAwesomeIcon icon={faAngleRight} />
-                            </div>
+            ) : ( */}
+            <div className={cx('brands')}>
+                <div className={cx('href')}>
+                    <a href="/" className={cx('home-href')}>
+                        <div className={cx('href-text')}>Trang chủ</div>
+                        <div className={cx('href-icon')}>
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </div>
-                        <div className={cx('href-text', 'href-text-cart')}>{brands.name}</div>
+                    </a>
+                    {/* style={{display: 'flex', height: '19.5px'}} */}
+                    <div className={cx('text_laptop')}>
+                        <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
+                        <div className={cx('href-icon')}>
+                            <FontAwesomeIcon icon={faAngleRight} />
+                        </div>
                     </div>
-                    <div className={cx('header-tablet')}>
-                        <div className={cx('sort')}>
-                            <span>Sắp xếp</span>
-                            <FontAwesomeIcon icon={faCaretDown} />
-                        </div>
-                        <div className={cx('Filter')}>
-                            {/* <div className={cx('icon')}>
+                    <div className={cx('href-text', 'href-text-cart')}>{brands.name}</div>
+                </div>
+                <div className={cx('header-tablet')}>
+                    <div className={cx('sort')}>
+                        <span>Sắp xếp</span>
+                        <FontAwesomeIcon icon={faCaretDown} />
+                    </div>
+                    <div className={cx('Filter')}>
+                        {/* <div className={cx('icon')}>
                     <ProductsIcon />
                 </div>
                 <span className={cx('stick')}></span> */}
-                            <div
-                                className={cx('box-filter')}
-                                onClick={() => {
-                                    setOnWidth(true);
-                                }}
-                            >
-                                <span>Bộ lọc</span>
-                                <FontAwesomeIcon icon={faFilter} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx('container')}>
-                        {onWidth ? (
-                            <div
-                                className={cx('wall')}
-                                onClick={() => {
-                                    setOnWidth(false);
-                                }}
-                            ></div>
-                        ) : (
-                            ''
-                        )}
-                        <div className={cx('Left', 'tablet')} style={{ width: onWidth ? '80%' : '0' }}>
-                            <div className={cx('box-left')}>
-                                <div className={cx('Price-range')}>
-                                    <h5>Khoảng giá</h5>
-                                    <div className={cx('box-price')}>
-                                        <Slider
-                                            value={value}
-                                            aria-labelledby="range-slider"
-                                            onChange={(e) => setValue(e.target.value)}
-                                            min={0}
-                                            max={151}
-                                            valueLabelDisplay="auto"
-                                            sx={{ mt: 3, color: '#1435c3' }}
-                                        />
-                                        <form onSubmit={priceHandler}>
-                                            <div className="row" style={{ gap: '0px' }}>
-                                                <div className="col-6">
-                                                    <input
-                                                        type="text"
-                                                        value={`${formatPrice(value[0] * 1000000)}`}
-                                                        onChange={() => {}}
-                                                    ></input>
-                                                </div>
-
-                                                <div
-                                                    className="col-6"
-                                                    style={{ display: 'flex', justifyContent: 'flex-end' }}
-                                                >
-                                                    <input
-                                                        type="text"
-                                                        value={`${formatPrice(value[1] * 1000000)}`}
-                                                        onChange={() => {}}
-                                                    ></input>
-                                                </div>
-                                            </div>
-
-                                            <div
-                                                className="box-btn-filter"
-                                                style={{ display: 'flex', justifyContent: 'space-between' }}
-                                            >
-                                                <div className="btn-filter">Lọc</div>
-                                                <div className="btn-reset" onClick={resetHandle}>
-                                                    Reset
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div className={cx('container-Trademark', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickTrademark}>
-                                        <h5>Series laptop</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickTrademark ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Trademark', 'box')}
-                                        style={{ height: clickTrademark ? 'auto' : '0' }}
-                                    >
-                                        {trademark.map((trade) => (
-                                            <div className={cx('check')} key={trade.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkTrademark.includes(trade.name)}
-                                                        onChange={() => handleCheckTrademark(trade.name)}
-                                                    />
-                                                    <span>{trade.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Color', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickColor}>
-                                        <h5>Màu sắc</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
-                                        {colors.map((color) => (
-                                            <div className={cx('check')} key={color.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkColors.includes(color.name)}
-                                                        onChange={() => handleCheckColors(color.name)}
-                                                    />
-                                                    <span>{color.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Color', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickDemand}>
-                                        <h5>Nhu cầu</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickDemand ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Demand', 'box')} style={{ height: clickDemand ? 'auto' : '0' }}>
-                                        {colors.map((color) => (
-                                            <div className={cx('check')} key={color.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkDemands.includes(color.name)}
-                                                        onChange={() => handleCheckDemands(color.name)}
-                                                    />
-                                                    <span>{color.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-CPU', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickCPU}>
-                                        <h5>Series CPU</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickCPU ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('CPU', 'box')} style={{ height: clickCPU ? 'auto' : '0' }}>
-                                        {CPU.map((cpu) => (
-                                            <div className={cx('check')} key={cpu.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkCPU.includes(cpu.name)}
-                                                        onChange={() => handleCheckCPU(cpu.name)}
-                                                    />
-                                                    <span>{cpu.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Graphics', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickGraphic}>
-                                        <h5>Chip Đồ họa rời</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Graphics', 'box')}
-                                        style={{ height: clickGraphic ? 'auto' : '0' }}
-                                    >
-                                        {graphics.map((graphic) => (
-                                            <div className={cx('check')} key={graphic.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkGraphics.includes(graphic.name)}
-                                                        onChange={() => handleCheckGraphics(graphic.name)}
-                                                    />
-                                                    <span>{graphic.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Rams', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickRam}>
-                                        <h5>Dung lượng RAM</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
-                                        {rams.map((ram) => (
-                                            <div className={cx('check')} key={ram.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkRams.includes(ram.name)}
-                                                        onChange={() => handleCheckRams(ram.name)}
-                                                    />
-                                                    <span>{ram.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Monitors', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickMonitor}>
-                                        <h5>Kích thước màn hình</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Monitors', 'box')}
-                                        style={{ height: clickMonitor ? 'auto' : '0' }}
-                                    >
-                                        {monitors.map((monitor) => (
-                                            <div className={cx('check')} key={monitor.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkMonitors.includes(monitor.name)}
-                                                        onChange={() => handleCheckMonitors(monitor.name)}
-                                                    />
-                                                    <span>{monitor.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Resolutions', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickResolution}>
-                                        <h5>Chuẩn phân giải</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickResolution ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Resolutions', 'box')}
-                                        style={{ height: clickResolution ? 'auto' : '0' }}
-                                    >
-                                        {resolutions.map((resolution) => (
-                                            <div className={cx('check')} key={resolution.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkResolutions.includes(resolution.name)}
-                                                        onChange={() => handleCheckResolutions(resolution.name)}
-                                                    />
-                                                    <span>{resolution.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Touch', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickTouch}>
-                                        <h5>Màn hình cảm ứng</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickTouch ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Touch', 'box')} style={{ height: clickTouch ? 'auto' : '0' }}>
-                                        {Touch.map((touch) => (
-                                            <div className={cx('check')} key={touch.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkTouch.includes(touch.name)}
-                                                        onChange={() => handleCheckTouch(touch.name)}
-                                                    />
-                                                    <span>{touch.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={cx('Left', 'laptop')}>
-                            <div className={cx('box-left')}>
-                                <div className={cx('Price-range')}>
-                                    <h5>Khoảng giá</h5>
-                                    <div className={cx('box-price')}>
-                                        <Slider
-                                            value={value}
-                                            aria-labelledby="range-slider"
-                                            onChange={(e) => setValue(e.target.value)}
-                                            min={0}
-                                            max={151}
-                                            valueLabelDisplay="auto"
-                                            sx={{ mt: 3, color: '#1435c3' }}
-                                        />
-                                        <form onSubmit={priceHandler}>
-                                            <div className="row" style={{ gap: '0px' }}>
-                                                <div className="col-6" style={{ paddingLeft: '0px' }}>
-                                                    <input
-                                                        type="text"
-                                                        value={`${formatPrice(value[0] * 1000000)}`}
-                                                        onChange={() => {}}
-                                                    ></input>
-                                                </div>
-
-                                                <div
-                                                    className="col-6"
-                                                    style={{
-                                                        display: 'flex',
-                                                        justifyContent: 'flex-end',
-                                                        paddingRight: '0px',
-                                                    }}
-                                                >
-                                                    <input
-                                                        type="text"
-                                                        value={`${formatPrice(value[1] * 1000000)}`}
-                                                        onChange={() => {}}
-                                                    ></input>
-                                                </div>
-                                            </div>
-
-                                            <div
-                                                className="box-btn-filter"
-                                                style={{ display: 'flex', justifyContent: 'space-between' }}
-                                            >
-                                                <div className="btn-filter">Lọc</div>
-                                                <div className="btn-reset" onClick={resetHandle}>
-                                                    Reset
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div className={cx('container-Trademark', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickTrademark}>
-                                        <h5>Series laptop</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickTrademark ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Trademark', 'box')}
-                                        style={{ height: clickTrademark ? 'auto' : '0' }}
-                                    >
-                                        {trademark.map((trade) => (
-                                            <div className={cx('check')} key={trade.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkTrademark.includes(trade.name)}
-                                                        onChange={() => handleCheckTrademark(trade.name)}
-                                                    />
-                                                    <span>{trade.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Color', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickColor}>
-                                        <h5>Màu sắc</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
-                                        {colors.map((color) => (
-                                            <div className={cx('check')} key={color.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkColors.includes(color.name)}
-                                                        onChange={() => handleCheckColors(color.name)}
-                                                    />
-                                                    <span>{color.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Color', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickDemand}>
-                                        <h5>Nhu cầu</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickDemand ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Demand', 'box')} style={{ height: clickDemand ? 'auto' : '0' }}>
-                                        {colors.map((color) => (
-                                            <div className={cx('check')} key={color.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkDemands.includes(color.name)}
-                                                        onChange={() => handleCheckDemands(color.name)}
-                                                    />
-                                                    <span>{color.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-CPU', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickCPU}>
-                                        <h5>Series CPU</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickCPU ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('CPU', 'box')} style={{ height: clickCPU ? 'auto' : '0' }}>
-                                        {CPU.map((cpu) => (
-                                            <div className={cx('check')} key={cpu.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkCPU.includes(cpu.name)}
-                                                        onChange={() => handleCheckCPU(cpu.name)}
-                                                    />
-                                                    <span>{cpu.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Graphics', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickGraphic}>
-                                        <h5>Chip Đồ họa rời</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Graphics', 'box')}
-                                        style={{ height: clickGraphic ? 'auto' : '0' }}
-                                    >
-                                        {graphics.map((graphic) => (
-                                            <div className={cx('check')} key={graphic.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkGraphics.includes(graphic.name)}
-                                                        onChange={() => handleCheckGraphics(graphic.name)}
-                                                    />
-                                                    <span>{graphic.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Rams', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickRam}>
-                                        <h5>Dung lượng RAM</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
-                                        {rams.map((ram) => (
-                                            <div className={cx('check')} key={ram.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkRams.includes(ram.name)}
-                                                        onChange={() => handleCheckRams(ram.name)}
-                                                    />
-                                                    <span>{ram.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Monitors', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickMonitor}>
-                                        <h5>Kích thước màn hình</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Monitors', 'box')}
-                                        style={{ height: clickMonitor ? 'auto' : '0' }}
-                                    >
-                                        {monitors.map((monitor) => (
-                                            <div className={cx('check')} key={monitor.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkMonitors.includes(monitor.name)}
-                                                        onChange={() => handleCheckMonitors(monitor.name)}
-                                                    />
-                                                    <span>{monitor.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Resolutions', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickResolution}>
-                                        <h5>Chuẩn phân giải</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickResolution ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Resolutions', 'box')}
-                                        style={{ height: clickResolution ? 'auto' : '0' }}
-                                    >
-                                        {resolutions.map((resolution) => (
-                                            <div className={cx('check')} key={resolution.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkResolutions.includes(resolution.name)}
-                                                        onChange={() => handleCheckResolutions(resolution.name)}
-                                                    />
-                                                    <span>{resolution.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={cx('container-Touch', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickTouch}>
-                                        <h5>Màn hình cảm ứng</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickTouch ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div className={cx('Touch', 'box')} style={{ height: clickTouch ? 'auto' : '0' }}>
-                                        {Touch.map((touch) => (
-                                            <div className={cx('check')} key={touch.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkTouch.includes(touch.name)}
-                                                        onChange={() => handleCheckTouch(touch.name)}
-                                                    />
-                                                    <span>{touch.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={cx('Right')}>
-                            <Grid />
+                        <div
+                            className={cx('box-filter')}
+                            onClick={() => {
+                                setOnWidth(true);
+                            }}
+                        >
+                            <span>Bộ lọc</span>
+                            <FontAwesomeIcon icon={faFilter} />
                         </div>
                     </div>
                 </div>
-            )}
+                <div className={cx('container')}>
+                    {onWidth ? (
+                        <div
+                            className={cx('wall')}
+                            onClick={() => {
+                                setOnWidth(false);
+                            }}
+                        ></div>
+                    ) : (
+                        ''
+                    )}
+                    <div className={cx('Left', 'tablet')} style={{ width: onWidth ? '80%' : '0' }}>
+                        <div className={cx('box-left')}>
+                            <div className={cx('Price-range')}>
+                                <h5>Khoảng giá</h5>
+                                <div className={cx('box-price')}>
+                                    <Slider
+                                        value={value}
+                                        aria-labelledby="range-slider"
+                                        onChange={(e) => setValue(e.target.value)}
+                                        min={0}
+                                        max={151}
+                                        valueLabelDisplay="auto"
+                                        sx={{ mt: 3, color: '#1435c3' }}
+                                    />
+                                    <form onSubmit={priceHandler}>
+                                        <div className="row" style={{ gap: '0px' }}>
+                                            <div className="col-6" style={{ paddingLeft: '0px' }}>
+                                                <input
+                                                    type="text"
+                                                    value={`${formatPrice(value[0] * 1000000)}`}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setPrice([0, 10]);
+                                                            // setCategory("");
+                                                            // setRam("");
+                                                            // setMachineSeries("");
+                                                            // setMonitorSize([0, 43]);
+                                                        } else {
+                                                            setPrice([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={price[0] === 0 && price[1] === 10}
+                                                />
+                                            </div>
+
+                                            <div
+                                                className="col-6"
+                                                style={{
+                                                    display: 'flex',
+                                                    justifyContent: 'flex-end',
+                                                    paddingRight: '0px',
+                                                }}
+                                            >
+                                                <input
+                                                    type="text"
+                                                    value={`${formatPrice(value[1] * 1000000)}`}
+                                                    onChange={() => {}}
+                                                ></input>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className="box-btn-filter"
+                                            style={{ display: 'flex', justifyContent: 'space-between' }}
+                                        >
+                                            <div className="btn-filter">Lọc</div>
+                                            <div className="btn-reset" onClick={resetHandle}>
+                                                Reset
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div className={cx('container-Color', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickColor}>
+                                    <h5>Màu sắc</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Bạc'}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Bạc');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Bạc</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Đen'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Đen');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Đen</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Xám'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Xám');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Xám</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Starlight'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Starlight');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Starlight</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Trắng'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Trắng');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Trắng</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('container-Graphics', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickGraphic}>
+                                    <h5>Hệ điều hành</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Graphics', 'box')} style={{ height: clickGraphic ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Operating_system === 'Mac OS'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setOperating_system('Mac OS');
+                                                    } else {
+                                                        setOperating_system('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Mac OS</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Operating_system === 'Windows'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setOperating_system('Windows');
+                                                    } else {
+                                                        setOperating_system('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Windows</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Operating_system === 'Linus'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setOperating_system('Linus');
+                                                    } else {
+                                                        setOperating_system('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Linus</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('container-Rams', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickRam}>
+                                    <h5>Dung lượng RAM</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '4GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('4GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>4GB</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '8GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('8GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>8GB</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '16GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('16GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>16GB</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '32GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('32GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>32GB</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('container-Monitors', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickMonitor}>
+                                    <h5>Kích thước màn hình</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Monitors', 'box')} style={{ height: clickMonitor ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '13.3'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('13.3');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>13.3"</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '13.6'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('13.6');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>13.6"</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '14'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('14');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>14"</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '15.6'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('15.6');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>15.6"</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx('Left', 'laptop')}>
+                        <div className={cx('box-left')}>
+                            <div className={cx('Price-range')}>
+                                <h5>Khoảng giá</h5>
+                                <div className={cx('box-price')}>
+                                    <Slider
+                                        value={value}
+                                        aria-labelledby="range-slider"
+                                        onChange={(e) => setValue(e.target.value)}
+                                        min={0}
+                                        max={151}
+                                        valueLabelDisplay="auto"
+                                        sx={{ mt: 3, color: '#1435c3' }}
+                                    />
+                                    <form onSubmit={priceHandler}>
+                                        <div className="row" style={{ gap: '0px' }}>
+                                            <div className="col-6" style={{ paddingLeft: '0px' }}>
+                                                <input
+                                                    type="text"
+                                                    value={`${formatPrice(value[0] * 1000000)}`}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setPrice([0, 10]);
+                                                            // setCategory("");
+                                                            // setRam("");
+                                                            // setMachineSeries("");
+                                                            // setMonitorSize([0, 43]);
+                                                        } else {
+                                                            setPrice([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={price[0] === 0 && price[1] === 10}
+                                                />
+                                            </div>
+
+                                            <div
+                                                className="col-6"
+                                                style={{
+                                                    display: 'flex',
+                                                    justifyContent: 'flex-end',
+                                                    paddingRight: '0px',
+                                                }}
+                                            >
+                                                <input
+                                                    type="text"
+                                                    value={`${formatPrice(value[1] * 1000000)}`}
+                                                    onChange={() => {}}
+                                                ></input>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className="box-btn-filter"
+                                            style={{ display: 'flex', justifyContent: 'space-between' }}
+                                        >
+                                            <div className="btn-filter">Lọc</div>
+                                            <div className="btn-reset" onClick={resetHandle}>
+                                                Reset
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            {/* <div className={cx('container-Trademark', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickTrademark}>
+                                        <h5>Series laptop</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickTrademark ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cx('Trademark', 'box')}
+                                        style={{ height: clickTrademark ? 'auto' : '0' }}
+                                    >
+                                        {trademark.map((trade) => (
+                                            <div className={cx('check')} key={trade.id}>
+                                                <label className={cx('label')}>
+                                                    <input
+                                                        type={'checkbox'}
+                                                        checked={checkTrademark.includes(trade.name)}
+                                                        onChange={() => handleCheckTrademark(trade.name)}
+                                                    />
+                                                    <span>{trade.name}</span>
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div> */}
+                            <div className={cx('container-Color', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickColor}>
+                                    <h5>Màu sắc</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Bạc'}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Bạc');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Bạc</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Đen'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Đen');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Đen</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Xám'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Xám');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Xám</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Starlight'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Starlight');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Starlight</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Color === 'Trắng'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setColor('Trắng');
+                                                    } else {
+                                                        setColor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Trắng</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('container-Graphics', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickGraphic}>
+                                    <h5>Hệ điều hành</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Graphics', 'box')} style={{ height: clickGraphic ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Operating_system === 'Mac OS'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setOperating_system('Mac OS');
+                                                    } else {
+                                                        setOperating_system('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Mac OS</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Operating_system === 'Windows'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setOperating_system('Windows');
+                                                    } else {
+                                                        setOperating_system('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Windows</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Operating_system === 'Linus'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setOperating_system('Linus');
+                                                    } else {
+                                                        setOperating_system('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>Linus</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('container-Rams', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickRam}>
+                                    <h5>Dung lượng RAM</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '4GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('4GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>4GB</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '8GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('8GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>8GB</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '16GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('16GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>16GB</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={RAM === '32GB'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setRAM('32GB');
+                                                    } else {
+                                                        setRAM('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>32GB</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('container-Monitors', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickMonitor}>
+                                    <h5>Kích thước màn hình</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    />
+                                </div>
+                                <div className={cx('Monitors', 'box')} style={{ height: clickMonitor ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '13.3'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('13.3');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>13.3"</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '13.6'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('13.6');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>13.6"</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '14'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('14');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>14"</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type={'checkbox'}
+                                                checked={Monitor === '15.6'}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setMonitor('15.6');
+                                                    } else {
+                                                        setMonitor('');
+                                                    }
+                                                }}
+                                            />
+                                            <span>15.6"</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx('Right')}>
+                        <Grid />
+                    </div>
+                </div>
+            </div>
+            {/* )} */}
         </div>
     );
 }

@@ -87,27 +87,29 @@ function Panel() {
                                                             <img src={product.images[0].url} alt="" />
                                                         </div>
                                                     </div>
-                                                    <div className={cx('promotion')}>
-                                                        <div className={cx('box-promotion')}>
-                                                            <div className={cx('promotion-text')}>TIẾT KIỆM</div>
-                                                            <div className={cx('promotion-money')}>
-                                                                {formatPrice(
-                                                                    parseFloat(
-                                                                        ((
-                                                                            ((product.cost / 1000000) * product.promotional) /
-                                                                            100
-                                                                        ).toFixed(1)) * 1000000,
-                                                                    ),
-                                                                )}
+                                                    {product.Status_promotional && (
+                                                        <div className={cx('promotion')}>
+                                                            <div className={cx('box-promotion')}>
+                                                                <div className={cx('promotion-text')}>TIẾT KIỆM</div>
+                                                                <div className={cx('promotion-money')}>
+                                                                    {formatPrice(
+                                                                        parseFloat(
+                                                                            (
+                                                                                ((product.cost / 1000000) *
+                                                                                    product.promotional) /
+                                                                                100
+                                                                            ).toFixed(1) * 1000000,
+                                                                        ),
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    )}
                                                 </div>
                                                 <div className={cx('info')}>
                                                     <div className={cx('box-info')}>
                                                         <h3>
-                                                            {product.name}
-                                                            {product.description}
+                                                            {product.name} {product.description}
                                                         </h3>
                                                     </div>
                                                 </div>
@@ -118,18 +120,24 @@ function Panel() {
                                                                 parseFloat(
                                                                     (product.cost / 1000000 -
                                                                         (
-                                                                            (product.cost / 1000000 * product.promotional) /
+                                                                            ((product.cost / 1000000) *
+                                                                                product.promotional) /
                                                                             100
-                                                                        ).toFixed(0)) * 1000000,
+                                                                        ).toFixed(0)) *
+                                                                        1000000,
                                                                 ),
                                                             )}
                                                         </div>
-                                                        <div className={cx('promotional')}>
-                                                            <div className={cx('promotional_price')}>
-                                                                {formatPrice(product.cost)}
+                                                        {product.Status_promotional && (
+                                                            <div className={cx('promotional')}>
+                                                                <div className={cx('promotional_price')}>
+                                                                    {formatPrice(product.cost)}
+                                                                </div>
+                                                                <div className={cx('percent')}>
+                                                                    -{product.promotional}%
+                                                                </div>
                                                             </div>
-                                                            <div className={cx('percent')}>-{product.promotional}%</div>
-                                                        </div>
+                                                        )}
                                                     </div>
                                                     <div className={cx('price-icon')}>
                                                         <ShipIcon />

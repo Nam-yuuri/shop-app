@@ -120,7 +120,6 @@ function Profile() {
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </div>
                             </a>
-                            {/* style={{display: 'flex', height: '19.5px'}} */}
                             <div className={cx('text_laptop')}>
                                 <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
                                 <div className={cx('href-icon')}>
@@ -135,33 +134,6 @@ function Profile() {
                                     <div className={cx('box-left')}>
                                         <div className={cx('box-img')}>
                                             <div className={cx('box-img-header')}>
-                                                {/* {products.images && (
-                                                    <Carousel
-                                                        data={ima}
-                                                        time={2000}
-                                                        width="300px"
-                                                        height="300px"
-                                                        captionStyle={captionStyle}
-                                                        radius="8px"
-                                                        // slideNumber={true}
-                                                        slideNumberStyle={slideNumberStyle}
-                                                        captionPosition="bottom"
-                                                        automatic={true}
-                                                        dots={true}
-                                                        pauseIconColor="white"
-                                                        pauseIconSize="40px"
-                                                        slideBackgroundColor="transparent"
-                                                        slideImageFit="cover"
-                                                        thumbnails={true}
-                                                        thumbnailWidth="50px"
-                                                        style={{
-                                                            textAlign: 'center',
-                                                            maxWidth: '300px',
-                                                            maxHeight: '400px',
-                                                            margin: '40px auto',
-                                                        }}
-                                                    />
-                                                )} */}
                                                 {products.images && (
                                                     <Slider {...settings}>
                                                         {products.images.map((carousel) => (
@@ -177,9 +149,7 @@ function Profile() {
                                                         ))}
                                                     </Slider>
                                                 )}
-                                                {/* {products.images.map((item) => (
-                                                    <p>{item.url}</p>
-                                                ))} */}
+                                                
                                             </div>
                                             <div className={cx('box-border')}>
                                                 <div className={cx('border')}></div>
@@ -252,12 +222,16 @@ function Profile() {
                                                             ),
                                                         )}
                                                     </div>
-                                                    <div className={cx('real-price')}>
-                                                        <div className={cx('box-real-price')}>
-                                                            {products.cost && formatPrice(products.cost)}
+                                                    {products.Status_promotional && (
+                                                        <div className={cx('real-price')}>
+                                                            <div className={cx('box-real-price')}>
+                                                                {products.cost && formatPrice(products.cost)}
+                                                            </div>
+                                                            <div className={cx('percent')}>
+                                                                -{products.promotional}%
+                                                            </div>
                                                         </div>
-                                                        <div className={cx('percent')}>-{products.promotional}%</div>
-                                                    </div>
+                                                    )}
                                                 </div>
                                             ) : (
                                                 <div className={cx('content-price')}>

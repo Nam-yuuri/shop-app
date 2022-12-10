@@ -26,11 +26,11 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     .sorting()
     .pagination(resultPerPage);
 
-  const products = await apiFeature2.query;
+  const product = await apiFeature2.query;
 
   res.status(200).json({
     success: true,
-    products,
+    product,
     productsCount,
     resultPerPage,
     filteredProductsCount,
@@ -39,11 +39,52 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
 
 // Get Product with brand
 exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
+  // const resultPerPage = 15;
+  // const productsCount = await Product.countDocuments();
+
+  // const apiFeature = new ApiFeatures(Product.find(), req.query)
+  //   .search()
+  //   .filter()
+  //   .sorting();
+
+  // const products2 = await apiFeature.query;
+
+  // let filteredProductsCount = await products2.length;
+
+  // const apiFeature2 = new ApiFeatures(
+  //   Product.find({ brand: req.params.brand }).populate("brand"),
+  //   req.query
+  // )
+  //   .search()
+  //   .filter()
+  //   .sorting()
+  //   .pagination(resultPerPage);
+
+  // const products = await apiFeature2.query;
+
+  // const product = await Product.find({ brand: req.params.brand }).populate(
+  //   "brand"
+  // );
+
+  // if (!product) {
+  //   return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
+  // }
+
+  // const brand = req.params.brand;
+
+  // res.status(200).json({
+  //   success: true,
+  //   product,
+  //   brand,
+  //   productsCount,
+  //   resultPerPage,
+  //   filteredProductsCount,
+  // });
 
   const resultPerPage = 15;
   const productsCount = await Product.countDocuments();
 
-  const apiFeature = new ApiFeatures(Product.find(), req.query)
+  const apiFeature = new ApiFeatures(Product.find({ brand: req.params.brand }), req.query)
     .search()
     .filter()
     .sorting();
@@ -53,7 +94,7 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
   let filteredProductsCount = await products2.length;
 
   const apiFeature2 = new ApiFeatures(
-    Product.find().populate("brand"),
+    Product.find({ brand: req.params.brand }).populate("brand"),
     req.query
   )
     .search()
@@ -61,22 +102,11 @@ exports.getProductsBrand = catchAsyncErrors(async (req, res, next) => {
     .sorting()
     .pagination(resultPerPage);
 
-  const products = await apiFeature2.query;
-
-  const product = await Product.find({ brand: req.params.brand }).populate(
-    "brand"
-  );
-
-  if (!product) {
-    return next(new ErrorHander("Không tìm thấy sản phẩm", 404));
-  }
-
-  const brand = req.params.brand;
+  const product = await apiFeature2.query;
 
   res.status(200).json({
     success: true,
     product,
-    brand,
     productsCount,
     resultPerPage,
     filteredProductsCount,
