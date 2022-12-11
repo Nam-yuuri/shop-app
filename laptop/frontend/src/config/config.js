@@ -2,7 +2,7 @@ const routes = {
     home: '/',
     // profiles: '/profiles/@:id',
     profile: '/profile/:id',
-    search: '/search',
+    // search: '/search',
     laptop: '/laptop',
     brand: '/brand/:id',
     cart: '/cart',
@@ -18,6 +18,7 @@ const routes = {
     admin: '/admin',
     showroom: '/showroom',
     promotion: '/promotion',
+    search: '/products/:keyword',
 
     productList: '/admin/ProductList',
     newProduct: '/admin/ProductList/NewProduct',

@@ -67,7 +67,7 @@ export const addToCart = (productId, quantity) => async (dispatch) => {
         //     },
         //     config,
         // );
-        const data = await axios.post('http://localhost:8000/api/v1/cart', {
+        const { data } = await axios.post('http://localhost:8000/api/v1/cart', {
             productId,
             quantity,
         });

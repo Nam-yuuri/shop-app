@@ -89,16 +89,16 @@ function Login() {
     //     });
     // };
 
-    const [user, setUser] = useState({
-        name: '',
-        email: '',
-        password: '',
-    });
-    const { name, email, password } = user;
+    // const [user, setUser] = useState({
+    //     name: '',
+    //     email: '',
+    //     password: '',
+    // });
+    // const { name, email, password } = user;
 
-    // const [name, setName] = useState('')
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const [er, setEr] = useState('');
     const [avatar, setAvatar] = useState(
@@ -240,18 +240,12 @@ function Login() {
                                                     type="text"
                                                     className="form-control"
                                                     placeholder="Name *"
-                                                    // // handlechange={handlechange}
                                                     autoFocus
                                                     value={name}
-                                                    // // onChange={(e) => setName(e.target.value)}
-                                                    // type="text"
-                                                    // placeholder="Name"
-                                                    name="name"
-                                                    // value={name}
-                                                    // onChange={(e) => {
-                                                    //     setName(e.target.value);
-                                                    // }}
-                                                    onChange={registerDataChange}
+                                                    onChange={(e) => {
+                                                        setName(e.target.value);
+                                                    }}
+                                                    // onChange={registerDataChange}
                                                 />
                                             </div>
                                             {/* <div className="col">
@@ -266,17 +260,16 @@ function Login() {
 
                                         <div className="form-group">
                                             <input
-                                                type="text"
+                                                type="email"
                                                 className="form-control"
                                                 id="inputAddress"
                                                 placeholder="Email *"
-                                                // handlechange={handlechange}
                                                 value={email}
                                                 name="email"
-                                                // onChange={(e) => {
-                                                //     setEmail(e.target.value);
-                                                // }}
-                                                onChange={registerDataChange}
+                                                onChange={(e) => {
+                                                    setEmail(e.target.value);
+                                                }}
+                                                // onChange={registerDataChange}
                                             />
                                         </div>
                                         <div className="form-group password">
@@ -290,10 +283,10 @@ function Login() {
                                                 // handleShowPassword={handleShowPassword}
                                                 value={password}
                                                 name="password"
-                                                // onChange={(e) => {
-                                                //     setPassword(e.target.value);
-                                                // }}
-                                                onChange={registerDataChange}
+                                                onChange={(e) => {
+                                                    setPassword(e.target.value);
+                                                }}
+                                                // onChange={registerDataChange}
                                             />
                                             <div
                                                 className={cx('eye')}
@@ -334,9 +327,9 @@ function Login() {
                                                 />
                                             </div>
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
-                                        </div>
+                                        </div> */}
                                         <div>
                                             <div className="d-grid">
                                                 <button

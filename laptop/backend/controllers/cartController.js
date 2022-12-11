@@ -44,13 +44,19 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 400));
   }
 
-  let Status_promotional = item.Status_promotional;
-  let promotional = item.promotional;
-  let cost = item.cost;
+  // let Status_promotional = item.Status_promotional;
+  // let promotional = item.promotional;
+  // let cost = item.cost;
+  // let priceSale = item.cost;
+
+  
+  let discountActive = item.Status_promotional;
+  let discountPercent = item.promotional;
+  let price = item.cost;
   let priceSale = item.cost;
 
-  if (Status_promotional) {
-    priceSale = item.cost - item.cost * (promotional / 100);
+  if (discountActive) {
+    priceSale = item.cost - item.cost * (discountPercent / 100);
   }
   const name = item.name;
   const image = item.images[0].url;

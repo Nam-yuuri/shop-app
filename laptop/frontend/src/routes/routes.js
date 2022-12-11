@@ -14,6 +14,7 @@ import Showroom from '~/pages/user/Showroom';
 import Promotion from '~/pages/user/Promotion';
 import Pdf from '~/pages/user/pdf'
 import Checkout from '~/pages/user/Checkout';
+import Search from '~/pages/user/Search';
 // import { config } from '@fortawesome/fontawesome-svg-core';
 
 import ProductList from '~/pages/Admin/Products/ProductList';
@@ -60,7 +61,7 @@ const publicRoutes = [
     // { path: 'notification', component: Notification },
     { path: config.routes.cart, component: Cart },
     { path: config.routes.checkout, component: Checkout },
-    { path: config.routes.login, component: Login},
+    { path: config.routes.login, component: Login, layout: null},
     { path: config.routes.brand, component: Brands },
     { path: config.routes.profile, component: Profile },
     { path: config.routes.account, component: Account },
@@ -68,6 +69,7 @@ const publicRoutes = [
     { path: config.routes.address, component: Address },
     { path: config.routes.showroom, component: Showroom },
     { path: config.routes.promotion, component: Promotion },
+    { path: config.routes.search, component: Search },
     
     { path: config.routes.productList, component: ProductList, layout: null},
     { path: config.routes.newProduct, component: NewProduct, layout: null},

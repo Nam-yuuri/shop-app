@@ -13,6 +13,7 @@ const {
   deleteUser,
   getSingleUser,
   updateShippingInfo,
+  updateCart
 } = require("../controllers/userController");
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -32,6 +33,8 @@ router.put("/password/reset/:token", resetPassword);
 // router.get("/me", isAuthenticatedUser, getUserDetails);
 router.get("/me", getUserDetails);
 
+router.put("/cart/update/:id", updateCart);
+
 router.put("/password/update", isAuthenticatedUser, updatePassword);
 
 router.put("/ship/update", isAuthenticatedUser, updateShippingInfo);
@@ -50,8 +53,8 @@ router.get(
 router
   .get(
     "/admin/user/:id",
-    isAuthenticatedUser,
-    authorizeRoles("admin"),
+    // isAuthenticatedUser,
+    // authorizeRoles("admin"),
     getSingleUser
   )
   .put(

@@ -94,6 +94,9 @@ function Profile() {
         setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
     };
 
+    console.log("products._id: ",products._id)
+    console.log("quantity: ",quantity)
+
     const settings = {
         dots: true,
         Number: false,
@@ -149,7 +152,6 @@ function Profile() {
                                                         ))}
                                                     </Slider>
                                                 )}
-                                                
                                             </div>
                                             <div className={cx('box-border')}>
                                                 <div className={cx('border')}></div>
@@ -305,61 +307,7 @@ function Profile() {
                                             <div className={cx('box-border')}>
                                                 <div className={cx('border')}></div>
                                             </div>
-                                            {/* <div className={cx('content-promotion')}>Chọn khuyến mãi sau</div>
-                                    {discount ? (
-                                        <div
-                                            className={cx('content-box-promotion', 'content-promotion-true')}
-                                            onClick={handleDiscount}
-                                        >
-                                            <div className={cx('promotion-img')}>
-                                                <GiftIcon />
-                                            </div>
-                                            <div className={cx('promotion-content')}>
-                                                <div className={cx('promotion-price')}>
-                                                    Giảm&nbsp;
-                                                    <span>
-                                                        {formatPrice(
-                                                            parseFloat(
-                                                                products.cost -
-                                                                    (
-                                                                        products.cost -
-                                                                        (products.cost * products.promotional) / 100
-                                                                    ).toFixed(0),
-                                                            ),
-                                                        )}
-                                                    </span>
-                                                    &nbsp;/&nbsp;Chiếc
-                                                </div>
-                                                <div className={cx('promotion-text')}>
-                                                    Khi mua từ 1 Chiếc trở lên
-                                                </div>
-                                                <div className={cx('promotion-HSD')}>
-                                                    <div className={cx('promotion-date')}></div>
-                                                    <div className={cx('promotion-btn')}>Bỏ chọn</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className={cx('content-box-promotion')} onClick={handleDiscount}>
-                                            <div className={cx('promotion-img')}>
-                                                <GiftIcon />
-                                            </div>
-                                            <div className={cx('promotion-content')}>
-                                                <div className={cx('promotion-price')}>
-                                                    Giảm&nbsp;
-                                                    <span>440.000đ</span>
-                                                    &nbsp;/&nbsp;Chiếc
-                                                </div>
-                                                <div className={cx('promotion-text')}>
-                                                    Khi mua từ 1 Chiếc trở lên
-                                                </div>
-                                                <div className={cx('promotion-HSD')}>
-                                                    <div className={cx('promotion-date')}></div>
-                                                    <div className={cx('promotion-btn')}>Áp dụng</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )} */}
+
                                             <div className={cx('content-btn')}>
                                                 <Button primary large className={cx('buy-now')}>
                                                     MUA NGAY
@@ -381,19 +329,9 @@ function Profile() {
                                                     Khuyến mãi liên quan
                                                 </div>
                                                 <ul className={cx('promotion-list')}>
-                                                    {/* <li>
-                                    <span>
-                                        Nhập mã&nbsp;
-                                        <strong>PM240901</strong>
-                                        &nbsp;giảm&nbsp;
-                                        <span className={cx('list-price')}>2.000.000đ</span>
-                                        &nbsp;cho đơn hàng có sản phẩm này
-                                    </span>
-                                </li> */}
                                                     <li>
                                                         <span>
-                                                            Trả góp 6 tháng lãi suất 0% với đơn hàng >3tr
-                                                            {/* <FontAwesomeIcon icon={faAngleRight} /> */}
+                                                            Trả góp 6 tháng lãi suất 0% với đơn hàng{" >"}3tr
                                                         </span>
                                                         <a href=" " className={cx('list-href')}>
                                                             Xem chi tiết

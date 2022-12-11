@@ -2,6 +2,12 @@
     height: 5000px;
 }
 
+.form-control{
+    &:focus{
+        box-shadow: none !important;
+    }
+}
+
 .wrapper {
     min-height: 99px;
     position: relative;

@@ -14,9 +14,10 @@ import { getAdminProduct, getProduct } from '~/actions/productAction';
 import formatPrice from '~/utils/formatPrice';
 import Loading from '~/components/Loading/Loading';
 import Pagination from 'react-js-pagination';
+import { useParams } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function Panel() {
+function Search() {
     // const [products, setProducts] = useState([]);
 
     // useEffect(() => {
@@ -46,16 +47,22 @@ function Panel() {
     };
 
     const dispatch = useDispatch();
+    let match = useParams();
+
+    const keyword = match && match.keyword;
 
     // const { loading, products } = useSelector((state) => state.products);
     const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector(
         (state) => state.products,
     );
     useEffect(() => {
-        dispatch(getProduct(currentPage, sort));
-    }, [dispatch, currentPage, sort]);
+        dispatch(getProduct(currentPage, sort, keyword));
+    }, [dispatch, currentPage, sort, keyword]);
 
-    // console.log("products: ",products   );
+    console.log("products: ",products   );
+
+
+    // console.log('keyword: ', keyword);
 
     return (
         <div>
@@ -66,14 +73,14 @@ function Panel() {
                 <div className={cx('container')}>
                     <div className={cx('box')}>
                         <div className={cx('header')}>
-                            <div className={cx('header-text')}>Laptop</div>
+                            <div className={cx('header-text')}>Kết quả: {keyword}</div>
                         </div>
                     </div>
                     <div className={cx('wrapper')}>
                         <div className={cx('container')}>
                             <div className={cx('products')}>
                                 <div className={cx('box')}>
-                                    {products ? (
+                                    {products.length > 0 ? (
                                         products.map((product) => (
                                             <div className={cx('box-content')} key={product._id}>
                                                 {product.Stock === 0 ? (
@@ -166,8 +173,8 @@ function Panel() {
                                             </div>
                                         ))
                                     ) : (
-                                        <div>
-                                            <p>Không có sản phẩm nào</p>
+                                        <div style={{width: '100%'}}>
+                                            <p style={{textAlign: 'center', fontSize: '30px'}}>Không tìm thấy sản phẩm phù hợp</p>
                                         </div>
                                     )}
                                 </div>
@@ -232,4 +239,4 @@ function Panel() {
     );
 }
 
-export default Panel;
+export default Search;

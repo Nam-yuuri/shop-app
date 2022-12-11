@@ -1,4 +1,6 @@
 const express = require("express");
+const router = express.Router();
+
 const {
   myCart,
   getCartDetails,
@@ -10,19 +12,19 @@ const {
 } = require("../controllers/cartController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
-const router = express.Router();
+// router.route("/cart").get(isAuthenticatedUser, myCart);
+router.get("/cart", myCart);
 
-router.route("/cart").get(isAuthenticatedUser, myCart);
-
-router.route("/cart/:id").get(isAuthenticatedUser, getCartDetails);
+// router.route("/cart/:id").get(isAuthenticatedUser, getCartDetails);
+router.get("/cart/:id", getCartDetails);
 
 // router.route("/cart/new").post(isAuthenticatedUser, createCart);
-router.route("/cart/new").post( createCart);
+router.post("/cart/new", createCart);
 
 // router.route("/cart").post(isAuthenticatedUser, addCartItem);
-router.route("/cart").post( addCartItem);
+router.post("/cart", addCartItem);
 
-router.route("/cart/:itemId").delete(isAuthenticatedUser, cartDeleteItem);
+router.delete("/cart/:itemId", isAuthenticatedUser, cartDeleteItem);
 
 // router
 //   .route("/cart/:id")

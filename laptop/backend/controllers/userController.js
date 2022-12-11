@@ -156,6 +156,22 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// update cart
+exports.updateCart = catchAsyncErrors(async (req, res, next) => {
+  let user = await User.findByIdAndUpdate(req.params.id)
+
+  user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    user
+  });
+});
+
 
 // update User password
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
@@ -300,3 +316,4 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     message: "Xóa thành công người dùng!",
   });
 });
+

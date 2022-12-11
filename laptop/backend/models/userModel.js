@@ -57,6 +57,34 @@ const userSchema = new mongoose.Schema(
         type: String,
       },
     },
+    cart: [
+      {
+        image_product: {
+          type: String,
+          // default: "a",
+        },
+        name_product: {
+          type: String,
+          // default: "a",
+        },
+        cost_product: {
+          type: Number,
+          // default: 0,
+        },
+        promotion_product: {
+          type: Number,
+          // default: 0,
+        },
+        quantity_product: {
+          type: Number,
+          // default: 0,
+        },
+        totalPrice: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
 
     resetPasswordToken: String,
     resetPasswordExpire: Date,

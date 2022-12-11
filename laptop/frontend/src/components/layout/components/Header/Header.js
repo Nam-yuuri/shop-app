@@ -177,9 +177,9 @@ function Header() {
     const [countryInfo, setCountryInfo] = useState('');
     const [phoneNoInfo, setPhoneNoInfo] = useState('');
 
-    const [keyword, setKeyword] = useState("");
+    const [keyword, setKeyword] = useState('');
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     // console.log("user: ", user)
 
@@ -194,16 +194,17 @@ function Header() {
     // }, [dispatch]);
 
     // console.log('header nay:', headers);
-    // console.log('user: ', user);
+    console.log('user: ', user);
 
     const searchSubmitHandler = (e) => {
         e.preventDefault();
+        console.log('keyword: ', keyword);
         if (keyword.trim()) {
-          navigate(`/products/${keyword}`);
+            navigate(`/products/${keyword}`);
+            // http://localhost:8000/api/v1/products?keyword=Laptop HP 15s-fq5079TU&page=1&sort
         } else {
-          navigate("/");
         }
-      };
+    };
 
     return (
         <div>
@@ -267,7 +268,17 @@ function Header() {
                                         >
                                             <form onSubmit={searchSubmitHandler}>
                                                 <div className={cx('box', 'hover')}>
-                                                    <input placeholder="Nhập từ khóa cần tìm" />
+                                                    <input
+                                                        type="search"
+                                                        className={cx('form-control')}
+                                                        name="q"
+                                                        id="q"
+                                                        // placeholder="Tìm kiếm sản phẩm ..."
+                                                        required
+                                                        onChange={(e) => setKeyword(e.target.value)}
+                                                        // style={{ minWidth: '400px' }}
+                                                        placeholder="Nhập tên sản phẩm cần tìm"
+                                                    />
                                                     <button>
                                                         <FontAwesomeIcon icon={faSearch} />
                                                     </button>
@@ -275,7 +286,7 @@ function Header() {
                                             </form>
                                         </Tippy>
                                     </div>
-                                    {(user.user && (
+                                    {user.user ? (
                                         <Button className={cx('login-logout')}>
                                             <Tippy
                                                 hideOnClick={false}
@@ -300,7 +311,7 @@ function Header() {
                                                 </div>
                                             </Tippy>
                                         </Button>
-                                    )) || (
+                                    ) : (
                                         <Button to={'/login'} className={cx('login-logout')}>
                                             <div className={cx('box', 'hover')}>
                                                 <UserIcon />
@@ -390,12 +401,24 @@ function Header() {
                                                 placement="bottom-start"
                                                 render={renderSearch}
                                             >
-                                                <div className={cx('box', 'hover')}>
-                                                    <input placeholder="Nhập từ khóa cần tìm" />
-                                                    <button>
-                                                        <FontAwesomeIcon icon={faSearch} />
-                                                    </button>
-                                                </div>
+                                                <form onSubmit={searchSubmitHandler}>
+                                                    <div className={cx('box', 'hover')}>
+                                                        <input
+                                                            // className={cx('box_search')}
+                                                            type="search"
+                                                            className={cx('form-control')}
+                                                            name="q"
+                                                            id="q"
+                                                            // placeholder="Tìm kiếm sản phẩm ..."
+                                                            required
+                                                            onChange={(e) => setKeyword(e.target.value)}
+                                                            placeholder="Nhập tên sản phẩm cần tìm"
+                                                        />
+                                                        <button>
+                                                            <FontAwesomeIcon icon={faSearch} />
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </Tippy>
                                         </div>
                                         {(user.user && (

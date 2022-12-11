@@ -6,7 +6,7 @@ import { ShipIcon } from '~/components/Icons';
 import './panel.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { DataPanelProduct } from '~/Data/Panel/DataPanel';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdminProduct, getTopProducts } from '~/actions/productAction';
@@ -19,22 +19,24 @@ const url =
 function Panel() {
     const settings = {
         infinite: true,
-        speed: 500,
         slidesToShow: 5,
+        autoplay: true,
+        speed: 2000,
+        autoplaySpeed: 3000,
         slidesToScroll: 1,
         responsive: [
             {
                 breakpoint: 1024,
                 settings: {
                     slidesToShow: 3,
-                    // slidesToScroll: 1,
+                    slidesToScroll: 1,
                 },
             },
             {
                 breakpoint: 678,
                 settings: {
                     slidesToShow: 2,
-                    // slidesToScroll: 1,
+                    slidesToScroll: 1,
                 },
             },
         ],
@@ -78,6 +80,17 @@ function Panel() {
                         <Slider ref={slider} {...settings}>
                             {topProducts.map((product) => (
                                 <div className={cx('box-content')} key={product._id}>
+                                    {product.Stock === 0 ? (
+                                        <div className={cx('box-content_mark')}>
+                                            <p>Hết hàng</p>
+                                        </div>
+                                    ) : product.Stock <= 5 ? (
+                                        <div className={cx('box-content_marks')}>
+                                            <p>Còn: {product.Stock} sản phẩm</p>
+                                        </div>
+                                    ) : (
+                                        <Fragment />
+                                    )}
                                     <Button to={`/profile/${product._id}`}>
                                         <div className={cx('box-product')}>
                                             <div>

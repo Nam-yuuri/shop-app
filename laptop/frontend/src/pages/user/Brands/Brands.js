@@ -54,6 +54,8 @@ function Brands() {
      * !useState
      */
 
+    const [clickCost, setClickCost] = useState(true);
+
     const [clickColor, setClickColor] = useState(true);
 
     const [clickGraphic, setClickGraphic] = useState(true);
@@ -65,6 +67,10 @@ function Brands() {
     /**
      * !Function
      */
+
+    const handleClickCost = () => {
+        setClickCost(!clickCost);
+    };
 
     const handleClickColor = () => {
         setClickColor(!clickColor);
@@ -187,68 +193,169 @@ function Brands() {
                     )}
                     <div className={cx('Left', 'tablet')} style={{ width: onWidth ? '80%' : '0' }}>
                         <div className={cx('box-left')}>
-                            <div className={cx('Price-range')}>
-                                <h5>Khoảng giá</h5>
-                                <div className={cx('box-price')}>
-                                    <Slider
-                                        value={value}
-                                        aria-labelledby="range-slider"
-                                        onChange={(e) => setValue(e.target.value)}
-                                        min={0}
-                                        max={151}
-                                        valueLabelDisplay="auto"
-                                        sx={{ mt: 3, color: '#1435c3' }}
+                            <div className={cx('container-Trademark', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickCost}>
+                                    <h5>Khoảng giá</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickCost ? 'rotate(180deg)' : 'rotate(0deg)' }}
                                     />
-                                    <form onSubmit={priceHandler}>
-                                        <div className="row" style={{ gap: '0px' }}>
-                                            <div className="col-6" style={{ paddingLeft: '0px' }}>
-                                                <input
-                                                    type="text"
-                                                    value={`${formatPrice(value[0] * 1000000)}`}
-                                                    onClick={(e) => {
-                                                        if (e.target.checked) {
-                                                            setPrice([0, 10]);
-                                                            // setCategory("");
-                                                            // setRam("");
-                                                            // setMachineSeries("");
-                                                            // setMonitorSize([0, 43]);
-                                                        } else {
-                                                            setPrice([0, 151]);
-                                                        }
-                                                    }}
-                                                    checked={price[0] === 0 && price[1] === 10}
-                                                />
-                                            </div>
-
-                                            <div
-                                                className="col-6"
-                                                style={{
-                                                    display: 'flex',
-                                                    justifyContent: 'flex-end',
-                                                    paddingRight: '0px',
+                                </div>
+                                <div className={cx('Trademark', 'box')} style={{ height: clickCost ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([0, 10]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
                                                 }}
-                                            >
-                                                <input
-                                                    type="text"
-                                                    value={`${formatPrice(value[1] * 1000000)}`}
-                                                    onChange={() => {}}
-                                                ></input>
-                                            </div>
-                                        </div>
-
-                                        <div
-                                            className="box-btn-filter"
-                                            style={{ display: 'flex', justifyContent: 'space-between' }}
-                                        >
-                                            <div className="btn-filter">Lọc</div>
-                                            <div className="btn-reset" onClick={resetHandle}>
-                                                Reset
-                                            </div>
-                                        </div>
-                                    </form>
+                                                checked={cost[0] === 0 && cost[1] === 10}
+                                            />
+                                            <span>Dưới 10 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([10, 15]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 10 && cost[1] === 15}
+                                            />
+                                            <span>Từ 10 triệu - 15 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([15, 20]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 15 && cost[1] === 20}
+                                            />
+                                            <span>Từ 15 triệu - 20 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([20, 30]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 20 && cost[1] === 30}
+                                            />
+                                            <span>Từ 20 triệu - 30 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([30, 40]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 30 && cost[1] === 40}
+                                            />
+                                            <span>Từ 30 triệu - 40 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([40, 50]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 40 && cost[1] === 50}
+                                            />
+                                            <span>Từ 40 triệu - 50 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([50, 70]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 50 && cost[1] === 70}
+                                            />
+                                            <span>Từ 50 triệu - 70 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([70, 100]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 70 && cost[1] === 100}
+                                            />
+                                            <span>Từ 70 triệu - 100 triệu</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-
                             <div className={cx('container-Color', 'container-box')}>
                                 <div className={cx('box-header')} onClick={handleClickColor}>
                                     <h5>Màu sắc</h5>
@@ -263,7 +370,8 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Bạc'}
-                                                onChange={(e) => {
+                                                onChange={() => {}}
+                                                onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Bạc');
                                                     } else {
@@ -279,6 +387,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Đen'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Đen');
@@ -295,6 +404,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Xám'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Xám');
@@ -311,6 +421,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Starlight'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Starlight');
@@ -327,6 +438,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Trắng'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Trắng');
@@ -354,6 +466,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Operating_system === 'Mac OS'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setOperating_system('Mac OS');
@@ -370,6 +483,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Operating_system === 'Windows'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setOperating_system('Windows');
@@ -386,6 +500,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Operating_system === 'Linus'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setOperating_system('Linus');
@@ -413,6 +528,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '4GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('4GB');
@@ -429,6 +545,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '8GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('8GB');
@@ -445,6 +562,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '16GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('16GB');
@@ -461,6 +579,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '32GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('32GB');
@@ -488,6 +607,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '13.3'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('13.3');
@@ -504,6 +624,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '13.6'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('13.6');
@@ -520,6 +641,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '14'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('14');
@@ -536,6 +658,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '15.6'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('15.6');
@@ -548,98 +671,188 @@ function Brands() {
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                            <div className={cx('container-box')} style={{ textAlign: 'center' }}>
+                                <Button
+                                    primary
+                                    onClick={() => {
+                                        setCost([0, 150]);
+                                        setColor('');
+                                        setOperating_system('');
+                                        setRAM('');
+                                        setMonitor('');
+                                    }}
+                                >
+                                    RESET
+                                </Button>
                             </div>
                         </div>
                     </div>
                     <div className={cx('Left', 'laptop')}>
                         <div className={cx('box-left')}>
-                            <div className={cx('Price-range')}>
-                                <h5>Khoảng giá</h5>
-                                <div className={cx('box-price')}>
-                                    <Slider
-                                        value={value}
-                                        aria-labelledby="range-slider"
-                                        onChange={(e) => setValue(e.target.value)}
-                                        min={0}
-                                        max={151}
-                                        valueLabelDisplay="auto"
-                                        sx={{ mt: 3, color: '#1435c3' }}
+                            <div className={cx('container-Trademark', 'container-box')}>
+                                <div className={cx('box-header')} onClick={handleClickCost}>
+                                    <h5>Khoảng giá</h5>
+                                    <FontAwesomeIcon
+                                        icon={faAngleDown}
+                                        style={{ transform: clickCost ? 'rotate(180deg)' : 'rotate(0deg)' }}
                                     />
-                                    <form onSubmit={priceHandler}>
-                                        <div className="row" style={{ gap: '0px' }}>
-                                            <div className="col-6" style={{ paddingLeft: '0px' }}>
-                                                <input
-                                                    type="text"
-                                                    value={`${formatPrice(value[0] * 1000000)}`}
-                                                    onClick={(e) => {
-                                                        if (e.target.checked) {
-                                                            setPrice([0, 10]);
-                                                            // setCategory("");
-                                                            // setRam("");
-                                                            // setMachineSeries("");
-                                                            // setMonitorSize([0, 43]);
-                                                        } else {
-                                                            setPrice([0, 151]);
-                                                        }
-                                                    }}
-                                                    checked={price[0] === 0 && price[1] === 10}
-                                                />
-                                            </div>
-
-                                            <div
-                                                className="col-6"
-                                                style={{
-                                                    display: 'flex',
-                                                    justifyContent: 'flex-end',
-                                                    paddingRight: '0px',
+                                </div>
+                                <div className={cx('Trademark', 'box')} style={{ height: clickCost ? 'auto' : '0' }}>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([0, 10]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
                                                 }}
-                                            >
-                                                <input
-                                                    type="text"
-                                                    value={`${formatPrice(value[1] * 1000000)}`}
-                                                    onChange={() => {}}
-                                                ></input>
-                                            </div>
-                                        </div>
-
-                                        <div
-                                            className="box-btn-filter"
-                                            style={{ display: 'flex', justifyContent: 'space-between' }}
-                                        >
-                                            <div className="btn-filter">Lọc</div>
-                                            <div className="btn-reset" onClick={resetHandle}>
-                                                Reset
-                                            </div>
-                                        </div>
-                                    </form>
+                                                checked={cost[0] === 0 && cost[1] === 10}
+                                            />
+                                            <span>Dưới 10 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([10, 15]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 10 && cost[1] === 15}
+                                            />
+                                            <span>Từ 10 triệu - 15 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([15, 20]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 15 && cost[1] === 20}
+                                            />
+                                            <span>Từ 15 triệu - 20 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([20, 30]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 20 && cost[1] === 30}
+                                            />
+                                            <span>Từ 20 triệu - 30 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([30, 40]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 30 && cost[1] === 40}
+                                            />
+                                            <span>Từ 30 triệu - 40 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([40, 50]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 40 && cost[1] === 50}
+                                            />
+                                            <span>Từ 40 triệu - 50 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([50, 70]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 50 && cost[1] === 70}
+                                            />
+                                            <span>Từ 50 triệu - 70 triệu</span>
+                                        </label>
+                                    </div>
+                                    <div className={cx('check')}>
+                                        <label className={cx('label')}>
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="price-2"
+                                                onChange={() => {}}
+                                                onClick={(e) => {
+                                                    if (e.target.checked) {
+                                                        setCost([70, 100]);
+                                                    } else {
+                                                        setCost([0, 151]);
+                                                    }
+                                                }}
+                                                checked={cost[0] === 70 && cost[1] === 100}
+                                            />
+                                            <span>Từ 70 triệu - 100 triệu</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            {/* <div className={cx('container-Trademark', 'container-box')}>
-                                    <div className={cx('box-header')} onClick={handleClickTrademark}>
-                                        <h5>Series laptop</h5>
-                                        <FontAwesomeIcon
-                                            icon={faAngleDown}
-                                            style={{ transform: clickTrademark ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                        />
-                                    </div>
-                                    <div
-                                        className={cx('Trademark', 'box')}
-                                        style={{ height: clickTrademark ? 'auto' : '0' }}
-                                    >
-                                        {trademark.map((trade) => (
-                                            <div className={cx('check')} key={trade.id}>
-                                                <label className={cx('label')}>
-                                                    <input
-                                                        type={'checkbox'}
-                                                        checked={checkTrademark.includes(trade.name)}
-                                                        onChange={() => handleCheckTrademark(trade.name)}
-                                                    />
-                                                    <span>{trade.name}</span>
-                                                </label>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div> */}
                             <div className={cx('container-Color', 'container-box')}>
                                 <div className={cx('box-header')} onClick={handleClickColor}>
                                     <h5>Màu sắc</h5>
@@ -654,7 +867,8 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Bạc'}
-                                                onChange={(e) => {
+                                                onChange={() => {}}
+                                                onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Bạc');
                                                     } else {
@@ -670,6 +884,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Đen'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Đen');
@@ -686,6 +901,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Xám'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Xám');
@@ -702,6 +918,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Starlight'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Starlight');
@@ -718,6 +935,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Color === 'Trắng'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setColor('Trắng');
@@ -745,6 +963,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Operating_system === 'Mac OS'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setOperating_system('Mac OS');
@@ -761,6 +980,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Operating_system === 'Windows'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setOperating_system('Windows');
@@ -777,6 +997,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Operating_system === 'Linus'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setOperating_system('Linus');
@@ -804,6 +1025,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '4GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('4GB');
@@ -820,6 +1042,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '8GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('8GB');
@@ -836,6 +1059,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '16GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('16GB');
@@ -852,6 +1076,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={RAM === '32GB'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setRAM('32GB');
@@ -879,6 +1104,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '13.3'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('13.3');
@@ -895,6 +1121,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '13.6'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('13.6');
@@ -911,6 +1138,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '14'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('14');
@@ -927,6 +1155,7 @@ function Brands() {
                                             <input
                                                 type={'checkbox'}
                                                 checked={Monitor === '15.6'}
+                                                onChange={() => {}}
                                                 onClick={(e) => {
                                                     if (e.target.checked) {
                                                         setMonitor('15.6');
@@ -939,6 +1168,20 @@ function Brands() {
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                            <div className={cx('container-box')} style={{ textAlign: 'center' }}>
+                                <Button
+                                    primary
+                                    onClick={() => {
+                                        setCost([0, 150]);
+                                        setColor('');
+                                        setOperating_system('');
+                                        setRAM('');
+                                        setMonitor('');
+                                    }}
+                                >
+                                    RESET
+                                </Button>
                             </div>
                         </div>
                     </div>

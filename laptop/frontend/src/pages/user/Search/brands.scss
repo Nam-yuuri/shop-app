@@ -1,0 +1,40 @@
+.css-3pm628-MuiSlider-root {
+    border-radius: 12px;
+    box-sizing: content-box;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    touch-action: none;
+    color: #1976d2;
+    -webkit-tap-highlight-color: transparent;
+    height: 4px;
+    width: 100%;
+    padding: 13px 0;
+    margin-top: 0px !important;
+    color: #1435c3;
+}
+
+.box-btn-filter {
+    display: flex;
+    justify-content: space-between;
+
+    .btn-reset, .btn-filter {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 80px;
+        padding: 6px 16px;
+        border-radius: 4px;
+        font-size: 1.3rem;
+        font-weight: 400;
+        font-family: var(--font-family);
+        background-color: var(--white);
+        border: 1px solid transparent;
+        -webkit-user-select: none;
+        user-select: none;
+        color: var(--white-color);
+        background-color: var(--primary);
+        border-color: var(--primary);
+        cursor: pointer;
+    }
+}
