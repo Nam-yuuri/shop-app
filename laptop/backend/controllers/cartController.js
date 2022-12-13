@@ -1,5 +1,5 @@
 const Cart = require("../models/cartModel");
-const Product = require("../models/productModel");
+const Product = require("../models/productsModel");
 const ErrorHander = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
@@ -19,10 +19,13 @@ exports.getCartDetails = catchAsyncErrors(async (req, res, next) => {
 
 //Get my cart
 exports.myCart = catchAsyncErrors(async (req, res, next) => {
-  const cart = await Cart.findOne({ user: req.user._id }).populate({
+  const { userId } = req.body;
+  const cart = await Cart.findOne({ user: userId }).populate({
     path: "cartItems.product",
     model: "Product",
   });
+
+  // console.log("userId2222: ", req.data.user._id)
 
   // let cartItems = await cart.cartItems;
 
@@ -35,21 +38,21 @@ exports.myCart = catchAsyncErrors(async (req, res, next) => {
 
 // Add cart item --  User
 exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
-  const { productId, quantity } = req.body;
+  const { productId, quantity, userId } = req.body;
 
-  let cart = await Cart.findOne({ user: req.user._id });
+  let cart = await Cart.findOne({ user: userId });
   let item = await Product.findOne({ _id: productId });
+
+  console.log("item: ", item);
+  // console.log("req.user.user._id: ", req.user.user._id);
+  // console.log("userId: ", (req.user._id).toString());
+  console.log("userId1: ", userId);
+  console.log("userId2222: ", req.user)
 
   if (!item) {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 400));
   }
 
-  // let Status_promotional = item.Status_promotional;
-  // let promotional = item.promotional;
-  // let cost = item.cost;
-  // let priceSale = item.cost;
-
-  
   let discountActive = item.Status_promotional;
   let discountPercent = item.promotional;
   let price = item.cost;
@@ -80,10 +83,10 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
         product: productId,
         name,
         quantity,
-        cost,
+        price,
         image,
-        Status_promotional,
-        promotional,
+        discountActive,
+        discountPercent,
         priceSale,
       });
     }
@@ -98,16 +101,16 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
   } else {
     // Nếu không tồn tại cart tạo mới.
     const newCart = await Cart.create({
-      user: req.user._id,
+      user: userId,
       cartItems: [
         {
           product: productId,
           name,
           quantity,
-          cost,
+          price,
           image,
-          Status_promotional,
-          promotional,
+          discountActive,
+          discountPercent,
           priceSale,
         },
       ],
@@ -129,17 +132,13 @@ exports.cartDeleteItem = catchAsyncErrors(async (req, res, next) => {
   let cart = await Cart.findOne({ user: req.user._id });
   let item = await Product.findOne({ _id: productId });
 
-  if (!item) {
-    return next(new ErrorHander("Không tìm thấy sản phẩm", 400));
-  }                                                                                                                                              
+  let discountActive = item.discountActive;
+  let discountPercent = item.discountPercent;
+  let price = item.price;
+  let priceSale = item.price;
 
-  let Status_promotional = item.Status_promotional;
-  let promotional = item.promotional;
-  let cost = item.cost;
-  let priceSale = item.cost;
-
-  if (Status_promotional) {
-    priceSale = item.cost - item.cost * (promotional / 100);
+  if (discountActive) {
+    priceSale = item.price - item.price * (discountPercent / 100);
   }
 
   let itemIndex = cart.cartItems.findIndex((p) => p.product == productId);
@@ -147,8 +146,10 @@ exports.cartDeleteItem = catchAsyncErrors(async (req, res, next) => {
   if (itemIndex > -1) {
     let productItem = cart.cartItems[itemIndex];
     // cart.totalPrice -= quantity * priceSale;
-    if(productItem.Status_promotional){
-      priceSale = productItem.cost - productItem.cost * (productItem.promotional / 100);
+    if (productItem.discountActive) {
+      priceSale =
+        productItem.price -
+        productItem.price * (productItem.discountPercent / 100);
     }
     cart.totalPrice -= productItem.quantity * priceSale;
     cart.cartItems.splice(itemIndex, 1);
@@ -180,7 +181,7 @@ exports.createCart = catchAsyncErrors(async (req, res, next) => {
 
 // Update Cart -- User
 exports.updateCart = catchAsyncErrors(async (req, res, next) => {
-  let cart = await Cart.find({ user: req.user._id });
+  let cart = await Cart.find({ user: req.user.id });
 
   if (!cart) {
     return next(new ErrorHander("Không tìm thấy cart", 404));

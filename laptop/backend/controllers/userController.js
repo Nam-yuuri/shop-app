@@ -14,7 +14,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     crop: "scale",
   });
 
-
   const { name, email, password, shippingInfo } = req.body;
 
   const user = await User.create({
@@ -29,10 +28,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   });
 
   sendToken(user, 201, res);
-  res.status(200).json({
-    success: true,
-    user,
-  });
 });
 
 // Login User
@@ -57,7 +52,19 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Email hoặc mật khẩu sai", 401));
   }
 
+  // const token = jwt.sign(
+  //   {
+  //     id: user.id,
+  //   },
+  //   process.env.JWT_SECRET,
+  //   { expiresIn: "20d" }
+  // );
+
+  // res.status(200).json(user, token)
+
   sendToken(user, 200, res);
+
+  // const token = user.generateAuthToken();
 });
 
 // Logout User
@@ -148,6 +155,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 // Get User Detail
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  // console.log(req.user.id);
   const user = await User.findById(req.user.id);
 
   res.status(200).json({
@@ -155,23 +163,6 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
     user,
   });
 });
-
-// update cart
-exports.updateCart = catchAsyncErrors(async (req, res, next) => {
-  let user = await User.findByIdAndUpdate(req.params.id)
-
-  user = await User.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: false,
-  });
-
-  res.status(200).json({
-    success: true,
-    user
-  });
-});
-
 
 // update User password
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
@@ -297,7 +288,7 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 
 // Delete User --Admin
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findByIdAndDelete(req.params.id);
+  const user = await User.findById(req.params.id);
 
   if (!user) {
     return next(
@@ -316,4 +307,3 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     message: "Xóa thành công người dùng!",
   });
 });
-

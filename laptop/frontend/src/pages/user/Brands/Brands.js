@@ -56,13 +56,13 @@ function Brands() {
 
     const [clickCost, setClickCost] = useState(true);
 
-    const [clickColor, setClickColor] = useState(true);
+    const [clickColor, setClickColor] = useState(false);
 
-    const [clickGraphic, setClickGraphic] = useState(true);
+    const [clickGraphic, setClickGraphic] = useState(false);
 
-    const [clickRam, setClickRam] = useState(true);
+    const [clickRam, setClickRam] = useState(false);
 
-    const [clickMonitor, setClickMonitor] = useState(true);
+    const [clickMonitor, setClickMonitor] = useState(false);
 
     /**
      * !Function
@@ -88,17 +88,7 @@ function Brands() {
         clickMonitor ? setClickMonitor(false) : setClickMonitor(true);
     };
 
-    /**
-     * !console
-     */
-
-    // console.log(checkTrademark);
-    const num = 10000000;
-
     const { loading: brandLoading, error, brands } = useSelector((state) => state.brandDetails);
-    // const { loading, error: updateError, isUpdated } = useSelector((state) => state.brand);
-    // const { loading, products } = useSelector((state) => state.productsBrand);
-    // const { productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
@@ -116,26 +106,6 @@ function Brands() {
     useEffect(() => {
         dispatch(getBrandProducts(id, currentPage, cost, keyword, RAM, CPU, Color, Monitor, Operating_system));
     }, [id, currentPage, cost, keyword, RAM, CPU, Color, Monitor, Operating_system]);
-
-    // const dispatch = useDispatch();
-    // let navigate = useNavigate();
-    // let match = useParams();
-
-    // const setCurrentPageNo = (e) => {
-    //     setCurrentPage(e);
-    // };
-
-    // const productId = match.id;
-
-    // const { loading, products } = useSelector((state) => state.productsBrand);
-
-    // console.log('pro: ', products.length);
-
-    // useEffect(() => {
-    //     dispatch(getBrandProducts(productId));
-    // }, [dispatch]);
-
-    // console.log('RAM: ', products);
 
     return (
         <div>

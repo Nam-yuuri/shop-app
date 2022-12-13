@@ -17,7 +17,7 @@ import {
 } from '../constants/cartConstants';
 
 // Get cart
-export const getCart = (id) => async (dispatch) => {
+export const getCart = (userId) => async (dispatch) => {
     try {
         dispatch({ type: GET_CART_REQUEST });
 
@@ -30,12 +30,16 @@ export const getCart = (id) => async (dispatch) => {
             },
         };
 
-        const data = await axiosClient.get('/api/v1/cart', config);
+        // const data = await axios.get('http://localhost:8000/api/v1/cart', config);
+        const data = await axios.get('http://localhost:8000/api/v1/cart', { userId });
+
+        // console.log('data: ', data);
+        // console.log('userId111: ', userId);
 
         dispatch({
             type: GET_CART_SUCCESS,
-            payload1: data.cart,
-            payload2: data.cartItems,
+            payload1: data.data,
+            payload2: data.data.cartItems,
         });
     } catch (error) {
         dispatch({
@@ -46,7 +50,7 @@ export const getCart = (id) => async (dispatch) => {
 };
 
 // Add to cart
-export const addToCart = (productId, quantity) => async (dispatch) => {
+export const addToCart = (productId, quantity, userId) => async (dispatch) => {
     try {
         dispatch({ type: ADD_TO_CART_REQUEST });
 
@@ -67,9 +71,11 @@ export const addToCart = (productId, quantity) => async (dispatch) => {
         //     },
         //     config,
         // );
+
         const { data } = await axios.post('http://localhost:8000/api/v1/cart', {
             productId,
             quantity,
+            userId,
         });
 
         dispatch({
@@ -123,7 +129,7 @@ export const addItemsToCartLocal = (id, quantity) => async (dispatch, getState) 
         payload: {
             product: data.product._id,
             name: data.product.name,
-            price: data.product.price,
+            price: data.product.cost,
             image: data.product.images[0].url,
             stock: data.product.Stock,
             quantity,

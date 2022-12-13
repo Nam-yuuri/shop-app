@@ -14,18 +14,19 @@ import {
 } from './reducers/productReducer';
 
 // import {
-//   newCategoryReducer,
-//   categoriesReducer,
-//   categoryReducer,
-//   categoryDetailsReducer,
-// } from "./reducers/categoryReducer.js";
+//     allUsersReducer,
+//     forgotPasswordReducer,
+//     profileReducer,
+//     userDetailsReducer,
+//     userReducer,
+// } from './reducers/userReducer';
 
 import {
-    allUsersReducer,
-    forgotPasswordReducer,
-    profileReducer,
-    userDetailsReducer,
     userReducer,
+    profileReducer,
+    forgotPasswordReducer,
+    allUsersReducer,
+    userDetailsReducer,
 } from './reducers/userReducer';
 
 import { cartLocalReducer, cartReducer } from './reducers/cartReducer';

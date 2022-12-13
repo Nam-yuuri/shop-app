@@ -57,6 +57,7 @@ export const userReducer = (state = { user: {} }, action) => {
     case LOGIN_SUCCESS:
     case REGISTER_USER_SUCCESS:
     case LOAD_USER_SUCCESS:
+      // alert("Đăng nhập thành công!")
       return {
         ...state,
         loading: false,

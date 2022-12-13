@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
+// import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import './Login.css';
 import { Fragment, useEffect, useState } from 'react';
 import Button from '~/components/Button';
@@ -162,7 +162,7 @@ function Login() {
         }
         if (isAuthenticated) {
             // hop le
-            // dispatch(loadUser());
+            dispatch(loadUser());
             // alert("ok")
             //   history.push("/");
             navigate('/');
@@ -233,7 +233,7 @@ function Login() {
                                     {isSingup ? 'Sign Up' : 'Sign In'}
                                 </h2>
                                 {isSingup ? (
-                                    <form onSubmit={registerSubmit}>
+                                    <form method="POST" onSubmit={registerSubmit}>
                                         <div className="row">
                                             <div className="col">
                                                 <input
@@ -327,9 +327,7 @@ function Login() {
                                                 />
                                             </div>
                                         </div>
-                                        {/* <div>
-                                            <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
-                                        </div> */}
+                                        
                                         <div>
                                             <div className="d-grid">
                                                 <button
@@ -350,7 +348,7 @@ function Login() {
                                         </div>
                                     </form>
                                 ) : (
-                                    <form onSubmit={loginSubmit}>
+                                    <form method="POST" onSubmit={loginSubmit}>
                                         <div className="form-group">
                                             <input
                                                 type="text"

@@ -71,7 +71,7 @@ function Panel() {
                                             </div>
                                         ) : product.Stock <= 5 ? (
                                             <div className={cx('box-content_marks')}>
-                                                <p>Còn: {product.Stock} sản phẩm</p>
+                                                <p>Còn {product.Stock} sản phẩm</p>
                                             </div>
                                         ) : (
                                             <Fragment />

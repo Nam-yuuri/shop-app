@@ -2,15 +2,17 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { privateRoutes, publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/components/layout';
 import { Fragment} from 'react';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-
-const NEXT_PUBLIC_GOOGLE_API_TOKEN ='509017795701-t1s8cm3vvpvgf4qqakhvlbuaa25kabqn.apps.googleusercontent.com'
+import { loadUser } from "./actions/userAction.js";
+import store from "./store";
+import { useEffect, useState } from "react";
+import { useSelector } from 'react-redux';
 
 function App() {
 
-
+    useEffect(()=>{
+        store.dispatch(loadUser());
+    },[])
     return (
-        <GoogleOAuthProvider clientId={`${NEXT_PUBLIC_GOOGLE_API_TOKEN}`}>
             <Router>
                 {/* {admin ? 
                 <div className="App">
@@ -70,7 +72,6 @@ function App() {
                 </div>
                 {/* } */}
             </Router>
-        </GoogleOAuthProvider>
     );
 }
 

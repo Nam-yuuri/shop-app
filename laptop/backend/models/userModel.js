@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Hãy nhập tên của bạn"],
       maxLength: [30, "Tên không được quá 30 kí tự"],
-      minLength: [6, "Tên cần nhiều hơn 6 kí tự"],
+      minLength: [4, "Tên cần nhiều hơn 4 kí tự"],
     },
     email: {
       type: String,
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Hãy nhập mật khẩu của bạn"],
-      minLength: [6, "Mật khẩu cần nhiều hơn 8 kí tự"],
+      minLength: [8, "Mật khẩu cần nhiều hơn 8 kí tự"],
       select: false,
     },
     avatar: {
@@ -33,10 +33,11 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
         default:
-          "https://res.cloudinary.com/dx1ecgla5/image/upload/v1666833940/noimg/noimg_phsgc3.jpg",
+          "https://res.cloudinary.com/phuockaito/image/upload/v1617902959/user/1_gxwhfk.jpg",
       },
     },
     role: {
+      //User -> Staff -> Admin
       type: String,
       default: "user",
     },
@@ -57,34 +58,6 @@ const userSchema = new mongoose.Schema(
         type: String,
       },
     },
-    cart: [
-      {
-        image_product: {
-          type: String,
-          // default: "a",
-        },
-        name_product: {
-          type: String,
-          // default: "a",
-        },
-        cost_product: {
-          type: Number,
-          // default: 0,
-        },
-        promotion_product: {
-          type: Number,
-          // default: 0,
-        },
-        quantity_product: {
-          type: Number,
-          // default: 0,
-        },
-        totalPrice: {
-          type: Number,
-          default: 0,
-        },
-      },
-    ],
 
     resetPasswordToken: String,
     resetPasswordExpire: Date,

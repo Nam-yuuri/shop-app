@@ -1,7 +1,7 @@
 // Tạo token và lưu vào cookie
 const sendToken = (user, statusCode, res) => {
   const token = user.getJWTToken();
-
+  // console.log(token);
   // options của cookie
   const options = {
     expires: new Date(

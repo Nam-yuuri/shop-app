@@ -54,11 +54,11 @@ export const login = (email, password) => async (dispatch) => {
             },
         };
 
-        const data = await axiosClient.post(`/api/v1/login`, { email, password }, config);
+        const data = await axios.post(`http://localhost:8000/api/v1/login`, { email, password }, config);
+        // console.log("login",data.data.user);
+        localStorage.setItem('token', data.data.token);
 
-        localStorage.setItem('token', data.token);
-
-        dispatch({ type: LOGIN_SUCCESS, payload: data });
+        dispatch({ type: LOGIN_SUCCESS, payload: data.data });
     } catch (error) {
         dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
     }
@@ -78,14 +78,8 @@ export const register = (userData) => async (dispatch) => {
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
         const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData, config);
-        // const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData);
 
-        console.log('data: ', data);
-
-        dispatch({
-            type: REGISTER_USER_SUCCESS,
-            payload: data,
-        });
+        dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
     } catch (error) {
         dispatch({
             type: REGISTER_USER_FAIL,
@@ -99,21 +93,18 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+               Authorization: `token ${token}`,
+            },
+        };
 
-        // const { data } = await axios.get(`http://localhost:8000/api/v1/me`, config);
-        const { data } = await axios.get(`http://localhost:8000/api/v1/me`);
-
-        console.log("data: ", data.data.user)
-
-        dispatch({ type: LOAD_USER_SUCCESS, payload: data.data.user });
+        const { data } = await axios.get(`http://localhost:8000/api/v1/me`, config);
+        dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
     } catch (error) {
+        console.log(error);
         dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
     }
 };
@@ -121,8 +112,8 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logout = () => async (dispatch) => {
     try {
-        await axios.get(`http://localhost:8000/api/v1/logout`);
-        // localStorage.removeItem('token');
+        await axiosClient.get(`/api/v1/logout`);
+        localStorage.removeItem('token');
         dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
         dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
@@ -143,7 +134,7 @@ export const updateProfile = (userData) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `http://localhost:5000/api/v1/me/update`,
+            `http://localhost:8000/api/v1/me/update`,
             {
                 name: userData.name,
                 email: userData.email,
@@ -174,7 +165,7 @@ export const updateShippingInfo = (shippingInfo) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `http://localhost:5000/api/v1/shippingInfo/update`,
+            `http://localhost:8000/api/v1/shippingInfo/update`,
             {
                 shippingInfo,
             },
@@ -205,7 +196,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
         };
 
         const { data } = await axios.put(
-            `http://localhost:5000/api/v1/password/update`,
+            `http://localhost:8000/api/v1/password/update`,
             {
                 oldPassword: passwords.oldPassword,
                 newPassword: passwords.newPassword,
@@ -230,7 +221,7 @@ export const forgotPassword = (email) => async (dispatch) => {
 
         const config = { headers: { 'Content-Type': 'application/json' } };
 
-        const { data } = await axios.post(`http://localhost:5000/api/v1/password/forgot`, email, config);
+        const { data } = await axios.post(`http://localhost:8000/api/v1/password/forgot`, email, config);
 
         dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
     } catch (error) {
@@ -248,7 +239,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 
         const config = { headers: { 'Content-Type': 'application/json' } };
 
-        const { data } = await axios.put(`http://localhost:5000/api/v1/password/reset/${token}`, passwords, config);
+        const { data } = await axios.put(`http://localhost:8000/api/v1/password/reset/${token}`, passwords, config);
 
         dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
     } catch (error) {
@@ -275,8 +266,7 @@ export const getAllUsers = () => async (dispatch) => {
 
         // const { data } = await axios.get(`http://localhost:8000/api/v1/admin/users`, config);
         const { data } = await axios.get(`http://localhost:8000/api/v1/admin/users`);
-
-        // console.log('user db:', data.users);
+        console.log("Data user", data.users)
 
         dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
     } catch (error) {
@@ -318,7 +308,7 @@ export const updateUser = (id, userData, shippingInfo) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put(`http://localhost:5000/api/v1/admin/user/${id}`, userData, config);
+        const { data } = await axios.put(`http://localhost:8000/api/v1/admin/user/${id}`, userData, config);
 
         dispatch({ type: UPDATE_USER_SUCCESS, payload: data.success });
     } catch (error) {
@@ -343,8 +333,7 @@ export const deleteUser = (id) => async (dispatch) => {
             },
         };
 
-        // const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/user/${id}`, config);
-        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/user/${id}`);
+        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/user/${id}`, config);
 
         dispatch({ type: DELETE_USER_SUCCESS, payload: data });
     } catch (error) {

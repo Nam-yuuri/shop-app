@@ -2,7 +2,6 @@ import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
@@ -29,9 +28,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllBanners, getAllBannersMain } from '~/actions/bannerAction';
 import config from '~/config';
 import { getAllHeaderMain, getAllHeaders } from '~/actions/headerAction';
-import { getUserDetails, loadUser } from '~/actions/userAction';
+import { getAllUsers, getUserDetails, loadUser } from '~/actions/userAction';
 import { Link, useHistory, useNavigate, useParams } from 'react-router-dom';
 import Loading from '~/components/Loading/Loading';
+import { getCart } from '~/actions/cartAction';
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -118,13 +118,6 @@ function Header() {
         );
     };
 
-    // const user = null;
-    // const { user, loading: userLoading } = useSelector((state) => state.user);
-    // const { error, isUpdated, loading } = useSelector((state) => state.profile);
-
-    // console.log(user)
-    /////
-
     const [openError, setOpenError] = useState(false);
     const [openSuccess, setOpenSuccess] = useState(false);
     const [errorAlert, setErrorAlert] = useState('');
@@ -133,31 +126,7 @@ function Header() {
     const dispatch = useDispatch();
     let match = useParams();
 
-    const userId = match.id;
-
     const { headers } = useSelector((state) => state.headersMain);
-
-    const { user, loading: userLoading } = useSelector((state) => state.user);
-    const { error, isUpdated, loading } = useSelector((state) => state.profile);
-
-    // useEffect(() => {
-    //     dispatch(loadUser())
-    // }, [dispatch])
-
-    // const { user, loading: userLoading } = useSelector((state) => state.user);
-    // const { error, isUpdated, loading } = useSelector((state) => state.profile);
-    // const { user: userNow } = useSelector((state) => state.user);
-    // const { loading, error, user } = useSelector((state) => state.userDetails);
-    // const { isAuthenticated, user } = useSelector((state) => state.user);
-
-    // useEffect(() => {
-    //     if (user && user._id !== userId) {
-    //       dispatch(getUserDetails(userId));
-    //     } else {
-
-    // useEffect(() => {
-    //     dispatch(getUserDetails(userId))
-    // }, [dispatch])
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -181,34 +150,43 @@ function Header() {
 
     const navigate = useNavigate();
 
-    // console.log("user: ", user)
+    const { isAuthenticated, user, loading  } = useSelector((state) => state.user);
+    // useEffect(() => {
+    //     store.dispatch(loadUser());
+    // }, []);
+    // const store = useSelector((state) => state);
+
+    // console.log('user in header: ', user._id);
+    // const userId = user._id;
+
+    // console.log('userId: ', userId);
+    const { cart, isDeleted, isUpdated} = useSelector((state) => state.cart);
 
     useEffect(() => {
         dispatch(getAllHeaderMain());
-        // dispatch(loadUser())
+        // dispatch(loadUser());
+        dispatch(getCart());
     }, [dispatch]);
-
-    // const { headers } = useSelector((state) => state.headers);
-    // useEffect(() => {
-    //     dispatch(getAllHeaders());
-    // }, [dispatch]);
-
-    // console.log('header nay:', headers);
-    console.log('user: ', user);
 
     const searchSubmitHandler = (e) => {
         e.preventDefault();
         console.log('keyword: ', keyword);
         if (keyword.trim()) {
             navigate(`/products/${keyword}`);
-            // http://localhost:8000/api/v1/products?keyword=Laptop HP 15s-fq5079TU&page=1&sort
         } else {
         }
     };
 
+    const url = 'https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg';
+
+    // {user ? if (user.avatar.url != '') {
+    // } : ''}
+
+    console.log('cart: ', cart);
+
     return (
         <div>
-            {userLoading ? (
+            {loading ? (
                 <Loading />
             ) : (
                 <div className={cx('wrapper')}>
@@ -286,7 +264,7 @@ function Header() {
                                             </form>
                                         </Tippy>
                                     </div>
-                                    {user.user ? (
+                                    {(user && (
                                         <Button className={cx('login-logout')}>
                                             <Tippy
                                                 hideOnClick={false}
@@ -299,19 +277,19 @@ function Header() {
                                                 <div className={cx('box', 'hover')}>
                                                     <div className={cx('box_img')}>
                                                         <img
-                                                            src={user.user.avatar.url}
+                                                            src={url}
                                                             alt={user.name}
                                                             style={{ width: '36px', height: '36px' }}
                                                         />
                                                     </div>
                                                     <div>
                                                         <div className={cx('text')}>Xin chào,</div>
-                                                        <div className={cx('text')}>{user.user.name}</div>
+                                                        <div className={cx('text')}>{user.name}</div>
                                                     </div>
                                                 </div>
                                             </Tippy>
                                         </Button>
-                                    ) : (
+                                    )) || (
                                         <Button to={'/login'} className={cx('login-logout')}>
                                             <div className={cx('box', 'hover')}>
                                                 <UserIcon />
@@ -322,20 +300,7 @@ function Header() {
                                             </div>
                                         </Button>
                                     )}
-                                    {/* <div className={cx('notification')}>
-                            <Tippy
-                                interactive
-                                delay={[100, 500]}
-                                offset={[0, 0]}
-                                placement="bottom-end"
-                                render={renderNotification}
-                            >
-                                <div className={cx('box', 'hover')}>
-                                    <span className={cx('number')}>1</span>
-                                    <NotificationIcon />
-                                </div>
-                            </Tippy>
-                        </div> */}
+
                                     <Button to={'/cart'} className={cx('cart')}>
                                         <Tippy
                                             inertia
@@ -351,11 +316,9 @@ function Header() {
                                                 <CartIcon />
                                                 <div>
                                                     <div>Giỏ hàng của bạn </div>
-                                                    {/* {cartMountResult ? ( */}
-                                                    <div>({cartMountResult}) sản phẩm </div>
-                                                    {/* ) : (
-                                            <div>(0) sản phẩm </div>
-                                        )} */}
+                                                    {/* {(cart && (
+                                                        <div>({cart.cartItems.length}) sản phẩm </div>
+                                                    )) || <div>(0) sản phẩm </div>} */}
                                                 </div>
                                             </div>
                                         </Tippy>
@@ -421,7 +384,7 @@ function Header() {
                                                 </form>
                                             </Tippy>
                                         </div>
-                                        {(user.user && (
+                                        {(user && (
                                             <Button className={cx('login-logout')}>
                                                 <Tippy
                                                     hideOnClick={false}
@@ -434,14 +397,14 @@ function Header() {
                                                     <div className={cx('box', 'hover')}>
                                                         <div className={cx('box_img')}>
                                                             <img
-                                                                src={user.user.avatar.url}
-                                                                // alt={user.result.name}
+                                                                src={user.avatar.url}
+                                                                alt={user.name}
                                                                 style={{ width: '36px', height: '36px' }}
                                                             />
                                                         </div>
                                                         <div>
                                                             <div className={cx('text')}>Xin chào,</div>
-                                                            <div className={cx('text')}>{user.user.name}</div>
+                                                            <div className={cx('text')}>{user.name}</div>
                                                         </div>
                                                     </div>
                                                 </Tippy>
@@ -484,7 +447,9 @@ function Header() {
                                                     <div>
                                                         <div>Giỏ hàng của bạn </div>
                                                         {/* {cartMountResult ? ( */}
-                                                        <div>({cartMountResult}) sản phẩm </div>
+                                                        {/* {(cart.cartItems && (
+                                                            <div>({cart.cartItems.length}) sản phẩm </div>
+                                                        )) || <div>(0) sản phẩm </div>} */}
                                                         {/* ) : (
                                                 <div>(0) sản phẩm </div>
                                             )} */}

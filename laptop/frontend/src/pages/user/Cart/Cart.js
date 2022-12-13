@@ -7,6 +7,8 @@ import Button from '~/components/Button';
 import styles from './Cart.module.scss';
 import Pdf from '~/components/layout/components/PreviewItem/Pdf';
 import config from '~/config';
+import { useSelector } from 'react-redux';
+import formatPrice from '~/utils/formatPrice';
 
 const cx = classNames.bind(styles);
 
@@ -42,6 +44,11 @@ function Cart() {
         );
     };
 
+    const { cart, isDeleted, isUpdated, loading } = useSelector((state) => state.cart);
+    // {cart && <div>({cart.cartItems.length}) sản phẩm </div>}
+    // const Cart = cart.cartItems;
+    // console.log('Cart: ', cart.data.cart);
+
     return (
         <div className={cx('Cart')}>
             <div className={cx('wrapper')}>
@@ -55,7 +62,7 @@ function Cart() {
                         </a>
                         <div className={cx('href-text', 'href-text-cart')}>Giỏ hàng</div>
                     </div>
-                    {!loginResult ? (
+                    {!cart.cartItems ? (
                         <div className={cx('Cart-content')}>
                             <div className={cx('box')}>
                                 <div className={cx('image')}>
@@ -115,61 +122,67 @@ function Cart() {
                                                 <div className={cx('money-text', 'boxtext')}>Thành tiền</div>
                                             </div>
                                         </div>
-                                        <div className={cx('product')}>
-                                            <div className={cx('product-row')}>
-                                                <div className={cx('box-info')}>
-                                                    <div className={cx('info-row')}>
-                                                        <Button to={'/profile'} className={cx('btn-info')}>
-                                                            <div className={cx('img')}>
-                                                                <img
-                                                                    src="https://lh3.googleusercontent.com/DlwPoM-WwbjfN5auN6OZkc_7A9h9Bg1mmOcQ2U4nkCbqDLmDtkTPn1PTcYl8eGEvPWD4a1U0Pic3-qRzxA=rw"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                        </Button>
-                                                        <div className={cx('info-content')}>
-                                                            <Button
-                                                                to={'/profile'}
-                                                                className={cx('btn-info', 'boxinfo')}
-                                                            >
-                                                                <div className={cx('info-name-text')}>
-                                                                    Bàn phím Logitech Bluetooth K480 (Trắng)
+                                        {cart.cartItems.map((cart) => (
+                                            <div className={cx('product')} key={cart._id}>
+                                                <div className={cx('product-row')}>
+                                                    <div className={cx('box-info')}>
+                                                        <div className={cx('info-row')}>
+                                                            <Button to={'/profile'} className={cx('btn-info')}>
+                                                                <div className={cx('img')}>
+                                                                    <img
+                                                                        src="https://lh3.googleusercontent.com/DlwPoM-WwbjfN5auN6OZkc_7A9h9Bg1mmOcQ2U4nkCbqDLmDtkTPn1PTcYl8eGEvPWD4a1U0Pic3-qRzxA=rw"
+                                                                        alt=""
+                                                                    />
                                                                 </div>
                                                             </Button>
-                                                            <div className={cx('info-code', 'boxinfo')}>
-                                                                SKU: 1503118
+                                                            <div className={cx('info-content')}>
+                                                                <Button
+                                                                    to={'/profile'}
+                                                                    className={cx('btn-info', 'boxinfo')}
+                                                                >
+                                                                    <div className={cx('info-name-text')}>
+                                                                        {cart.name}
+                                                                    </div>
+                                                                </Button>
+                                                                {/* <div className={cx('info-code', 'boxinfo')}>
+                                                                    SKU: 1503118
+                                                                </div> */}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className={cx('box-price')}>
-                                                    <div className={cx('price-discount')}>
-                                                        <span className={cx('discount-span')}>47.790.000đ</span>
+                                                    <div className={cx('box-price')}>
+                                                        <div className={cx('price-discount')}>
+                                                            <span className={cx('discount-span')}>
+                                                                {cart.priceSale}
+                                                            </span>
+                                                        </div>
+                                                        <div className={cx('price-real')}>
+                                                            <span className={cx('real-span')}>{cart.price}</span>
+                                                        </div>
                                                     </div>
-                                                    <div className={cx('price-real')}>
-                                                        <span className={cx('real-span')}>49.890.000₫</span>
+                                                    <div className={cx('box-amount')}>
+                                                        <div className={cx('amount-num')}>
+                                                            <button onClick={handleMimus}>
+                                                                <FontAwesomeIcon icon={faMinus} />
+                                                            </button>
+                                                            <div className={cx('number')}>{cart.quantity}</div>
+                                                            <button onClick={handlePlus}>
+                                                                <FontAwesomeIcon icon={faPlus} />
+                                                            </button>
+                                                        </div>
+                                                        <div className={cx('btn-delete')}>Xóa</div>
                                                     </div>
-                                                </div>
-                                                <div className={cx('box-amount')}>
-                                                    <div className={cx('amount-num')}>
-                                                        <button onClick={handleMimus}>
-                                                            <FontAwesomeIcon icon={faMinus} />
-                                                        </button>
-                                                        <div className={cx('number')}>1</div>
-                                                        <button onClick={handlePlus}>
-                                                            <FontAwesomeIcon icon={faPlus} />
-                                                        </button>
-                                                    </div>
-                                                    <div className={cx('btn-delete')}>Xóa</div>
-                                                </div>
-                                                <div className={cx('box-sum-price')}>
-                                                    <div className={cx('sum-price')}>
-                                                        <span className={cx('sum-price-span')}>2.400.000đ</span>
+                                                    <div className={cx('box-sum-price')}>
+                                                        <div className={cx('sum-price')}>
+                                                            <span className={cx('sum-price-span')}>
+                                                                {cart.priceSale * cart.quantity}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className={cx('product')}>
+                                        ))}
+                                        {/* <div className={cx('product')}>
                                             <div className={cx('product-row')}>
                                                 <div className={cx('box-info')}>
                                                     <div className={cx('info-row')}>
@@ -333,7 +346,7 @@ function Cart() {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className={cx('container-right')}>
@@ -366,7 +379,12 @@ function Cart() {
                                         </div>
                                         {loginResult ? (
                                             <div className={cx('btn-money')}>
-                                                <Button primary large onClick={handleIntoMoney} to={config.routes.checkout}>
+                                                <Button
+                                                    primary
+                                                    large
+                                                    onClick={handleIntoMoney}
+                                                    to={config.routes.checkout}
+                                                >
                                                     TIẾP TỤC
                                                 </Button>
                                             </div>
@@ -434,7 +452,12 @@ function Cart() {
                                                 </div>
                                                 {loginResult ? (
                                                     <div className={cx('btn-money')}>
-                                                        <Button primary large onClick={handleIntoMoney} to={config.routes.checkout}>
+                                                        <Button
+                                                            primary
+                                                            large
+                                                            onClick={handleIntoMoney}
+                                                            to={config.routes.checkout}
+                                                        >
                                                             TIẾP TỤC
                                                         </Button>
                                                     </div>

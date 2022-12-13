@@ -9,6 +9,7 @@ import NotificationItem from '~/components/layout/components/PreviewItem/Notific
 import { DataProduct } from '~/Data/Product/Product';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBrands } from '~/actions/brandAction';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +33,7 @@ function ProductItem() {
     };
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { loading, brands } = useSelector((state) => state.brands);
     useEffect(() => {
@@ -39,7 +41,7 @@ function ProductItem() {
     }, [dispatch]);
 
     const currentRoute = window.location.pathname;
-    const route = currentRoute.split("/")
+    const route = currentRoute.split('/');
     // console.log(route);
 
     return (
@@ -49,14 +51,9 @@ function ProductItem() {
                     <div key={product._id}>
                         <div className={cx('')}>
                             <Button
-                                to={`/brand/${product._id}`}
                                 className={cx('box')}
                                 onClick={() => {
-                                    if(route.length > 2){
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 100)
-                                    }
+                                    navigate(`/brand/${product._id}`);
                                 }}
                             >
                                 <div className={cx('content')}>

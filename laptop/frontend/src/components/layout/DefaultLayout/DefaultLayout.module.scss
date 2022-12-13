@@ -143,11 +143,16 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100vh;
+        height: 100%;
     }
 }
 
 @media screen and (max-width: 768px) {
+
+    .header{
+        display: none;
+    }
+
     .laptop {
         display: none;
     }

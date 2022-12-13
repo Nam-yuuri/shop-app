@@ -72,16 +72,25 @@ function Profile() {
         fontWeight: 'bold',
     };
 
+    // const userId = match.id;
+
+    const { headers } = useSelector((state) => state.headersMain);
+
+    const { user, loading: userLoading } = useSelector((state) => state.user);
+
     const { error: cartError, isUpdated } = useSelector((state) => state.cart);
+
+    // const userId = user._id;
 
     const addToCartHandler = () => {
         if (cartError) {
             setOpenError(true);
             setErrorAlert(cartError);
+            alert('thành công');
             return;
         }
         dispatch(addToCart(products._id, quantity));
-        // alert("Thêm sản phẩm vào giỏ hàng thành công");
+        alert('Thêm sản phẩm vào giỏ hàng thành công');
         setOpenSuccess(true);
         setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
         // dispatch(getProductDetails(match.id));
@@ -94,8 +103,9 @@ function Profile() {
         setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
     };
 
-    console.log("products._id: ",products._id)
-    console.log("quantity: ",quantity)
+    console.log('products._id: ', products._id);
+    console.log('quantity: ', quantity);
+    // console.log('userId: ', user.user._id);
 
     const settings = {
         dots: true,
@@ -330,9 +340,7 @@ function Profile() {
                                                 </div>
                                                 <ul className={cx('promotion-list')}>
                                                     <li>
-                                                        <span>
-                                                            Trả góp 6 tháng lãi suất 0% với đơn hàng{" >"}3tr
-                                                        </span>
+                                                        <span>Trả góp 6 tháng lãi suất 0% với đơn hàng{' >'}3tr</span>
                                                         <a href=" " className={cx('list-href')}>
                                                             Xem chi tiết
                                                         </a>
