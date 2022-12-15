@@ -73,7 +73,7 @@ function UpdateOrder() {
     const [status, setStatus] = useState('');
 
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     let match = useParams();
 
     const handleDrawerOpen = () => {
@@ -109,7 +109,7 @@ function UpdateOrder() {
         }
 
         dispatch(getOrderDetails(match.id));
-    }, [dispatch, error, match.id, isUpdated, updateError,navigate]);
+    }, [dispatch, error, match.id, isUpdated, updateError, navigate]);
 
     const updateOrderSubmitHandler = (e) => {
         e.preventDefault();
@@ -186,8 +186,13 @@ function UpdateOrder() {
                         </div>
                         <div className="data">
                             <div>
-                                <Grid container spacing={2} className="confirmshippingArea" style={{marginBottom: '50px'}}>
-                                    <Grid item xs={12} md={6} style={{maxWidth: '35%'}}>
+                                <Grid
+                                    container
+                                    spacing={2}
+                                    className="confirmshippingArea"
+                                    style={{ marginBottom: '50px' }}
+                                >
+                                    <Grid item xs={12} md={6} style={{ maxWidth: '35%' }}>
                                         <Typography variant="h4">Địa chỉ giao hàng</Typography>
                                         <div className="orderDetail">
                                             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -217,12 +222,12 @@ function UpdateOrder() {
                                                 <p
                                                     style={{ margin: '0px' }}
                                                     className={
-                                                        order.paymentInfo && order.paymentInfo.status === 'succeeded'
+                                                        order.paymentInfo && order.paymentInfo.status === 'Đã thanh toán'
                                                             ? 'greenColor'
                                                             : 'redColor'
                                                     }
                                                 >
-                                                    {order.paymentInfo && order.paymentInfo.status === 'succeeded'
+                                                    {order.paymentInfo && order.paymentInfo.status === 'Đã thanh toán'
                                                         ? 'Đã thanh toán'
                                                         : 'Chưa thanh toán'}
                                                 </p>
@@ -233,6 +238,7 @@ function UpdateOrder() {
                                                 <span>{order.totalPrice && formatPrice(order.totalPrice)}</span>
                                             </div>
                                         </div>
+                                        
 
                                         <Typography variant="h4">Trạng thái đơn hàng</Typography>
                                         <div className="orderDetail">
@@ -249,7 +255,7 @@ function UpdateOrder() {
                                             </div>
                                         </div>
                                     </Grid>
-                                    <Grid item xs={12} md={6} style={{maxWidth: '100%', flex: 1}}>
+                                    <Grid item xs={12} md={6} style={{ maxWidth: '100%', flex: 1 }}>
                                         <div className="confirmCartItems">
                                             <Typography variant="h4">Giỏ hàng:</Typography>
                                             <div className="confirmCartItemsContainer">
@@ -257,13 +263,18 @@ function UpdateOrder() {
                                                     order.orderItems.map((item) => (
                                                         <div key={item.product}>
                                                             <img src={item.image} alt={item.name} />
-                                                            <Link to={`/product/${item.product}`}>
+                                                            <Link to={`/profile/${item.product}`}>
                                                                 {item.name}
                                                             </Link>{' '}
                                                             <span>
                                                                 {item.quantity} X {formatPrice(item.priceSale)} ={' '}
                                                                 <b>{formatPrice(item.priceSale * item.quantity)}</b>
                                                             </span>
+                                                            <img src={item.gift_image} alt={item.gift_name} />
+                                                            <p>
+                                                                {item.gift_name}(Quà tặng)
+                                                            </p>{' '}
+                                                            
                                                         </div>
                                                     ))}
                                             </div>

@@ -109,34 +109,6 @@ export const deleteFromCart = (productId) => async (dispatch) => {
     }
 };
 
-// Add to Cart Local
-export const addItemsToCartLocal = (id, quantity) => async (dispatch, getState) => {
-    const { data } = await axios.get(`http://localhost:8000/api/v1/product/${id}`);
-
-    dispatch({
-        type: ADD_TO_CART,
-        payload: {
-            product: data.product._id,
-            name: data.product.name,
-            price: data.product.cost,
-            image: data.product.images[0].url,
-            stock: data.product.Stock,
-            quantity,
-        },
-    });
-
-    localStorage.setItem('cartItems', JSON.stringify(getState().cartLocal.cartItems));
-};
-
-// REMOVE FROM CART LOCAL
-export const removeItemsFromCart = (id) => async (dispatch, getState) => {
-    dispatch({
-        type: REMOVE_CART_ITEM,
-        payload: id,
-    });
-
-    localStorage.setItem('cartItems', JSON.stringify(getState().cartLocal.cartItems));
-};
 
 // SAVE SHIPPING INFO
 export const saveShippingInfo = (data) => async (dispatch) => {

@@ -108,6 +108,7 @@ function Cart() {
         }
     }, [dispatch, isUpdated, isDeleted]);
 
+    console.log("cart: ",cart)
 
     return (
         <div className={cx('Cart')}>

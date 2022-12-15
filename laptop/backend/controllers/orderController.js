@@ -108,8 +108,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 
 // get all Orders -- Admin
 exports.getAllOrdersStatistical = catchAsyncErrors(async (req, res, next) => {
-  // let d = new Date(req.query.dateStart);
-  // d.setDate(d.getDate() - 1);
+
   const orders = await Order.find({
     createdAt: {
       $gte: new Date(req.query.dateStart),

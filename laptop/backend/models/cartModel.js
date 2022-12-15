@@ -25,6 +25,14 @@ const cartSchema = mongoose.Schema(
         image: {
           type: String,
         },
+        gift_image: {
+          type: String,
+          required: true,
+        },
+        gift_name: {
+          type: String,
+          required: true,
+        },
         product: {
           type: mongoose.Schema.ObjectId,
           ref: "Product",

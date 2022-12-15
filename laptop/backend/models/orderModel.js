@@ -51,6 +51,14 @@ const orderSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
+        gift_image: {
+          type: String,
+          required: true,
+        },
+        gift_name: {
+          type: String,
+          required: true,
+        },
         product: {
           type: mongoose.Schema.ObjectId,
           ref: "Product",

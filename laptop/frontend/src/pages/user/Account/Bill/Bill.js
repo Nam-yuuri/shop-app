@@ -24,7 +24,7 @@ function Bill() {
         dispatch(myOrders());
     }, [dispatch, error]);
 
-    // console.log('orders', orders);
+    console.log('orders', orders);
 
     return (
         <div>
@@ -62,7 +62,14 @@ function Bill() {
                                                         Hình thức thanh toán: <span>{item.paymentInfo.type}</span>
                                                     </div>
                                                     <div className={cx('phone')}>
-                                                        Tình trạng: <span>{item.paymentInfo.status}</span>
+                                                        Tình trạng:{' '}
+                                                        <span>
+                                                            {item.orderStatus === 'Processing'
+                                                                ? 'Đang chuẩn bị hàng'
+                                                                : item.orderStatus === 'Shipped'
+                                                                ? 'Đang vận chuyển'
+                                                                : 'Đã giao hàng'}
+                                                        </span>
                                                     </div>
                                                     <div className={cx('phone')}>
                                                         Tổng tiền: <span>{formatPrice(item.totalPrice)}</span>

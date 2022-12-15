@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetails } from '~/actions/productAction';
 import formatPrice from '~/utils/formatPrice';
 import Loading from '~/components/Loading/Loading';
-import { addItemsToCartLocal, addToCart } from '~/actions/cartAction';
+import { addToCart } from '~/actions/cartAction';
 import { Alert, Snackbar } from '@mui/material';
 
 const cx = classNames.bind(styles);
@@ -125,12 +125,7 @@ function Profile() {
         // dispatch(getProductDetails(match.id));
     };
 
-    const addToCartLocalHandler = () => {
-        dispatch(addItemsToCartLocal(match.id, quantity));
-        // alert("Thêm sản phẩm vào giỏ hàng thành công");
-        setOpenSuccess(true);
-        setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
-    };
+ 
 
     // console.log('products._id: ', products._id);
     // console.log('quantity: ', quantity);

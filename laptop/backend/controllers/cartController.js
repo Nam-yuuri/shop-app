@@ -26,8 +26,6 @@ exports.myCart = catchAsyncErrors(async (req, res, next) => {
     model: "Product",
   });
 
-
-
   // let cartItems = await cart.cartItems;
 
   res.status(200).json({
@@ -61,11 +59,16 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
   // .toFixed(2)
   // Number(Math.round(totalAmount + 'e' + 2) + 'e-' + 2)
   if (discountActive) {
-    priceSale = item.cost - (Math.floor((((item.cost / 1000000) * discountPercent) / 100).toFixed(0)) * 1000000) ;
+    priceSale =
+      item.cost -
+      Math.floor((((item.cost / 1000000) * discountPercent) / 100).toFixed(0)) *
+        1000000;
     // priceSale = Number(Math.round((item.cost / 1000000 - (item.cost / 1000000 * (discountPercent / 100)).toFixed(2) * 1000000)));
   }
   const name = item.name;
   const image = item.images[0].url;
+  const gift_name = item.gift_image_name;
+  const gift_image = item.gift_images[0].url;
 
   if (cart) {
     // Nếu user đã có giỏ hàng
@@ -91,6 +94,8 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
         discountActive,
         discountPercent,
         priceSale,
+        gift_name,
+        gift_image,
       });
     }
     cart.totalPrice += quantity * priceSale;
@@ -115,6 +120,8 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
           discountActive,
           discountPercent,
           priceSale,
+          gift_name,
+          gift_image,
         },
       ],
       totalPrice: quantity * priceSale,
