@@ -225,7 +225,7 @@ function UpdateShowroom() {
                                                 marginBottom: '50px',
                                             }}
                                         >
-                                            Thêm cửa hàng
+                                            Sửa thông tin cửa hàng
                                         </Button>
                                     </Grid>
                                 </Grid>

@@ -94,7 +94,18 @@ import {
     showroomReducer,
     showroomDetailsReducer,
     newShowroomReducer,
+    showroomCityReducer,
 } from './reducers/showroomReducer';
+
+import {
+    allOrdersReducer,
+    allOrdersStatisticalReducer,
+    myOrdersReducer,
+    newOrderReducer,
+    orderDetailsReducer,
+    orderReducer,
+    allOrdersStatusReducer,
+} from './reducers/orderReducer';
 
 const reducer = combineReducers({
     // Product
@@ -161,10 +172,20 @@ const reducer = combineReducers({
     showroom: showroomReducer,
     newShowroom: newShowroomReducer,
     showroomDetails: showroomDetailsReducer,
-
+    showroomCity: showroomCityReducer,
+    
     //Cart
     cart: cartReducer,
     cartLocal: cartLocalReducer,
+
+    //Order
+    newOrder: newOrderReducer,
+    myOrders: myOrdersReducer,
+    orderDetails: orderDetailsReducer,
+    allOrders: allOrdersReducer,
+    order: orderReducer,
+    allOrdersStatistical: allOrdersStatisticalReducer,
+    allOrdersStatus: allOrdersStatusReducer,
 });
 
 let initialState = {

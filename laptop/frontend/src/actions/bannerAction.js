@@ -27,8 +27,16 @@ import {
 export const getAllBanners = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_BANNER_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/banners');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+
+        const data = await axios.get('http://localhost:8000/api/v1/banners', config);
 
         // console.log('db', data);
 
@@ -48,8 +56,16 @@ export const getAllBanners = () => async (dispatch) => {
 export const getAllBannersMain = () => async (dispatch) => {
     try {
         dispatch({ type: MAIN_BANNER_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/banner/main');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+
+        const data = await axios.get('http://localhost:8000/api/v1/banner/main', config);
 
         // console.log('dbm', data.data.banner);
 
@@ -68,32 +84,28 @@ export const getAllBannersMain = () => async (dispatch) => {
 // Create Banner
 export const createBanner = (bannerData) => async (dispatch) => {
     try {
-        dispatch({ type: 'NEW_BANNER_REQUEST' });
+        dispatch({ type: NEW_BANNER_REQUEST });
 
-        // const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //     Authorization: `token ${token}`,
-        //   },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.post(
-        //     'http://localhost:8000/api/v1/admin/banner/new',
-        //     bannerData,
-        //     // config
-        // );
+        const data = await axios.post('http://localhost:8000/api/v1/admin/banner/new', bannerData, config);
 
-        const data = await axios.post('http://localhost:8000/api/v1/admin/banner/new', bannerData);
+        // const data = await axios.post('http://localhost:8000/api/v1/admin/banner/new', bannerData);
 
         dispatch({
-            type: 'NEW_BANNER_SUCCESS',
+            type: NEW_BANNER_SUCCESS,
             payload: data,
         });
     } catch (error) {
         dispatch({
-            type: 'NEW_BANNER_FAIL',
+            type: NEW_BANNER_FAIL,
             payload: error.response.data.message,
         });
     }
@@ -113,8 +125,7 @@ export const updateBanner = (id, bannerData) => async (dispatch) => {
             },
         };
 
-        // const data = await axios.put(`http://localhost:8000/api/v1/admin/banner/${id}`, bannerData, config);
-        const data = await axios.put(`http://localhost:8000/api/v1/admin/banner/${id}`, bannerData);
+        const data = await axios.put(`http://localhost:8000/api/v1/admin/banner/${id}`, bannerData, config);
 
         dispatch({
             type: UPDATE_BANNER_SUCCESS,
@@ -142,7 +153,7 @@ export const deleteBanner = (id) => async (dispatch) => {
             },
         };
 
-        const data = await axiosClient.delete(`/api/v1/admin/banner/${id}`, config);
+        const data = await axios.delete(`http://localhost:8000/api/v1/admin/banner/${id}`, config);
 
         dispatch({
             type: DELETE_BANNER_SUCCESS,
@@ -160,9 +171,16 @@ export const deleteBanner = (id) => async (dispatch) => {
 export const getBannerDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: BANNER_DETAILS_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get(`http://localhost:8000/api/v1/admin/banner/${id}`);
-        console.log("data", data.data.banner)
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+
+        const data = await axios.get(`http://localhost:8000/api/v1/admin/banner/${id}`, config);
         dispatch({
             type: BANNER_DETAILS_SUCCESS,
             payload: data.data.banner,

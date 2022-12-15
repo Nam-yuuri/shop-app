@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Avatar, Button } from '@mui/material';
+import { Alert, Avatar, Button, Snackbar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { confirmAlert } from 'react-confirm-alert';
@@ -14,8 +14,30 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import { deleteHeader, getAllHeaders } from '~/actions/headerAction';
 import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { deleteUser, getAllUsers } from '~/actions/userAction';
+import { clearErrors, deleteUser, getAllUsers } from '~/actions/userAction';
+import { DELETE_USER_RESET } from '~/constants/userConstants';
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Loading from '~/components/Loading/Loading';
 function UserList() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
+
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
@@ -24,16 +46,41 @@ function UserList() {
 
     const deleteUserHandler = (id) => {
         dispatch(deleteUser(id));
-        window.location.reload();
+        // window.location.reload();
     };
 
     const dispatch = useDispatch();
 
-    const { users } = useSelector((state) => state.allUsers);
+    // const { user } = useSelector((state) => state.user);
+    const { error, users, loading } = useSelector((state) => state.allUsers);
+    const { error: deleteError, isDeleted, message } = useSelector((state) => state.profile);
     useEffect(() => {
         dispatch(getAllUsers());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (error) {
+            setOpenError(true);
+            setErrorAlert(error);
+            dispatch(clearErrors());
+        }
+
+        if (deleteError) {
+            setOpenError(true);
+            setErrorAlert(deleteError);
+            dispatch(clearErrors());
+        }
+
+        if (isDeleted) {
+            setOpenSuccess(true);
+            setSuccessAlert(message);
+            // history.push('/admin/users');
+            Swal.fire('Thành công!', 'Xóa tài khoản thành công!', 'success');
+            dispatch({ type: DELETE_USER_RESET });
+        }
+
+        dispatch(getAllUsers());
+    }, [dispatch, error, deleteError, isDeleted, message]);
     // console.log('user: ', users);
 
     const columns = [
@@ -59,11 +106,7 @@ function UserList() {
             minWidth: 150,
             flex: 0.3,
             cellClassName: (params) => {
-                return params.getValue(params.id, 'role') === 'admin'
-                    ? params.getValue(params.id, 'role') === 'staff'
-                        ? 'yellowColor'
-                        : 'redColor'
-                    : 'greenColor';
+                return params.getValue(params.id, 'role') === 'admin' ? 'redColor' : 'greenColor';
             },
         },
         {
@@ -98,7 +141,7 @@ function UserList() {
                 return (
                     <React.Fragment>
                         <div className="box-Action-admin">
-                            <Link to={`/admin/banner/${params.getValue(params.id, 'id')}`}>
+                            <Link to={`/admin/UserList/updateUser/${params.getValue(params.id, 'id')}`}>
                                 <EditIcon />
                             </Link>
 
@@ -133,8 +176,6 @@ function UserList() {
         },
     ];
 
- 
-
     const rows = [];
 
     users &&
@@ -144,58 +185,81 @@ function UserList() {
                 role: item.role,
                 email: item.email,
                 name: item.name,
-                avatar: item.avatar.url
+                avatar: item.avatar.url,
             });
         });
 
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Tài khoản </h1>
-                    {/* <Link to={config.routes.newHeader} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm header
-                    </Link> */}
-                </div>
-            </div>
-            <div className="productList">
+            {loading ? (
+                <Loading />
+            ) : (
                 <div>
-                    <div
-                        className="sidebar"
-                        style={{ width: wrapperWidth ? '222px' : '0px', display: wrapperWidth ? 'block' : 'none' }}
-                    >
-                        <div className="box-sidebar">
-                            <Sidebar />
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
+                                }}
+                            />
+                        </div>
+                        <div className="header-sidebar">
+                            <h1>Tài khoản </h1>
+                            {/* <Link to={config.routes.newHeader} className="header-sidebar-btn">
+                    <FontAwesomeIcon icon={faPlus} />
+                    Thêm header
+                </Link> */}
+                        </div>
+                    </div>
+                    <div className="productList">
+                        <div>
+                            <div
+                                className="sidebar"
+                                style={{
+                                    width: wrapperWidth ? '222px' : '0px',
+                                    display: wrapperWidth ? 'block' : 'none',
+                                }}
+                            >
+                                <div className="box-sidebar">
+                                    <Sidebar />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="data">
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={pageSize}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                rowsPerPageOptions={[5, 10, 20]}
+                                pagination
+                                // pageSize={10}
+                                disableSelectionOnClick
+                                className="productListTable"
+                                autoHeight
+                                components={{
+                                    Toolbar: GridToolbar,
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
-                <div className="data">
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={pageSize}
-                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                        rowsPerPageOptions={[5, 10, 20]}
-                        pagination
-                        // pageSize={10}
-                        disableSelectionOnClick
-                        className="productListTable"
-                        autoHeight
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                    />
-                </div>
-            </div>
+            )}
         </div>
     );
 }

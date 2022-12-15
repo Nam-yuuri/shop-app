@@ -19,13 +19,14 @@ exports.getCartDetails = catchAsyncErrors(async (req, res, next) => {
 
 //Get my cart
 exports.myCart = catchAsyncErrors(async (req, res, next) => {
-  const { userId } = req.body;
-  const cart = await Cart.findOne({ user: userId }).populate({
+  // const { userId } = req.body;
+  // console.log("userId2222: ", req.user._id)
+  const cart = await Cart.findOne({ user: req.user._id }).populate({
     path: "cartItems.product",
     model: "Product",
   });
 
-  // console.log("userId2222: ", req.data.user._id)
+
 
   // let cartItems = await cart.cartItems;
 
@@ -38,16 +39,16 @@ exports.myCart = catchAsyncErrors(async (req, res, next) => {
 
 // Add cart item --  User
 exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
-  const { productId, quantity, userId } = req.body;
+  const { productId, quantity } = req.body;
 
-  let cart = await Cart.findOne({ user: userId });
+  let cart = await Cart.findOne({ user: req.user._id });
   let item = await Product.findOne({ _id: productId });
 
-  console.log("item: ", item);
-  // console.log("req.user.user._id: ", req.user.user._id);
+  // console.log("item: ", item);
+  // console.log("req.user.user._id: ", req.user._id);
   // console.log("userId: ", (req.user._id).toString());
-  console.log("userId1: ", userId);
-  console.log("userId2222: ", req.user)
+  // console.log("userId1: ", userId);
+  // console.log("userId2222: ", req.user)
 
   if (!item) {
     return next(new ErrorHander("Không tìm thấy sản phẩm", 400));
@@ -57,9 +58,11 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
   let discountPercent = item.promotional;
   let price = item.cost;
   let priceSale = item.cost;
-
+  // .toFixed(2)
+  // Number(Math.round(totalAmount + 'e' + 2) + 'e-' + 2)
   if (discountActive) {
-    priceSale = item.cost - item.cost * (discountPercent / 100);
+    priceSale = item.cost - (Math.floor((((item.cost / 1000000) * discountPercent) / 100).toFixed(0)) * 1000000) ;
+    // priceSale = Number(Math.round((item.cost / 1000000 - (item.cost / 1000000 * (discountPercent / 100)).toFixed(2) * 1000000)));
   }
   const name = item.name;
   const image = item.images[0].url;
@@ -101,7 +104,7 @@ exports.addCartItem = catchAsyncErrors(async (req, res, next) => {
   } else {
     // Nếu không tồn tại cart tạo mới.
     const newCart = await Cart.create({
-      user: userId,
+      user: req.user._id,
       cartItems: [
         {
           product: productId,

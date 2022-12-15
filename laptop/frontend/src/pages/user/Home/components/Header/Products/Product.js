@@ -7,7 +7,7 @@ import Button from '~/components/Button';
 import NotificationItem from '~/components/layout/components/PreviewItem/NotificationItem';
 import './Product.css';
 import { DataProduct } from '~/Data/Product/Product';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import { getAllBrands } from '~/actions/brandAction';
 import config from '~/config';
 import { Bands } from '~/Data/Asus/Asus';
@@ -45,20 +45,21 @@ function Product() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                {brands.map((product) => (
-                    <div key={product._id}>
-                        <div className={cx('')}>
-                            <Button to={`brand/${product._id}`} className={cx('box')}>
-                                <div className={cx('content')}>
-                                    <div className={cx('box-img')}>
-                                        <img src={product.logo.url} alt="" />
+                {brands &&
+                    brands.map((product) => (
+                        <div key={product._id}>
+                            <div className={cx('')}>
+                                <Button to={`brand/${product._id}`} className={cx('box')}>
+                                    <div className={cx('content')}>
+                                        <div className={cx('box-img')}>
+                                            <img src={product.logo.url} alt="" />
+                                        </div>
+                                        <span>{product.name}</span>
                                     </div>
-                                    <span>{product.name}</span>
-                                </div>
-                            </Button>
+                                </Button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
             </div>
         </div>
     );

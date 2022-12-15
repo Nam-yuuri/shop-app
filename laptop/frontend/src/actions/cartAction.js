@@ -17,7 +17,7 @@ import {
 } from '../constants/cartConstants';
 
 // Get cart
-export const getCart = (userId) => async (dispatch) => {
+export const getCart = () => async (dispatch) => {
     try {
         dispatch({ type: GET_CART_REQUEST });
 
@@ -25,20 +25,15 @@ export const getCart = (userId) => async (dispatch) => {
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `token ${token}`,
             },
         };
 
-        // const data = await axios.get('http://localhost:8000/api/v1/cart', config);
-        const data = await axios.get('http://localhost:8000/api/v1/cart', { userId });
-
-        // console.log('data: ', data);
-        // console.log('userId111: ', userId);
+        const data = await axios.get('http://localhost:8000/api/v1/cart', config);
 
         dispatch({
             type: GET_CART_SUCCESS,
-            payload1: data.data,
+            payload1: data.data.cart,
             payload2: data.data.cartItems,
         });
     } catch (error) {
@@ -50,7 +45,7 @@ export const getCart = (userId) => async (dispatch) => {
 };
 
 // Add to cart
-export const addToCart = (productId, quantity, userId) => async (dispatch) => {
+export const addToCart = (productId, quantity) => async (dispatch) => {
     try {
         dispatch({ type: ADD_TO_CART_REQUEST });
 
@@ -63,20 +58,14 @@ export const addToCart = (productId, quantity, userId) => async (dispatch) => {
             },
         };
 
-        // const { data } = await axios.post(
-        //     'http://localhost:8000/api/v1/cart',
-        //     {
-        //         productId,
-        //         quantity,
-        //     },
-        //     config,
-        // );
-
-        const { data } = await axios.post('http://localhost:8000/api/v1/cart', {
-            productId,
-            quantity,
-            userId,
-        });
+        const { data } = await axios.post(
+            'http://localhost:8000/api/v1/cart',
+            {
+                productId,
+                quantity,
+            },
+            config,
+        );
 
         dispatch({
             type: ADD_TO_CART_SUCCESS,
@@ -106,7 +95,7 @@ export const deleteFromCart = (productId) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.delete(`http://localhost:5000/api/v1/cart/${productId}`, config);
+        const { data } = await axios.delete(`http://localhost:8000/api/v1/cart/${productId}`, config);
 
         dispatch({
             type: REMOVE_CART_ITEM_SUCCESS,

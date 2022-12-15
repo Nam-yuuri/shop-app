@@ -95,7 +95,7 @@ function Panel() {
                                                                                 ((product.cost / 1000000) *
                                                                                     product.promotional) /
                                                                                 100
-                                                                            ).toFixed(1) * 1000000,
+                                                                            ).toFixed(0) * 1000000,
                                                                         ),
                                                                     )}
                                                                 </div>

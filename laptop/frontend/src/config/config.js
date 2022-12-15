@@ -56,6 +56,10 @@ const routes = {
 
 
     userList: '/admin/UserList',
+    updateUser: '/admin/UserList/updateUser/:id',
+
+    orderList: '/admin/OrderList',
+    updateOrder: '/admin/OrderList/updateOrder/:id',
 
     loading: '/loading',
 };

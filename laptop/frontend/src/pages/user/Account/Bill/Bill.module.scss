@@ -64,6 +64,94 @@
 }
 
 .box-right {
+    .container-product {
+        border-radius: 8px;
+        background-color: var(--white-color);
+        position: relative;
+        margin-bottom: 16px;
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+        max-width: 640px;
+    }
+
+    .container-info {
+        padding: 16px 16px 0px;
+        .address,
+        .phone {
+            font-size: 14px;
+            font-weight: 700;
+
+            span {
+                font-weight: 400;
+            }
+        }
+    }
+
+    .order-items:nth-child(n + 2) {
+        // border-style: none;
+        // border-radius: 0px;
+        // border-width: 1px;
+        // border-color: unset;
+        // opacity: 1;
+        // padding: 16px;
+        // background-color: white;
+        border-top: 1px solid #ddd;
+    }
+
+    .box-product {
+        border-style: none;
+        border-radius: 0px;
+        border-width: 1px;
+        border-color: unset;
+        opacity: 1;
+        padding: 16px 16px 0px;
+        .order-items {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            padding: 16px 0px;
+            .order-item {
+                display: flex;
+                gap: 12px;
+                .order-img {
+                    // display: inline-flex;
+                    // align-items: center;
+                    // justify-content: center;
+                    // min-width: 100px;
+                    // padding: 0px;
+                    // border-radius: 4px;
+                    // font-size: 1.3rem;
+                    // font-weight: 400;
+                    // font-family: var(--font-family);
+                    // background-color: var(--white);
+                    // border: 1px solid transparent;
+                    // -webkit-user-select: none;
+                    // user-select: none;
+
+                    position: relative;
+                    display: inline-block;
+                    overflow: hidden;
+                    height: 80px;
+                    width: 80px;
+                    border: 1px solid #e4e5f0;
+                }
+
+                .order-name {
+                    color: rgb(67, 70, 87);
+                    font-size: 13px;
+                    line-height: 20px;
+                }
+
+                .order-info {
+                    color: rgb(130, 134, 158);
+                    font-size: 12px;
+                    line-height: 16px;
+                    -webkit-line-clamp: unset;
+                }
+            }
+        }
+    }
+
     .box-img {
         max-width: 100%;
         position: relative;
@@ -85,8 +173,7 @@
         text-align: center;
         margin-top: 20px;
 
-
-        h6{
+        h6 {
             font-size: 1.6rem;
         }
     }

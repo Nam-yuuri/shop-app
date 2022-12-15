@@ -28,8 +28,14 @@ import {
 export const getAllBrands = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_BRAND_REQUEST });
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        };
 
-        const data = await axios.get('http://localhost:8000/api/v1/brand');
+        const data = await axios.get('http://localhost:8000/api/v1/brand', config);
 
         // console.log('brand db: ', data);
 
@@ -49,10 +55,16 @@ export const getAllBrands = () => async (dispatch) => {
 export const getBrandsMain = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_BRAND_MAIN_REQUEST });
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        };
 
-        const data = await axios.get('http://localhost:8000/api/v1/brand/main');
+        const data = await axios.get('http://localhost:8000/api/v1/brand/main', config);
 
-        console.log('brand db: ', data);
+        // console.log('brand db: ', data);
 
         dispatch({
             type: ALL_BRAND_MAIN_SUCCESS,
@@ -70,15 +82,15 @@ export const deleteBrand = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_BRAND_REQUEST });
 
-        // const token = localStorage.getItem("token");
-        // const config = {
-        //   headers: {
-        //     Authorization: `token ${token}`,
-        //   },
-        // };
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        };
 
-        // const { data } = await axios.delete(`http://localhost:5000/api/v1/admin/product/${id}`, config);
-        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/brand/${id}`);
+        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/brand/${id}`, config);
+        // const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/brand/${id}`);
 
         dispatch({
             type: DELETE_BRAND_SUCCESS,
@@ -97,17 +109,17 @@ export const createBrand = (brandData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_BRAND_REQUEST });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, brandData, config);
-        const data = await axios.post(`http://localhost:8000/api/v1/admin/brand/new`, brandData);
+        const data = await axios.post(`http://localhost:8000/api/v1/admin/brand/new`, brandData, config);
+        // const data = await axios.post(`http://localhost:8000/api/v1/admin/brand/new`, brandData);
 
         dispatch({
             type: NEW_BRAND_SUCCESS,
@@ -125,8 +137,14 @@ export const createBrand = (brandData) => async (dispatch) => {
 export const getBrandDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: BRAND_DETAILS_REQUEST });
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        };
 
-        const data = await axios.get(`http://localhost:8000/api/v1/brand/${id}`);
+        const data = await axios.get(`http://localhost:8000/api/v1/brand/${id}`, config);
 
         // console.log('data', data.data.brand);
 
@@ -155,8 +173,8 @@ export const updateBrand = (id, brandData) => async (dispatch) => {
             },
         };
 
-        // const data = await axiosClient.put(`/api/v1/admin/banner/${id}`, brandData, config);
-        const data = await axios.put(`http://localhost:8000/api/v1/admin/brand/${id}`, brandData);
+        const data = await axios.put(`http://localhost:8000/api/v1/admin/brand/${id}`, brandData, config);
+        // const data = await axios.put(`http://localhost:8000/api/v1/admin/brand/${id}`, brandData);
 
         dispatch({
             type: UPDATE_BRAND_SUCCESS,

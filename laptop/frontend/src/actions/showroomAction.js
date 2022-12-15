@@ -22,11 +22,24 @@ import {
     SHOWROOM_DETAILS_SUCCESS,
     SHOWROOM_DETAILS_FAIL,
     CLEAR_ERRORS,
+    SHOWROOM_CITY_REQUEST,
+    SHOWROOM_CITY_SUCCESS,
+    SHOWROOM_CITY_FAIL,
 } from '~/constants/showroomConstants';
+
+//get all
 export const getAllShowroom = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_SHOWROOM_REQUEST });
-        const data = await axios.get('http://localhost:8000/api/v1/showroom');
+        const token = localStorage.getItem('token');
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/showroom', config);
 
         // console.log('showroom db:', data.data.showroom);
 
@@ -42,22 +55,57 @@ export const getAllShowroom = () => async (dispatch) => {
     }
 };
 
+// get with city
+export const getShowroomCity = (city) => async (dispatch) => {
+    try {
+        dispatch({ type: SHOWROOM_CITY_REQUEST });
+        const token = localStorage.getItem('token');
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+
+        let link = 'http://localhost:8000/api/v1/showroom';
+
+        if (city) {
+            link = `http://localhost:8000/api/v1/showroom/${city}`;
+        }
+        
+        const data = await axios.get(link, config);
+
+        // console.log("data", data.data.showroom)
+
+        dispatch({
+            type: SHOWROOM_CITY_SUCCESS,
+            payload: data.data.showroom,
+        });
+    } catch (error) {
+        dispatch({
+            type: SHOWROOM_CITY_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
 //create
 export const createShowroom = (showroomData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_SHOWROOM_REQUEST });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, showroomData, config);
-        const data = await axios.post(`http://localhost:8000/api/v1/showroom/new`, showroomData);
+        const data = await axios.post(`http://localhost:8000/api/v1/showroom/new`, showroomData, config);
+        // const data = await axios.post(`http://localhost:8000/api/v1/showroom/new`, showroomData);
 
         dispatch({
             type: NEW_SHOWROOM_SUCCESS,
@@ -75,8 +123,15 @@ export const createShowroom = (showroomData) => async (dispatch) => {
 export const getShowroomDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: SHOWROOM_DETAILS_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get(`http://localhost:8000/api/v1//admin/showroom/${id}`);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get(`http://localhost:8000/api/v1//admin/showroom/${id}`, config);
 
         // console.log("data", data.data.showroom)
 
@@ -106,8 +161,8 @@ export const updateShowroom = (id, showroomData) => async (dispatch) => {
             },
         };
 
-        // const data = await axiosClient.put(`/api/v1/admin/banner/${id}`, showroomData, config);
-        const data = await axios.put(`http://localhost:8000/api/v1//admin/showroom/${id}`, showroomData);
+        const data = await axios.put(`http://localhost:8000/api/v1//admin/showroom/${id}`, showroomData, config);
+        // const data = await axios.put(`http://localhost:8000/api/v1//admin/showroom/${id}`, showroomData);
 
         dispatch({
             type: UPDATE_SHOWROOM_SUCCESS,
@@ -121,6 +176,7 @@ export const updateShowroom = (id, showroomData) => async (dispatch) => {
     }
 };
 
+//delete
 export const deleteShowroom = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_SHOWROOM_REQUEST });
@@ -134,8 +190,8 @@ export const deleteShowroom = (id) => async (dispatch) => {
             },
         };
 
-        // const data = await axios.delete(`http://localhost:8000/api/v1/admin/showroom/${id}`, config);
-        const data = await axios.delete(`http://localhost:8000/api/v1/admin/showroom/${id}`);
+        const data = await axios.delete(`http://localhost:8000/api/v1/admin/showroom/${id}`, config);
+        // const data = await axios.delete(`http://localhost:8000/api/v1/admin/showroom/${id}`);
 
         dispatch({
             type: DELETE_SHOWROOM_SUCCESS,

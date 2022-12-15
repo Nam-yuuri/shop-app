@@ -12,7 +12,7 @@ import Address from '~/pages/user/Account/Address';
 import config from '~/config';
 import Showroom from '~/pages/user/Showroom';
 import Promotion from '~/pages/user/Promotion';
-import Pdf from '~/pages/user/pdf'
+import Pdf from '~/pages/user/pdf';
 import Checkout from '~/pages/user/Checkout';
 import Search from '~/pages/user/Search';
 // import { config } from '@fortawesome/fontawesome-svg-core';
@@ -54,14 +54,18 @@ import NewShowroom from '~/pages/Admin/Showroom/newShowroom/NewShowroom';
 import UpdateShowroom from '~/pages/Admin/Showroom/updateShowroom/UpdateShowroom';
 
 import UserList from '~/pages/Admin/User/UserList';
+import UpdateUser from '~/pages/Admin/User/updateUser/UpdateUser';
+
+import OrderList from '~/pages/Admin/Order/OrderList';
+import UpdateOrder from '~/pages/Admin/Order/UpdateOrder';
 // Public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
-    { path: config.routes.pdf, component: Pdf},
+    { path: config.routes.pdf, component: Pdf },
     // { path: 'notification', component: Notification },
     { path: config.routes.cart, component: Cart },
     { path: config.routes.checkout, component: Checkout },
-    { path: config.routes.login, component: Login, layout: null},
+    { path: config.routes.login, component: Login, layout: null },
     { path: config.routes.brand, component: Brands },
     { path: config.routes.profile, component: Profile },
     { path: config.routes.account, component: Account },
@@ -70,49 +74,50 @@ const publicRoutes = [
     { path: config.routes.showroom, component: Showroom },
     { path: config.routes.promotion, component: Promotion },
     { path: config.routes.search, component: Search },
-    
-    { path: config.routes.productList, component: ProductList, layout: null},
-    { path: config.routes.newProduct, component: NewProduct, layout: null},
-    { path: config.routes.updateProduct, component: UpdateProduct, layout: null},
 
-    { path: config.routes.bannerList, component: BannerList, layout: null},
-    { path: config.routes.newBanner, component: Newbanner, layout: null},
-    { path: config.routes.updateBanner, component: UpdateBanner, layout: null},
+    { path: config.routes.productList, component: ProductList, layout: null },
+    { path: config.routes.newProduct, component: NewProduct, layout: null },
+    { path: config.routes.updateProduct, component: UpdateProduct, layout: null },
 
-    { path: config.routes.brandList, component: BrandList, layout: null},
-    { path: config.routes.newBrand, component: NewBrand, layout: null},
-    { path: config.routes.updateBrand, component: UpdateBrand, layout: null},
+    { path: config.routes.bannerList, component: BannerList, layout: null },
+    { path: config.routes.newBanner, component: Newbanner, layout: null },
+    { path: config.routes.updateBanner, component: UpdateBanner, layout: null },
 
-    { path: config.routes.bannerHorizonList, component: BannerHorizonList, layout: null},
-    { path: config.routes.newBannerHorizon, component: NewBannerHorizon, layout: null},
-    { path: config.routes.updateBannerHorizon, component: UpdateBannerHorizon, layout: null},
+    { path: config.routes.brandList, component: BrandList, layout: null },
+    { path: config.routes.newBrand, component: NewBrand, layout: null },
+    { path: config.routes.updateBrand, component: UpdateBrand, layout: null },
 
-    { path: config.routes.headerList, component: HeaderList, layout: null},
-    { path: config.routes.newHeader, component: NewHeader, layout: null},
-    { path: config.routes.updateHeader, component: UpdateHeader, layout: null},
+    { path: config.routes.bannerHorizonList, component: BannerHorizonList, layout: null },
+    { path: config.routes.newBannerHorizon, component: NewBannerHorizon, layout: null },
+    { path: config.routes.updateBannerHorizon, component: UpdateBannerHorizon, layout: null },
 
-    { path: config.routes.dashBoard, component: Dashboard, layout: null},
+    { path: config.routes.headerList, component: HeaderList, layout: null },
+    { path: config.routes.newHeader, component: NewHeader, layout: null },
+    { path: config.routes.updateHeader, component: UpdateHeader, layout: null },
 
-    { path: config.routes.promotionList, component: PromotionList, layout: null},
-    { path: config.routes.newPromotion, component: NewPromotion, layout: null},
-    { path: config.routes.updatePromotion, component: UpdatePromotion, layout: null},
+    { path: config.routes.dashBoard, component: Dashboard, layout: null },
 
-    { path: config.routes.carouselList, component: CarouselList, layout: null},
-    { path: config.routes.newCarousel, component: NewCarousel, layout: null},
-    { path: config.routes.updateCarousel, component: UpdateCarousel, layout: null},
+    { path: config.routes.promotionList, component: PromotionList, layout: null },
+    { path: config.routes.newPromotion, component: NewPromotion, layout: null },
+    { path: config.routes.updatePromotion, component: UpdatePromotion, layout: null },
 
-    { path: config.routes.showroomList, component: ShowroomList, layout: null},
-    { path: config.routes.newShowroom, component: NewShowroom, layout: null},
-    { path: config.routes.updateShowroom, component: UpdateShowroom, layout: null},
+    { path: config.routes.carouselList, component: CarouselList, layout: null },
+    { path: config.routes.newCarousel, component: NewCarousel, layout: null },
+    { path: config.routes.updateCarousel, component: UpdateCarousel, layout: null },
 
-    { path: config.routes.userList, component: UserList, layout: null},
+    { path: config.routes.showroomList, component: ShowroomList, layout: null },
+    { path: config.routes.newShowroom, component: NewShowroom, layout: null },
+    { path: config.routes.updateShowroom, component: UpdateShowroom, layout: null },
 
-    { path: config.routes.loading, component: Loading, layout: null},
+    { path: config.routes.userList, component: UserList, layout: null },
+    { path: config.routes.updateUser, component: UpdateUser, layout: null },
 
+    { path: config.routes.orderList, component: OrderList, layout: null },
+    { path: config.routes.updateOrder, component: UpdateOrder, layout: null },
+
+    { path: config.routes.loading, component: Loading, layout: null },
 ];
 
-const privateRoutes = [
-  
-];
+const privateRoutes = [];
 
 export { publicRoutes, privateRoutes };

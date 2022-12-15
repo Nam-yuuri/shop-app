@@ -1,19 +1,50 @@
 import axios from 'axios';
+import {
+    ALL_PROMOTION_SUCCESS,
+    ALL_PROMOTION_REQUEST,
+    ALL_PROMOTION_FAIL,
+    MAIN_PROMOTION_SUCCESS,
+    MAIN_PROMOTION_REQUEST,
+    MAIN_PROMOTION_FAIL,
+    NEW_PROMOTION_REQUEST,
+    NEW_PROMOTION_SUCCESS,
+    NEW_PROMOTION_RESET,
+    NEW_PROMOTION_FAIL,
+    UPDATE_PROMOTION_REQUEST,
+    UPDATE_PROMOTION_SUCCESS,
+    UPDATE_PROMOTION_RESET,
+    UPDATE_PROMOTION_FAIL,
+    DELETE_PROMOTION_REQUEST,
+    DELETE_PROMOTION_SUCCESS,
+    DELETE_PROMOTION_RESET,
+    DELETE_PROMOTION_FAIL,
+    PROMOTION_DETAILS_REQUEST,
+    PROMOTION_DETAILS_SUCCESS,
+    PROMOTION_DETAILS_FAIL,
+    CLEAR_ERRORS,
+} from '~/constants/promotionConstants';
 
 //get All promotion
 export const getAllPromotion = () => async (dispatch) => {
     try {
-        dispatch({ type: 'ALL_PROMOTION_SUCCESS' });
+        dispatch({ type: ALL_PROMOTION_SUCCESS });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/admin/promotion');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/admin/promotion', config);
 
         dispatch({
-            type: 'ALL_PROMOTION_SUCCESS',
+            type: ALL_PROMOTION_SUCCESS,
             payload: data.data.promotion,
         });
     } catch (error) {
         dispatch({
-            type: 'ALL_PROMOTION_FAIL',
+            type: ALL_PROMOTION_FAIL,
             payload: error.response.data.message,
         });
     }
@@ -22,48 +53,55 @@ export const getAllPromotion = () => async (dispatch) => {
 // Get All promotion main
 export const getAllPromotionMain = () => async (dispatch) => {
     try {
-        dispatch({ type: 'MAIN_PROMOTION_REQUEST' });
+        dispatch({ type: MAIN_PROMOTION_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/promotion/main');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/promotion/main', config);
 
-        console.log('promotion db: ', data.data);
+        // console.log('promotion db: ', data.data);
 
         dispatch({
-            type: 'MAIN_PROMOTION_SUCCESS',
+            type: MAIN_PROMOTION_SUCCESS,
             payload: data.data.promotion,
         });
     } catch (error) {
         dispatch({
-            type: 'MAIN_PROMOTION_FAIL',
+            type: MAIN_PROMOTION_FAIL,
             payload: error.response.data.message,
         });
     }
 };
 
 //create
-export const createPromotion = (showroomData) => async (dispatch) => {
+export const createPromotion = (promotionData) => async (dispatch) => {
     try {
-        dispatch({ type: 'NEW_PROMOTION_REQUEST' });
+        dispatch({ type: NEW_PROMOTION_REQUEST });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, showroomData, config);
-        const data = await axios.post(`http://localhost:8000/api/v1/admin/promotion/new`, showroomData);
+        const data = await axios.post(`http://localhost:8000/api/v1/admin/promotion/new`, promotionData, config);
+        // const data = await axios.post(`http://localhost:8000/api/v1/admin/promotion/new`, showroomData);
 
         dispatch({
-            type: 'NEW_PROMOTION_SUCCESS',
+            type: NEW_PROMOTION_SUCCESS,
             payload: data,
         });
     } catch (error) {
         dispatch({
-            type: 'NEW_PROMOTION_FAIL',
+            type: NEW_PROMOTION_FAIL,
             payload: error.response.data.message,
         });
     }
@@ -72,25 +110,25 @@ export const createPromotion = (showroomData) => async (dispatch) => {
 // Delete Product
 export const deletePromotion = (id) => async (dispatch) => {
     try {
-        dispatch({ type: 'DELETE_PROMOTION_REQUEST' });
+        dispatch({ type: DELETE_PROMOTION_REQUEST });
 
-        // const token = localStorage.getItem("token");
-        // const config = {
-        //   headers: {
-        //     Authorization: `token ${token}`,
-        //   },
-        // };
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const { data } = await axios.delete(`http://localhost:5000/api/v1/admin/product/${id}`, config);
-        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/promotion/${id}`);
+        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/promotion/${id}`, config);
+        // const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/promotion/${id}`);
 
         dispatch({
-            type: 'DELETE_PROMOTION_SUCCESS',
+            type: DELETE_PROMOTION_SUCCESS,
             payload: data.success,
         });
     } catch (error) {
         dispatch({
-            type: 'DELETE_PROMOTION_FAIL',
+            type: DELETE_PROMOTION_FAIL,
             payload: error.response.data.message,
         });
     }
@@ -99,19 +137,26 @@ export const deletePromotion = (id) => async (dispatch) => {
 // Get Header Details
 export const getPromotionDetails = (id) => async (dispatch) => {
     try {
-        dispatch({ type: 'PROMOTION_DETAILS_REQUEST' });
+        dispatch({ type: PROMOTION_DETAILS_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get(`http://localhost:8000/api/v1/promotion/${id}`);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get(`http://localhost:8000/api/v1/promotion/${id}`, config);
 
-        console.log("data", data.data.promotion)
+        // console.log("data", data.data.promotion)
 
         dispatch({
-            type: 'PROMOTION_DETAILS_SUCCESS',
+            type: PROMOTION_DETAILS_SUCCESS,
             payload: data.data.promotion,
         });
     } catch (error) {
         dispatch({
-            type: 'PROMOTION_DETAILS_FAIL',
+            type: PROMOTION_DETAILS_FAIL,
             payload: error.response.data.message,
         });
     }
@@ -119,7 +164,7 @@ export const getPromotionDetails = (id) => async (dispatch) => {
 
 export const updatePromotion = (id, promotionData) => async (dispatch) => {
     try {
-        dispatch({ type: 'UPDATE_PROMOTION_SUCCESS' });
+        dispatch({ type: UPDATE_PROMOTION_SUCCESS });
 
         const token = localStorage.getItem('token');
 
@@ -130,16 +175,16 @@ export const updatePromotion = (id, promotionData) => async (dispatch) => {
             },
         };
 
-        // const data = await axiosClient.put(`/api/v1/admin/banner/${id}`, promotionData, config);
-        const data = await axios.put(`http://localhost:8000/api/v1/admin/promotion/${id}`, promotionData);
+        const data = await axios.put(`http://localhost:8000/api/v1/admin/promotion/${id}`, promotionData, config);
+        // const data = await axios.put(`http://localhost:8000/api/v1/admin/promotion/${id}`, promotionData);
 
         dispatch({
-            type: 'UPDATE_PROMOTION_SUCCESS',
+            type: UPDATE_PROMOTION_SUCCESS,
             payload: data.success,
         });
     } catch (error) {
         dispatch({
-            type: 'UPDATE_PROMOTION_FAIL',
+            type: UPDATE_PROMOTION_FAIL,
             payload: error.response.data.message,
         });
     }

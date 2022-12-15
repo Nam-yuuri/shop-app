@@ -46,54 +46,21 @@ import {
 
 // Get All Products
 export const getProduct =
-    (
-        currentPage = 1,
-        // brand,
-        // cost = [0, 151],
-        // ratings = 0,
-        sort,
-        keyword = '',
-        // RAM = '8GB',
-        // CPU,
-        // machineSeries,
-        // Monitor = [11, 100],
-    ) =>
+    (currentPage = 1, sort, keyword = '') =>
     async (dispatch) => {
         try {
             dispatch({ type: ALL_PRODUCT_REQUEST });
-
-            // let link = `/api/v1/products?page=${currentPage}&cost[gte]=${cost[0]}&cost[lte]=${cost[1]}&ratings[gte]=${ratings}&${sort}`;
-
-            // if (brand) {
-            //   link = `/api/v1/products?page=${currentPage}&cost[gte]=${cost[0]}&cost[lte]=${cost[1]}&brand=${brand}&ratings[gte]=${ratings}&${sort}`;
-            // }
-
-            // let priceSort0 = cost[0] * 1000000;
-            // let priceSort1 = cost[1] * 1000000;
-
-            // let link = `http://localhost:8000/api/v1/user/product/${id}?cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}&${sort}&Monitor[gte]=${Monitor[0]}&Monitor[lte]=${Monitor[1]}`;
-
-            // if (brand) {
-            //     link = `http://localhost:8000/api/v1/user/product/${id}?cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}&brand=${brand}&${sort}&Monitor[gte]=${Monitor[0]}&Monitor[lte]=${Monitor[1]}`;
-            // }
-
-            // if (RAM) {
-            //     link = `http://localhost:8000/api/v1/user/product/${id}?cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}&RAM=${RAM}&${sort}&Monitor[gte]=${Monitor[0]}&Monitor[lte]=${Monitor[1]}`;
-            // }
-
-            // if (CPU) {
-            //     link = `http://localhost:8000/api/v1/user/product/${id}?cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}&CPU=${CPU}&${sort}&Monitor[gte]=${Monitor[0]}&Monitor[lte]=${Monitor[1]}`;
-            // }
-
-            // if (machineSeries) {
-            //     link = `http://localhost:8000/api/v1/user/product/${id}?cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}&machineSeries=${machineSeries}&${sort}&Monitor[gte]=${Monitor[0]}&Monitor[lte]=${Monitor[1]}`;
-            // }
-
-            // const { data } = await axios.get(`http://localhost:8000/api/v1/products?&page=${currentPage}&${sort}}`);
-            const { data } = await axios.get(`http://localhost:8000/api/v1/products?keyword=${keyword}&page=${currentPage}&${sort}`);
-            // const { data } = await axios.get(`http://localhost:8000/api/v1/products`);
-
-            // console.log("data: ", keyword)
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `token ${token}`,
+                },
+            };
+            const { data } = await axios.get(
+                `http://localhost:8000/api/v1/products?keyword=${keyword}&page=${currentPage}&${sort}`,
+                config,
+            );
 
             dispatch({
                 type: ALL_PRODUCT_SUCCESS,
@@ -111,8 +78,14 @@ export const getProduct =
 export const getAdminProduct = () => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_PRODUCT_REQUEST });
-
-        const data = await axios.get('http://localhost:8000/api/v1/admin/products');
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/admin/products', config);
 
         // console.log('product db: ', data.data.product);
 
@@ -133,16 +106,16 @@ export const getTopProducts = () => async (dispatch) => {
     try {
         dispatch({ type: TOP_PRODUCT_REQUEST });
 
-        // const token = localStorage.getItem('token');
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axiosClient.get('/api/v1/admin/topProducts', config);
-        const data = await axios.get('http://localhost:8000/api/v1/product/top');
+        const data = await axios.get('http://localhost:8000/api/v1/product/top', config);
+        // const data = await axios.get('http://localhost:8000/api/v1/product/top');
         // console.log('product db: ', data.data.product);
 
         dispatch({
@@ -157,18 +130,19 @@ export const getTopProducts = () => async (dispatch) => {
     }
 };
 
-const RAM = '';
-const CPU = '';
-const Color = '';
-const Monitor = '';
-const Operating_system = '';
 // Get Top Products with brand
 export const getBrandProducts =
     (id, currentPage = 1, cost = [0, 150], keyword = '', RAM, CPU, Color, Monitor, Operating_system) =>
     async (dispatch) => {
         try {
             dispatch({ type: BRAND_PRODUCT_REQUEST });
-
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `token ${token}`,
+                },
+            };
             let priceSort0 = cost[0] * 1000000;
             let priceSort1 = cost[1] * 1000000;
 
@@ -297,12 +271,7 @@ export const getBrandProducts =
             //     link = `http://localhost:8000/api/v1/user/product/${id}?cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}`;
             // }
 
-            const data = await axios.get(link);
-            // console.log('product db: ', link);
-            // console.log('RAM db: ', RAM);
-            // console.log('Color db: ', Color);
-            // console.log('CPU db: ', CPU);
-            // console.log('cost db: ', cost);
+            const data = await axios.get(link, config);
 
             dispatch({
                 type: BRAND_PRODUCT_SUCCESS,
@@ -317,41 +286,22 @@ export const getBrandProducts =
         }
     };
 
-// Get N Products
-export const getNProducts = (numOfProducts) => async (dispatch) => {
-    try {
-        dispatch({ type: N_PRODUCT_REQUEST });
-
-        const { data } = await axios.get('http://localhost:5000/api/v1/nProducts');
-
-        dispatch({
-            type: N_PRODUCT_SUCCESS,
-            payload: data.products,
-        });
-    } catch (error) {
-        dispatch({
-            type: N_PRODUCT_FAIL,
-            payload: error.response.data.message,
-        });
-    }
-};
-
 //create
 export const createProduct = (productData) => async (dispatch) => {
     try {
         dispatch({ type: 'NEW_PRODUCT_REQUEST' });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, productData, config);
-        const data = await axios.post(`http://localhost:8000/api/v1/admin/product/new`, productData);
+        const data = await axios.post(`http://localhost:8000/api/v1/admin/product/new`, productData, config);
+        // const data = await axios.post(`http://localhost:8000/api/v1/admin/product/new`, productData);
 
         dispatch({
             type: 'NEW_PRODUCT_SUCCESS',
@@ -378,8 +328,8 @@ export const updateProduct = (id, productData) => async (dispatch) => {
             },
         };
 
-        // const { data } = await axios.put(`http://localhost:8000/api/v1/admin/product/${id}`, productData, config);
-        const { data } = await axios.put(`http://localhost:8000/api/v1/admin/product/${id}`, productData);
+        const { data } = await axios.put(`http://localhost:8000/api/v1/admin/product/${id}`, productData, config);
+        // const { data } = await axios.put(`http://localhost:8000/api/v1/admin/product/${id}`, productData);
 
         dispatch({
             type: UPDATE_PRODUCT_SUCCESS,
@@ -398,15 +348,15 @@ export const deleteProduct = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_PRODUCT_REQUEST });
 
-        // const token = localStorage.getItem("token");
-        // const config = {
-        //   headers: {
-        //     Authorization: `token ${token}`,
-        //   },
-        // };
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const { data } = await axios.delete(`http://localhost:5000/api/v1/admin/product/${id}`, config);
-        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/product/${id}`);
+        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/product/${id}`, config);
+        // const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/product/${id}`);
 
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,
@@ -424,8 +374,15 @@ export const deleteProduct = (id) => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAILS_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get(`http://localhost:8000/api/v1/product/${id}`);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get(`http://localhost:8000/api/v1/product/${id}`, config);
 
         // console.log("data: ", data.data.product)
 
@@ -436,120 +393,6 @@ export const getProductDetails = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
-            payload: error.response.data.message,
-        });
-    }
-};
-
-// NEW REVIEW
-export const newReview = (reviewData) => async (dispatch) => {
-    try {
-        dispatch({ type: NEW_REVIEW_REQUEST });
-
-        const token = localStorage.getItem('token');
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `token ${token}`,
-            },
-        };
-
-        const { data } = await axios.put(
-            `http://localhost:5000/api/v1/review`,
-            {
-                rating: reviewData.rating,
-                comment: reviewData.comment,
-                productId: reviewData.productId,
-            },
-            config,
-        );
-
-        dispatch({
-            type: NEW_REVIEW_SUCCESS,
-            payload: data.success,
-        });
-    } catch (error) {
-        dispatch({
-            type: NEW_REVIEW_FAIL,
-            payload: error.response.data.message,
-        });
-    }
-};
-
-// Get All Reviews of a Product
-export const getAllReviews = (id) => async (dispatch) => {
-    try {
-        dispatch({ type: ALL_REVIEW_REQUEST });
-
-        const data = await axiosClient.get(`/api/v1/reviews?id=${id}`);
-
-        dispatch({
-            type: ALL_REVIEW_SUCCESS,
-            payload: data.reviews,
-        });
-    } catch (error) {
-        dispatch({
-            type: ALL_REVIEW_FAIL,
-            payload: error.response.data.message,
-        });
-    }
-};
-
-// Get All Products Reviews
-export const getAllProductReviews = () => async (dispatch) => {
-    try {
-        dispatch({ type: ALL_PRODUCT_REVIEW_REQUEST });
-
-        const token = localStorage.getItem('token');
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `token ${token}`,
-            },
-        };
-
-        const { data } = await axios.get(`http://localhost:5000/api/v1/allReviews`, config);
-
-        dispatch({
-            type: ALL_PRODUCT_REVIEW_SUCCESS,
-            payload: data.products,
-        });
-    } catch (error) {
-        dispatch({
-            type: ALL_PRODUCT_REVIEW_FAIL,
-            payload: error.response.data.message,
-        });
-    }
-};
-
-// Delete Review of a Product
-export const deleteReviews = (reviewId, productId) => async (dispatch) => {
-    try {
-        dispatch({ type: DELETE_REVIEW_REQUEST });
-
-        const token = localStorage.getItem('token');
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `token ${token}`,
-            },
-        };
-
-        const { data } = await axios.delete(
-            `http://localhost:5000/api/v1/reviews?id=${reviewId}&productId=${productId}`,
-            config,
-        );
-
-        dispatch({
-            type: DELETE_REVIEW_SUCCESS,
-            payload: data.success,
-        });
-    } catch (error) {
-        dispatch({
-            type: DELETE_REVIEW_FAIL,
             payload: error.response.data.message,
         });
     }

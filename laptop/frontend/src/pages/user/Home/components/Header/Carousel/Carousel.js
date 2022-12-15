@@ -26,7 +26,7 @@ function Carousel() {
         autoplaySpeed: 3000,
         pauseOnHover: true,
     };
-    
+
     const dispatch = useDispatch();
 
     const { banners } = useSelector((state) => state.bannersMain);
@@ -48,24 +48,26 @@ function Carousel() {
         <div className={scroll ? 'App app-scroll' : 'App'} id="app">
             <div className="carousel">
                 <Slider {...settings}>
-                    {carousels.map((carousel) => (
-                        <div className={cx('cart')} key={carousel._id}>
-                            <div className={cx('cart-top')}>
-                                <img src={carousel.images.url} alt={carousel.title} />
+                    {carousels &&
+                        carousels.map((carousel) => (
+                            <div className={cx('cart')} key={carousel._id}>
+                                <div className={cx('cart-top')}>
+                                    <img src={carousel.images.url} alt={carousel.title} />
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </Slider>
             </div>
             <div className={cx('box')}>
                 <div className={cx('box-img')}>
-                    {banners.map((img) => (
-                        <div className={cx('img')} key={img._id}>
-                            <Button>
-                                <img src={img.images[0].url} alt="" />
-                            </Button>
-                        </div>
-                    ))}
+                    {banners &&
+                        banners.map((img) => (
+                            <div className={cx('img')} key={img._id}>
+                                <Button>
+                                    <img src={img.images[0].url} alt="" />
+                                </Button>
+                            </div>
+                        ))}
                 </div>
             </div>
         </div>

@@ -43,10 +43,11 @@ export const createOrder = (order) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/v1/order/new",
+      "http://localhost:8000/api/v1/order/new",
       order,
       config
     );
+
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
     dispatch(getCart());
@@ -70,7 +71,7 @@ export const getAllOrders = () => async (dispatch) => {
       },
     };
     const { data } = await axios.get(
-      "http://localhost:5000/api/v1/admin/orders",
+      "http://localhost:8000/api/v1/admin/orders",
       config
     );
 
@@ -96,10 +97,10 @@ export const getAllOrdersStatistical =
         },
       };
 
-      let link = `http://localhost:5000/api/v1/admin/ordersStatistical`;
+      let link = `http://localhost:8000/api/v1/admin/ordersStatistical`;
 
       if (dateStart && dateEnd) {
-        link = `http://localhost:5000/api/v1/admin/ordersStatistical?dateStart=${dateStart}&dateEnd=${dateEnd}`;
+        link = `http://localhost:8000/api/v1/admin/ordersStatistical?dateStart=${dateStart}&dateEnd=${dateEnd}`;
       }
 
       const { data } = await axios.get(link, config);
@@ -125,7 +126,7 @@ export const getAllOrdersStatus = () => async (dispatch) => {
       },
     };
     const { data } = await axios.get(
-      "http://localhost:5000/api/v1/admin/ordersStatus",
+      "http://localhost:8000/api/v1/admin/ordersStatus",
       config
     );
 
@@ -159,7 +160,7 @@ export const myOrders = () => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      "http://localhost:5000/api/v1/orders/me",
+      "http://localhost:8000/api/v1/orders/me",
       config
     );
 
@@ -185,7 +186,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `http://localhost:5000/api/v1/admin/order/${id}`,
+      `http://localhost:8000/api/v1/admin/order/${id}`,
       order,
       config
     );
@@ -211,7 +212,7 @@ export const deleteOrder = (id) => async (dispatch) => {
       },
     };
     const { data } = await axios.delete(
-      `http://localhost:5000/api/v1/admin/order/${id}`,
+      `http://localhost:8000/api/v1/admin/order/${id}`,
       config
     );
 
@@ -239,7 +240,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/v1/order/${id}`,
+      `http://localhost:8000/api/v1/order/${id}`,
       config
     );
 

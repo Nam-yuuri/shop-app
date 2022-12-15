@@ -24,11 +24,12 @@ router.post("/cart/new", createCart);
 // router.route("/cart").post(isAuthenticatedUser, addCartItem);
 router.post("/cart", addCartItem);
 
-router.delete("/cart/:itemId", isAuthenticatedUser, cartDeleteItem);
+router.delete("/cart/:itemId", cartDeleteItem);
+// router.delete("/cart/:itemId", isAuthenticatedUser, cartDeleteItem);
 
-// router
-//   .route("/cart/:id")
-//   .put(isAuthenticatedUser, updateCart)
-//   .delete(isAuthenticatedUser, deleteCart);
+router
+  .route("/cart/:id")
+  .put(isAuthenticatedUser, updateCart)
+  .delete(isAuthenticatedUser, deleteCart);
 
 module.exports = router;

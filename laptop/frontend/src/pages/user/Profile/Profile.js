@@ -15,6 +15,7 @@ import { getProductDetails } from '~/actions/productAction';
 import formatPrice from '~/utils/formatPrice';
 import Loading from '~/components/Loading/Loading';
 import { addItemsToCartLocal, addToCart } from '~/actions/cartAction';
+import { Alert, Snackbar } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +25,18 @@ function Profile() {
     const [errorAlert, setErrorAlert] = useState('');
     const [successAlert, setSuccessAlert] = useState('');
 
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
     const [image, setImage] = useState([]);
     const [discount, setDiscount] = useState(false);
     const [description, setDescription] = useState(false);
@@ -78,21 +91,37 @@ function Profile() {
 
     const { user, loading: userLoading } = useSelector((state) => state.user);
 
-    const { error: cartError, isUpdated } = useSelector((state) => state.cart);
+    const { cart, error: cartError, isUpdated } = useSelector((state) => state.cart);
 
     // const userId = user._id;
+
 
     const addToCartHandler = () => {
         if (cartError) {
             setOpenError(true);
             setErrorAlert(cartError);
-            alert('thành công');
+            // alert('Thêm sản phẩm vào giỏ hàng không thành công');
             return;
         }
         dispatch(addToCart(products._id, quantity));
-        alert('Thêm sản phẩm vào giỏ hàng thành công');
+        // alert('Thêm sản phẩm vào giỏ hàng thành công');
         setOpenSuccess(true);
         setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
+        // dispatch(getProductDetails(match.id));
+    };
+
+    const buyHandler = () => {
+        if (cartError) {
+            setOpenError(true);
+            setErrorAlert(cartError);
+            // alert('Thêm sản phẩm vào giỏ hàng không thành công');
+            return;
+        }
+        dispatch(addToCart(products._id, quantity));
+        // alert('Thêm sản phẩm vào giỏ hàng thành công');
+        setOpenSuccess(true);
+        setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
+        navigate('/cart')
         // dispatch(getProductDetails(match.id));
     };
 
@@ -103,8 +132,8 @@ function Profile() {
         setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
     };
 
-    console.log('products._id: ', products._id);
-    console.log('quantity: ', quantity);
+    // console.log('products._id: ', products._id);
+    // console.log('quantity: ', quantity);
     // console.log('userId: ', user.user._id);
 
     const settings = {
@@ -126,6 +155,24 @@ function Profile() {
             ) : (
                 <div>
                     <div className={cx('profile')}>
+                        <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                            <Alert
+                                onClose={handleCloseError}
+                                severity="warning"
+                                sx={{ width: '100%', fontSize: '0.85em' }}
+                            >
+                                {errorAlert}
+                            </Alert>
+                        </Snackbar>
+                        <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                            <Alert
+                                onClose={handleCloseSuccess}
+                                severity="success"
+                                sx={{ width: '100%', fontSize: '0.85em' }}
+                            >
+                                {successAlert}
+                            </Alert>
+                        </Snackbar>
                         <div className={cx('href')}>
                             <a href="/" className={cx('home-href')}>
                                 <div className={cx('href-text')}>Trang chủ</div>
@@ -229,7 +276,7 @@ function Profile() {
                                                                         ((products.cost / 1000000) *
                                                                             products.promotional) /
                                                                         100
-                                                                    ).toFixed(1)) *
+                                                                    ).toFixed(0)) *
                                                                     1000000,
                                                             ),
                                                         )}
@@ -319,7 +366,7 @@ function Profile() {
                                             </div>
 
                                             <div className={cx('content-btn')}>
-                                                <Button primary large className={cx('buy-now')}>
+                                                <Button primary large className={cx('buy-now')} onClick={buyHandler}>
                                                     MUA NGAY
                                                 </Button>
                                                 <Button
@@ -605,7 +652,7 @@ function Profile() {
                                             <div className={cx('box-value')}>{products.Accessories_included}</div>
                                         </div>
                                     )}
-                                    <div className={cx('box-title')}>Thông tin kích thước</div>
+                                    {/* <div className={cx('box-title')}>Thông tin kích thước</div> */}
                                 </div>
                             </div>
 
@@ -758,7 +805,7 @@ function Profile() {
                                             <div className={cx('box-value')}>{products.Accessories_included}</div>
                                         </div>
                                     )}
-                                    <div className={cx('box-title')}>Thông tin kích thước</div>
+                                    {/* <div className={cx('box-title')}>Thông tin kích thước</div> */}
                                 </div>
 
                                 <div

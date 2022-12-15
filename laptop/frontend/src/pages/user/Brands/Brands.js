@@ -89,6 +89,7 @@ function Brands() {
     };
 
     const { loading: brandLoading, error, brands } = useSelector((state) => state.brandDetails);
+    const { productsCount, resultPerPage, filteredProductsCount, loading } = useSelector((state) => state.products);
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
@@ -109,1058 +110,1076 @@ function Brands() {
 
     return (
         <div>
-            {/* {brandLoading ? (
+            {loading ? (
                 <Loading />
-            ) : ( */}
-            <div className={cx('brands')}>
-                <div className={cx('href')}>
-                    <a href="/" className={cx('home-href')}>
-                        <div className={cx('href-text')}>Trang chủ</div>
-                        <div className={cx('href-icon')}>
-                            <FontAwesomeIcon icon={faAngleRight} />
+            ) : (
+                <div className={cx('brands')}>
+                    <div className={cx('href')}>
+                        <a href="/" className={cx('home-href')}>
+                            <div className={cx('href-text')}>Trang chủ</div>
+                            <div className={cx('href-icon')}>
+                                <FontAwesomeIcon icon={faAngleRight} />
+                            </div>
+                        </a>
+                        {/* style={{display: 'flex', height: '19.5px'}} */}
+                        <div className={cx('text_laptop')}>
+                            <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
+                            <div className={cx('href-icon')}>
+                                <FontAwesomeIcon icon={faAngleRight} />
+                            </div>
                         </div>
-                    </a>
-                    {/* style={{display: 'flex', height: '19.5px'}} */}
-                    <div className={cx('text_laptop')}>
-                        <div className={cx('href-text', 'href-text-cart')}>Laptop </div>
-                        <div className={cx('href-icon')}>
-                            <FontAwesomeIcon icon={faAngleRight} />
+                        <div className={cx('href-text', 'href-text-cart')}>{brands.name}</div>
+                    </div>
+                    <div className={cx('header-tablet')}>
+                        <div className={cx('sort')}>
+                            <span>Sắp xếp</span>
+                            <FontAwesomeIcon icon={faCaretDown} />
                         </div>
-                    </div>
-                    <div className={cx('href-text', 'href-text-cart')}>{brands.name}</div>
-                </div>
-                <div className={cx('header-tablet')}>
-                    <div className={cx('sort')}>
-                        <span>Sắp xếp</span>
-                        <FontAwesomeIcon icon={faCaretDown} />
-                    </div>
-                    <div className={cx('Filter')}>
-                        {/* <div className={cx('icon')}>
+                        <div className={cx('Filter')}>
+                            {/* <div className={cx('icon')}>
                     <ProductsIcon />
                 </div>
                 <span className={cx('stick')}></span> */}
-                        <div
-                            className={cx('box-filter')}
-                            onClick={() => {
-                                setOnWidth(true);
-                            }}
-                        >
-                            <span>Bộ lọc</span>
-                            <FontAwesomeIcon icon={faFilter} />
+                            <div
+                                className={cx('box-filter')}
+                                onClick={() => {
+                                    setOnWidth(true);
+                                }}
+                            >
+                                <span>Bộ lọc</span>
+                                <FontAwesomeIcon icon={faFilter} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx('container')}>
+                        {onWidth ? (
+                            <div
+                                className={cx('wall')}
+                                onClick={() => {
+                                    setOnWidth(false);
+                                }}
+                            ></div>
+                        ) : (
+                            ''
+                        )}
+                        <div className={cx('Left', 'tablet')} style={{ width: onWidth ? '80%' : '0' }}>
+                            <div className={cx('box-left')}>
+                                <div className={cx('container-Trademark', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickCost}>
+                                        <h5>Khoảng giá</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickCost ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cx('Trademark', 'box')}
+                                        style={{ height: clickCost ? 'auto' : '0' }}
+                                    >
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([0, 10]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 0 && cost[1] === 10}
+                                                />
+                                                <span>Dưới 10 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([10, 15]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 10 && cost[1] === 15}
+                                                />
+                                                <span>Từ 10 triệu - 15 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([15, 20]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 15 && cost[1] === 20}
+                                                />
+                                                <span>Từ 15 triệu - 20 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([20, 30]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 20 && cost[1] === 30}
+                                                />
+                                                <span>Từ 20 triệu - 30 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([30, 40]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 30 && cost[1] === 40}
+                                                />
+                                                <span>Từ 30 triệu - 40 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([40, 50]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 40 && cost[1] === 50}
+                                                />
+                                                <span>Từ 40 triệu - 50 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([50, 70]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 50 && cost[1] === 70}
+                                                />
+                                                <span>Từ 50 triệu - 70 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([70, 100]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 70 && cost[1] === 100}
+                                                />
+                                                <span>Từ 70 triệu - 100 triệu</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Color', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickColor}>
+                                        <h5>Màu sắc</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Bạc'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Bạc');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Bạc</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Đen'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Đen');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Đen</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Xám'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Xám');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Xám</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Starlight'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Starlight');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Starlight</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Trắng'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Trắng');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Trắng</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Graphics', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickGraphic}>
+                                        <h5>Hệ điều hành</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cx('Graphics', 'box')}
+                                        style={{ height: clickGraphic ? 'auto' : '0' }}
+                                    >
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Operating_system === 'Mac OS'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setOperating_system('Mac OS');
+                                                        } else {
+                                                            setOperating_system('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Mac OS</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Operating_system === 'Windows'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setOperating_system('Windows');
+                                                        } else {
+                                                            setOperating_system('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Windows</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Operating_system === 'Linus'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setOperating_system('Linus');
+                                                        } else {
+                                                            setOperating_system('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Linus</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Rams', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickRam}>
+                                        <h5>Dung lượng RAM</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '4GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('4GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>4GB</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '8GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('8GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>8GB</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '16GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('16GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>16GB</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '32GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('32GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>32GB</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Monitors', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickMonitor}>
+                                        <h5>Kích thước màn hình</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cx('Monitors', 'box')}
+                                        style={{ height: clickMonitor ? 'auto' : '0' }}
+                                    >
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '13.3'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('13.3');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>13.3"</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '13.6'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('13.6');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>13.6"</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '14'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('14');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>14"</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '15.6'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('15.6');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>15.6"</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-box')} style={{ textAlign: 'center' }}>
+                                    <Button
+                                        primary
+                                        onClick={() => {
+                                            setCost([0, 150]);
+                                            setColor('');
+                                            setOperating_system('');
+                                            setRAM('');
+                                            setMonitor('');
+                                        }}
+                                    >
+                                        RESET
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={cx('Left', 'laptop')}>
+                            <div className={cx('box-left')}>
+                                <div className={cx('container-Trademark', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickCost}>
+                                        <h5>Khoảng giá</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickCost ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cx('Trademark', 'box')}
+                                        style={{ height: clickCost ? 'auto' : '0' }}
+                                    >
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([0, 10]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 0 && cost[1] === 10}
+                                                />
+                                                <span>Dưới 10 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([10, 15]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 10 && cost[1] === 15}
+                                                />
+                                                <span>Từ 10 triệu - 15 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([15, 20]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 15 && cost[1] === 20}
+                                                />
+                                                <span>Từ 15 triệu - 20 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([20, 30]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 20 && cost[1] === 30}
+                                                />
+                                                <span>Từ 20 triệu - 30 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([30, 40]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 30 && cost[1] === 40}
+                                                />
+                                                <span>Từ 30 triệu - 40 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([40, 50]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 40 && cost[1] === 50}
+                                                />
+                                                <span>Từ 40 triệu - 50 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([50, 70]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 50 && cost[1] === 70}
+                                                />
+                                                <span>Từ 50 triệu - 70 triệu</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="custom-control-input"
+                                                    id="price-2"
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCost([70, 100]);
+                                                        } else {
+                                                            setCost([0, 151]);
+                                                        }
+                                                    }}
+                                                    checked={cost[0] === 70 && cost[1] === 100}
+                                                />
+                                                <span>Từ 70 triệu - 100 triệu</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Color', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickColor}>
+                                        <h5>Màu sắc</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Bạc'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Bạc');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Bạc</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Đen'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Đen');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Đen</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Xám'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Xám');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Xám</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Starlight'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Starlight');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Starlight</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Color === 'Trắng'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setColor('Trắng');
+                                                        } else {
+                                                            setColor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Trắng</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Graphics', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickGraphic}>
+                                        <h5>Hệ điều hành</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cx('Graphics', 'box')}
+                                        style={{ height: clickGraphic ? 'auto' : '0' }}
+                                    >
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Operating_system === 'Mac OS'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setOperating_system('Mac OS');
+                                                        } else {
+                                                            setOperating_system('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Mac OS</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Operating_system === 'Windows'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setOperating_system('Windows');
+                                                        } else {
+                                                            setOperating_system('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Windows</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Operating_system === 'Linus'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setOperating_system('Linus');
+                                                        } else {
+                                                            setOperating_system('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>Linus</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Rams', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickRam}>
+                                        <h5>Dung lượng RAM</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '4GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('4GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>4GB</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '8GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('8GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>8GB</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '16GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('16GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>16GB</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={RAM === '32GB'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setRAM('32GB');
+                                                        } else {
+                                                            setRAM('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>32GB</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-Monitors', 'container-box')}>
+                                    <div className={cx('box-header')} onClick={handleClickMonitor}>
+                                        <h5>Kích thước màn hình</h5>
+                                        <FontAwesomeIcon
+                                            icon={faAngleDown}
+                                            style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cx('Monitors', 'box')}
+                                        style={{ height: clickMonitor ? 'auto' : '0' }}
+                                    >
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '13.3'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('13.3');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>13.3"</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '13.6'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('13.6');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>13.6"</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '14'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('14');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>14"</span>
+                                            </label>
+                                        </div>
+                                        <div className={cx('check')}>
+                                            <label className={cx('label')}>
+                                                <input
+                                                    type={'checkbox'}
+                                                    checked={Monitor === '15.6'}
+                                                    onChange={() => {}}
+                                                    onClick={(e) => {
+                                                        if (e.target.checked) {
+                                                            setMonitor('15.6');
+                                                        } else {
+                                                            setMonitor('');
+                                                        }
+                                                    }}
+                                                />
+                                                <span>15.6"</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cx('container-box')} style={{ textAlign: 'center' }}>
+                                    <Button
+                                        primary
+                                        onClick={() => {
+                                            setCost([0, 150]);
+                                            setColor('');
+                                            setOperating_system('');
+                                            setRAM('');
+                                            setMonitor('');
+                                        }}
+                                    >
+                                        RESET
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={cx('Right')}>
+                            <Grid />
                         </div>
                     </div>
                 </div>
-                <div className={cx('container')}>
-                    {onWidth ? (
-                        <div
-                            className={cx('wall')}
-                            onClick={() => {
-                                setOnWidth(false);
-                            }}
-                        ></div>
-                    ) : (
-                        ''
-                    )}
-                    <div className={cx('Left', 'tablet')} style={{ width: onWidth ? '80%' : '0' }}>
-                        <div className={cx('box-left')}>
-                            <div className={cx('container-Trademark', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickCost}>
-                                    <h5>Khoảng giá</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickCost ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Trademark', 'box')} style={{ height: clickCost ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([0, 10]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 0 && cost[1] === 10}
-                                            />
-                                            <span>Dưới 10 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([10, 15]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 10 && cost[1] === 15}
-                                            />
-                                            <span>Từ 10 triệu - 15 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([15, 20]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 15 && cost[1] === 20}
-                                            />
-                                            <span>Từ 15 triệu - 20 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([20, 30]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 20 && cost[1] === 30}
-                                            />
-                                            <span>Từ 20 triệu - 30 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([30, 40]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 30 && cost[1] === 40}
-                                            />
-                                            <span>Từ 30 triệu - 40 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([40, 50]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 40 && cost[1] === 50}
-                                            />
-                                            <span>Từ 40 triệu - 50 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([50, 70]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 50 && cost[1] === 70}
-                                            />
-                                            <span>Từ 50 triệu - 70 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([70, 100]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 70 && cost[1] === 100}
-                                            />
-                                            <span>Từ 70 triệu - 100 triệu</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Color', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickColor}>
-                                    <h5>Màu sắc</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Bạc'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Bạc');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Bạc</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Đen'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Đen');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Đen</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Xám'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Xám');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Xám</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Starlight'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Starlight');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Starlight</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Trắng'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Trắng');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Trắng</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Graphics', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickGraphic}>
-                                    <h5>Hệ điều hành</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Graphics', 'box')} style={{ height: clickGraphic ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Operating_system === 'Mac OS'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setOperating_system('Mac OS');
-                                                    } else {
-                                                        setOperating_system('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Mac OS</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Operating_system === 'Windows'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setOperating_system('Windows');
-                                                    } else {
-                                                        setOperating_system('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Windows</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Operating_system === 'Linus'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setOperating_system('Linus');
-                                                    } else {
-                                                        setOperating_system('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Linus</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Rams', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickRam}>
-                                    <h5>Dung lượng RAM</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '4GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('4GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>4GB</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '8GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('8GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>8GB</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '16GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('16GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>16GB</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '32GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('32GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>32GB</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Monitors', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickMonitor}>
-                                    <h5>Kích thước màn hình</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Monitors', 'box')} style={{ height: clickMonitor ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '13.3'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('13.3');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>13.3"</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '13.6'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('13.6');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>13.6"</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '14'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('14');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>14"</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '15.6'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('15.6');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>15.6"</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-box')} style={{ textAlign: 'center' }}>
-                                <Button
-                                    primary
-                                    onClick={() => {
-                                        setCost([0, 150]);
-                                        setColor('');
-                                        setOperating_system('');
-                                        setRAM('');
-                                        setMonitor('');
-                                    }}
-                                >
-                                    RESET
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx('Left', 'laptop')}>
-                        <div className={cx('box-left')}>
-                            <div className={cx('container-Trademark', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickCost}>
-                                    <h5>Khoảng giá</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickCost ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Trademark', 'box')} style={{ height: clickCost ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([0, 10]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 0 && cost[1] === 10}
-                                            />
-                                            <span>Dưới 10 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([10, 15]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 10 && cost[1] === 15}
-                                            />
-                                            <span>Từ 10 triệu - 15 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([15, 20]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 15 && cost[1] === 20}
-                                            />
-                                            <span>Từ 15 triệu - 20 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([20, 30]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 20 && cost[1] === 30}
-                                            />
-                                            <span>Từ 20 triệu - 30 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([30, 40]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 30 && cost[1] === 40}
-                                            />
-                                            <span>Từ 30 triệu - 40 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([40, 50]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 40 && cost[1] === 50}
-                                            />
-                                            <span>Từ 40 triệu - 50 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([50, 70]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 50 && cost[1] === 70}
-                                            />
-                                            <span>Từ 50 triệu - 70 triệu</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type="checkbox"
-                                                className="custom-control-input"
-                                                id="price-2"
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setCost([70, 100]);
-                                                    } else {
-                                                        setCost([0, 151]);
-                                                    }
-                                                }}
-                                                checked={cost[0] === 70 && cost[1] === 100}
-                                            />
-                                            <span>Từ 70 triệu - 100 triệu</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Color', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickColor}>
-                                    <h5>Màu sắc</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickColor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Color', 'box')} style={{ height: clickColor ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Bạc'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Bạc');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Bạc</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Đen'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Đen');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Đen</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Xám'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Xám');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Xám</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Starlight'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Starlight');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Starlight</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Color === 'Trắng'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setColor('Trắng');
-                                                    } else {
-                                                        setColor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Trắng</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Graphics', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickGraphic}>
-                                    <h5>Hệ điều hành</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickGraphic ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Graphics', 'box')} style={{ height: clickGraphic ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Operating_system === 'Mac OS'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setOperating_system('Mac OS');
-                                                    } else {
-                                                        setOperating_system('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Mac OS</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Operating_system === 'Windows'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setOperating_system('Windows');
-                                                    } else {
-                                                        setOperating_system('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Windows</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Operating_system === 'Linus'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setOperating_system('Linus');
-                                                    } else {
-                                                        setOperating_system('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>Linus</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Rams', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickRam}>
-                                    <h5>Dung lượng RAM</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickRam ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Rams', 'box')} style={{ height: clickRam ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '4GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('4GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>4GB</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '8GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('8GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>8GB</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '16GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('16GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>16GB</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={RAM === '32GB'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setRAM('32GB');
-                                                    } else {
-                                                        setRAM('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>32GB</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-Monitors', 'container-box')}>
-                                <div className={cx('box-header')} onClick={handleClickMonitor}>
-                                    <h5>Kích thước màn hình</h5>
-                                    <FontAwesomeIcon
-                                        icon={faAngleDown}
-                                        style={{ transform: clickMonitor ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                                    />
-                                </div>
-                                <div className={cx('Monitors', 'box')} style={{ height: clickMonitor ? 'auto' : '0' }}>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '13.3'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('13.3');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>13.3"</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '13.6'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('13.6');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>13.6"</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '14'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('14');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>14"</span>
-                                        </label>
-                                    </div>
-                                    <div className={cx('check')}>
-                                        <label className={cx('label')}>
-                                            <input
-                                                type={'checkbox'}
-                                                checked={Monitor === '15.6'}
-                                                onChange={() => {}}
-                                                onClick={(e) => {
-                                                    if (e.target.checked) {
-                                                        setMonitor('15.6');
-                                                    } else {
-                                                        setMonitor('');
-                                                    }
-                                                }}
-                                            />
-                                            <span>15.6"</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('container-box')} style={{ textAlign: 'center' }}>
-                                <Button
-                                    primary
-                                    onClick={() => {
-                                        setCost([0, 150]);
-                                        setColor('');
-                                        setOperating_system('');
-                                        setRAM('');
-                                        setMonitor('');
-                                    }}
-                                >
-                                    RESET
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx('Right')}>
-                        <Grid />
-                    </div>
-                </div>
-            </div>
-            {/* )} */}
+            )}
         </div>
     );
 }

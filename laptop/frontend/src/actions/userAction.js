@@ -46,11 +46,11 @@ import axiosClient from '../api/axiosClient';
 export const login = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: LOGIN_REQUEST });
-
+        const token = localStorage.getItem('token');
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `token ${token}`,
+                Authorization: `token ${token}`,
             },
         };
 
@@ -69,13 +69,13 @@ export const register = (userData) => async (dispatch) => {
     try {
         dispatch({ type: REGISTER_USER_REQUEST });
 
-        // const config = {
-        //   headers: {
-        //     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        //   },
-        // };
-
-        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `token ${token}`,
+            },
+        };
 
         const { data } = await axios.post(`http://localhost:8000/api/v1/register`, userData, config);
 
@@ -97,7 +97,7 @@ export const loadUser = () => async (dispatch) => {
 
         const config = {
             headers: {
-               Authorization: `token ${token}`,
+                Authorization: `token ${token}`,
             },
         };
 
@@ -112,7 +112,7 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logout = () => async (dispatch) => {
     try {
-        await axiosClient.get(`/api/v1/logout`);
+        await axios.get(`http://localhost:8000/api/v1/logout`);
         localStorage.removeItem('token');
         dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
@@ -264,9 +264,9 @@ export const getAllUsers = () => async (dispatch) => {
             },
         };
 
-        // const { data } = await axios.get(`http://localhost:8000/api/v1/admin/users`, config);
-        const { data } = await axios.get(`http://localhost:8000/api/v1/admin/users`);
-        console.log("Data user", data.users)
+        const { data } = await axios.get(`http://localhost:8000/api/v1/admin/users`, config);
+        // const { data } = await axios.get(`http://localhost:8000/api/v1/admin/users`);
+        // console.log("Data user", data.users)
 
         dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
     } catch (error) {
@@ -287,6 +287,8 @@ export const getUserDetails = (id) => async (dispatch) => {
             },
         };
         const { data } = await axios.get(`http://localhost:8000/api/v1/admin/user/${id}`, config);
+
+        // console.log("data", data.user)
 
         dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
     } catch (error) {

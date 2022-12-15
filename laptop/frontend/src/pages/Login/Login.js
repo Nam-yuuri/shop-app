@@ -69,33 +69,6 @@ function Login() {
         setOpen(false);
     };
 
-    // const createBannerImagesChange = (e) => {
-    //     const files = Array.from(e.target.files);
-
-    //     setImages([]);
-    //     setImagesPreview([]);
-
-    //     files.forEach((file) => {
-    //         const reader = new FileReader();
-
-    //         reader.onload = () => {
-    //             if (reader.readyState === 2) {
-    //                 setImagesPreview((old) => [...old, reader.result]);
-    //                 setImages((old) => [...old, reader.result]);
-    //             }
-    //         };
-
-    //         reader.readAsDataURL(file);
-    //     });
-    // };
-
-    // const [user, setUser] = useState({
-    //     name: '',
-    //     email: '',
-    //     password: '',
-    // });
-    // const { name, email, password } = user;
-
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -121,6 +94,15 @@ function Login() {
     const loginSubmit = (e) => {
         e.preventDefault();
         dispatch(login(loginEmail, loginPassword));
+
+        if (isAuthenticated) {
+            // hop le
+            dispatch(loadUser());
+            // alert("ok")
+            //   history.push("/");
+            navigate('/');
+            // setIsSignup(false);
+        }
     };
 
     const registerSubmit = (e) => {
@@ -134,24 +116,19 @@ function Login() {
         myForm.set('avatar', avatar);
 
         dispatch(register(myForm));
+
+        if (isAuthenticated) {
+            // hop le
+            // dispatch(loadUser());
+            // alert("ok")
+            //   history.push("/");
+            // navigate('/');
+            setIsSignup(false);
+        }
+
+        // setName('')
+        // set
     };
-
-    // console.log('id: ', user);
-
-    // const registerSubmit = () => {
-    //     if (checkPassword === password) {
-    //         Register();
-    //     } else {
-    //         setOpen(true);
-    //         setEr('Mật khẩu không trùng khớp');
-    //         // dispatch(clearErrors());
-    //         setIsSignup(true);
-    //     }
-    // };
-
-    // const id = user._id;
-
-    // console.log("id: ", id)
 
     useEffect(() => {
         if (error) {
@@ -162,22 +139,13 @@ function Login() {
         }
         if (isAuthenticated) {
             // hop le
-            dispatch(loadUser());
+            // dispatch(loadUser());
             // alert("ok")
             //   history.push("/");
-            navigate('/');
+            // navigate('/');
+            // setIsSignup(false);
         }
     }, [dispatch, error, isAuthenticated]);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        // console.log(formData);
-        // const newUser = {
-        //     username: username,
-        //     password: password,
-        // };
-    };
 
     const registerDataChange = (e) => {
         if (e.target.name === 'avatar') {
@@ -302,7 +270,7 @@ function Login() {
                                             </div>
                                         </div>
 
-                                        <div
+                                        {/* <div
                                             className="form-group"
                                             style={{
                                                 display: 'flex',
@@ -326,8 +294,8 @@ function Login() {
                                                     onChange={registerDataChange}
                                                 />
                                             </div>
-                                        </div>
-                                        
+                                        </div> */}
+
                                         <div>
                                             <div className="d-grid">
                                                 <button

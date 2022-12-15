@@ -35,11 +35,41 @@ import { getCart } from '~/actions/cartAction';
 const cx = classNames.bind(styles);
 
 function Header() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
     const [searchResult, setSearchResult] = useState([]);
     const [loginResult, setLoginResult] = useState('');
     // const [cartResult, setCartResult] = useState([]);
     const [cartMountResult, setCartMountResult] = useState(0);
     const [scrollHeader, setScrollHeader] = useState(true);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    let match = useParams();
+
+    const { headers } = useSelector((state) => state.headersMain);
+
+    const { isAuthenticated, user, loading } = useSelector((state) => state.user);
+
+    const { cart, isDeleted, isUpdated } = useSelector((state) => state.cart);
+
+    useEffect(() => {
+        dispatch(getAllHeaderMain());
+        // dispatch(loadUser());
+        dispatch(getCart());
+    }, [dispatch]);
+
+    const searchSubmitHandler = (e) => {
+        e.preventDefault();
+        console.log('keyword: ', keyword);
+        if (keyword.trim()) {
+            navigate(`/products/${keyword}`);
+        } else {
+        }
+    };
 
     const handleScroll = () => {
         // console.log(window.scrollY);
@@ -73,7 +103,7 @@ function Header() {
     const renderCart = (props) => {
         return (
             <div className={cx('preview')} tabIndex="-1" {...props}>
-                <PopperWrapper>{cartMountResult ? <CartItemValue /> : <CartItem />}</PopperWrapper>
+                <PopperWrapper>{cart ? <CartItemValue /> : <CartItem />}</PopperWrapper>
             </div>
         );
     };
@@ -87,16 +117,6 @@ function Header() {
             </div>
         );
     };
-
-    // const renderNotification = (props) => {
-    //     return (
-    //         <div className={cx('preview')} tabIndex="-1" {...props}>
-    //             <PopperWrapper>
-    //                 <NotificationItem />
-    //             </PopperWrapper>
-    //         </div>
-    //     );
-    // };
 
     const renderSearch = (props) => {
         return (
@@ -118,71 +138,9 @@ function Header() {
         );
     };
 
-    const [openError, setOpenError] = useState(false);
-    const [openSuccess, setOpenSuccess] = useState(false);
-    const [errorAlert, setErrorAlert] = useState('');
-    const [successAlert, setSuccessAlert] = useState('');
-
-    const dispatch = useDispatch();
-    let match = useParams();
-
-    const { headers } = useSelector((state) => state.headersMain);
-
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
-    const [phoneNo, setPhoneNo] = useState('');
-
-    const [addressInfo, setAddressInfo] = useState('');
-    const [cityInfo, setCityInfo] = useState('');
-    const [stateInfo, setStateInfo] = useState('');
-    const [countryInfo, setCountryInfo] = useState('');
-    const [phoneNoInfo, setPhoneNoInfo] = useState('');
-
     const [keyword, setKeyword] = useState('');
 
-    const navigate = useNavigate();
-
-    const { isAuthenticated, user, loading  } = useSelector((state) => state.user);
-    // useEffect(() => {
-    //     store.dispatch(loadUser());
-    // }, []);
-    // const store = useSelector((state) => state);
-
-    // console.log('user in header: ', user._id);
-    // const userId = user._id;
-
-    // console.log('userId: ', userId);
-    const { cart, isDeleted, isUpdated} = useSelector((state) => state.cart);
-
-    useEffect(() => {
-        dispatch(getAllHeaderMain());
-        // dispatch(loadUser());
-        dispatch(getCart());
-    }, [dispatch]);
-
-    const searchSubmitHandler = (e) => {
-        e.preventDefault();
-        console.log('keyword: ', keyword);
-        if (keyword.trim()) {
-            navigate(`/products/${keyword}`);
-        } else {
-        }
-    };
-
     const url = 'https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg';
-
-    // {user ? if (user.avatar.url != '') {
-    // } : ''}
-
-    console.log('cart: ', cart);
 
     return (
         <div>
@@ -191,11 +149,12 @@ function Header() {
             ) : (
                 <div className={cx('wrapper')}>
                     <div className={cx('container-header')}>
-                        {headers.map((header) => (
-                            <div className={cx('image')} key={header._id}>
-                                <img src={header.images.url} alt="header" />
-                            </div>
-                        ))}
+                        {headers &&
+                            headers.map((header) => (
+                                <div className={cx('image')} key={header._id}>
+                                    <img src={header.images.url} alt="header" />
+                                </div>
+                            ))}
                         <div className={cx('information')}>
                             <Button to={config.routes.promotion}>
                                 <PromotionIcon />
@@ -316,9 +275,11 @@ function Header() {
                                                 <CartIcon />
                                                 <div>
                                                     <div>Giỏ hàng của bạn </div>
-                                                    {/* {(cart && (
-                                                        <div>({cart.cartItems.length}) sản phẩm </div>
-                                                    )) || <div>(0) sản phẩm </div>} */}
+                                                    {cart ? (
+                                                        <div>({cart.cartItems.length}) sản phẩm</div>
+                                                    ) : (
+                                                        <div>(0) sản phẩm</div>
+                                                    )}
                                                 </div>
                                             </div>
                                         </Tippy>
@@ -397,7 +358,7 @@ function Header() {
                                                     <div className={cx('box', 'hover')}>
                                                         <div className={cx('box_img')}>
                                                             <img
-                                                                src={user.avatar.url}
+                                                                src={url}
                                                                 alt={user.name}
                                                                 style={{ width: '36px', height: '36px' }}
                                                             />
@@ -446,13 +407,11 @@ function Header() {
                                                     <CartIcon />
                                                     <div>
                                                         <div>Giỏ hàng của bạn </div>
-                                                        {/* {cartMountResult ? ( */}
-                                                        {/* {(cart.cartItems && (
-                                                            <div>({cart.cartItems.length}) sản phẩm </div>
-                                                        )) || <div>(0) sản phẩm </div>} */}
-                                                        {/* ) : (
-                                                <div>(0) sản phẩm </div>
-                                            )} */}
+                                                        {cart ? (
+                                                            <div>({cart.cartItems.length}) sản phẩm</div>
+                                                        ) : (
+                                                            <div>(0) sản phẩm</div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </Tippy>

@@ -21,6 +21,9 @@ import {
     SHOWROOM_DETAILS_SUCCESS,
     SHOWROOM_DETAILS_FAIL,
     CLEAR_ERRORS,
+    SHOWROOM_CITY_REQUEST,
+    SHOWROOM_CITY_SUCCESS,
+    SHOWROOM_CITY_FAIL,
 } from '~/constants/showroomConstants';
 
 export const showroomsReducer = (state = { showrooms: [] }, action) => {
@@ -90,6 +93,34 @@ export const showroomReducer = (state = {}, action) => {
                 ...state,
                 isUpdated: false,
             };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+};
+
+export const showroomCityReducer = (state = { showrooms: {} }, action) => {
+    switch (action.type) {
+        case SHOWROOM_CITY_REQUEST:
+            return {
+                loading: true,
+                ...state,
+            };
+        case SHOWROOM_CITY_SUCCESS:
+            return {
+                loading: false,
+                showrooms: action.payload,
+            };
+        case SHOWROOM_CITY_FAIL:
+            return {
+                loading: false,
+                error: action.payload,
+            };
+
         case CLEAR_ERRORS:
             return {
                 ...state,

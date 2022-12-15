@@ -95,6 +95,8 @@
     }
 }
 
+
+
 .image {
     img {
         position: absolute;
@@ -320,6 +322,7 @@
     opacity: 1;
     padding: 16px;
     background-color: white;
+    border-bottom: 1px solid #ddd;
 
     .product-row {
         display: flex;

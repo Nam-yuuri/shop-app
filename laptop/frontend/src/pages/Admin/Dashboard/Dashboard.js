@@ -54,6 +54,7 @@ import { getAllPromotion } from '~/actions/promotionAction';
 import { getAllUsers } from '~/actions/userAction';
 import LowStock from './chart';
 import OutOfStock from './outOfStock';
+import { getAllOrders, getAllOrdersStatus } from '~/actions/orderAction';
 
 // moment.locale("vi");
 
@@ -172,21 +173,32 @@ export default function Dashboard() {
     const [dateStart, setDateStart] = useState(null);
     const [dateEnd, setDateEnd] = useState(null);
 
-    // const { user } = useSelector((state) => state.user);
     // const { products } = useSelector((state) => state.productsAdmin);
     // const { products: topProducts } = useSelector((state) => state.topProducts);
-
-    // const { orders } = useSelector((state) => state.allOrders);
-
-    // const { ordersProssesing, ordersShipped, ordersDelivered, ordersCancel } = useSelector(
-    //     (state) => state.allOrdersStatus,
-    // );
-
-    // const { blogs } = useSelector((state) => state.blogs);
-
-    // const { orders: ordersStatistical } = useSelector((state) => state.allOrdersStatistical);
-
     // const { users } = useSelector((state) => state.allUsers);
+    // const { error, orders, loading } = useSelector((state) => state.allOrders);
+
+    // useEffect(() => {
+    //     dispatch(getTopProducts());
+    //     dispatch(getAllPromotion());
+    //     dispatch(getAdminProduct());
+    //     dispatch(getAllUsers());
+    //     dispatch(getAllOrders());
+    // }, [dispatch]);
+
+    const { user } = useSelector((state) => state.user);
+    const { products } = useSelector((state) => state.productsAdmin);
+    const { products: topProducts } = useSelector((state) => state.topProducts);
+    const { promotions } = useSelector((state) => state.promotions);
+    const { orders } = useSelector((state) => state.allOrders);
+
+    const { ordersProssesing, ordersShipped, ordersDelivered, ordersCancel } = useSelector(
+        (state) => state.allOrdersStatus,
+    );
+
+    const { orders: ordersStatistical } = useSelector((state) => state.allOrdersStatistical);
+
+    const { users } = useSelector((state) => state.allUsers);
 
     // let outOfStock = 0;
     // let lowStock = 0;
@@ -200,21 +212,21 @@ export default function Dashboard() {
     //             lowStock += 1;
     //         }
     //     });
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //   dispatch(getAdminProduct());
-    //   dispatch(getAllOrders());
-    //   dispatch(getAllUsers());
-    //   dispatch(getAllBlogs());
-    //   dispatch(getTopProducts());
-    //   dispatch(getAllOrdersStatus());
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(getAdminProduct());
+        dispatch(getAllOrders());
+        dispatch(getAllUsers());
+        dispatch(getTopProducts());
+        dispatch(getAllOrdersStatus());
+    }, [dispatch]);
 
     let totalAmount = 0;
-    // ordersStatistical &&
-    //     ordersStatistical.forEach((item) => {
-    //         totalAmount += item.totalPrice;
-    //     });
+    ordersStatistical &&
+        ordersStatistical.forEach((item) => {
+            totalAmount += item.totalPrice;
+        });
 
     const [lineState, setLineState] = useState({
         labels: ['Số tiền ban đầu', 'Tổng tiền nhận được'],
@@ -261,71 +273,25 @@ export default function Dashboard() {
         }
     };
 
-    // const doughnutState = {
-    //     labels: ['Hết hàng', 'Còn hàng', 'Sắp hết hàng'],
-    //     datasets: [
-    //         {
-    //             backgroundColor: ['rgb(255, 61, 87)', 'rgb(25, 118, 210)', 'rgb(255, 175, 56)'],
-    //             hoverBackgroundColor: ['rgba(255, 61, 87, 0.7)', 'rgba(25, 118, 210, 0.7)', 'rgb(255, 175, 56, 0.7)'],
-    //             data: [outOfStock, products.length - outOfStock, lowStock],
-    //         },
-    //     ],
+    // const handleDrawerOpen = () => {
+    //     setOpen(true);
     // };
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-
-    // let history = useHistory();
-
-    // const handleHistory = (his) => {
-    //   history.push(`/admin/${his}`);
+    // const handleDrawerClose = () => {
+    //     setOpen(false);
     // };
 
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    // const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const handleOpenUserMenu = (e) => {
-        setAnchorElUser(e.currentTarget);
-    };
+    // const handleOpenUserMenu = (e) => {
+    //     setAnchorElUser(e.currentTarget);
+    // };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
-    // function logOutUser() {
-    //   // dispatch(logout());
-    //   // alert("Đăng xuất thành công");
-    //   setOpenSuccess(true);
-    //   setSuccessAlert("Đăng xuất thành công");
-    //   history.push("/");
-    // }
+    // const handleCloseUserMenu = () => {
+    //     setAnchorElUser(null);
+    // };
 
     const [wrapperWidth, setWapperWidth] = useState(true);
-
-    const dispatch = useDispatch();
-
-    const { products } = useSelector((state) => state.productsAdmin);
-    const { products: topProducts } = useSelector((state) => state.topProducts);
-    const { promotions } = useSelector((state) => state.promotions);
-    const { users } = useSelector((state) => state.allUsers);
-
-    useEffect(() => {
-        dispatch(getTopProducts());
-        dispatch(getAllPromotion());
-        dispatch(getAdminProduct());
-        dispatch(getAllUsers());
-    }, [dispatch]);
-
-    // console.log('products: ', products);
-
-    // useEffect(() => {
-    //     dispatch(getAllPromotion());
-    // }, [dispatch]);
-    // // console.log('promotion: ', promotions);
 
     const outOfStock = [];
     const lowStock = [];
@@ -362,9 +328,6 @@ export default function Dashboard() {
                 });
             }
         });
-
-    // console.log('topProducts: ', topProducts[0]);
-    // console.log('outOfStock: ', outOfStock[0]);
 
     return (
         <Box sx={{ display: 'flex', backgroundColor: 'rgb(255, 255, 248)', padding: '30px' }} className={classes.root}>
@@ -521,7 +484,7 @@ export default function Dashboard() {
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <p className="statistical-number">Đơn hàng: </p>
                                             <p className="statistical-number" style={{ fontWeight: 'bold' }}>
-                                                1
+                                                {orders && orders.length}
                                             </p>
                                         </div>
                                         <Link
@@ -606,7 +569,9 @@ export default function Dashboard() {
                                     <Grid item xs={12} sm={6}>
                                         <Paper elevation={3} className={classes.orderBox}>
                                             <CardGiftcardIcon fontSize="large" />
-                                            <Typography variant="h3">1</Typography>
+                                            <Typography variant="h3">
+                                                {ordersProssesing && ordersProssesing.length}
+                                            </Typography>
                                             <p
                                                 style={{
                                                     textTransform: 'uppercase',
@@ -619,7 +584,9 @@ export default function Dashboard() {
                                     <Grid item xs={12} sm={6}>
                                         <Paper elevation={3} className={classes.orderBox}>
                                             <LocalShippingIcon fontSize="large" />
-                                            <Typography variant="h3">2</Typography>
+                                            <Typography variant="h3">
+                                                {ordersShipped && ordersShipped.length}
+                                            </Typography>
                                             <p
                                                 style={{
                                                     textTransform: 'uppercase',
@@ -632,7 +599,9 @@ export default function Dashboard() {
                                     <Grid item xs={12} sm={6}>
                                         <Paper elevation={3} className={classes.orderBox}>
                                             <AssignmentTurnedInIcon fontSize="large" />
-                                            <Typography variant="h3">3</Typography>
+                                            <Typography variant="h3">
+                                                {ordersDelivered && ordersDelivered.length}
+                                            </Typography>
                                             <p
                                                 style={{
                                                     textTransform: 'uppercase',
@@ -645,7 +614,7 @@ export default function Dashboard() {
                                     <Grid item xs={12} sm={6}>
                                         <Paper elevation={3} className={classes.orderBox}>
                                             <CancelIcon fontSize="large" />
-                                            <Typography variant="h3">4</Typography>
+                                            <Typography variant="h3">{ordersCancel && ordersCancel.length}</Typography>
                                             <p
                                                 style={{
                                                     textTransform: 'uppercase',
@@ -740,9 +709,14 @@ export default function Dashboard() {
                                 </Paper>
                             </Grid>
                         </Grid>
-                        <p style={{ fontSize: '30px', fontWeight: 'bold',marginTop: '20px'  }}>Quản lý sản phẩm</p>
+                        <p style={{ fontSize: '30px', fontWeight: 'bold', marginTop: '20px' }}>Quản lý sản phẩm</p>
                         <Grid style={{ display: 'flex' }}></Grid>
-                        <Grid item xs={12} sm={12} style={{ display: 'flex', alignItems: 'center', margin: '0px 0px 10px' }}>
+                        <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            style={{ display: 'flex', alignItems: 'center', margin: '0px 0px 10px' }}
+                        >
                             <Paper elevation={3} style={{ height: '100%' }}>
                                 <Box
                                     sx={{
@@ -803,7 +777,12 @@ export default function Dashboard() {
                             </Paper>
                             <LowStock />
                         </Grid>
-                        <Grid item xs={12} sm={12} style={{ display: 'flex', alignItems: 'center', margin: '30px 0px 0px' }}>
+                        <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            style={{ display: 'flex', alignItems: 'center', margin: '30px 0px 0px' }}
+                        >
                             <Paper elevation={3} style={{ height: '100%' }}>
                                 <Box
                                     sx={{

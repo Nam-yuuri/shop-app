@@ -13,9 +13,9 @@ function CartItem() {
                             <img src="https://i.imgur.com/Drj57qu.png" alt="" />
                         </div>
                         <div className={cx('text')}>Giỏ hàng chưa có sản phẩm nào</div>
-                        <button className={cx('btn')}>
+                        {/* <button className={cx('btn')}>
                             <div>Mua sắm ngay</div>
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>

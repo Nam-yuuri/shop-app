@@ -29,8 +29,15 @@ import {
 export const getAllCarousels = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_CAROUSEL_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/carousel');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/carousel', config);
 
         // console.log('carousel', data.data.carousel);
 
@@ -49,8 +56,15 @@ export const getAllCarousels = () => async (dispatch) => {
 export const getCarouselsMain = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_CAROUSEL_MAIN_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/carousel/main');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/carousel/main', config);
 
         // console.log('carousel', data);
 
@@ -71,17 +85,17 @@ export const createCarousel = (carouselData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_CAROUSEL_REQUEST });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, headerData, config);
-        const data = await axios.post(`http://localhost:8000/api/v1/admin/carousel/new`, carouselData);
+        const data = await axios.post(`http://localhost:8000/api/v1/admin/carousel/new`, carouselData, config);
+        // const data = await axios.post(`http://localhost:8000/api/v1/admin/carousel/new`, carouselData);
 
         dispatch({
             type: NEW_CAROUSEL_SUCCESS,
@@ -99,15 +113,15 @@ export const deleteCarousel = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_CAROUSEL_REQUEST });
 
-        // const token = localStorage.getItem("token");
-        // const config = {
-        //   headers: {
-        //     Authorization: `token ${token}`,
-        //   },
-        // };
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        };
 
-        // const { data } = await axios.delete(`http://localhost:5000/api/v1/admin/product/${id}`, config);
-        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/carousel/${id}`);
+        const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/carousel/${id}`, config);
+        // const { data } = await axios.delete(`http://localhost:8000/api/v1/admin/carousel/${id}`);
 
         dispatch({
             type: DELETE_CAROUSEL_SUCCESS,
@@ -124,10 +138,17 @@ export const deleteCarousel = (id) => async (dispatch) => {
 export const getCarouselDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: CAROUSEL_DETAILS_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get(`http://localhost:8000/api/v1/carousel/${id}`);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get(`http://localhost:8000/api/v1/carousel/${id}`, config);
 
-        console.log('data', data.data.brand);
+        // console.log('data', data.data.brand);
 
         dispatch({
             type: CAROUSEL_DETAILS_SUCCESS,
@@ -154,8 +175,8 @@ export const updateCarousel = (id, carouselData) => async (dispatch) => {
             },
         };
 
-        // const data = await axiosClient.put(`/api/v1/admin/banner/${id}`, carouselData, config);
-        const data = await axios.put(`http://localhost:8000/api/v1/admin/carousel/${id}`, carouselData);
+        const data = await axios.put(`http://localhost:8000/api/v1/admin/carousel/${id}`, carouselData, config);
+        // const data = await axios.put(`http://localhost:8000/api/v1/admin/carousel/${id}`, carouselData);
 
         dispatch({
             type: UPDATE_CAROUSEL_SUCCESS,

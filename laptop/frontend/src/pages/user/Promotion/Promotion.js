@@ -32,7 +32,7 @@ function Promotion() {
                     <h2>{promotion.title}</h2>
                     <p>{promotion.date}</p>
                     <div className={cx('btn')}>
-                        <Button primary to={config.routes.brand}>
+                        <Button primary to={config.routes.home}>
                             Xem chi tiết
                         </Button>
                     </div>

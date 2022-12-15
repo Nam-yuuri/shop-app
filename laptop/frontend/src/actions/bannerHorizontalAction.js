@@ -30,8 +30,16 @@ import {
 export const getAllBannersHorizontal = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_BANNER_HORIZONTAL_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/bannerHorizontal');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+
+        const data = await axios.get('http://localhost:8000/api/v1/bannerHorizontal', config);
 
         // console.log('horizon db: ', data);
 
@@ -51,8 +59,16 @@ export const getAllBannersHorizontal = () => async (dispatch) => {
 export const getHorizontalMain = () => async (dispatch) => {
     try {
         dispatch({ type: MAIN_BANNER_HORIZONTAL_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/bannerHorizontal/main');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+
+        const data = await axios.get('http://localhost:8000/api/v1/bannerHorizontal/main', config);
 
         // console.log('bannerho', data.data.horizontal[0].url);
 
@@ -73,19 +89,19 @@ export const createBannerHorizontal = (bannerData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_BANNER_HORIZONTAL_REQUEST });
 
-        // const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
 
-        // const config = {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //     Authorization: `token ${token}`,
-        //   },
-        // };
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `token ${token}`,
+          },
+        };
 
         const data = await axios.post(
             'http://localhost:8000/api/v1/admin/bannerHorizontal/new',
             bannerData,
-            // config
+            config
         );
 
         dispatch({
@@ -114,8 +130,8 @@ export const updateBannerHorizontal = (id, bannerData) => async (dispatch) => {
             },
         };
 
-        // const data = await axios.put(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, bannerData, config);
-        const data = await axios.put(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, bannerData);
+        const data = await axios.put(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, bannerData, config);
+        // const data = await axios.put(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, bannerData);
 
         dispatch({
             type: UPDATE_BANNER_HORIZONTAL_SUCCESS,
@@ -134,17 +150,17 @@ export const deleteBannerHorizontal = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_BANNER_HORIZONTAL_REQUEST });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.delete(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, config);
-        const data = await axios.delete(`http://localhost:8000/api/v1/bannerHorizontal/${id}`);
+        const data = await axios.delete(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, config);
+        // const data = await axios.delete(`http://localhost:8000/api/v1/bannerHorizontal/${id}`);
 
         dispatch({
             type: DELETE_BANNER_HORIZONTAL_SUCCESS,
@@ -162,8 +178,16 @@ export const deleteBannerHorizontal = (id) => async (dispatch) => {
 export const getBannerHorizontalDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: BANNER_HORIZONTAL_DETAILS_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get(`http://localhost:8000/api/v1/admin/bannerHorizontal/${id}`);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+
+        const data = await axios.get(`http://localhost:8000/api/v1/admin/bannerHorizontal/${id}`, config);
 
         // console.log("horizontal: ", data.data.horizontal)
         dispatch({

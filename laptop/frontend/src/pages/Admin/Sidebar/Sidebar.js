@@ -11,6 +11,7 @@ import {
     Category,
     Dashboard,
     Discount,
+    Inventory,
     Laptop,
     LocationCity,
     Panorama,
@@ -56,6 +57,12 @@ function Sidebar() {
                     activeIcon={<Discount />}
                 />
                 <MenuItem title="Tài khoản" to={config.routes.userList} icon={<Person />} activeIcon={<Person />} />
+                <MenuItem
+                    title="Đơn hàng"
+                    to={config.routes.orderList}
+                    icon={<Inventory />}
+                    activeIcon={<Inventory />}
+                />
                 <MenuItem
                     title="Cửa hàng"
                     to={config.routes.showroomList}

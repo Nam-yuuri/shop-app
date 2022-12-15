@@ -29,8 +29,15 @@ import {
 export const getAllHeaders = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_HEADER_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/header');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/header', config);
 
         // console.log('header db:', data);
 
@@ -50,8 +57,15 @@ export const getAllHeaders = () => async (dispatch) => {
 export const getAllHeaderMain = () => async (dispatch) => {
     try {
         dispatch({ type: MAIN_HEADER_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get('http://localhost:8000/api/v1/header/main');
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get('http://localhost:8000/api/v1/header/main', config);
 
         // console.log('header db: ', data.data.header[0].images.url);
 
@@ -72,17 +86,17 @@ export const createHeader = (headerData) => async (dispatch) => {
     try {
         dispatch({ type: NEW_HEADER_REQUEST });
 
-        // const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         Authorization: `token ${token}`,
-        //     },
-        // };
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
 
-        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, headerData, config);
-        const data = await axios.post(`http://localhost:8000/api/v1/header/new`, headerData);
+        const data = await axios.post(`http://localhost:8000/api/v1/header/new`, headerData, config);
+        // const data = await axios.post(`http://localhost:8000/api/v1/header/new`, headerData);
 
         dispatch({
             type: NEW_HEADER_SUCCESS,
@@ -128,8 +142,15 @@ export const deleteHeader = (id) => async (dispatch) => {
 export const getHeaderDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: HEADER_DETAILS_REQUEST });
+        const token = localStorage.getItem('token');
 
-        const data = await axios.get(`http://localhost:8000/api/v1/header/${id}`);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `token ${token}`,
+            },
+        };
+        const data = await axios.get(`http://localhost:8000/api/v1/header/${id}`, config);
 
         // console.log("data", data.data.header)
 
@@ -159,8 +180,8 @@ export const updateHeader = (id, bannerData) => async (dispatch) => {
             },
         };
 
-        // const data = await axiosClient.put(`/api/v1/admin/banner/${id}`, bannerData, config);
-        const data = await axios.put(`http://localhost:8000/api/v1/header/${id}`, bannerData);
+        const data = await axios.put(`http://localhost:8000/api/v1/header/${id}`, bannerData, config);
+        // const data = await axios.put(`http://localhost:8000/api/v1/header/${id}`, bannerData);
 
         dispatch({
             type: UPDATE_HEADER_SUCCESS,
