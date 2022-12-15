@@ -12,20 +12,20 @@ const {
 } = require("../controllers/cartController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
-// router.route("/cart").get(isAuthenticatedUser, myCart);
-router.get("/cart", myCart);
+router.route("/cart").get(isAuthenticatedUser, myCart);
+// router.get("/cart", myCart);
 
-// router.route("/cart/:id").get(isAuthenticatedUser, getCartDetails);
-router.get("/cart/:id", getCartDetails);
+router.route("/cart/:id").get(isAuthenticatedUser, getCartDetails);
+// router.get("/cart/:id", getCartDetails);
 
-// router.route("/cart/new").post(isAuthenticatedUser, createCart);
-router.post("/cart/new", createCart);
+router.route("/cart/new").post(isAuthenticatedUser, createCart);
+// router.post("/cart/new", createCart);
 
-// router.route("/cart").post(isAuthenticatedUser, addCartItem);
-router.post("/cart", addCartItem);
+router.route("/cart").post(isAuthenticatedUser, addCartItem);
+// router.post("/cart", addCartItem);
 
-router.delete("/cart/:itemId", cartDeleteItem);
-// router.delete("/cart/:itemId", isAuthenticatedUser, cartDeleteItem);
+// router.delete("/cart/:itemId", cartDeleteItem);
+router.delete("/cart/:itemId", isAuthenticatedUser, cartDeleteItem);
 
 router
   .route("/cart/:id")

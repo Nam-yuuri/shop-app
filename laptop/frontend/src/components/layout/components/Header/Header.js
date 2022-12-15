@@ -7,9 +7,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
 import {
     AdviseIcon,
-    BuildIcon,
     CartIcon,
-    ComputerIcon,
     PromotionIcon,
     ShowroomIcon,
     UserIcon,
@@ -17,14 +15,11 @@ import {
 import styles from './Header.module.scss';
 import CartItem from '../PreviewItem/CartItem';
 import CartItemValue from '../PreviewItem/CartItemValue';
-// import NotificationItem from '../PreviewItem/NotificationItem';
 import { useEffect, useState } from 'react';
 import SearchItem from '../PreviewItem/SearchItem';
 import ProductItem from '../PreviewItem/Products';
 import LoginItem from '../PreviewItem/Login';
 import { useDispatch, useSelector } from 'react-redux';
-// import { clearErrors } from '~/actions/productAction';
-// import { getAllHeader } from '~/actions/headerAction';
 import { getAllBanners, getAllBannersMain } from '~/actions/bannerAction';
 import config from '~/config';
 import { getAllHeaderMain, getAllHeaders } from '~/actions/headerAction';
@@ -32,6 +27,7 @@ import { getAllUsers, getUserDetails, loadUser } from '~/actions/userAction';
 import { Link, useHistory, useNavigate, useParams } from 'react-router-dom';
 import Loading from '~/components/Loading/Loading';
 import { getCart } from '~/actions/cartAction';
+import { Alert, Snackbar } from '@mui/material';
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -40,9 +36,21 @@ function Header() {
     const [errorAlert, setErrorAlert] = useState('');
     const [successAlert, setSuccessAlert] = useState('');
 
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
+
     const [searchResult, setSearchResult] = useState([]);
     const [loginResult, setLoginResult] = useState('');
-    // const [cartResult, setCartResult] = useState([]);
     const [cartMountResult, setCartMountResult] = useState(0);
     const [scrollHeader, setScrollHeader] = useState(true);
 
@@ -58,7 +66,6 @@ function Header() {
 
     useEffect(() => {
         dispatch(getAllHeaderMain());
-        // dispatch(loadUser());
         dispatch(getCart());
     }, [dispatch]);
 
@@ -72,7 +79,6 @@ function Header() {
     };
 
     const handleScroll = () => {
-        // console.log(window.scrollY);
         if (window.scrollY >= 99) {
             setScrollHeader(false);
         } else {
@@ -81,24 +87,6 @@ function Header() {
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([]);
-        }, 3000);
-    }, []);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoginResult('0395001595');
-        }, 3000);
-    }, []);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setCartMountResult(10);
-        }, 3000);
-    }, []);
 
     const renderCart = (props) => {
         return (
@@ -148,6 +136,20 @@ function Header() {
                 <Loading />
             ) : (
                 <div className={cx('wrapper')}>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className={cx('container-header')}>
                         {headers &&
                             headers.map((header) => (
@@ -172,14 +174,6 @@ function Header() {
                                 <AdviseIcon />
                                 <span>CSKH: 18006865</span>
                             </Button>
-                            {/* <Button href={'/'}>
-                    <ComputerIcon />
-                    <span>Tin công nghệ</span>
-                </Button> */}
-                            {/* <Button href={'/'}>
-                    <BuildIcon />
-                    <span>Xây dựng cấu hình</span>
-                </Button> */}
                         </div>
                     </div>
 
@@ -210,10 +204,8 @@ function Header() {
                                                         className={cx('form-control')}
                                                         name="q"
                                                         id="q"
-                                                        // placeholder="Tìm kiếm sản phẩm ..."
                                                         required
                                                         onChange={(e) => setKeyword(e.target.value)}
-                                                        // style={{ minWidth: '400px' }}
                                                         placeholder="Nhập tên sản phẩm cần tìm"
                                                     />
                                                     <button>
@@ -328,12 +320,10 @@ function Header() {
                                                 <form onSubmit={searchSubmitHandler}>
                                                     <div className={cx('box', 'hover')}>
                                                         <input
-                                                            // className={cx('box_search')}
                                                             type="search"
                                                             className={cx('form-control')}
                                                             name="q"
                                                             id="q"
-                                                            // placeholder="Tìm kiếm sản phẩm ..."
                                                             required
                                                             onChange={(e) => setKeyword(e.target.value)}
                                                             placeholder="Nhập tên sản phẩm cần tìm"
@@ -381,20 +371,6 @@ function Header() {
                                                 </div>
                                             </Button>
                                         )}
-                                        {/* <div className={cx('notification')}>
-                                <Tippy
-                                    interactive
-                                    delay={[100, 500]}
-                                    offset={[0, 0]}
-                                    placement="bottom-end"
-                                    render={renderNotification}
-                                >
-                                    <div className={cx('box', 'hover')}>
-                                        <span className={cx('number')}>1</span>
-                                        <NotificationIcon />
-                                    </div>
-                                </Tippy>
-                            </div> */}
                                         <Button to={'/cart'} className={cx('cart')}>
                                             <Tippy
                                                 interactive

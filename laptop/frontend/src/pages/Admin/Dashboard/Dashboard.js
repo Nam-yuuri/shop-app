@@ -48,7 +48,7 @@ import { faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
 import ReCharts from './chart';
 import Turnover from './turnover';
-import { Discount } from '@mui/icons-material';
+import { Discount, Laptop, Person } from '@mui/icons-material';
 import Sumproducts from './Sumproducts';
 import { getAllPromotion } from '~/actions/promotionAction';
 import { getAllUsers } from '~/actions/userAction';
@@ -220,6 +220,7 @@ export default function Dashboard() {
         dispatch(getAllUsers());
         dispatch(getTopProducts());
         dispatch(getAllOrdersStatus());
+        dispatch(getAllPromotion());
     }, [dispatch]);
 
     let totalAmount = 0;
@@ -387,7 +388,7 @@ export default function Dashboard() {
                                     }}
                                     square
                                 >
-                                    <InventoryIcon />
+                                    <Laptop />
                                     <p style={{ fontSize: '20px', marginBottom: '0px', fontWeight: 'bold' }}>
                                         Sản phẩm
                                     </p>
@@ -428,7 +429,7 @@ export default function Dashboard() {
                                     }}
                                     square
                                 >
-                                    <PeopleIcon />
+                                    <Person />
                                     <p style={{ fontSize: '20px', marginBottom: '0px', fontWeight: 'bold' }}>
                                         Tài khoản
                                     </p>
@@ -488,7 +489,7 @@ export default function Dashboard() {
                                             </p>
                                         </div>
                                         <Link
-                                            to={config.routes.productList}
+                                            to={config.routes.orderList}
                                             style={{ paddingLeft: '0px', fontSize: '14px' }}
                                         >
                                             <p className="go-to-detail">

@@ -23,6 +23,7 @@ import {
     ViewCarousel,
     ViewDay,
 } from '@mui/icons-material';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 
 const cx = classNames.bind(styles);
 
@@ -60,8 +61,8 @@ function Sidebar() {
                 <MenuItem
                     title="Đơn hàng"
                     to={config.routes.orderList}
-                    icon={<Inventory />}
-                    activeIcon={<Inventory />}
+                    icon={<ShoppingBasketIcon />}
+                    activeIcon={<ShoppingBasketIcon />}
                 />
                 <MenuItem
                     title="Cửa hàng"

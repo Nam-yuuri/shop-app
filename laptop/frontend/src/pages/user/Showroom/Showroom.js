@@ -12,30 +12,30 @@ import styles from './Showroom.module.scss';
 const cx = classNames.bind(styles);
 
 function Showroom() {
-    const [city, setCity] = useState('');
-
     const dispatch = useDispatch();
 
     const { showrooms, loading } = useSelector((state) => state.showroomCity);
+    const { showrooms: allShowroom } = useSelector((state) => state.showrooms);
 
     useEffect(() => {
-        dispatch(getShowroomCity(city));
-    }, [dispatch, city]);
+        dispatch(getShowroomCity());
+        dispatch(getAllShowroom());
+    }, [dispatch]);
 
+    const store = [];
 
+    allShowroom &&
+        allShowroom.length &&
+        allShowroom.forEach((item) => {
+            if (store.indexOf(item.city) === -1) {
+                store.push(item.city);
+            }
+        });
 
-    // console.log('showroom', showrooms);
-    // console.log('loading', loading);
-
-    // const store = []
-
-    // showrooms && showrooms.forEach((item) => {
-    //     if (store.indexOf(item.city) === -1) {
-    //         store.push(item.city)
-    //       }
-    // })
-
-    // console.log('store', store);
+    function handleSearch() {
+        var selectValue = document.getElementById('select').value;
+        dispatch(getShowroomCity(selectValue));
+    }
 
     return (
         <div>
@@ -45,51 +45,28 @@ function Showroom() {
                 <div className={cx('Showroom')}>
                     <div className={cx('left')}>
                         <h5>Chọn showroom theo tỉnh/thành phố</h5>
-                        <select>
-                            <option
-                                onClick={(e) => {
-                                    if (e.target.checked) {
-                                        setCity('');
-                                    } else {
-                                        setCity('');
-                                    }
-                                }}
-                            >
-                                Chọn tỉnh/ thành phố
-                            </option>
-                            <option
-                                value={1}
-                                onClick={(e) => {
-                                    if (e.target.checked) {
-                                        setCity('Hà Nội');
-                                    } else {
-                                        setCity('');
-                                    }
-                                }}
-                            >
+                        <select
+                            id="select"
+                            onChange={() => {
+                                handleSearch();
+                            }}
+                        >
+                            <option value={''}>Chọn tỉnh/ thành phố</option>
+                            {store.map((item) => (
+                                <option value={item} key={item}>
+                                    {item}
+                                </option>
+                            ))}
+                            {/* <option value={'Hà Nội'} onChange>
                                 Hà Nội
                             </option>
-                            <option
-                                value={2}
-                                onClick={() => {
-                                    setCity('Thanh Hóa');
-                                }}
-                            >
+                            <option value={'Thanh Hóa'} onChange>
                                 Thanh Hóa
                             </option>
-                            <option
-                                value={3}
-                                onClick={() => {
-                                    setCity('Thành phố Hồ Chí Minh');
-                                }}
-                            >
+                            <option value={'Hồ Chí Minh'} onChange>
                                 Thành phố Hồ Chí Minh
-                            </option>
+                            </option> */}
                         </select>
-
-                        {/* <Button outline>
-                            Tim kiem
-                        </Button> */}
                     </div>
                     <div className={cx('right')}>
                         {showrooms &&

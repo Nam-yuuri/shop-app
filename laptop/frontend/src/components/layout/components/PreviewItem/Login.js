@@ -27,78 +27,64 @@ function LoginItem() {
     function logoutUser() {
         dispatch(logout());
         navigate('/login');
-        // alert('Đăng xuất thành công');
         setOpenSuccess(true);
         setSuccessAlert('Đăng xuất thành công');
-        // isAuthenticated = false;
     }
 
     // console.log('userinfo: ', user);
     return (
-        <div>
-            {loading ? (
-                <Loading />
-            ) : (
-                <div className={cx('wrapper')}>
-                    <div className={cx('container')}>
-                        <div className={cx('box')}>
-                            <div className={cx('box-account')}>
-                                <div className={cx('account-icon')}>
-                                    {/* <UserIcon /> */}
-                                    {user && user.avatar&& (
-                                        <img
-                                            style={{ width: '36px', height: '36px', borderRadius: '50%' }}
-                                            src={user.avatar.url}
-                                            alt=""
-                                        />
-                                    )}
-                                </div>
-                                {/* {DataAccount.map((account) => ( */}
-                                <div className={cx('account-name')}>{user && <h5>{user.name}</h5>}</div>
-                                {/* ))} */}
-                            </div>
-                            <Button to={'/account'} className={cx('box-info', 'box-content')}>
-                                <div className={cx('info-icon')}>
-                                    <UserIcon />
-                                </div>
-                                <div className={cx('info-text', 'box-text')}>Thông tin tài khoản</div>
-                            </Button>
-                            <Button to={'/bill'} className={cx('box-oder', 'box-content')}>
-                                <div className={cx('oder-icon')}>
-                                    <OderIcon />
-                                </div>
-                                <div className={cx('oder-text', 'box-text')}>Quản lý đơn hàng</div>
-                            </Button>
-                            <Button to={'/address'} className={cx('box-address', 'box-content')}>
-                                <div className={cx('address-icon')}>
-                                    <AddressIcon />
-                                </div>
-                                <div className={cx('address-text', 'box-text')}>Sổ địa chỉ</div>
-                            </Button>
-                            {user && user.role === 'admin' && (
-                                <Button to={config.routes.dashBoard} className={cx('box-notify', 'box-content')}>
-                                    <div className={cx('notify-icon')}>
-                                        <Dashboard />
-                                    </div>
-                                    <div className={cx('notify-text', 'box-text')}>Quản lý cửa hàng</div>
-                                </Button>
+        <div className={cx('wrapper')}>
+            <div className={cx('container')}>
+                <div className={cx('box')}>
+                    <div className={cx('box-account')}>
+                        <div className={cx('account-icon')}>
+                            {/* <UserIcon /> */}
+                            {user && user.avatar && (
+                                <img
+                                    style={{ width: '36px', height: '36px', borderRadius: '50%' }}
+                                    src={user.avatar.url}
+                                    alt=""
+                                />
                             )}
-                            {/* <Button to={'#'} className={cx('box-news', 'box-content')}>
-                    <div className={cx('news-icon')}>
-                        <NewsIcon />
-                    </div>
-                    <div className={cx('news-text', 'box-text')}>Bản tin</div>
-                </Button> */}
-
-                            <div className={cx('btn')}>
-                                <Button primary to={config.routes.login} onClick={logoutUser} style={{ width: '100%' }}>
-                                    Đăng xuất
-                                </Button>
-                            </div>
                         </div>
+                        {/* {DataAccount.map((account) => ( */}
+                        <div className={cx('account-name')}>{user && <h5>{user.name}</h5>}</div>
+                        {/* ))} */}
+                    </div>
+                    <Button to={'/account'} className={cx('box-info', 'box-content')}>
+                        <div className={cx('info-icon')}>
+                            <UserIcon />
+                        </div>
+                        <div className={cx('info-text', 'box-text')}>Thông tin tài khoản</div>
+                    </Button>
+                    <Button to={'/bill'} className={cx('box-oder', 'box-content')}>
+                        <div className={cx('oder-icon')}>
+                            <OderIcon />
+                        </div>
+                        <div className={cx('oder-text', 'box-text')}>Quản lý đơn hàng</div>
+                    </Button>
+                    <Button to={'/address'} className={cx('box-address', 'box-content')}>
+                        <div className={cx('address-icon')}>
+                            <AddressIcon />
+                        </div>
+                        <div className={cx('address-text', 'box-text')}>Sổ địa chỉ</div>
+                    </Button>
+                    {user && user.role === 'admin' && (
+                        <Button to={config.routes.dashBoard} className={cx('box-notify', 'box-content')}>
+                            <div className={cx('notify-icon')}>
+                                <Dashboard />
+                            </div>
+                            <div className={cx('notify-text', 'box-text')}>Quản lý cửa hàng</div>
+                        </Button>
+                    )}
+
+                    <div className={cx('btn')}>
+                        <Button primary to={config.routes.login} onClick={logoutUser} style={{ width: '100%' }}>
+                            Đăng xuất
+                        </Button>
                     </div>
                 </div>
-            )}
+            </div>
         </div>
     );
 }
