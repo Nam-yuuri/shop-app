@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Alert, Button, FormControl, Grid, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 // import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 
@@ -24,6 +24,24 @@ import { faBars, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons
 import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '~/components/Loading/Loading';
 function NewBanner() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
+
     const [wrapperWidth, setWapperWidth] = useState(true);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -38,7 +56,8 @@ function NewBanner() {
 
     useEffect(() => {
         if (error) {
-            Swal.fire('Thất bại!', 'Tạo banner thất bại!', 'error');
+            setOpenError(true);
+            setErrorAlert(error);
             dispatch(clearErrors());
         }
 
@@ -68,7 +87,6 @@ function NewBanner() {
         setImagesPreview([]);
     };
 
-   
     const createBannerImagesChange = (e) => {
         const files = Array.from(e.target.files);
 
@@ -95,6 +113,20 @@ function NewBanner() {
                 <Loading />
             ) : (
                 <div>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className="header-admin">
                         <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                             <FontAwesomeIcon

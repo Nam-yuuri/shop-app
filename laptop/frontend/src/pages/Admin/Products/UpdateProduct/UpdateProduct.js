@@ -497,7 +497,7 @@ function UpdateProduct() {
                                                 //     pattern: '[0-9]*',
                                                 //     min: '0',
                                                 // }}
-                                                type='text'
+                                                type="text"
                                                 label="Giảm giá (%)"
                                                 required
                                                 value={promotional}
@@ -558,13 +558,22 @@ function UpdateProduct() {
                                                 variant="outlined"
                                                 sx={{ width: 500, marginBottom: '1.5rem' }}
                                             />
-                                            <textarea
+                                            {/* <textarea
                                                 placeholder="Giới thiệu"
                                                 value={description_more}
                                                 onChange={(e) => setDescription_more(e.target.value)}
                                                 cols="120"
                                                 rows="10"
-                                            ></textarea>
+                                            ></textarea> */}
+                                            <ReactQuill
+                                                theme="snow"
+                                                value={description_more || ''}
+                                                onChange={(html) => setDescription_more(html)}
+                                                style={{
+                                                    marginBottom: '50px',
+                                                    height: '200px',
+                                                }}
+                                            />
                                         </Grid>
 
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>

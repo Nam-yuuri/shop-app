@@ -86,7 +86,7 @@ function Checkout() {
     const { error, isSubmit } = useSelector((state) => state.newOrder);
     const { error: errorProfile, isUpdated, loading: profileLoading } = useSelector((state) => state.profile);
 
-    console.log('cart', cart);
+    // console.log('cart', cart);
     // console.log('isSubmit', isSubmit);
     const dispatch = useDispatch();
     const navigate = useNavigate();

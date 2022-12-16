@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Alert, Button, FormControl, Grid, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 // import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 
@@ -25,6 +25,19 @@ function NewCarousel() {
     const [openSuccess, setOpenSuccess] = useState(false);
     const [errorAlert, setErrorAlert] = useState('');
     const [successAlert, setSuccessAlert] = useState('');
+
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
 
     const [wrapperWidth, setWapperWidth] = useState(true);
     const [description, setDescription] = useState('');
@@ -64,10 +77,10 @@ function NewCarousel() {
         });
 
         dispatch(createCarousel(myForm));
-        setDescription('')
-        setStatus(false)
-        setImages([])
-        setImagesPreview([])
+        setDescription('');
+        setStatus(false);
+        setImages([]);
+        setImagesPreview([]);
         // Swal.fire('Thành công!', 'Tạo header thành công!', 'success');
     };
 
@@ -118,6 +131,20 @@ function NewCarousel() {
                 <Loading />
             ) : (
                 <div>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className="header-admin">
                         <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                             <FontAwesomeIcon

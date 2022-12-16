@@ -75,6 +75,7 @@ export const getAllOrders = () => async (dispatch) => {
       config
     );
 
+
     dispatch({ type: ALL_ORDERS_SUCCESS, payload: data.orders });
   } catch (error) {
     dispatch({
@@ -104,6 +105,8 @@ export const getAllOrdersStatistical =
       }
 
       const { data } = await axios.get(link, config);
+
+      // console.log("data", data)
 
       dispatch({ type: ALL_ORDERS_DATE_SUCCESS, payload: data.orders });
     } catch (error) {

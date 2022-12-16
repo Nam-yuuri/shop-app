@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Avatar, Button } from '@mui/material';
+import { Alert, Avatar, Button, Snackbar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { confirmAlert } from 'react-confirm-alert';
@@ -20,6 +20,24 @@ import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { DELETE_HEADER_RESET } from '~/constants/headerConstants';
 function HeaderList() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
+
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
@@ -39,14 +57,19 @@ function HeaderList() {
 
     React.useEffect(() => {
         if (error) {
+            setOpenError(true);
+            setErrorAlert(error);
             dispatch(clearErrors());
         }
 
         if (deleteError) {
+            setOpenError(true);
+            setErrorAlert(deleteError);
             dispatch(clearErrors);
         }
 
         if (isDeleted) {
+            setOpenSuccess(true);
             Swal.fire('Thành công!', 'Xóa header thành công!', 'success');
             dispatch({ type: DELETE_HEADER_RESET });
         }
@@ -152,6 +175,20 @@ function HeaderList() {
                 <Loading />
             ) : (
                 <div>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className="header-admin">
                         <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                             <FontAwesomeIcon

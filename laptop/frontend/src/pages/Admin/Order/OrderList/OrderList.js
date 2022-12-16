@@ -92,8 +92,6 @@ function OrderList() {
         dispatch(getAllOrders());
     }, [dispatch, error, deleteError, isDeleted]);
 
-    
-
     const columns = [
         { field: 'id', headerName: 'Order ID', minWidth: 270, flex: 1 },
 
@@ -110,7 +108,13 @@ function OrderList() {
             minWidth: 150,
             flex: 0.5,
             cellClassName: (params) => {
-                return params.getValue(params.id, 'status') === 'Delivered' ? 'greenColor' : 'redColor';
+                return params.getValue(params.id, 'status') === 'Delivered'
+                    ? 'greenColor'
+                    : params.getValue(params.id, 'status') === 'Shipped'
+                    ? 'yellowColor'
+                    : params.getValue(params.id, 'status') === 'Processing'
+                    ? 'whiteColor'
+                    : 'redColor';
             },
         },
         {
@@ -144,7 +148,7 @@ function OrderList() {
                     <React.Fragment>
                         <div className="box-Action-admin">
                             <Link to={`/admin/OrderList/updateOrder/${params.getValue(params.id, 'id')}`}>
-                                <EditIcon color="info" />
+                                <EditIcon />
                             </Link>
 
                             <Button
@@ -169,7 +173,7 @@ function OrderList() {
                                     });
                                 }}
                             >
-                                <DeleteIcon color="error" />
+                                <DeleteIcon />
                             </Button>
                         </div>
                     </React.Fragment>
@@ -221,7 +225,7 @@ function OrderList() {
                             />
                         </div>
                         <div className="header-sidebar">
-                            <h1>Tài khoản </h1>
+                            <h1>Đơn hàng</h1>
                             {/* <Link to={config.routes.newHeader} className="header-sidebar-btn">
                     <FontAwesomeIcon icon={faPlus} />
                     Thêm header

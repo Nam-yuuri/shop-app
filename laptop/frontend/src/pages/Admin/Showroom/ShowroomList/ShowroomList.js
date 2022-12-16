@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Avatar, Button } from '@mui/material';
+import { Alert, Avatar, Button, Snackbar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { confirmAlert } from 'react-confirm-alert';
@@ -27,6 +27,18 @@ function ShowroomList() {
     const [errorAlert, setErrorAlert] = useState('');
     const [successAlert, setSuccessAlert] = useState('');
 
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
@@ -56,15 +68,12 @@ function ShowroomList() {
         }
 
         if (isDeleted) {
-
             Swal.fire('Thành công!', 'Xóa thông tin cửa hàng thành công!', 'success');
             dispatch({ type: DELETE_SHOWROOM_RESET });
         }
 
         dispatch(getAllShowroom());
     }, [dispatch, error, deleteError, navigate, isDeleted]);
-
-
 
     const columns = [
         // { field: 'id', headerName: 'ID', minWidth: 100, maxWidth: 150, flex: 0.5 },
@@ -158,6 +167,20 @@ function ShowroomList() {
                 <Loading />
             ) : (
                 <div>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className="header-admin">
                         <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                             <FontAwesomeIcon
@@ -168,10 +191,10 @@ function ShowroomList() {
                             />
                         </div>
                         <div className="header-sidebar">
-                            <h1>Khuyến mãi</h1>
+                            <h1>Cửa hàng</h1>
                             <Link to={config.routes.newShowroom} className="header-sidebar-btn">
                                 <FontAwesomeIcon icon={faPlus} />
-                                Thêm khuyến mãi
+                                Thêm cửa hàng
                             </Link>
                         </div>
                     </div>

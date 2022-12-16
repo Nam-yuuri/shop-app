@@ -13,14 +13,6 @@ import {
     productsBrandReducer,
 } from './reducers/productReducer';
 
-// import {
-//     allUsersReducer,
-//     forgotPasswordReducer,
-//     profileReducer,
-//     userDetailsReducer,
-//     userReducer,
-// } from './reducers/userReducer';
-
 import {
     userReducer,
     profileReducer,
@@ -30,16 +22,6 @@ import {
 } from './reducers/userReducer';
 
 import { cartLocalReducer, cartReducer } from './reducers/cartReducer';
-
-// import {
-//   allOrdersReducer,
-//   allOrdersStatisticalReducer,
-//   myOrdersReducer,
-//   newOrderReducer,
-//   orderDetailsReducer,
-//   orderReducer,
-//   allOrdersStatusReducer,
-// } from "./reducers/orderReducer";
 
 import {
     bannerDetailsReducer,
@@ -173,7 +155,7 @@ const reducer = combineReducers({
     newShowroom: newShowroomReducer,
     showroomDetails: showroomDetailsReducer,
     showroomCity: showroomCityReducer,
-    
+
     //Cart
     cart: cartReducer,
     cartLocal: cartLocalReducer,
@@ -188,20 +170,8 @@ const reducer = combineReducers({
     allOrdersStatus: allOrdersStatusReducer,
 });
 
-let initialState = {
-    // cartLocal: {
-    //     cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
-    //     shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {},
-    // },
-    // wishlistLocal: {
-    //   wishlistItems: localStorage.getItem("wishlistItems")
-    //     ? JSON.parse(localStorage.getItem("wishlistItems"))
-    //     : [],
-    // },
-};
-
 const middleware = [thunk];
 
-const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));
 
 export default store;

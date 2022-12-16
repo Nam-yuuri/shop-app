@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Avatar, Button } from '@mui/material';
+import { Alert, Avatar, Button, Snackbar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { confirmAlert } from 'react-confirm-alert';
@@ -24,6 +24,19 @@ function BannerList() {
     const [openSuccess, setOpenSuccess] = useState(false);
     const [errorAlert, setErrorAlert] = useState('');
     const [successAlert, setSuccessAlert] = useState('');
+
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
 
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
@@ -55,13 +68,14 @@ function BannerList() {
         }
 
         if (isDeleted) {
-            Swal.fire('Thành công!', 'Xóa banner thành công!', 'success');
+            setOpenSuccess(true);
+            setSuccessAlert('Xóa banner thành công!');
+            // Swal.fire('Thành công!', 'Xóa banner thành công!', 'success');
             dispatch({ type: DELETE_BANNER_RESET });
         }
 
         dispatch(getAllBanners());
     }, [dispatch, error, deleteError, navigate, isDeleted]);
-
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, flex: 0.5 },
@@ -166,61 +180,77 @@ function BannerList() {
 
     return (
         <div>
-            <div className="header-admin">
-                <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
-                    <FontAwesomeIcon
-                        icon={wrapperWidth ? faChevronLeft : faBars}
-                        onClick={() => {
-                            setWapperWidth(!wrapperWidth);
-                        }}
-                    />
-                </div>
-                <div className="header-sidebar">
-                    <h1>Banner</h1>
-                    <Link to={config.routes.newBanner} className="header-sidebar-btn">
-                        <FontAwesomeIcon icon={faPlus} />
-                        Thêm banner
-                    </Link>
-                </div>
-            </div>
-            <div>
-                {loading ? (
-                    <p>a</p>
-                ) : (
-                    <div className="productList">
-                        <div>
-                            <div
-                                className="sidebar"
-                                style={{
-                                    width: wrapperWidth ? '222px' : '0px',
-                                    display: wrapperWidth ? 'block' : 'none',
-                                }}
-                            >
-                                <div className="box-sidebar">
-                                    <Sidebar />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="data">
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                pageSize={pageSize}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                rowsPerPageOptions={[5, 10, 20]}
-                                pagination
-                                // pageSize={10}
-                                disableSelectionOnClick
-                                className="productListTable"
-                                autoHeight
-                                components={{
-                                    Toolbar: GridToolbar,
+            {loading ? (
+                <Loading />
+            ) : (
+                <div>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
+                    <div className="header-admin">
+                        <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
+                            <FontAwesomeIcon
+                                icon={wrapperWidth ? faChevronLeft : faBars}
+                                onClick={() => {
+                                    setWapperWidth(!wrapperWidth);
                                 }}
                             />
                         </div>
+                        <div className="header-sidebar">
+                            <h1>Banner</h1>
+                            <Link to={config.routes.newBanner} className="header-sidebar-btn">
+                                <FontAwesomeIcon icon={faPlus} />
+                                Thêm banner
+                            </Link>
+                        </div>
                     </div>
-                )}
-            </div>
+                    <div>
+                        <div className="productList">
+                            <div>
+                                <div
+                                    className="sidebar"
+                                    style={{
+                                        width: wrapperWidth ? '222px' : '0px',
+                                        display: wrapperWidth ? 'block' : 'none',
+                                    }}
+                                >
+                                    <div className="box-sidebar">
+                                        <Sidebar />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="data">
+                                <DataGrid
+                                    rows={rows}
+                                    columns={columns}
+                                    pageSize={pageSize}
+                                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                    rowsPerPageOptions={[5, 10, 20]}
+                                    pagination
+                                    // pageSize={10}
+                                    disableSelectionOnClick
+                                    className="productListTable"
+                                    autoHeight
+                                    components={{
+                                        Toolbar: GridToolbar,
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

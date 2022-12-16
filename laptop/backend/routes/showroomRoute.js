@@ -10,8 +10,8 @@ const {
   getShowroom,
 } = require("../controllers/showroomController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
-router.get("/showroom", isAuthenticatedUser, getAllShowroom);
-router.get("/showroom/:city", isAuthenticatedUser, getCityShowroom);
+router.get("/showroom", getAllShowroom);
+router.get("/showroom/:city", getCityShowroom);
 router.get(
   "/admin/showroom/:id",
   isAuthenticatedUser,

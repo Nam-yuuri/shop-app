@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Alert, Button, FormControl, Grid, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 // import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 
@@ -108,27 +108,6 @@ function UpdateBannerHorizon() {
         setImagesPreview([]);
     };
 
-    // console.log(myForm)
-    // const createBannerLogoChange = (e) => {
-    //     const files = Array.from(e.target.files);
-
-    //     setImages([]);
-    //     setImagesPreview([]);
-
-    //     files.forEach((file) => {
-    //         const reader = new FileReader();
-
-    //         reader.onload = () => {
-    //             if (reader.readyState === 2) {
-    //                 setImagesPreview((old) => [...old, reader.result]);
-    //                 setImages((old) => [...old, reader.result]);
-    //             }
-    //         };
-
-    //         reader.readAsDataURL(file);
-    //     });
-    // };
-
     const updatePromotionImagesChange = (e) => {
         const files = Array.from(e.target.files);
 
@@ -156,6 +135,20 @@ function UpdateBannerHorizon() {
                 <Loading />
             ) : (
                 <div>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className="header-admin">
                         <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                             <FontAwesomeIcon

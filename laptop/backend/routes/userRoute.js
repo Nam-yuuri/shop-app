@@ -45,7 +45,7 @@ router
 router
   .route("/admin/users")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getAllUser);
-  // .get(getAllUser);
+// .get(getAllUser);
 
 router
   .route("/admin/user/:id")

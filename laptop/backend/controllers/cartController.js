@@ -162,6 +162,9 @@ exports.cartDeleteItem = catchAsyncErrors(async (req, res, next) => {
         productItem.price * (productItem.discountPercent / 100);
     }
     cart.totalPrice -= productItem.quantity * priceSale;
+    if(cart.totalPrice < 1000000){
+      cart.totalPrice = 0
+    }
     cart.cartItems.splice(itemIndex, 1);
   }
 

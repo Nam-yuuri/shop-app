@@ -18,27 +18,6 @@ import { useParams } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function Search() {
-    // const [products, setProducts] = useState([]);
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setProducts(DataGrid);
-    //     }, 0);
-    // });
-
-    // const {
-    //     products,
-    //     // loading,
-    //     // error,
-    //     // productsCount,
-    //     // resultPerPage,
-    //     // filteredProductsCount,
-    // } = useSelector((state) => state.products);
-    // const data = useSelector((state) => state.products);
-
-    // console.log(products)
-    // console.log(data)
-
     const [currentPage, setCurrentPage] = useState(1);
     const [sort, setSort] = useState('');
 
@@ -51,7 +30,6 @@ function Search() {
 
     const keyword = match && match.keyword;
 
-    // const { loading, products } = useSelector((state) => state.products);
     const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector(
         (state) => state.products,
     );
@@ -59,16 +37,8 @@ function Search() {
         dispatch(getProduct(currentPage, sort, keyword));
     }, [dispatch, currentPage, sort, keyword]);
 
-    console.log("products: ",products   );
-
-
-    // console.log('keyword: ', keyword);
-
     return (
         <div>
-            {/* {loading ? (
-                <Loading />
-            ) : ( */}
             <div className={cx('wrapper')}>
                 <div className={cx('container')}>
                     <div className={cx('box')}>
@@ -173,8 +143,10 @@ function Search() {
                                             </div>
                                         ))
                                     ) : (
-                                        <div style={{width: '100%'}}>
-                                            <p style={{textAlign: 'center', fontSize: '30px'}}>Không tìm thấy sản phẩm phù hợp</p>
+                                        <div style={{ width: '100%' }}>
+                                            <p style={{ textAlign: 'center', fontSize: '30px' }}>
+                                                Không tìm thấy sản phẩm phù hợp
+                                            </p>
                                         </div>
                                     )}
                                 </div>
@@ -204,37 +176,7 @@ function Search() {
                         />
                     </div>
                 )}
-                {/* <div className={cx('pagination')}>
-                        <nav aria-label="...">
-                            <ul className="pagination justify-content-center">
-                                <li className="page-item disabled">
-                                    <span className="page-link">Previous</span>
-                                </li>
-                                <li className="page-item active">
-                                    <a className="page-link" href="#">
-                                        1
-                                    </a>
-                                </li>
-                                <li className="page-item ">
-                                    <span className="page-link">
-                                        2<span className="sr-only">(current)</span>
-                                    </span>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        3
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        Next
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div> */}
             </div>
-            {/* )} */}
         </div>
     );
 }

@@ -107,6 +107,29 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 });
 
 // get all Orders -- Admin
+exports.getAllOrdersTurnover = catchAsyncErrors(async (req, res, next) => {
+
+  const orders = await Order.find({
+    createdAt: {
+      $gte: new Date(req.query.dateStart),
+      $lte: new Date(req.query.dateEnd),
+    },
+  });
+
+  let totalAmount = 0;
+
+  orders.forEach((order) => {
+    totalAmount += order.totalPrice;
+  });
+
+  res.status(200).json({
+    success: true,
+    totalAmount,
+    orders,
+  });
+});
+
+// get all Orders -- Admin
 exports.getAllOrdersStatistical = catchAsyncErrors(async (req, res, next) => {
 
   const orders = await Order.find({

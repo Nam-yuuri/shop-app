@@ -73,7 +73,7 @@ function UpdateOrder() {
     const [status, setStatus] = useState('');
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     let match = useParams();
 
     const handleDrawerOpen = () => {
@@ -104,7 +104,7 @@ function UpdateOrder() {
             setOpenSuccess(true);
             setSuccessAlert('Cập nhật đơn hàng thành công');
             // navigator('/admin/OrderList')
-            // navigate('admin/OrderList');
+            navigate('/admin/OrderList');
             dispatch({ type: UPDATE_ORDER_RESET });
         }
 
@@ -131,7 +131,7 @@ function UpdateOrder() {
         setAnchorElUser(null);
     };
 
-    console.log('order', order);
+    // console.log('order', order);
 
     return (
         <div>
@@ -163,7 +163,7 @@ function UpdateOrder() {
                             />
                         </div>
                         <div className="header-sidebar">
-                            <h1>Sửa thông tin tài khoản </h1>
+                            <h1>Sửa thông tin đơn hàng </h1>
                             <Link to={config.routes.orderList} className="header-sidebar-btn">
                                 <FontAwesomeIcon icon={faChevronLeft} />
                                 HỦY

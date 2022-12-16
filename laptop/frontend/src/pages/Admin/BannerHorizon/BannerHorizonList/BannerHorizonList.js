@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Avatar, Button } from '@mui/material';
+import { Alert, Avatar, Button, Snackbar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { confirmAlert } from 'react-confirm-alert';
@@ -24,8 +24,26 @@ import { DELETE_BANNER_RESET } from '~/constants/bannerConstants';
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { useNavigate, useParams } from 'react-router-dom';
-import {DELETE_BANNER_HORIZONTAL_RESET} from '~/constants/bannerHorizontalConstants'
+import { DELETE_BANNER_HORIZONTAL_RESET } from '~/constants/bannerHorizontalConstants';
 function BannerHorizonList() {
+    const [openError, setOpenError] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
+    const [successAlert, setSuccessAlert] = useState('');
+
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
+
     const [wrapperWidth, setWapperWidth] = useState(true);
     // const { product } = useSelector((state) => state.products);
     // console.log(product);
@@ -45,27 +63,26 @@ function BannerHorizonList() {
 
     React.useEffect(() => {
         if (error) {
+            setOpenError(true);
+            setErrorAlert(error);
             dispatch(clearErrors());
         }
 
         if (deleteError) {
+            setOpenError(true);
+            setErrorAlert(deleteError);
             dispatch(clearErrors);
         }
 
         if (isDeleted) {
-            Swal.fire('Thành công!', 'Xóa banner thành công!', 'success');
+            setOpenSuccess(true);
+            setSuccessAlert('Xóa banner thành công!');
+            // Swal.fire('Thành công!', 'Xóa banner thành công!', 'success');
             dispatch({ type: DELETE_BANNER_HORIZONTAL_RESET });
         }
 
         dispatch(getAllBannersHorizontal());
     }, [dispatch, error, deleteError, navigate, isDeleted]);
-
-    // const { loading, horizontals } = useSelector((state) => state.horizontals);
-    // useEffect(() => {
-    //     dispatch(getAllBannersHorizontal());
-    // }, [dispatch]);
-
-    // // console.log('bannersHorizontal: ', horizontals);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
@@ -168,6 +185,20 @@ function BannerHorizonList() {
                 <Loading />
             ) : (
                 <div>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className="header-admin">
                         <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                             <FontAwesomeIcon

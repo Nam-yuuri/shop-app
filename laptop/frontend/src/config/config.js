@@ -14,6 +14,7 @@ const routes = {
     pdf: '/pdf',
     account: '/account',
     bill: '/bill',
+    billDetail: '/bill/:id',
     address: '/address',
     admin: '/admin',
     showroom: '/showroom',

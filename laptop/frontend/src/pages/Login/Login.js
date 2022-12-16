@@ -98,10 +98,7 @@ function Login() {
         if (isAuthenticated) {
             // hop le
             dispatch(loadUser());
-            // alert("ok")
-            //   history.push("/");
             navigate('/');
-            // setIsSignup(false);
         }
     };
 
@@ -118,21 +115,12 @@ function Login() {
         dispatch(register(myForm));
 
         if (isAuthenticated) {
-            // hop le
-            // dispatch(loadUser());
-            // alert("ok")
-            //   history.push("/");
-            // navigate('/');
             setIsSignup(false);
         }
-
-        // setName('')
-        // set
     };
 
     useEffect(() => {
         if (error) {
-            //   alert(error);
             setOpen(true);
             setEr(error);
             dispatch(clearErrors());
@@ -147,22 +135,7 @@ function Login() {
         }
     }, [dispatch, error, isAuthenticated]);
 
-    const registerDataChange = (e) => {
-        if (e.target.name === 'avatar') {
-            const reader = new FileReader();
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setAvatarPreview(reader.result);
-                    setAvatar(reader.result);
-                }
-            };
-            reader.readAsDataURL(e.target.files[0]);
-        } else {
-            // setUser({ ...user, [e.target.name]: e.target.value });
-            // setName
-        }
-    };
-
+   
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
         handleShowPassword(false);

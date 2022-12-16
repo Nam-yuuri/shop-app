@@ -54,7 +54,10 @@ import { getAllPromotion } from '~/actions/promotionAction';
 import { getAllUsers } from '~/actions/userAction';
 import LowStock from './chart';
 import OutOfStock from './outOfStock';
-import { getAllOrders, getAllOrdersStatus } from '~/actions/orderAction';
+import { getAllOrders, getAllOrdersStatistical, getAllOrdersStatus } from '~/actions/orderAction';
+// import { Line } from 'react-chartjs-2';
+import '../Admin.scss';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Brush, AreaChart, Area } from 'recharts';
 
 // moment.locale("vi");
 
@@ -173,19 +176,6 @@ export default function Dashboard() {
     const [dateStart, setDateStart] = useState(null);
     const [dateEnd, setDateEnd] = useState(null);
 
-    // const { products } = useSelector((state) => state.productsAdmin);
-    // const { products: topProducts } = useSelector((state) => state.topProducts);
-    // const { users } = useSelector((state) => state.allUsers);
-    // const { error, orders, loading } = useSelector((state) => state.allOrders);
-
-    // useEffect(() => {
-    //     dispatch(getTopProducts());
-    //     dispatch(getAllPromotion());
-    //     dispatch(getAdminProduct());
-    //     dispatch(getAllUsers());
-    //     dispatch(getAllOrders());
-    // }, [dispatch]);
-
     const { user } = useSelector((state) => state.user);
     const { products } = useSelector((state) => state.productsAdmin);
     const { products: topProducts } = useSelector((state) => state.topProducts);
@@ -200,18 +190,6 @@ export default function Dashboard() {
 
     const { users } = useSelector((state) => state.allUsers);
 
-    // let outOfStock = 0;
-    // let lowStock = 0;
-
-    // products &&
-    //     products.forEach((item) => {
-    //         if (item.Stock === 0) {
-    //             outOfStock += 1;
-    //         }
-    //         if (item.Stock <= 5) {
-    //             lowStock += 1;
-    //         }
-    //     });
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -221,12 +199,32 @@ export default function Dashboard() {
         dispatch(getTopProducts());
         dispatch(getAllOrdersStatus());
         dispatch(getAllPromotion());
+        dispatch(getAllOrdersStatistical(dateStart, dateEnd));
     }, [dispatch]);
 
     let totalAmount = 0;
+    orders &&
+        orders.forEach((item) => {
+            totalAmount += item.totalPrice;
+        });
+
+    let totalAmountStatistical = 0;
     ordersStatistical &&
         ordersStatistical.forEach((item) => {
-            totalAmount += item.totalPrice;
+            totalAmountStatistical += item.totalPrice;
+        });
+
+    // console.log('ordersStatistical', ordersStatistical);
+
+    const data = [];
+
+    ordersStatistical &&
+        ordersStatistical.forEach((item) => {
+            data.push({
+                name: item.updatedAt.split('T')[0],
+                uv: item.updatedAt.split('T')[0].split('-'),
+                pv: item.totalPrice,
+            });
         });
 
     const [lineState, setLineState] = useState({
@@ -258,7 +256,7 @@ export default function Dashboard() {
 
     const handleStatistical = () => {
         if (dateStart !== null && dateEnd !== null) {
-            // dispatch(getAllOrdersStatistical(dateStart, dateEnd));
+            dispatch(getAllOrdersStatistical(dateStart, dateEnd));
 
             setLineState({
                 labels: ['Số tiền ban đầu', 'Tổng tiền nhận được'],
@@ -273,24 +271,6 @@ export default function Dashboard() {
             });
         }
     };
-
-    // const handleDrawerOpen = () => {
-    //     setOpen(true);
-    // };
-
-    // const handleDrawerClose = () => {
-    //     setOpen(false);
-    // };
-
-    // const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-    // const handleOpenUserMenu = (e) => {
-    //     setAnchorElUser(e.currentTarget);
-    // };
-
-    // const handleCloseUserMenu = () => {
-    //     setAnchorElUser(null);
-    // };
 
     const [wrapperWidth, setWapperWidth] = useState(true);
 
@@ -541,30 +521,126 @@ export default function Dashboard() {
                                 </Paper>
                             </Grid>
 
-                            <Grid item xs={12} md={6} mt={5}>
-                                <div style={{ width: '80%', display: 'flex', justifyContent: 'space-around' }}>
-                                    <Input type="date" style={{ border: '1px solid #eaeaea', borderRadius: '4px' }} />
-                                    <Input type="date" style={{ border: '1px solid #eaeaea', borderRadius: '4px' }} />
-                                    <Button primary>Thống kê</Button>
+                            <Grid item xs={12} md={6} className="lineChart">
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '2rem',
+                                    }}
+                                >
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                        <DatePicker
+                                            label="Chọn ngày bắt đầu"
+                                            value={dateStart}
+                                            onChange={(newValue) => {
+                                                setDateStart(newValue);
+                                            }}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </LocalizationProvider>
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                        <DatePicker
+                                            label="Chọn ngày kết thúc"
+                                            value={dateEnd}
+                                            onChange={(newValue) => {
+                                                setDateEnd(newValue);
+                                            }}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </LocalizationProvider>
+                                    <Button
+                                        onClick={handleStatistical}
+                                        variant="contained"
+                                        primary
+                                        sx={{
+                                            fontSize: '1.3rem',
+                                            padding: '10px 20px',
+                                        }}
+                                        className="btn-Statistical"
+                                    >
+                                        Thống kê
+                                    </Button>
                                 </div>
-                                <div style={{ marginTop: '10px', marginBottom: '20px' }}>
-                                    <Turnover />
-                                </div>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={6}>
-                                        <Paper
-                                            className={classes.flexPaper}
-                                            style={{ borderLeft: '5px solid #541690' }}
-                                        >
-                                            <AttachMoneyIcon />
-                                            <div>
-                                                <p className="statistical-number">{formatPrice(totalAmount)}</p>
-                                                <p>Tổng tiền nhận được</p>
-                                            </div>
-                                        </Paper>
+                                {/* <p style={{fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid #333', width: 'fit-content'}}>Doanh thu </p> */}
+                                <LineChart
+                                    width={500}
+                                    height={200}
+                                    data={data}
+                                    syncId="anyId"
+                                    margin={{
+                                        top: 10,
+                                        right: 30,
+                                        left: 0,
+                                        bottom: 0,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Line type="monotone" dataKey="pv" stroke="#82ca9d" fill="#82ca9d" />
+                                    <Brush />
+                                </LineChart>
+                                <div style={{ display: 'flex', marginTop: '10px', gap: '10px' }}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                            {(totalAmountStatistical && (
+                                                <Paper
+                                                    className={classes.flexPaper}
+                                                    style={{ borderLeft: '5px solid #541690' }}
+                                                >
+                                                    <AttachMoneyIcon />
+
+                                                    <div>
+                                                        <p style={{ fontSize: '16px' }}>Doanh thu</p>
+                                                        <p
+                                                            className="statistical-number"
+                                                            style={{ fontWeight: 'bold', fontSize: '20px' }}
+                                                        >
+                                                            {formatPrice(totalAmountStatistical)}
+                                                        </p>
+                                                    </div>
+                                                </Paper>
+                                            )) || (
+                                                <Paper
+                                                    className={classes.flexPaper}
+                                                    style={{ borderLeft: '5px solid #541690' }}
+                                                >
+                                                    {/* <AttachMoneyIcon /> */}
+
+                                                    <div>
+                                                        <h3>Chưa chọn khoảng thời gian lọc</h3>
+                                                        {/* <p className="statistical-number">
+                                                            {formatPrice(totalAmountStatistical)}
+                                                        </p> */}
+                                                    </div>
+                                                </Paper>
+                                            )}
+                                        </Grid>
                                     </Grid>
-                                </Grid>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                            <Paper
+                                                className={classes.flexPaper}
+                                                style={{ borderLeft: '5px solid #541690' }}
+                                            >
+                                                <AttachMoneyIcon />
+                                                <div>
+                                                    <p style={{ fontSize: '16px' }}>Tổng doanh thu</p>
+                                                    <p
+                                                        className="statistical-number"
+                                                        style={{ fontWeight: 'bold', fontSize: '20px' }}
+                                                    >
+                                                        {formatPrice(totalAmount)}
+                                                    </p>
+                                                </div>
+                                            </Paper>
+                                        </Grid>
+                                    </Grid>
+                                </div>
                             </Grid>
+
                             <Grid item xs={12} md={6} className="doughnutChart" sx={{ mt: 5 }}>
                                 <Grid container spacing={5}>
                                     <Grid item xs={12} sm={6}>
@@ -756,7 +832,7 @@ export default function Dashboard() {
                                                 {lowStock &&
                                                     lowStock.map((item) => (
                                                         <TableRow
-                                                            key={item._id}
+                                                            key={item.id}
                                                             sx={{
                                                                 '& td, & th': { border: 0 },
                                                             }}
@@ -822,7 +898,7 @@ export default function Dashboard() {
                                                 {outOfStock &&
                                                     outOfStock.map((item) => (
                                                         <TableRow
-                                                            key={item._id}
+                                                            key={item.id}
                                                             sx={{
                                                                 '& td, & th': { border: 0 },
                                                             }}

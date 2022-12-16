@@ -5,13 +5,7 @@ import Tippy from '@tippyjs/react/headless';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Button from '~/components/Button';
-import {
-    AdviseIcon,
-    CartIcon,
-    PromotionIcon,
-    ShowroomIcon,
-    UserIcon,
-} from '~/components/Icons';
+import { AdviseIcon, CartIcon, PromotionIcon, ShowroomIcon, UserIcon } from '~/components/Icons';
 import styles from './Header.module.scss';
 import CartItem from '../PreviewItem/CartItem';
 import CartItemValue from '../PreviewItem/CartItemValue';
@@ -71,7 +65,7 @@ function Header() {
 
     const searchSubmitHandler = (e) => {
         e.preventDefault();
-        console.log('keyword: ', keyword);
+        // console.log('keyword: ', keyword);
         if (keyword.trim()) {
             navigate(`/products/${keyword}`);
         } else {
@@ -88,10 +82,14 @@ function Header() {
 
     window.addEventListener('scroll', handleScroll);
 
+    // console.log('cart', cart);
+
     const renderCart = (props) => {
         return (
             <div className={cx('preview')} tabIndex="-1" {...props}>
-                <PopperWrapper>{cart ? <CartItemValue /> : <CartItem />}</PopperWrapper>
+                <PopperWrapper>
+                    {(cart && cart.cartItems.length > 0 && <CartItemValue />) || <CartItem />}
+                </PopperWrapper>
             </div>
         );
     };

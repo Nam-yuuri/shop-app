@@ -14,17 +14,27 @@ const {
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
-router.get("/products", isAuthenticatedUser, getAllProducts);
+router.get("/products", getAllProducts);
 
-router.get("/admin/products", isAuthenticatedUser, getAdminAllProducts);
+router.get(
+  "/admin/products",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getAdminAllProducts
+);
 
-router.get("/product/top", isAuthenticatedUser, getTopProducts);
+router.get("/product/top", getTopProducts);
 
-router.get("/admin/product/stock", isAuthenticatedUser, getAdminStockProducts);
+router.get(
+  "/admin/product/stock",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getAdminStockProducts
+);
 
-router.get("/product/:id", isAuthenticatedUser, getProduct);
+router.get("/product/:id", getProduct);
 
-router.get("/user/product/:brand", isAuthenticatedUser, getProductsBrand);
+router.get("/user/product/:brand", getProductsBrand);
 
 router.post(
   "/admin/product/new",

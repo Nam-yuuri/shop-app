@@ -95,7 +95,6 @@ function Profile() {
 
     // const userId = user._id;
 
-
     const addToCartHandler = () => {
         if (cartError) {
             setOpenError(true);
@@ -121,11 +120,9 @@ function Profile() {
         // alert('Thêm sản phẩm vào giỏ hàng thành công');
         setOpenSuccess(true);
         setSuccessAlert('Thêm sản phẩm vào giỏ hàng thành công');
-        navigate('/cart')
+        navigate('/cart');
         // dispatch(getProductDetails(match.id));
     };
-
- 
 
     // console.log('products._id: ', products._id);
     // console.log('quantity: ', quantity);
@@ -488,7 +485,12 @@ function Profile() {
                                     <div className={cx('box-title')}>Mô tả sản phẩm</div>
                                 </div>
                                 {products.description_more ? (
-                                    <div className={cx('box-content')}>{products.description_more}</div>
+                                    <div
+                                        className={cx('box-content')}
+                                        dangerouslySetInnerHTML={{
+                                            __html: products.description_more,
+                                        }}
+                                    ></div>
                                 ) : (
                                     <div className={cx('null')}>
                                         <p>Mô tả sản phẩm sẽ được cập nhật trong thời gian sớm nhất !</p>

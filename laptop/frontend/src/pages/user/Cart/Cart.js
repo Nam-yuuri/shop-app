@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import formatPrice from '~/utils/formatPrice';
 import { addToCart, deleteFromCart, getCart } from '~/actions/cartAction';
 import { ADD_TO_CART_RESET, REMOVE_CART_ITEM_RESET } from '~/constants/cartConstants';
+import { Alert, Snackbar } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
@@ -39,14 +40,6 @@ function Cart() {
     const handleClick = () => {
         onHeight ? setOnHeight(false) : setOnHeight(true);
     };
-
-    const handleBuy = () => {};
-
-    const handleDownload = () => {};
-
-    const handleMimus = () => {};
-
-    const handlePlus = () => {};
 
     const handleIntoMoney = () => {};
 
@@ -108,10 +101,20 @@ function Cart() {
         }
     }, [dispatch, isUpdated, isDeleted]);
 
-    console.log("cart: ",cart)
+    // console.log('cart: ', cart);
 
     return (
         <div className={cx('Cart')}>
+            <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                    {errorAlert}
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%', fontSize: '0.85em' }}>
+                    {successAlert}
+                </Alert>
+            </Snackbar>
             <div className={cx('wrapper')}>
                 <div className={cx('container')}>
                     <div className={cx('href')}>
@@ -123,19 +126,7 @@ function Cart() {
                         </a>
                         <div className={cx('href-text', 'href-text-cart')}>Giỏ hàng</div>
                     </div>
-                    {(!cart && (
-                        <div className={cx('Cart-content')}>
-                            <div className={cx('box')}>
-                                <div className={cx('image')}>
-                                    <img src="https://i.imgur.com/Drj57qu.png" alt="" />
-                                </div>
-                                <div className={cx('text')}>Giỏ hàng chưa có sản phẩm nào</div>
-                                <Button primary large to={config.routes.home}>
-                                    Mua sắm ngay
-                                </Button>
-                            </div>
-                        </div>
-                    )) || (
+                    {(cart && cart.cartItems.length > 0 && (
                         <div className={cx('Cart-container')}>
                             <div className={cx('header')}>
                                 <div className={cx('header-box')}>
@@ -320,7 +311,7 @@ function Cart() {
                                                     <div className={cx('money-text')}>Thành tiền</div>
                                                     <div className={cx('money-number')}>
                                                         <span>
-                                                            {formatPrice(cart.totalPrice + cart.totalPrice / 10)}
+                                                            {formatPrice(cart.totalPrice)}
                                                         </span>
                                                         <div className={cx('VTA')}>(Đã bao gồm VAT)</div>
                                                     </div>
@@ -346,7 +337,10 @@ function Cart() {
                                     <div className={cx('total-money', 'tablet')}>
                                         <div
                                             className={cx('box-total-money')}
-                                            style={{ height: onHeight ? '100px' : '0', opacity: onHeight ? '1' : '0' }}
+                                            style={{
+                                                height: onHeight ? '100px' : '0',
+                                                opacity: onHeight ? '1' : '0',
+                                            }}
                                         >
                                             <div className={cx('total-money-header')}>
                                                 <h6>Thanh toán</h6>
@@ -411,6 +405,18 @@ function Cart() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    )) || (
+                        <div className={cx('Cart-content')}>
+                            <div className={cx('box')}>
+                                <div className={cx('image')}>
+                                    <img src="https://i.imgur.com/Drj57qu.png" alt="" />
+                                </div>
+                                <div className={cx('text')}>Giỏ hàng chưa có sản phẩm nào</div>
+                                <Button primary large to={config.routes.home}>
+                                    Mua sắm ngay
+                                </Button>
                             </div>
                         </div>
                     )}

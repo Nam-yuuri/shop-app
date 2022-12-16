@@ -92,44 +92,9 @@ function UpdateBanner() {
         }
     }, [dispatch, error, isUpdated, bannerId, banners, updateError]);
 
-    console.log('title: ', title)
+    // console.log('title: ', title)
 
-    const createBannerSubmitHandler = (e) => {
-        e.preventDefault();
-
-        let myForm = new FormData();
-
-        myForm.set('title', title);
-        myForm.set('description', description);
-        myForm.set('status', status);
-
-        images.forEach((image) => {
-            // myForm.append('images', image);
-            console.log(image)
-        });
-
-        // dispatch(updateBanner(bannerId, myForm));
-    };
-
-    const createBannerImagesChange = (e) => {
-        const files = Array.from(e.target.files);
-
-        setImages([]);
-        setImagesPreview([]);
-
-        files.forEach((file) => {
-            const reader = new FileReader();
-
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setImagesPreview((old) => [...old, reader.result]);
-                    setImages((old) => [...old, reader.result]);
-                }
-            };
-
-            reader.readAsDataURL(file);
-        });
-    };
+    
 
     const updateBannerSubmitHandler = (e) => {
         e.preventDefault();

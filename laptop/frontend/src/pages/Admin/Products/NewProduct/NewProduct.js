@@ -36,24 +36,6 @@ import { getAllBrands } from '~/actions/brandAction';
 import { useNavigate } from 'react-router-dom';
 import { NEW_PRODUCT_RESET } from '~/constants/productConstants';
 function NewProduct() {
-   
-    // console.log(BrandOptions)
-    // const cpuOptions = [
-    //     'Intel Celeron/Pentium',
-    //     'Intel Core i3',
-    //     'Intel Core i5',
-    //     'Intel Core i7',
-    //     'Intel Core i9',
-    //     'AMD Ryzen 3',
-    //     'Intel Xeon',
-    //     'AMD Ryzen 5',
-    //     'AMD Ryzen 7',
-    //     'AMD Ryzen 9',
-    //     'Microsoft SQ2',
-    //     'Apple M1',
-    //     'Apple M2',
-    // ];
-
     const RAMOptions = ['4GB', '8GB', '16GB', '32GB', '64GB'];
 
     const LedOptions = ['không đèn', 'Có đèn'];
@@ -71,8 +53,6 @@ function NewProduct() {
     const MonitorOptions = ["14'", "15.6'", "17'"];
 
     const operatingSystemOptions = ['Windows', 'Linux', 'Dos', 'Mac OS'];
-
-    // const KeyboardOptions = ['thường , LED','thường , có phím số , LED']
 
     const theme = useTheme();
     const [open, setOpen] = useState(true);
@@ -124,28 +104,14 @@ function NewProduct() {
     const [imagesPreview, setImagesPreview] = useState([]);
     const [GiftPreview, setGiftPreview] = useState([]);
 
-    // const [inputCPUValue, setInputCPUValue] = useState('');
     const [inputBrandValue, setInputBrandValue] = useState('');
     const [inputRAMValue, setInputRAMValue] = useState(RAMOptions[0]);
-    // const [inputRAM_specsValue, setInputRAM_specsValue] = useState('');
-    // const [inputColorValue, setInputColorValue] = useState('');
-    // const [inputDemandValue, setInputDemandValue] = useState('');
-    // const [inputCPU_systemValue, setInputCPU_systemValue] = useState('');
-    // const [inputCPU_specsValue, setInputCPU_specsValue] = useState('');
+
     const [inputCard_GraphicValue, setInputCard_GraphicValue] = useState('');
     const [inputMonitorValue, setInputMonitorValue] = useState(MonitorOptions[0]);
-    // const [inputMonitor_specsValue, setInputMonitor_specsValue] = useState('');
-    // const [inputStorageValue, setInputStorageValue] = useState('');
-    // const [inputPort_numberValue, setInputPort_numberValue] = useState('');
-    // const [inputOutput_portValue, setInputOutput_portValue] = useState('');
-    // const [inputConnectorValue, setInputConnectorValue] = useState('');
-    // const [inputWireless_ConnectivityValue, setInputWireless_ConnectivityValue] = useState('');
-    // const [inputKeyboardValue, setInputKeyboardValue] = useState('');
-    // const [inputSizeValue, setInputSizeValue] = useState('');
-    // const [inputBatteryValue, setInputBatteryValue] = useState('');
+
     const [inputLedValue, setInputLedValue] = useState('');
-    // const [inputAccessories_includedValue, setInputAccessories_includedValue] = useState('');
-    // const [inputGift_image_nameValue, setInputGift_image_nameValue] = useState('');
+
     const [inputOperatingSystemValue, setInputOperatingSystemValue] = useState('');
 
     const handleDrawerOpen = () => {
@@ -156,16 +122,25 @@ function NewProduct() {
         setOpen(false);
     };
 
-    // const handleHistory = (his) => {
-    //     history.push(`/admin/${his}`);
-    // };
-
     const [wrapperWidth, setWapperWidth] = useState(true);
 
     const [openError, setOpenError] = useState(false);
     const [openSuccess, setOpenSuccess] = useState(false);
     const [errorAlert, setErrorAlert] = useState('');
     const [successAlert, setSuccessAlert] = useState('');
+
+    const handleCloseError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenError(false);
+    };
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false);
+    };
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
@@ -183,10 +158,8 @@ function NewProduct() {
     useEffect(() => {
         if (error) {
             setOpenError(true);
-            // setErrorAlert('Thông tin không hợp lệ');
             setErrorAlert(error);
             dispatch(clearErrors());
-            // Swal.fire('Thành công!', 'Thêm sản phẩm không thành công!', 'error');
         }
 
         if (success) {
@@ -247,21 +220,6 @@ function NewProduct() {
 
         dispatch(createProduct(myForm));
     };
-
-    // console.log("brand: ", brand)
-
-    const handleCloseError = (event, reason) => {
-        if (reason === "clickaway") {
-          return;
-        }
-        setOpenError(false);
-      };
-      const handleCloseSuccess = (event, reason) => {
-        if (reason === "clickaway") {
-          return;
-        }
-        setOpenSuccess(false);
-      };
 
     const createProductImagesChange = (e) => {
         const files = Array.from(e.target.files);
@@ -480,13 +438,22 @@ function NewProduct() {
                                                 variant="outlined"
                                                 sx={{ width: 500, marginBottom: '1.5rem' }}
                                             />
-                                            <textarea
+                                            {/* <textarea
                                                 placeholder="Giới thiệu"
                                                 value={description_more}
                                                 onChange={(e) => setDescription_more(e.target.value)}
                                                 cols="120"
                                                 rows="10"
-                                            ></textarea>
+                                            ></textarea> */}
+                                            <ReactQuill
+                                                theme="snow"
+                                                value={description_more || ''}
+                                                onChange={(html) => setDescription_more(html)}
+                                                style={{
+                                                    marginBottom: '50px',
+                                                    height: '200px',
+                                                }}
+                                            />
                                         </Grid>
 
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -539,7 +506,13 @@ function NewProduct() {
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>CPU</p>
                                         </Grid>
-                                        <Grid item xs={12} sm={8} md={10}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={8}
+                                            md={10}
+                                            style={{ display: 'flex', flexDirection: 'column' }}
+                                        >
                                             <TextField
                                                 type="text"
                                                 label="Thế hệ CPU"
@@ -642,7 +615,13 @@ function NewProduct() {
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Màn hình</p>
                                         </Grid>
-                                        <Grid item xs={12} sm={8} md={10}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={8}
+                                            md={10}
+                                            style={{ display: 'flex', flexDirection: 'column' }}
+                                        >
                                             {/* <Autocomplete
                                                 value={monitor}
                                                 onChange={(event, newValue) => {
@@ -917,7 +896,13 @@ function NewProduct() {
                                         <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                             <p>Quà tặng </p>
                                         </Grid>
-                                        <Grid item xs={12} sm={8} md={10}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={8}
+                                            md={10}
+                                            style={{ display: 'flex', flexDirection: 'column' }}
+                                        >
                                             <TextField
                                                 type="text"
                                                 label="Quà tặng"

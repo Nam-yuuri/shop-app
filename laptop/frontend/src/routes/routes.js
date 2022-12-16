@@ -8,6 +8,7 @@ import Profile from '~/pages/user/Profile';
 import Brands from '~/pages/user/Brands';
 import Account from '~/pages/user/Account';
 import Bill from '~/pages/user/Account/Bill';
+import BillDetail from '~/pages/user/Account/BillDetail';
 import Address from '~/pages/user/Account/Address';
 import config from '~/config';
 import Showroom from '~/pages/user/Showroom';
@@ -60,16 +61,17 @@ import OrderList from '~/pages/Admin/Order/OrderList';
 import UpdateOrder from '~/pages/Admin/Order/UpdateOrder';
 // Public routes
 const publicRoutes = [
+    { path: config.routes.login, component: Login, layout: null },
     { path: config.routes.home, component: Home },
     { path: config.routes.pdf, component: Pdf },
     // { path: 'notification', component: Notification },
     { path: config.routes.cart, component: Cart },
     { path: config.routes.checkout, component: Checkout },
-    { path: config.routes.login, component: Login, layout: null },
     { path: config.routes.brand, component: Brands },
     { path: config.routes.profile, component: Profile },
     { path: config.routes.account, component: Account },
     { path: config.routes.bill, component: Bill },
+    { path: config.routes.billDetail, component: BillDetail },
     { path: config.routes.address, component: Address },
     { path: config.routes.showroom, component: Showroom },
     { path: config.routes.promotion, component: Promotion },

@@ -1,4 +1,4 @@
-.Bill {
+.BillDetail {
     margin: 16px auto;
     width: 100%;
     padding-left: 1rem;
@@ -6,7 +6,7 @@
     max-width: 1264px;
     min-height: 77vh;
 
-    .container-bill {
+    .container-billDetail {
         box-sizing: border-box;
         margin: 0;
         min-width: 0;
@@ -64,27 +64,6 @@
 }
 
 .box-right {
-    // .btn-none {
-    //     position: absolute;
-    //     left: 16px;
-    //     bottom: 16px;
-    // }
-    input {
-        display: none;
-
-        &:checked + .container-info {
-            display: none;
-        }
-    }
-
-    input {
-        // display: none;
-
-        &:checked + .container-product {
-            display: none;
-        }
-    }
-
     .container-product {
         border-radius: 8px;
         background-color: var(--white-color);
@@ -94,23 +73,6 @@
         overflow: hidden;
         max-width: 640px;
     }
-
-    label {
-        position: absolute;
-        left: 16px;
-        bottom: 16px;
-        border: 1px solid #ddd;
-        font-size: 1.3rem;
-        padding: 6px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-
-        &:hover{
-            background-color: #ddd;
-        }
-    }
-
-  
 
     .container-info {
         padding: 16px 16px 0px;
@@ -126,6 +88,13 @@
     }
 
     .order-items:nth-child(n + 2) {
+        // border-style: none;
+        // border-radius: 0px;
+        // border-width: 1px;
+        // border-color: unset;
+        // opacity: 1;
+        // padding: 16px;
+        // background-color: white;
         border-top: 1px solid #ddd;
     }
 

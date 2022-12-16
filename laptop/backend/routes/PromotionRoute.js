@@ -17,9 +17,19 @@ router.post(
   authorizeRoles("admin"),
   createPromotion
 );
-router.get("/admin/promotion", isAuthenticatedUser, getAllPromotion);
-router.get("/promotion/main", isAuthenticatedUser, getMainPromotion);
-router.get("/promotion/:id", isAuthenticatedUser, getPromotion);
+router.get(
+  "/admin/promotion",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getAllPromotion
+);
+router.get("/promotion/main", getMainPromotion);
+router.get(
+  "/promotion/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getPromotion
+);
 router.put(
   "/admin/promotion/:id",
   isAuthenticatedUser,
