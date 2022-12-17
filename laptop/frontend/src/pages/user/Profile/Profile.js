@@ -16,6 +16,7 @@ import formatPrice from '~/utils/formatPrice';
 import Loading from '~/components/Loading/Loading';
 import { addToCart } from '~/actions/cartAction';
 import { Alert, Snackbar } from '@mui/material';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -48,18 +49,6 @@ function Profile() {
         discount ? setDiscount(false) : setDiscount(true);
     };
 
-    useEffect(() => {
-        setTimeout(() => {
-            setImage(img);
-        }, 3000);
-    });
-
-    useEffect(() => {
-        setTimeout(() => {
-            setDescription(true);
-        }, 3000);
-    });
-
     const dispatch = useDispatch();
     let navigate = useNavigate();
     let match = useParams();
@@ -89,7 +78,7 @@ function Profile() {
 
     const { headers } = useSelector((state) => state.headersMain);
 
-    const { user, loading: userLoading } = useSelector((state) => state.user);
+    const { user, loading: userLoading, isAuthenticated } = useSelector((state) => state.user);
 
     const { cart, error: cartError, isUpdated } = useSelector((state) => state.cart);
 
@@ -357,19 +346,47 @@ function Profile() {
                                                 <div className={cx('border')}></div>
                                             </div>
 
-                                            <div className={cx('content-btn')}>
-                                                <Button primary large className={cx('buy-now')} onClick={buyHandler}>
-                                                    MUA NGAY
-                                                </Button>
-                                                <Button
-                                                    outline
-                                                    large
-                                                    className={cx('add-cart')}
-                                                    onClick={addToCartHandler}
-                                                >
-                                                    THÊM VÀO GIỎ HÀNG
-                                                </Button>
-                                            </div>
+                                            {(isAuthenticated && (
+                                                <div className={cx('content-btn')}>
+                                                    <Button
+                                                        primary
+                                                        large
+                                                        className={cx('buy-now')}
+                                                        onClick={buyHandler}
+                                                    >
+                                                        MUA NGAY
+                                                    </Button>
+                                                    <Button
+                                                        outline
+                                                        large
+                                                        className={cx('add-cart')}
+                                                        onClick={addToCartHandler}
+                                                    >
+                                                        THÊM VÀO GIỎ HÀNG
+                                                    </Button>
+                                                </div>
+                                            )) || (
+                                                <div className={cx('content-btn')}>
+                                                    <Button
+                                                        primary
+                                                        large
+                                                        className={cx('buy-now')}
+                                                        onClick={buyHandler}
+                                                    >
+                                                        MUA NGAY
+                                                        <span style={{ display: 'block' }}>Bạn cần đăng nhập</span>
+                                                    </Button>
+                                                    <Button
+                                                        outline
+                                                        large
+                                                        className={cx('add-cart')}
+                                                        onClick={addToCartHandler}
+                                                    >
+                                                        THÊM VÀO GIỎ HÀNG
+                                                        <span style={{ display: 'block' }}>Bạn cần đăng nhập</span>
+                                                    </Button>
+                                                </div>
+                                            )}
                                             <div className={cx('box-border')}>
                                                 <div className={cx('border')}></div>
                                             </div>

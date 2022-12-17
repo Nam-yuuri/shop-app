@@ -59,6 +59,7 @@ function Cart() {
     const dispatch = useDispatch();
 
     const { cart, isDeleted, isUpdated, loading } = useSelector((state) => state.cart);
+    const { isAuthenticated } = useSelector((state) => state.user);
 
     const increaseQuantity = (id, quantity, stock) => {
         const newQty = quantity + 1;
