@@ -11,19 +11,6 @@ import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function Home() {
-    // let navigate = useNavigate();
-    
-    // const { error, loading, isAuthenticated } = useSelector((state) => state.user);
-
-    // console.log('isAuthenticated', isAuthenticated);
-
-    // useEffect(() => {
-    //     // setTimeout(() => {
-    //     if (isAuthenticated === 'false') {
-    //         navigate('/login');
-    //     }
-    //     // }, 0)
-    // }, [navigate]);
     return (
         <div className={cx('container')} style={{ maxWidth: '100%' }}>
             <div className={cx('wrapper')}>

@@ -92,12 +92,13 @@ function UpdateBannerHorizon() {
         }
     }, [dispatch, error, isUpdated, horizontalId, horizontals, updateError]);
 
-    const createBannerSubmitHandler = (e) => {
+    const updateBannerSubmitHandler = (e) => {
         e.preventDefault();
 
         var myForm = new FormData();
 
         myForm.set('description', description);
+        myForm.set('status', status);
 
         images.forEach((image) => {
             myForm.append('images', image);
@@ -184,7 +185,7 @@ function UpdateBannerHorizon() {
                             <form
                                 className="flexDiv"
                                 encType="multipart/form-data"
-                                onSubmit={createBannerSubmitHandler}
+                                onSubmit={updateBannerSubmitHandler}
                             >
                                 <Grid container spacing={2}>
                                     {/* <div className="flexDiv"> */}

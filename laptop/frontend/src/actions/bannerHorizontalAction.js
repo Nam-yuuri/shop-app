@@ -133,6 +133,7 @@ export const updateBannerHorizontal = (id, bannerData) => async (dispatch) => {
         const data = await axios.put(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, bannerData, config);
         // const data = await axios.put(`http://localhost:8000/api/v1/bannerHorizontal/${id}`, bannerData);
 
+
         dispatch({
             type: UPDATE_BANNER_HORIZONTAL_SUCCESS,
             payload: data.success,
