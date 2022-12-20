@@ -103,7 +103,14 @@ function UpdateOrder() {
             // alert("Cập nhật đơn hàng thành công");
             setOpenSuccess(true);
             setSuccessAlert('Cập nhật đơn hàng thành công');
-            // navigator('/admin/OrderList')
+            Swal.fire('Thành công!', 'Cập nhật đơn hàng thành công!', 'success');
+            // Swal.fire({
+            //     // position: 'top-end',
+            //     icon: 'success',
+            //     title: 'Cập nhật đơn hàng thành công',
+            //     showConfirmButton: false,
+            //     timer: 1500,
+            // });
             navigate('/admin/OrderList');
             dispatch({ type: UPDATE_ORDER_RESET });
         }
