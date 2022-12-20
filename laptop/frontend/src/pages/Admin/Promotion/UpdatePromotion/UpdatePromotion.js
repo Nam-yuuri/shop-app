@@ -92,6 +92,7 @@ function UpdatePromotion() {
 
         myForm.append('title', title);
         myForm.set('date', date);
+        myForm.set('status', status)
 
         images.forEach((image) => {
             myForm.append('images', image);
