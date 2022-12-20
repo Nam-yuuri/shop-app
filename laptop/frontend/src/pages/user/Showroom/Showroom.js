@@ -93,7 +93,7 @@ function Showroom() {
                                                 </div>
                                             </div>
                                             <label htmlFor={showroom._id}>Tìm đường</label>
-                                            <input type={'checkbox'} id={showroom._id} />
+                                            <input type={'checkbox'} id={showroom._id} style={{ display: 'none' }} />
                                             <div className={cx('box-store')}>
                                                 <figure className="add-store mb-2 mt-4 mb-lg-0">
                                                     <iframe
