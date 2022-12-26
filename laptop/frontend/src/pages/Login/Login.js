@@ -155,7 +155,7 @@ function Login() {
     return (
         <div className={cx('Login')}>
             <h1 style={{ textAlign: 'center' }}>
-                Chào mừng bạn đến với PhongVu.vn | Laptop, PC, Màn hình, điện thoại, linh kiện Chính Hãng!
+                Chào mừng bạn đến với PhongVu.vn | Laptop Chính Hãng!
             </h1>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
