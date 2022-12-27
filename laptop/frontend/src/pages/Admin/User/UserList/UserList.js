@@ -109,25 +109,25 @@ function UserList() {
                 return params.getValue(params.id, 'role') === 'admin' ? 'redColor' : 'greenColor';
             },
         },
-        {
-            field: 'avatar',
-            headerName: 'Hình ảnh',
-            minWidth: 100,
-            maxWidth: 100,
-            flex: 0.8,
-            renderCell: (params) => (
-                <img
-                    src={params.value}
-                    alt=""
-                    style={{
-                        width: '45px',
-                        height: '45px',
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                    }}
-                />
-            ),
-        },
+        // {
+        //     field: 'avatar',
+        //     headerName: 'Hình ảnh',
+        //     minWidth: 100,
+        //     maxWidth: 100,
+        //     flex: 0.8,
+        //     renderCell: (params) => (
+        //         <img
+        //             src={params.value}
+        //             alt=""
+        //             style={{
+        //                 width: '45px',
+        //                 height: '45px',
+        //                 marginLeft: 'auto',
+        //                 marginRight: 'auto',
+        //             }}
+        //         />
+        //     ),
+        // },
 
         {
             field: 'actions',

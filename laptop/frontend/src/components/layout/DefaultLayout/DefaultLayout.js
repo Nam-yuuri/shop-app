@@ -70,7 +70,7 @@ function DefaultLayout({ children }) {
                 <span>Hotline: 18006867</span>
             </div>
             <div className={cx('facebook')}>
-                <a style={{ display: 'table-cell' }} href={'https://www.facebook.com/phongvuvietnam/'} target="_blank">
+                <a style={{ display: 'table-cell' }} href={'https://www.facebook.com/profile.php?id=100088854197854'} target="_blank">
                     {/* <FontAwesomeIcon icon={faMessage} /> */}
                     <img src={'https://sdk-vn.pushdi.com/image/maxlead/icon-fanpage-s2.svg'} alt={'facebook'} />
                 </a>
@@ -80,7 +80,7 @@ function DefaultLayout({ children }) {
                 <a
                     style={{ display: 'table-cell' }}
                     href={
-                        'https://www.messenger.com/t/1779447358956308/?messaging_source=source%3Apages%3Amessage_shortlink&source_id=1441792&recurring_notification=0'
+                        'https://www.messenger.com/t/102699832711580/'
                     }
                     target="_blank"
                 >

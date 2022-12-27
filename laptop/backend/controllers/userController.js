@@ -52,19 +52,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Email hoặc mật khẩu sai", 401));
   }
 
-  // const token = jwt.sign(
-  //   {
-  //     id: user.id,
-  //   },
-  //   process.env.JWT_SECRET,
-  //   { expiresIn: "20d" }
-  // );
-
-  // res.status(200).json(user, token)
-
   sendToken(user, 200, res);
-
-  // const token = user.generateAuthToken();
 });
 
 // Logout User
@@ -81,45 +69,45 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Forgot Password
-exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
+// exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
+//   const user = await User.findOne({ email: req.body.email });
 
-  if (!user) {
-    return next(new ErrorHander("Không tìm thấy tài khoản", 404));
-  }
+//   if (!user) {
+//     return next(new ErrorHander("Không tìm thấy tài khoản", 404));
+//   }
 
-  // Get ResetPassword Token
-  const resetToken = user.getResetPasswordToken();
+//   // Get ResetPassword Token
+//   const resetToken = user.getResetPasswordToken();
 
-  await user.save({ validateBeforeSave: false });
+//   await user.save({ validateBeforeSave: false });
 
-  // const resetPasswordUrl = `${req.protocol}://${req.get(
-  //   "host"
-  // )}/password/reset/${resetToken}`;
-  const resetPasswordUrl = `${req.protocol}://localhost:3000/password/reset/${resetToken}`;
+//   // const resetPasswordUrl = `${req.protocol}://${req.get(
+//   //   "host"
+//   // )}/password/reset/${resetToken}`;
+//   const resetPasswordUrl = `${req.protocol}://localhost:3000/password/reset/${resetToken}`;
 
-  const message = `Reset token của bạn là :- \n\n ${resetPasswordUrl} \n\nNếu bạn không yêu cầu email này vui lòng bỏ qua nó.`;
+//   const message = `Reset token của bạn là :- \n\n ${resetPasswordUrl} \n\nNếu bạn không yêu cầu email này vui lòng bỏ qua nó.`;
 
-  try {
-    await sendEmail({
-      email: user.email,
-      subject: `Phục hồi mật khẩu web bán tinh LHDCom`,
-      message,
-    });
+//   try {
+//     await sendEmail({
+//       email: user.email,
+//       subject: `Phục hồi mật khẩu web bán tinh LHDCom`,
+//       message,
+//     });
 
-    res.status(200).json({
-      success: true,
-      message: `Email đã được gửi tới ${user.email} thành công`,
-    });
-  } catch (error) {
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
+//     res.status(200).json({
+//       success: true,
+//       message: `Email đã được gửi tới ${user.email} thành công`,
+//     });
+//   } catch (error) {
+//     user.resetPasswordToken = undefined;
+//     user.resetPasswordExpire = undefined;
 
-    await user.save({ validateBeforeSave: false });
+//     await user.save({ validateBeforeSave: false });
 
-    return next(new ErrorHander(error.message, 500));
-  }
-});
+//     return next(new ErrorHander(error.message, 500));
+//   }
+// });
 
 // Reset Password
 exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
@@ -227,7 +215,6 @@ exports.updateShippingInfo = catchAsyncErrors(async (req, res, next) => {
   const newUserData = {
     shippingInfo: req.body.shippingInfo,
   };
-
 
   const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,

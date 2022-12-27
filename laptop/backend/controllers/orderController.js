@@ -23,7 +23,6 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     }
   }
 
-
   if (req.body.user) {
     const order = await Order.create({
       shippingInfo,
@@ -37,8 +36,6 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
       shippingPrice,
       totalPrice,
     });
-
-    
 
     res.status(201).json({
       success: true,
@@ -108,7 +105,6 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 
 // get all Orders -- Admin
 exports.getAllOrdersTurnover = catchAsyncErrors(async (req, res, next) => {
-
   const orders = await Order.find({
     createdAt: {
       $gte: new Date(req.query.dateStart),
@@ -131,7 +127,6 @@ exports.getAllOrdersTurnover = catchAsyncErrors(async (req, res, next) => {
 
 // get all Orders -- Admin
 exports.getAllOrdersStatistical = catchAsyncErrors(async (req, res, next) => {
-
   const orders = await Order.find({
     createdAt: {
       $gte: new Date(req.query.dateStart),
