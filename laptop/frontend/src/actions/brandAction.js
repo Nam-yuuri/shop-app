@@ -94,7 +94,7 @@ export const deleteBrand = (id) => async (dispatch) => {
 
         dispatch({
             type: DELETE_BRAND_SUCCESS,
-            payload: data.success,
+            payload: data,
         });
     } catch (error) {
         dispatch({

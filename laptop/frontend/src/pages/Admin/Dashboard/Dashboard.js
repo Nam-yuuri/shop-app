@@ -610,7 +610,7 @@ export default function Dashboard() {
                                                     {/* <AttachMoneyIcon /> */}
 
                                                     <div>
-                                                        <h3>Chưa chọn khoảng thời gian lọc</h3>
+                                                        <h3>Hãy chọn khoảng thời gian lọc</h3>
                                                         {/* <p className="statistical-number">
                                                             {formatPrice(totalAmountStatistical)}
                                                         </p> */}

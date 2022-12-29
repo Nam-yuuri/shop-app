@@ -49,7 +49,7 @@ function BrandList() {
     };
 
     const { loading, error, brands } = useSelector((state) => state.brands);
-    const { error: deleteError, isDeleted } = useSelector((state) => state.brand);
+    const { error: deleteError, isDeleted, message } = useSelector((state) => state.brand);
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
@@ -73,12 +73,13 @@ function BrandList() {
 
         if (isDeleted) {
             setOpenSuccess(true);
+            setSuccessAlert(message);
             Swal.fire('Thành công!', 'Xóa thương hiệu thành công!', 'success');
             dispatch({ type: DELETE_SHOWROOM_RESET });
         }
 
         dispatch(getAllBrands());
-    }, [dispatch, error, deleteError, navigate, isDeleted]);
+    }, [dispatch, error, deleteError, navigate, isDeleted,message]);
 
     const columns = [
         { field: 'id', headerName: 'ID', minWidth: 200, maxWidth: 200, flex: 0.5 },
@@ -200,7 +201,7 @@ function BrandList() {
                 <Loading />
             ) : (
                 <div>
-                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                    {/* <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
                         <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
                             {errorAlert}
                         </Alert>
@@ -213,7 +214,7 @@ function BrandList() {
                         >
                             {successAlert}
                         </Alert>
-                    </Snackbar>
+                    </Snackbar> */}
                     <div className="header-admin">
                         <div className="btn-sidebar" style={{ width: wrapperWidth ? '222px' : '35px' }}>
                             <FontAwesomeIcon

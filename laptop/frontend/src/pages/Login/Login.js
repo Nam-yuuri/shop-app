@@ -215,13 +215,13 @@ function Login() {
                                         </div>
                                         <div className="form-group password">
                                             <input
-                                                // type={!showPassword ? 'text' : 'password'}
-                                                type={'text'}
+                                                type={!showPassword ? 'text' : 'password'}
+                                                // type={'text'}
                                                 className="form-control"
                                                 id="inputPassword"
                                                 placeholder="Password *"
                                                 // handlechange={handlechange}
-                                                // handleShowPassword={handleShowPassword}
+                                                handleShowPassword={handleShowPassword}
                                                 value={password}
                                                 name="password"
                                                 onChange={(e) => {

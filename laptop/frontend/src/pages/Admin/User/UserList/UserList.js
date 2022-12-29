@@ -75,7 +75,7 @@ function UserList() {
             setOpenSuccess(true);
             setSuccessAlert(message);
             // history.push('/admin/users');
-            Swal.fire('Thành công!', 'Xóa tài khoản thành công!', 'success');
+            // Swal.fire('Thành công!', 'Xóa tài khoản thành công!', 'success');
             dispatch({ type: DELETE_USER_RESET });
         }
 

@@ -113,9 +113,6 @@ function Profile() {
         // dispatch(getProductDetails(match.id));
     };
 
-    // console.log('products._id: ', products._id);
-    // console.log('quantity: ', quantity);
-    // console.log('userId: ', user.user._id);
 
     const settings = {
         dots: true,
@@ -371,7 +368,7 @@ function Profile() {
                                                         primary
                                                         large
                                                         className={cx('buy-now')}
-                                                        onClick={buyHandler}
+                                                        onClick={() => {navigate('/login')}}
                                                     >
                                                         MUA NGAY
                                                         <span style={{ display: 'block' }}>Bạn cần đăng nhập</span>
@@ -380,7 +377,7 @@ function Profile() {
                                                         outline
                                                         large
                                                         className={cx('add-cart')}
-                                                        onClick={addToCartHandler}
+                                                        onClick={() => {navigate('/login')}}
                                                     >
                                                         THÊM VÀO GIỎ HÀNG
                                                         <span style={{ display: 'block' }}>Bạn cần đăng nhập</span>
