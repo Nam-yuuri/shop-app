@@ -2,7 +2,6 @@ const ErrorHander = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
-const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
@@ -68,46 +67,6 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Forgot Password
-// exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
-//   const user = await User.findOne({ email: req.body.email });
-
-//   if (!user) {
-//     return next(new ErrorHander("Không tìm thấy tài khoản", 404));
-//   }
-
-//   // Get ResetPassword Token
-//   const resetToken = user.getResetPasswordToken();
-
-//   await user.save({ validateBeforeSave: false });
-
-//   // const resetPasswordUrl = `${req.protocol}://${req.get(
-//   //   "host"
-//   // )}/password/reset/${resetToken}`;
-//   const resetPasswordUrl = `${req.protocol}://localhost:3000/password/reset/${resetToken}`;
-
-//   const message = `Reset token của bạn là :- \n\n ${resetPasswordUrl} \n\nNếu bạn không yêu cầu email này vui lòng bỏ qua nó.`;
-
-//   try {
-//     await sendEmail({
-//       email: user.email,
-//       subject: `Phục hồi mật khẩu web bán tinh LHDCom`,
-//       message,
-//     });
-
-//     res.status(200).json({
-//       success: true,
-//       message: `Email đã được gửi tới ${user.email} thành công`,
-//     });
-//   } catch (error) {
-//     user.resetPasswordToken = undefined;
-//     user.resetPasswordExpire = undefined;
-
-//     await user.save({ validateBeforeSave: false });
-
-//     return next(new ErrorHander(error.message, 500));
-//   }
-// });
 
 // Reset Password
 exports.resetPassword = catchAsyncErrors(async (req, res, next) => {

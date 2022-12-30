@@ -148,6 +148,7 @@ export const getBrandProducts =
 
             let link = `http://localhost:8000/api/v1/user/product/${id}?keyword=${keyword}&cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}`;
 
+            //5
             if (RAM && CPU && Color && Monitor && Operating_system) {
                 link = `http://localhost:8000/api/v1/user/product/${id}?cost[gte]=${priceSort0}&cost[lte]=${priceSort1}&page=${currentPage}&RAM=${RAM}&CPU=${CPU}&Color=${Color}&Monitor=${Monitor}&Operating_system=${Operating_system}`;
             }
