@@ -146,23 +146,24 @@ function BillDetail() {
                                                         </div>
                                                     </div>
                                                 ))}
-                                            {/* {(order.orderStatus !== 'Delivered' && (
-                                                <div className={cx('box-btn')}>
-                                                    <Button outline onClick={cancelOrderSubmitHandler}>
-                                                        Hủy đơn hàng
-                                                    </Button>
-                                                </div>
-                                            )) || (
+
+                                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                {(order.orderStatus !== 'Delivered' && (
+                                                    <div className={cx('box-btn')}>
+                                                        <Button outline onClick={cancelOrderSubmitHandler}>
+                                                            Hủy đơn hàng
+                                                        </Button>
+                                                    </div>
+                                                )) || (
+                                                    <div >
+                                                        
+                                                    </div>
+                                                )}
                                                 <div className={cx('box-btn')}>
                                                     <Button outline to={config.routes.bill}>
                                                         Quay lại
                                                     </Button>
                                                 </div>
-                                            )} */}
-                                            <div className={cx('box-btn')}>
-                                                <Button outline to={config.routes.bill}>
-                                                    Quay lại
-                                                </Button>
                                             </div>
                                         </div>
                                     </div>
