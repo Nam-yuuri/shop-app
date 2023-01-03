@@ -1,5 +1,0 @@
-- đã đăng nhập được nhưng lúc thêm middleware vào để làm thực hiện các chức năng như 
-thêm sửa xóa sản phẩm thì không đọc được token và không role
-- chưa hiểu việc chia trang khi lấy ra các sản phẩm
-- tìm kiếm theo các từ khóa hay là sắp xếp sản phẩm
-- cần tìm hiểu về việc thêm sản  phẩm vào dỏ hàng 

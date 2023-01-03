@@ -146,7 +146,7 @@ function BillDetail() {
                                                         </div>
                                                     </div>
                                                 ))}
-                                            {(order.orderStatus !== 'Delivered' && (
+                                            {/* {(order.orderStatus !== 'Delivered' && (
                                                 <div className={cx('box-btn')}>
                                                     <Button outline onClick={cancelOrderSubmitHandler}>
                                                         Hủy đơn hàng
@@ -158,7 +158,12 @@ function BillDetail() {
                                                         Quay lại
                                                     </Button>
                                                 </div>
-                                            )}
+                                            )} */}
+                                            <div className={cx('box-btn')}>
+                                                <Button outline to={config.routes.bill}>
+                                                    Quay lại
+                                                </Button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
