@@ -13,6 +13,8 @@ import { clearErrors, loadUser, login, register } from '~/actions/userAction';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Alert, Box, Grid, Snackbar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import config from '~/config';
+import { faLeftLong } from '@fortawesome/free-solid-svg-icons';
 // import {createOrGetUser} from '~/utils/auth.js'
 
 const cx = classNames.bind(styles);
@@ -154,6 +156,7 @@ function Login() {
 
     return (
         <div className={cx('Login')}>
+            <div><Button primary large to={config.routes.home} style={{margin: '5px'}}><FontAwesomeIcon icon={faLeftLong} /> Trang chủ</Button></div>
             <h1 style={{ textAlign: 'center' }}>
                 Chào mừng bạn đến với PhongVu.vn | Laptop Chính Hãng!
             </h1>
@@ -162,6 +165,7 @@ function Login() {
                     {er}
                 </Alert>
             </Snackbar>
+            
             <div className="container">
                 <div className="row">
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
