@@ -22,7 +22,7 @@ function Pdf() {
             field: 'image',
             headerName: 'Hình ảnh',
             minWidth: 100,
-            maxWidth: 100,
+            // maxWidth: 100,
             flex: 0.7,
             renderCell: (params) => (
                 <img
@@ -30,7 +30,8 @@ function Pdf() {
                     alt=""
                     style={{
                         width: '80px',
-                        height: '80px',
+                        minHeight: '80px',
+                        padding: '10px',
                     }}
                 />
             ),
@@ -88,7 +89,7 @@ function Pdf() {
             });
         });
     return (
-        <div className={cx('data')}>
+        <div className={cx('data')} style={{padding: '10px 210px 0'}}>
             <DataGrid
                 rows={rows}
                 columns={columns}
