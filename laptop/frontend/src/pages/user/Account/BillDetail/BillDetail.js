@@ -105,7 +105,8 @@ function BillDetail() {
                                                 Ngày đặt: <span>{order.updatedAt.split('T')[0]}</span>
                                             </div>
                                             <div className={cx('phone')}>
-                                                Hình thức thanh toán: <span>{order.paymentInfo.type}</span>
+                                                {/* Hình thức thanh toán: <span>{order.paymentInfo.type}</span> */}
+                                                Hình thức thanh toán: <span>Thanh toán khi nhận hàng</span>
                                             </div>
                                             <div className={cx('phone')}>
                                                 Tình trạng:{' '}
@@ -114,6 +115,8 @@ function BillDetail() {
                                                         ? 'Đang chuẩn bị hàng'
                                                         : order.orderStatus === 'Shipped'
                                                         ? 'Đang vận chuyển'
+                                                        : order.orderStatus === 'Canceled'
+                                                        ? 'Đã hủy đơn hàng'
                                                         : 'Đã giao hàng'}
                                                 </span>
                                             </div>
@@ -148,14 +151,14 @@ function BillDetail() {
                                                 ))}
 
                                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                {(order.orderStatus !== 'Delivered' && (
+                                                {(order.orderStatus == 'Processing' || order.orderStatus == 'Shipped' && (
                                                     <div className={cx('box-btn')}>
                                                         <Button outline onClick={cancelOrderSubmitHandler}>
                                                             Hủy đơn hàng
                                                         </Button>
                                                     </div>
                                                 )) || (
-                                                    <div >
+                                                    <div>
                                                         
                                                     </div>
                                                 )}

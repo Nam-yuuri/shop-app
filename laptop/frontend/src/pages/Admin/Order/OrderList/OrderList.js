@@ -93,8 +93,8 @@ function OrderList() {
     }, [dispatch, error, deleteError, isDeleted]);
 
     const columns = [
-        { field: 'id', headerName: 'Order ID', minWidth: 270, flex: 1 },
-
+        { field: 'id', headerName: 'Order ID', minWidth: 170, flex: 1 },
+        { field: 'name', headerName: 'Khách hàng', minWidth: 170, flex: 1 },
         {
             field: 'updatedAt',
             headerName: 'Ngày đặt hàng',
@@ -121,7 +121,7 @@ function OrderList() {
             field: 'itemsQty',
             headerName: 'Số lượng sản phẩm',
             type: 'number',
-            minWidth: 100,
+            minWidth: 150,
             flex: 0.4,
             renderCell: (params) => <span>{params.value}</span>,
         },
@@ -192,6 +192,7 @@ function OrderList() {
                 amount: item.totalPrice,
                 status: item.orderStatus,
                 updatedAt: item.updatedAt,
+                name: item.name,
             });
         });
 

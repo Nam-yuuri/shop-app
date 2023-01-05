@@ -17,6 +17,7 @@ import { CREATE_ORDER_RESET } from '~/constants/orderConstants';
 import { UPDATE_SHIP_RESET } from '~/constants/userConstants';
 import formatPrice from '~/utils/formatPrice';
 import Loading from '~/components/Loading/Loading';
+import { Alert, Snackbar } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
@@ -79,7 +80,7 @@ function Checkout() {
     const [phoneNo, setPhoneNo] = useState('');
     const [comments, setComments] = useState('');
 
-    const [payment, setPayment] = useState('Chuyển khoản ngân hàng');
+    const [payment, setPayment] = useState('Thanh toán khi nhận hàng');
 
     const { cart, loading: cartLoading } = useSelector((state) => state.cart);
     const { isAuthenticated, user, loading } = useSelector((state) => state.user);
@@ -146,7 +147,7 @@ function Checkout() {
                 totalPrice: cart && cart.totalPrice,
                 paymentInfo: {
                     type: payment,
-                    status: 'Đã thanh toán',
+                    status: 'Chưa thanh toán',
                 },
                 orderComments: comments,
                 // user: user,
@@ -184,7 +185,8 @@ function Checkout() {
     useEffect(() => {
         if (error) {
             setOpenError(true);
-            setErrorAlert(error);
+            setErrorAlert('Chưa có địa chỉ nhận hàng');
+            // Swal.fire('Thành công!', 'Sửa Banner thành công!', 'success');
             dispatch(clearErrors());
         }
         if (isSubmit) {
@@ -213,6 +215,20 @@ function Checkout() {
                 <Loading />
             ) : (
                 <div className={cx('Checkout')}>
+                    <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
+                        <Alert onClose={handleCloseError} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
+                            {errorAlert}
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleCloseSuccess}>
+                        <Alert
+                            onClose={handleCloseSuccess}
+                            severity="success"
+                            sx={{ width: '100%', fontSize: '0.85em' }}
+                        >
+                            {successAlert}
+                        </Alert>
+                    </Snackbar>
                     <div className={cx('wrapper')}>
                         <div className={cx('container')}>
                             <div className={cx('Checkout-container')}>

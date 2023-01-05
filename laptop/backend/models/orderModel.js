@@ -17,7 +17,7 @@ const orderSchema = new mongoose.Schema(
       },
       country: {
         type: String,
-        required: true,
+        required: [true, "Hãy nhập thành phố bạn ở"],
       },
       phoneNo: {
         type: String,

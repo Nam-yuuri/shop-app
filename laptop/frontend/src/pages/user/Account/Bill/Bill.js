@@ -150,6 +150,18 @@ function Bill() {
                                                                 </div>
                                                             ))}
                                                         <div className={cx('box-btn')}>
+                                                            {item.orderStatus === 'Delivered' ||
+                                                            item.orderStatus === 'Canceled' ? (
+                                                                <div>
+                                                                    <label htmlFor={item._id}>
+                                                                        {/* <Button outline className={cx('btn-none')}> */}
+                                                                        Xóa đơn hàng
+                                                                        {/* </Button> */}
+                                                                    </label>
+                                                                </div>
+                                                            ) : (
+                                                                <div/>
+                                                            )}
                                                             <Button
                                                                 primary
                                                                 onClick={() => {

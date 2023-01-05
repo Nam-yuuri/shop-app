@@ -181,7 +181,7 @@ function Address() {
                                                 </span>
                                             </div>
                                             <div className={cx('address-add', 'info-add')}>
-                                                Địa chỉ: {user.shippingInfo.address}, {user.shippingInfo.country},
+                                                Địa chỉ: {user.shippingInfo.address}, {user.shippingInfo.country},{' '}
                                                 {user.shippingInfo.state}, {user.shippingInfo.city}
                                             </div>
                                             <div className={cx('phone-add', 'info-add')}>

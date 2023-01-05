@@ -229,13 +229,23 @@ function UpdateOrder() {
                                                 <p
                                                     style={{ margin: '0px' }}
                                                     className={
-                                                        order.paymentInfo && order.paymentInfo.status === 'Đã thanh toán'
+                                                        // order.paymentInfo &&
+                                                        // order.paymentInfo.status === 'Đã thanh toán'
+                                                        //     ? 'greenColor'
+                                                        //     : 'redColor'
+                                                        order.orderStatus &&
+                                                        order.orderStatus === 'Delivered'
                                                             ? 'greenColor'
                                                             : 'redColor'
                                                     }
                                                 >
-                                                    {order.paymentInfo && order.paymentInfo.status === 'Đã thanh toán'
+                                                    {/* {order.paymentInfo && order.paymentInfo.status === 'Đã thanh toán'
                                                         ? 'Đã thanh toán'
+                                                        : 'Chưa thanh toán'} */}
+                                                    {order.orderStatus && order.orderStatus === 'Delivered'
+                                                        ? 'Đã thanh toán'
+                                                        : order.orderStatus === 'Canceled'
+                                                        ? 'Đã hủy đơn'
                                                         : 'Chưa thanh toán'}
                                                 </p>
                                             </div>
@@ -245,7 +255,6 @@ function UpdateOrder() {
                                                 <span>{order.totalPrice && formatPrice(order.totalPrice)}</span>
                                             </div>
                                         </div>
-                                        
 
                                         <Typography variant="h4">Trạng thái đơn hàng</Typography>
                                         <div className="orderDetail">
@@ -264,7 +273,9 @@ function UpdateOrder() {
                                     </Grid>
                                     <Grid item xs={12} md={6} style={{ maxWidth: '100%', flex: 1 }}>
                                         <div className="confirmCartItems">
-                                            <Typography variant="h4">Giỏ hàng:</Typography>
+                                            <Typography variant="h4" style={{ marginBottom: '10px' }}>
+                                                Giỏ hàng:
+                                            </Typography>
                                             <div className="confirmCartItemsContainer">
                                                 {order.orderItems &&
                                                     order.orderItems.map((item) => (
@@ -278,22 +289,20 @@ function UpdateOrder() {
                                                                 <b>{formatPrice(item.priceSale * item.quantity)}</b>
                                                             </span>
                                                             <img src={item.gift_image} alt={item.gift_name} />
-                                                            <p>
-                                                                {item.gift_name}(Quà tặng)
-                                                            </p>{' '}
-                                                            
+                                                            <p>{item.gift_name}(Quà tặng)</p>{' '}
                                                         </div>
                                                     ))}
                                             </div>
                                         </div>
                                         <div
                                             style={{
-                                                display: order.orderStatus === 'Delivered' ? 'none' : 'block',
+                                                display: order.orderStatus === 'Delivered' ? 'none' : order.orderStatus === 'Canceled' ? 'none' : 'block',
+                                                marginTop: '10px',
                                             }}
                                         >
                                             <form className="updateOrderForm" onSubmit={updateOrderSubmitHandler}>
                                                 <Typography variant="h4" sx={{ marginBottom: '1rem' }}>
-                                                    Trạng thái đơn hàng
+                                                    Cập nhật trạng thái đơn hàng
                                                 </Typography>
 
                                                 <div>
