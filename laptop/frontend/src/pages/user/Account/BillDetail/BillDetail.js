@@ -151,15 +151,12 @@ function BillDetail() {
                                                 ))}
 
                                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                {(order.orderStatus == 'Processing' || order.orderStatus == 'Shipped' && (
+                                                {(order.orderStatus !== 'Processing' &&
+                                                    order.orderStatus !== 'Shipped' && <div></div>) || (
                                                     <div className={cx('box-btn')}>
                                                         <Button outline onClick={cancelOrderSubmitHandler}>
                                                             Hủy đơn hàng
                                                         </Button>
-                                                    </div>
-                                                )) || (
-                                                    <div>
-                                                        
                                                     </div>
                                                 )}
                                                 <div className={cx('box-btn')}>
