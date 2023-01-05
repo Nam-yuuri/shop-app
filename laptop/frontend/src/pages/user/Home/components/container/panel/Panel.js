@@ -14,7 +14,8 @@ import formatPrice from '~/utils/formatPrice';
 const cx = classNames.bind(styles);
 
 const url =
-    'https://lh3.googleusercontent.com/j6g11MMnNEM3X07636AS4A3-5Nw213c9l6B_WKIuClU3dXiPcvxb3xf8ib3iOXPzZVmXi4zFAfbSuexQA1-xFxYCPemjtrDY=w1232';
+    // 'https://lh3.googleusercontent.com/j6g11MMnNEM3X07636AS4A3-5Nw213c9l6B_WKIuClU3dXiPcvxb3xf8ib3iOXPzZVmXi4zFAfbSuexQA1-xFxYCPemjtrDY=w1232';
+    'https://lh3.googleusercontent.com/UYYOWRnfKSEnGw2-KTK4oBjVWkTwFy4lmmptm85pxwSRLeVnhr7Lgc2Bm3gNt3kTXo5-v0w8uNXZmkvqIFa7chUq-TB_hYg=w1232';
 
 function Panel() {
     const settings = {

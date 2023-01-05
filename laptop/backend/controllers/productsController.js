@@ -105,7 +105,7 @@ exports.getTopProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-//get product
+//get product 
 exports.getProduct = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id).populate("brand");
 

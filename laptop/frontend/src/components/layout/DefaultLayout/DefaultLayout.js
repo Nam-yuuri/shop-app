@@ -62,12 +62,12 @@ function DefaultLayout({ children }) {
                 </div>
             </div>
             <div className={cx('hotline')}>
-                <a style={{ display: 'table-cell' }} href="tel:18006867">
+                <a style={{ display: 'table-cell' }} href="tel:0395001595">
                     {/* <FontAwesomeIcon icon={faMessage} /> */}
                     {/* <img src={'https://shopfront-cdn.tekoapis.com/static/3ad4c9a97ab98ff3.png'} alt={'mess'} /> */}
                     <img src={'https://sdk-vn.pushdi.com/image/maxlead/icon-phone-s2.svg'} alt={'facebook'} />
                 </a>
-                <span>Hotline: 18006867</span>
+                <span>Hotline: 0395001595</span>
             </div>
             <div className={cx('facebook')}>
                 <a style={{ display: 'table-cell' }} href={'https://www.facebook.com/profile.php?id=100088854197854'} target="_blank">
