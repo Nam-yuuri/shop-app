@@ -153,7 +153,7 @@ function Checkout() {
                 // user: user,
             };
 
-            // if (order.paymentInfo.type === 'Chuyển khoản bằng Stripe') {
+            // if (order.paymentInfo.type === 'Chuyển khoản bằng the') {
             //     sessionStorage.setItem('order', JSON.stringify(order));
             //     sessionStorage.setItem('paidAt', JSON.stringify(new Date().toLocaleDateString('en-GB')));
 
