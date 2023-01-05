@@ -194,9 +194,9 @@ function Checkout() {
             Swal.fire({
                 // position: 'top-end',
                 icon: 'success',
-                title: 'Tạo đơn hàng thành công!',
+                title: 'Mua sản phẩm thành công!',
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 1500,
             });
             localStorage.removeItem('cartItems');
             // history.push('/');

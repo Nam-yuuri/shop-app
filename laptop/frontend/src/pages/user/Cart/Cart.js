@@ -96,7 +96,7 @@ function Cart() {
         }
         if (isDeleted) {
             setOpenSuccess(true);
-            setSuccessAlert('Xóa thanh công khỏi giỏ hàng');
+            setSuccessAlert('Xóa sản phẩm khỏi giỏ hàng thành công');
             dispatch(getCart());
             dispatch({ type: REMOVE_CART_ITEM_RESET });
         }

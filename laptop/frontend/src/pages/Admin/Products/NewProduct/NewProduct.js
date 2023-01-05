@@ -451,7 +451,7 @@ function NewProduct() {
                                                 onChange={(html) => setDescription_more(html)}
                                                 style={{
                                                     marginBottom: '50px',
-                                                    height: '200px',
+                                                    height: '500px',
                                                 }}
                                             />
                                         </Grid>

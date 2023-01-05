@@ -29,7 +29,7 @@ function OrderList() {
     const [successAlert, setSuccessAlert] = React.useState('');
 
     const [wrapperWidth, setWapperWidth] = useState(true);
-    const [pageSize, setPageSize] = React.useState(10);
+    const [pageSize, setPageSize] = React.useState(20);
 
     const handleCloseError = (event, reason) => {
         if (reason === 'clickaway') {

@@ -44,6 +44,7 @@ function NewBannerHorizon() {
 
     const [wrapperWidth, setWapperWidth] = useState(true);
     const [description, setDescription] = useState('');
+    const [status, setStatus] = useState('');
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
@@ -71,6 +72,7 @@ function NewBannerHorizon() {
         var myForm = new FormData();
 
         myForm.set('description', description);
+        myForm.set('status', status);
 
         images.forEach((image) => {
             myForm.append('images', image);
@@ -187,6 +189,26 @@ function NewBannerHorizon() {
                                             cols="100"
                                             rows="7"
                                         ></textarea>
+                                    </Grid>
+
+                                    <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <p>Trạng thái</p>
+                                    </Grid>
+                                    <Grid item xs={12} sm={8} md={10}>
+                                        <FormControl sx={{ width: '50%', marginBottom: '1.5rem' }}>
+                                            <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={status}
+                                                label="Trạng thái"
+                                                onChange={(e) => setStatus(e.target.value)}
+                                                // onChange={(e) => setNewHeader({...newHeader, status:e.target.value})}
+                                            >
+                                                <MenuItem value={true}>Bật</MenuItem>
+                                                <MenuItem value={false}>Tắt</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
 
                                     <Grid item xs={12} sm={4} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
