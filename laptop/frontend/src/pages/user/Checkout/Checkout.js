@@ -153,21 +153,21 @@ function Checkout() {
                 // user: user,
             };
 
-            if (order.paymentInfo.type === 'Chuyển khoản bằng Stripe') {
-                sessionStorage.setItem('order', JSON.stringify(order));
-                sessionStorage.setItem('paidAt', JSON.stringify(new Date().toLocaleDateString('en-GB')));
+            // if (order.paymentInfo.type === 'Chuyển khoản bằng Stripe') {
+            //     sessionStorage.setItem('order', JSON.stringify(order));
+            //     sessionStorage.setItem('paidAt', JSON.stringify(new Date().toLocaleDateString('en-GB')));
 
-                dispatch(updateShippingInfo(shippingInfo));
-                // history.push('/payment');
-            } else {
-                sessionStorage.setItem('order', JSON.stringify(order));
-                sessionStorage.setItem('paidAt', JSON.stringify(new Date().toLocaleDateString('en-GB')));
+            //     dispatch(updateShippingInfo(shippingInfo));
+            //     // history.push('/payment');
+            // } else {
+            sessionStorage.setItem('order', JSON.stringify(order));
+            sessionStorage.setItem('paidAt', JSON.stringify(new Date().toLocaleDateString('en-GB')));
 
-                order.paymentInfo.id = 'abc';
+            order.paymentInfo.id = 'abc';
 
-                dispatch(updateShippingInfo(shippingInfo));
-                dispatch(createOrder(order));
-            }
+            dispatch(updateShippingInfo(shippingInfo));
+            dispatch(createOrder(order));
+            // }
         }
     };
 
@@ -202,7 +202,7 @@ function Checkout() {
             });
             localStorage.removeItem('cartItems');
             // history.push('/');
-            navigate('/')
+            navigate('/');
             dispatch({
                 type: CREATE_ORDER_RESET,
             });
