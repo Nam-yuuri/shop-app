@@ -1,7 +1,7 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Avatar, Button } from '@mui/material';
+import { Avatar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { confirmAlert } from 'react-confirm-alert';
 import classNames from 'classnames/bind';
@@ -9,6 +9,10 @@ import styles from './pdf.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, myOrders } from '~/actions/orderAction';
 import formatPrice from '~/utils/formatPrice';
+import Button from '~/components/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -89,20 +93,23 @@ function Pdf() {
             });
         });
     return (
-        <div className={cx('data')} style={{padding: '10px 210px 0'}}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                rowsPerPageOptions={[5, 10, 20]}
-                // pagination
-                pageSize={5}
-                disableSelectionOnClick
-                className="productListTable"
-                autoHeight
-                components={{
-                    Toolbar: GridToolbar,
-                }}
-            />
+        <div>
+            <Button primary large to={config.routes.cart} style={{margin: '10px'}}><FontAwesomeIcon icon={faLeftLong}/> Giỏ hàng</Button>
+            <div className={cx('data')} style={{padding: '10px 210px 0'}}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    rowsPerPageOptions={[5, 10, 20]}
+                    // pagination
+                    pageSize={5}
+                    disableSelectionOnClick
+                    className="productListTable"
+                    autoHeight
+                    components={{
+                        Toolbar: GridToolbar,
+                    }}
+                />
+            </div>
         </div>
     );
 }
