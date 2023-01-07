@@ -41,25 +41,26 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
       success: true,
       order,
     });
-  } else {
-    const order = await Order.create({
-      shippingInfo,
-      orderItems,
-      name,
-      email,
-      paymentInfo,
-      itemsPrice,
-      shippingPrice,
-      totalPrice,
-      paidAt: Date.now(),
-      user: req.user._id,
-    });
+  } 
+  // else {
+  //   const order = await Order.create({
+  //     shippingInfo,
+  //     orderItems,
+  //     name,
+  //     email,
+  //     paymentInfo,
+  //     itemsPrice,
+  //     shippingPrice,
+  //     totalPrice,
+  //     paidAt: Date.now(),
+  //     user: req.user._id,
+  //   });
 
-    res.status(201).json({
-      success: true,
-      order,
-    });
-  }
+  //   res.status(201).json({
+  //     success: true,
+  //     order,
+  //   });
+  // }
 });
 
 // get Single Order
@@ -76,7 +77,7 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Lấy my orders
+// get my orders
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
   const orders = await Order.find({ user: req.user._id });
 
@@ -103,7 +104,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// get all Orders -- Admin
+// get all Orders -- Admin(doanh thu)
 exports.getAllOrdersTurnover = catchAsyncErrors(async (req, res, next) => {
   const orders = await Order.find({
     createdAt: {
@@ -208,6 +209,7 @@ async function updateSold(id, quantity) {
 
   await product.save({ validateBeforeSave: false });
 }
+
 
 // delete Order -- Admin
 exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {

@@ -151,14 +151,13 @@ function BillDetail() {
                                                 ))}
 
                                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                {(order.orderStatus !== 'Processing' &&
-                                                    order.orderStatus !== 'Shipped' && <div></div>) || (
+                                                {(order.orderStatus === 'Processing' && (
                                                     <div className={cx('box-btn')}>
                                                         <Button outline onClick={cancelOrderSubmitHandler}>
                                                             Hủy đơn hàng
                                                         </Button>
                                                     </div>
-                                                )}
+                                                )) || <div></div>}
                                                 <div className={cx('box-btn')}>
                                                     <Button outline to={config.routes.bill}>
                                                         Quay lại
