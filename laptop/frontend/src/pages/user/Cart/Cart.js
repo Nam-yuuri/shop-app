@@ -291,7 +291,7 @@ function Cart() {
                                         </div>
                                         <div className={cx('discount-content')}>
                                             {/* Đơn hàng chưa đủ điều kiện áp dụng khuyến mãi. Vui lòng mua thêm để áp dụng */}
-                                            Miễn phí vận chuyển cho tất cả các đơn hàng có giá trị trên 1.000.000đ
+                                            Miễn phí vận chuyển cho tất cả các đơn hàng có giá trị trên 800.000đ
                                         </div>
                                     </div>
                                     <div className={cx('total-money', 'laptop')}>

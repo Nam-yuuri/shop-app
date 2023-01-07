@@ -67,8 +67,8 @@ function FeaturedBrand() {
                     {brands.map((brand) => (
                         <div className={cx('box')} key={brand._id}>
                             <div className={cx('box-img')}>
-                                <div>
-                                    <img src={brand.images.url} alt="" />
+                                <div style={{height: '100%', width: '100%'}}>
+                                    <img src={brand.images.url} alt="" style={{width: '100%'}}/>
                                 </div>
                             </div>
                             <div className={cx('box-text')}>{brand.name}</div>

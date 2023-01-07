@@ -160,7 +160,7 @@ function Login() {
             <h1 style={{ textAlign: 'center' }}>
                 Chào mừng bạn đến với PhongVu.vn | Laptop Chính Hãng!
             </h1>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="warning" sx={{ width: '100%', fontSize: '0.85em' }}>
                     {er}
                 </Alert>

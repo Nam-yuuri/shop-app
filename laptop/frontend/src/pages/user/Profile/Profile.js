@@ -229,7 +229,7 @@ function Profile() {
                                         <div className={cx('box-content')}>
                                             <div className={cx('content-info')}>
                                                 <h1>
-                                                    {products.name}({products.description})
+                                                    {products.name} ({products.description})
                                                 </h1>
                                                 <div className={cx('content-title')}>
                                                     {products.brand && (

@@ -63,6 +63,8 @@ function Header() {
         dispatch(getCart());
     }, [dispatch]);
 
+    const [keyword, setKeyword] = useState('');
+
     const searchSubmitHandler = (e) => {
         e.preventDefault();
         // console.log('keyword: ', keyword);
@@ -124,7 +126,7 @@ function Header() {
         );
     };
 
-    const [keyword, setKeyword] = useState('');
+
 
     const url = 'https://res.cloudinary.com/dx1ecgla5/image/upload/v1670298772/avatars/avt/avt_gpdqfj.jpg';
 
