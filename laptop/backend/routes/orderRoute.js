@@ -33,7 +33,7 @@ router
 
 router
   .route("/admin/order/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateOrder)
+  .put(isAuthenticatedUser, updateOrder)
   .delete(isAuthenticatedUser, deleteOrder);
 
 module.exports = router;

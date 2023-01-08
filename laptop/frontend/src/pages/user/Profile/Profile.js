@@ -128,9 +128,9 @@ function Profile() {
 
     return (
         <div>
-            {productLoading ? (
+            {/* {productLoading ? (
                 <Loading />
-            ) : (
+            ) : ( */}
                 <div>
                     <div className={cx('profile')}>
                         <Snackbar open={openError} autoHideDuration={5000} onClose={handleCloseError}>
@@ -841,7 +841,7 @@ function Profile() {
                         </div>
                     </div>
                 </div>
-            )}
+            {/* )} */}
         </div>
     );
 }

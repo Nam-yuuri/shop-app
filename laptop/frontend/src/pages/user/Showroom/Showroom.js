@@ -39,9 +39,9 @@ function Showroom() {
 
     return (
         <div>
-            {loading ? (
+            {/* {loading ? (
                 <Loading />
-            ) : (
+            ) : ( */}
                 <div className={cx('Showroom')}>
                     <div className={cx('left')}>
                         <h5>Chọn showroom theo tỉnh/thành phố</h5>
@@ -117,7 +117,7 @@ function Showroom() {
                             ))}
                     </div>
                 </div>
-            )}
+            {/* )} */}
         </div>
     );
 }

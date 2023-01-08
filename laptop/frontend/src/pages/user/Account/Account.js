@@ -72,7 +72,7 @@ function Account() {
             });
             // Swal.fire('Thành công!', 'Cập nhật thành công!', 'success');
             dispatch(loadUser());
-            navigate('/');
+            navigate('/account');
             dispatch({
                 type: UPDATE_PROFILE_RESET,
             });
